@@ -1,0 +1,20 @@
+232통신 규격
+1. 길이:8비트, 패리티:홀수, 스톱:1 속도:19200
+2. 시작코드:STX 종단코드:ETX
+모든 통신 ASC로 통신
+
+CONDITION
+=> Manual / Auto
+
+WIDTH_10000
+=> WIDTH_10000
+
+WIDTH_START
+=> WIDTH_START
+
+===============================
+=> WIDTH_END_10000
+=> WIDTH_ABOLT_10000
+
+
+=> ERROR#00

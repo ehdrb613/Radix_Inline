@@ -1,0 +1,160 @@
+D:\Windows\0.C#기본\Base\Radix\obj\Debug\Radix.frmMain.resources
+D:\Windows\0.C#기본\Base\Radix\obj\Debug\Radix.Properties.Resources.resources
+D:\Windows\0.C#기본\Base\Radix\obj\Debug\Base.csproj.GenerateResource.Cache
+D:\Windows\05. 메가젠임플란트\센딩투입기\소스\Sanding\Radix\bin\Debug\Radix.exe.config
+D:\Windows\05. 메가젠임플란트\센딩투입기\소스\Sanding\Radix\obj\Debug\Radix.exe
+D:\Windows\05. 메가젠임플란트\센딩투입기\소스\Sanding\Radix\obj\Debug\Radix.pdb
+D:\Windows\0.C#기본\Base\Radix\bin\Debug\Base.exe.config
+D:\Windows\0.C#기본\Base\Radix\obj\Debug\Base.exe
+D:\Windows\0.C#기본\Base\Radix\obj\Debug\Base.pdb
+D:\Windows\0.C#기본\Base\Radix\bin\Debug\Base.exe
+D:\Windows\0.C#기본\Base\Radix\bin\Debug\Base.pdb
+D:\Windows\0.C#기본\Base\Radix\obj\Debug\Radix.CountLog.resources
+D:\Windows\0.C#기본\Base\Radix\obj\Debug\Radix.LogViewer.resources
+D:\Windows\0.C#기본\Base\Radix\obj\Debug\Radix.AngleTest.resources
+D:\Windows\0.C#기본\Base\Radix\obj\Debug\Radix.DeviceNetMonitor.resources
+D:\Windows\0.C#기본\Base\Radix\obj\Debug\Radix.ErrorDialog.resources
+D:\Windows\0.C#기본\Base\Radix\obj\Debug\Radix.IoMonitor.resources
+D:\Windows\0.C#기본\Base\Radix\obj\Debug\Radix.KUKA_Process_Test.resources
+D:\Windows\0.C#기본\Base\Radix\obj\Debug\Radix.KUKA_Test.resources
+D:\Windows\0.C#기본\Base\Radix\obj\Debug\Radix.Init.resources
+D:\Windows\0.C#기본\Base\Radix\obj\Debug\Radix.Manual.resources
+D:\Windows\0.C#기본\Base\Radix\obj\Debug\Radix.MotionTest.resources
+D:\Windows\0.C#기본\Base\Radix\obj\Debug\Radix.Password.resources
+D:\Windows\0.C#기본\Base\Radix\obj\Debug\Radix.Setting.resources
+D:\Windows\0.C#기본\Base\Radix\obj\Debug\Radix.test.resources
+D:\Windows\0.C#기본\Base\Radix\obj\Debug\Radix.VisionTest.resources
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\bin\Debug\Base.exe.config
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Base.exe
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Base.pdb
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\bin\Debug\Base.exe
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\bin\Debug\Base.pdb
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Base.csprojResolveAssemblyReference.cache
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Radix.frmMain.resources
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Radix.CountLog.resources
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Radix.LogViewer.resources
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Radix.AngleTest.resources
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Radix.DeviceNetMonitor.resources
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Radix.ErrorDialog.resources
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Radix.IoMonitor.resources
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Radix.KUKA_Process_Test.resources
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Radix.KUKA_Test.resources
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Radix.Init.resources
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Radix.Manual.resources
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Radix.MotionTest.resources
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Radix.Password.resources
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Radix.Setting.resources
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Radix.test.resources
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Radix.VisionTest.resources
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Radix.Properties.Resources.resources
+D:\Windows\0.레이저마킹기\source\LaserMarker\Radix\obj\Debug\Base.csproj.GenerateResource.Cache
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\bin\Debug\Base.exe.config
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\bin\Debug\Base.exe
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\bin\Debug\Base.pdb
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\bin\Debug\Secs4Net.dll
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\bin\Debug\SecsDevice.exe
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\bin\Debug\SmlHelper.dll
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\bin\Debug\Secs4Net.pdb
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\bin\Debug\SecsDevice.pdb
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\bin\Debug\SmlHelper.pdb
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Base.csprojResolveAssemblyReference.cache
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Base.csproj.ResolveComReference.cache
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.frmMain.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.Loading.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.CountLog.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.EventTest.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.Popup.Machine.General.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.Popup.Machine.SerialSet.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.Popup.Machine.TowerLamp.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.Machine.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.NGViewer.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.SMDTest.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.Teaching.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.Popup.Teaching.Position.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.Popup.Teaching.Width.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.Trace.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.PartClear.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.SerialTest.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.FuncTest.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.LaserMarkerTest.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.LogViewer.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.AngleTest.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.ErrorDialog.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.IoMonitor.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.Init.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.Manual.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.PCBLoaderTest.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.Model.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.ComSet.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.StepTest.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.MotionTest.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.Password.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.Setting.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.test.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.VisionTest.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.Popup.WarningDialog.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Radix.Properties.Resources.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Base.csproj.GenerateResource.Cache
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Base.exe
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\obj\Debug\Base.pdb
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\bin\Debug\Microsoft.WindowsAPICodePack.dll
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\bin\Debug\Microsoft.WindowsAPICodePack.xml
+D:\Windows\00.Project\0.C#기본\Base - 20221122\Radix\bin\Debug\Microsoft.WindowsAPICodePack.Shell.xml
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\bin\Debug\Base.exe.config
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Base.csproj.ResolveComReference.cache
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Base.exe
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Base.pdb
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Base.csprojResolveAssemblyReference.cache
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.frmMain.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.Loading.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.CountLog.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.EventTest.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.Popup.Machine.General.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.Popup.Machine.SerialSet.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.Popup.Machine.TowerLamp.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.Machine.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.NGViewer.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.SMDTest.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.Teaching.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.Popup.Teaching.Position.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.Popup.Teaching.Width.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.Trace.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.PartClear.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.SerialTest.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.FuncTest.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.LaserMarkerTest.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.LogViewer.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.AngleTest.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.ErrorDialog.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.IoMonitor.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.Init.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.Manual.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.PCBLoaderTest.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.Model.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.ComSet.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.StepTest.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.MotionTest.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.Password.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.Setting.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.test.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.VisionTest.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.Popup.WarningDialog.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Radix.Properties.Resources.resources
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\obj\Debug\Base.csproj.GenerateResource.Cache
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\bin\Debug\Base.exe
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\bin\Debug\Base.pdb
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\bin\Debug\Microsoft.WindowsAPICodePack.dll
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\bin\Debug\Secs4Net.dll
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\bin\Debug\SecsDevice.exe
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\bin\Debug\SmlHelper.dll
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\bin\Debug\Secs4Net.pdb
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\bin\Debug\SecsDevice.pdb
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\bin\Debug\SmlHelper.pdb
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\bin\Debug\Microsoft.WindowsAPICodePack.xml
+D:\Windows\00.Project\0.C#기본\Base - 20221229\Radix\bin\Debug\Microsoft.WindowsAPICodePack.Shell.xml
+D:\Windows\ing\23. 스누콘\10. Program\Sanding_SNUC_230109\Radix\bin\Debug\Base.exe.config
+D:\Windows\ing\23. 스누콘\10. Program\Sanding_SNUC_230109\Radix\obj\Debug\Base.csproj.ResolveComReference.cache
+D:\Windows\ing\23. 스누콘\10. Program\Sanding_SNUC_230109\Radix\obj\Debug\Base.exe
+D:\Windows\ing\23. 스누콘\10. Program\Sanding_SNUC_230109\Radix\obj\Debug\Base.pdb

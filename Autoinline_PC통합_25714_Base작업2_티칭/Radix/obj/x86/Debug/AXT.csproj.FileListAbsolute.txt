@@ -1,0 +1,105 @@
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\bin\x86\Debug\AXT.exe.config
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\bin\x86\Debug\AXT.exe
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\bin\x86\Debug\AXT.pdb
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\bin\x86\Debug\Secs4Net.dll
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\bin\x86\Debug\SecsDevice.exe
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\bin\x86\Debug\SmlHelper.dll
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\bin\x86\Debug\Secs4Net.pdb
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\bin\x86\Debug\SecsDevice.pdb
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\bin\x86\Debug\SmlHelper.pdb
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\AXT.csprojResolveAssemblyReference.cache
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.frmMain.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.Loading.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.CountLog.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.EventTest.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.SerialTest.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.FuncTest.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.LaserMarkerTest.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.LogViewer.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.AngleTest.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.DeviceNetMonitor.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.ErrorDialog.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.IoMonitor.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.Init.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.Manual.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.PCBLoaderTest.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.StepTest.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.MotionTest.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.Password.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.Setting.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.test.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.VisionTest.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\Radix.Properties.Resources.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\AXT.csproj.GenerateResource.Cache
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\AXT.exe
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\obj\x86\Debug\AXT.pdb
+C:\Users\IPC\Desktop\AXT_210715\Radix\bin\x86\Debug\AXT.exe.config
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\AXT.exe
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\AXT.pdb
+C:\Users\IPC\Desktop\AXT_210715\Radix\bin\x86\Debug\AXT.exe
+C:\Users\IPC\Desktop\AXT_210715\Radix\bin\x86\Debug\AXT.pdb
+C:\Users\IPC\Desktop\AXT_210715\Radix\bin\x86\Debug\Secs4Net.dll
+C:\Users\IPC\Desktop\AXT_210715\Radix\bin\x86\Debug\SecsDevice.exe
+C:\Users\IPC\Desktop\AXT_210715\Radix\bin\x86\Debug\SmlHelper.dll
+C:\Users\IPC\Desktop\AXT_210715\Radix\bin\x86\Debug\Secs4Net.pdb
+C:\Users\IPC\Desktop\AXT_210715\Radix\bin\x86\Debug\SecsDevice.pdb
+C:\Users\IPC\Desktop\AXT_210715\Radix\bin\x86\Debug\SmlHelper.pdb
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\AXT.csprojResolveAssemblyReference.cache
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.frmMain.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.Loading.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.CountLog.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.EventTest.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.SerialTest.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.FuncTest.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.LaserMarkerTest.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.LogViewer.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.AngleTest.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.DeviceNetMonitor.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.ErrorDialog.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.IoMonitor.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.Init.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.Manual.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.PCBLoaderTest.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.StepTest.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.MotionTest.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.Password.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.Setting.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.test.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.VisionTest.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\Radix.Properties.Resources.resources
+C:\Users\IPC\Desktop\AXT_210715\Radix\obj\x86\Debug\AXT.csproj.GenerateResource.Cache
+C:\Users\IPC\Desktop\AXT_210720\Radix\bin\x86\Debug\AXT.exe.config
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\AXT.exe
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\AXT.pdb
+C:\Users\IPC\Desktop\AXT_210720\Radix\bin\x86\Debug\AXT.exe
+C:\Users\IPC\Desktop\AXT_210720\Radix\bin\x86\Debug\AXT.pdb
+C:\Users\IPC\Desktop\AXT_210720\Radix\bin\x86\Debug\Secs4Net.dll
+C:\Users\IPC\Desktop\AXT_210720\Radix\bin\x86\Debug\SecsDevice.exe
+C:\Users\IPC\Desktop\AXT_210720\Radix\bin\x86\Debug\SmlHelper.dll
+C:\Users\IPC\Desktop\AXT_210720\Radix\bin\x86\Debug\Secs4Net.pdb
+C:\Users\IPC\Desktop\AXT_210720\Radix\bin\x86\Debug\SecsDevice.pdb
+C:\Users\IPC\Desktop\AXT_210720\Radix\bin\x86\Debug\SmlHelper.pdb
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\AXT.csprojResolveAssemblyReference.cache
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.frmMain.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.Loading.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.CountLog.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.EventTest.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.SerialTest.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.FuncTest.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.LaserMarkerTest.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.LogViewer.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.AngleTest.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.DeviceNetMonitor.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.ErrorDialog.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.IoMonitor.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.Init.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.Manual.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.PCBLoaderTest.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.StepTest.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.MotionTest.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.Password.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.Setting.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.test.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.VisionTest.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\Radix.Properties.Resources.resources
+C:\Users\IPC\Desktop\AXT_210720\Radix\obj\x86\Debug\AXT.csproj.GenerateResource.Cache

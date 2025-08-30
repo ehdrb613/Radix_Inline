@@ -1,0 +1,35 @@
+* 전제 조건 *
+	마스터는 MXP, AXL, Advantech
+	제어기 및 제어장치 세팅 및 구동 체크 완료
+	기본적으로는 Crevis 통신모듈(9186/9286)은 하나에 모든 DI/DO 슬롯 장착이지만,
+	점수가 많은 경우 60개 모듈 단위로 분리
+
+* 전역 선언 수정 *
+1. GlovalVar.cs
+	1) enumDINames : DI 구성에 따라 네이밍
+	2) enumDONames : DO 구성에 따라 네이밍
+	3) Axis_count : 서보 모터 수량에 맞춰 수정
+	4) Axis_num : 첫 서보 모터의 Slave Number
+		서보부터 연결되어 있으면 0,
+		crevis부터 연결되어 있으면 crevis(9186,9286) 숫자만큼
+	5) Slave_di_num : DI 슬롯들 장착된 9186/9286 Slave Number
+		서보모터 두개 이후에 장착되어 있다면 2
+	6) DiSize : DI의 비트 수. 통신모듈이 하나라면 enumDINames 의 갯수 그대로, 복수라면 각각 갯수 명시
+	7) Slave_do_num : DO 슬롯들 장착된 9186/9286 Slave Number
+		서보모터 두개 이후에 9186 하나에 DI/DO 슬롯들 모두 장착되어 있다면 2
+		서보모터 두개 이후에 9186 하나에 DI 슬롯들만 장착하고 별도로 다음에 DO 슬롯들 모두 장착되어 있다면 3
+	8) DoSize : DO의 비트 수,. 통신모듈이 하나라면 enumDONames 의 갯수 그대로, 복수라면 각각 갯수 명시
+	9) DIO_Size : 따로 선언하지 않는다
+	10) MasterType : 제어 마스터 종류 선택
+	기타 DeviceNet이나 통신 등은 프로젝트에 맞춰 수정
+	UseMsSQL : 사용시 연결 속성 수정, 에러 관련 데이터베이스를 기본생성해 줘야 한다.
+	UseNormalError : 에러코드를 키로 하는 기본에러시스템 사용. false 경우 enumErrorPart 까지 수정해야 하며, MsSql 도 고려해야 함.
+	UsePartClear : 에러 발생시 파트클리어 시스템 사용 여부, 미사용시 버튼이 표시되지 않으며 에러로그창으로 이동됨.
+
+* 거의 그대로 사용하는 클래스 *
+	1) Thread/StatusThread.cs : 기본 모션 및 DIO 부분은 그대로 사용해도 됨. 이외 통신 등 필요시 추가 작성
+
+* 프로젝트별 별도 작성
+	1) 프로젝트 내 공용 함수 등은 Sub/Func프로젝트명.cs 에 선언
+	2) frmMain UI 및 Popup 폴더의 부속화면 작성
+	3) Thread는 Thread 폴더 내에 선언하며, 자동동작 경우 ABase 기반으로 작성

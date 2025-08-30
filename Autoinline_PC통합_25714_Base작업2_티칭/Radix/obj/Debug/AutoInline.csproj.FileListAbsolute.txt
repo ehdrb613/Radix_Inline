@@ -1,0 +1,333 @@
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\bin\Debug\AutoInline.exe.config
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\bin\Debug\AutoInline.exe
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\bin\Debug\AutoInline.pdb
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\bin\Debug\Secs4Net.dll
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\bin\Debug\SecsDevice.exe
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\bin\Debug\SmlHelper.dll
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\bin\Debug\Secs4Net.pdb
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\bin\Debug\SecsDevice.pdb
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\bin\Debug\SmlHelper.pdb
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\AutoInline.csprojResolveAssemblyReference.cache
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.frmMain.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.Loading.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.Abrpgation.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.CountLog.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.EventTest.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.SerialTest.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.FuncTest.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.LaserMarkerTest.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.LogViewer.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.AngleTest.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.ErrorDialog.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.IoMonitor.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.Init.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.Manual.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.PCBLoaderTest.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.StepTest.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.MotionTest.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.Password.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.Setting.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.test.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.VisionTest.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.Properties.Resources.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\AutoInline.csproj.GenerateResource.Cache
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\AutoInline.exe
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\AutoInline.pdb
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.Teaching.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.Model.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.ComSet.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.PartClear.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.Trace.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.SMDTest.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\AutoInline.csproj.ResolveComReference.cache
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.Machine.resources
+D:\Data\Source\AutoInline\Radix\bin\Debug\AutoInline.exe.config
+D:\Data\Source\AutoInline\Radix\obj\Debug\AutoInline.csproj.ResolveComReference.cache
+D:\Data\Source\AutoInline\Radix\obj\Debug\AutoInline.exe
+D:\Data\Source\AutoInline\Radix\obj\Debug\AutoInline.pdb
+D:\Data\Source\AutoInline\Radix\bin\Debug\AutoInline.exe
+D:\Data\Source\AutoInline\Radix\bin\Debug\AutoInline.pdb
+D:\Data\Source\AutoInline\Radix\bin\Debug\Secs4Net.dll
+D:\Data\Source\AutoInline\Radix\bin\Debug\SecsDevice.exe
+D:\Data\Source\AutoInline\Radix\bin\Debug\SmlHelper.dll
+D:\Data\Source\AutoInline\Radix\bin\Debug\Secs4Net.pdb
+D:\Data\Source\AutoInline\Radix\bin\Debug\SecsDevice.pdb
+D:\Data\Source\AutoInline\Radix\bin\Debug\SmlHelper.pdb
+D:\Data\Source\AutoInline\Radix\obj\Debug\AutoInline.csprojResolveAssemblyReference.cache
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.frmMain.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.Loading.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.Abrpgation.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.CountLog.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.EventTest.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.SMDTest.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.Trace.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.PartClear.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.SerialTest.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.FuncTest.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.LaserMarkerTest.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.LogViewer.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.AngleTest.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.ErrorDialog.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.IoMonitor.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.Init.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.Manual.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.PCBLoaderTest.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.Model.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.ComSet.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.Machine.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.Teaching.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.StepTest.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.MotionTest.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.Password.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.Setting.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.test.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.VisionTest.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\Radix.Properties.Resources.resources
+D:\Data\Source\AutoInline\Radix\obj\Debug\AutoInline.csproj.GenerateResource.Cache
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.NGViewer.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\bin\Debug\AutoInline.exe.config
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\AutoInline.csproj.ResolveComReference.cache
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\AutoInline.exe
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\AutoInline.pdb
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\AutoInline.csprojResolveAssemblyReference.cache
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.frmMain.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.Loading.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.Abrpgation.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.CountLog.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.EventTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.Popup.Machine.General.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.Popup.Machine.SerialSet.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.Popup.Machine.TowerLamp.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.NGViewer.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.SMDTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.Trace.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.PartClear.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.SerialTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.FuncTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.LaserMarkerTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.LogViewer.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.AngleTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.ErrorDialog.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.IoMonitor.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.Init.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.Manual.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.PCBLoaderTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.Model.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.ComSet.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.Machine.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.Teaching.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.StepTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.MotionTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.Password.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.Setting.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.test.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.VisionTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.Properties.Resources.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\AutoInline.csproj.GenerateResource.Cache
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\bin\Debug\AutoInline.exe
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\bin\Debug\AutoInline.pdb
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\bin\Debug\Secs4Net.dll
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\bin\Debug\SecsDevice.exe
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\bin\Debug\SmlHelper.dll
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\bin\Debug\Secs4Net.pdb
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\bin\Debug\SecsDevice.pdb
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\bin\Debug\SmlHelper.pdb
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline\Radix\obj\Debug\Radix.Machine_a.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\bin\Debug\AutoInline.exe.config
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\AutoInline.csproj.ResolveComReference.cache
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\AutoInline.exe
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\AutoInline.pdb
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\bin\Debug\AutoInline.exe
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\bin\Debug\AutoInline.pdb
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\bin\Debug\Secs4Net.dll
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\bin\Debug\SecsDevice.exe
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\bin\Debug\SmlHelper.dll
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\bin\Debug\Secs4Net.pdb
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\bin\Debug\SecsDevice.pdb
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\bin\Debug\SmlHelper.pdb
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\AutoInline.csprojResolveAssemblyReference.cache
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.frmMain.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.Loading.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.Abrpgation.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.CountLog.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.EventTest.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.Popup.Machine.General.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.Popup.Machine.SerialSet.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.Popup.Machine.TowerLamp.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.Machine.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.NGViewer.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.SMDTest.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.Trace.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.PartClear.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.SerialTest.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.FuncTest.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.LaserMarkerTest.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.LogViewer.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.AngleTest.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.ErrorDialog.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.IoMonitor.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.Init.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.Manual.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.PCBLoaderTest.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.Model.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.ComSet.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.Machine_a.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.Teaching.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.StepTest.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.MotionTest.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.Password.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.Setting.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.test.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.VisionTest.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\Radix.Properties.Resources.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220314\Radix\obj\Debug\AutoInline.csproj.GenerateResource.Cache
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\bin\Debug\AutoInline.exe.config
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\AutoInline.csproj.ResolveComReference.cache
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\AutoInline.exe
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\AutoInline.pdb
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\bin\Debug\AutoInline.exe
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\bin\Debug\AutoInline.pdb
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\bin\Debug\Secs4Net.dll
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\bin\Debug\SecsDevice.exe
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\bin\Debug\SmlHelper.dll
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\bin\Debug\Secs4Net.pdb
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\bin\Debug\SecsDevice.pdb
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\bin\Debug\SmlHelper.pdb
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\AutoInline.csprojResolveAssemblyReference.cache
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.frmMain.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.Loading.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.Abrpgation.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.CountLog.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.EventTest.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.Popup.Machine.General.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.Popup.Machine.SerialSet.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.Popup.Machine.TowerLamp.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.Machine.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.NGViewer.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.SMDTest.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.Trace.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.PartClear.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.SerialTest.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.FuncTest.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.LaserMarkerTest.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.LogViewer.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.AngleTest.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.ErrorDialog.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.IoMonitor.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.Init.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.Manual.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.PCBLoaderTest.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.Model.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.ComSet.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.Machine_a.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.Teaching.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.StepTest.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.MotionTest.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.Password.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.Setting.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.test.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.VisionTest.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\Radix.Properties.Resources.resources
+D:\Windows\00_work\02_Project\04_autoinline_모듈형\09_디자인\AutoInline_220315\Radix\obj\Debug\AutoInline.csproj.GenerateResource.Cache
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.Popup.Machine.General.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.Popup.Machine.SerialSet.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.Popup.Machine.TowerLamp.resources
+D:\Windows\00.Project\93.Auto Inline\모듈형\source\AutoInline\Radix\obj\Debug\Radix.Machine_a.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\bin\Debug\AutoInline.exe.config
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\AutoInline.csproj.ResolveComReference.cache
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\AutoInline.exe
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\AutoInline.pdb
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\bin\Debug\AutoInline.exe
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\bin\Debug\AutoInline.pdb
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\bin\Debug\Secs4Net.dll
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\bin\Debug\SecsDevice.exe
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\bin\Debug\SmlHelper.dll
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\bin\Debug\Secs4Net.pdb
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\bin\Debug\SecsDevice.pdb
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\bin\Debug\SmlHelper.pdb
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\AutoInline.csprojResolveAssemblyReference.cache
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.frmMain.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.Loading.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.Abrpgation.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.CountLog.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.EventTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.Popup.Machine.General.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.Popup.Machine.SerialSet.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.Popup.Machine.TowerLamp.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.Machine.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.NGViewer.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.SMDTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.Trace.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.PartClear.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.SerialTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.FuncTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.LaserMarkerTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.LogViewer.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.AngleTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.ErrorDialog.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.IoMonitor.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.Init.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.Manual.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.PCBLoaderTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.Model.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.ComSet.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.Teaching.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.StepTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.MotionTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.Password.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.Setting.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.test.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.VisionTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.Properties.Resources.resources
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\AutoInline.csproj.GenerateResource.Cache
+D:\Windows\ing\23. 하이게인안테나\Program\AutoInline_220315_YJ\Radix\obj\Debug\Radix.frmMain_Inline.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\bin\Debug\AutoInline.exe.config
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\AutoInline.csproj.ResolveComReference.cache
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\AutoInline.exe
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\AutoInline.pdb
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\AutoInline.csprojResolveAssemblyReference.cache
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.frmMain.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.Loading.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.Abrpgation.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.CountLog.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.EventTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.Popup.Machine.General.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.Popup.Machine.SerialSet.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.Popup.Machine.TowerLamp.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.Machine.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.NGViewer.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.SMDTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.Teaching.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.Popup.Teaching.Position.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.Popup.Teaching.Width.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.Trace.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.PartClear.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.SerialTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.FuncTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.LaserMarkerTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.LogViewer.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.AngleTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.ErrorDialog.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.IoMonitor.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.Init.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.Manual.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.PCBLoaderTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.Model.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.ComSet.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.StepTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.MotionTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.Password.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.Setting.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.test.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.VisionTest.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\Radix.Properties.Resources.resources
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\obj\Debug\AutoInline.csproj.GenerateResource.Cache
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\bin\Debug\AutoInline.exe
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\bin\Debug\AutoInline.pdb
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\bin\Debug\Secs4Net.dll
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\bin\Debug\SecsDevice.exe
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\bin\Debug\SmlHelper.dll
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\bin\Debug\Secs4Net.pdb
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\bin\Debug\SecsDevice.pdb
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\bin\Debug\SmlHelper.pdb
+D:\Windows\ing\23. 하이게인안테나\Program\highgain_220330\Radix\bin\Debug\AutoRouter_HighGain.exe.config

@@ -1,0 +1,24 @@
+C:\source\Sanding\Radix\obj\x86\Debug\Radix.frmMain.resources
+C:\source\Sanding\Radix\obj\x86\Debug\Radix.Popup.AngleTest.resources
+C:\source\Sanding\Radix\obj\x86\Debug\Radix.Popup.DeviceNetMonitor.resources
+C:\source\Sanding\Radix\obj\x86\Debug\Radix.Popup.IoMonitor.resources
+C:\source\Sanding\Radix\obj\x86\Debug\Radix.Popup.Manual.resources
+C:\source\Sanding\Radix\obj\x86\Debug\Radix.Popup.MotionTest.resources
+C:\source\Sanding\Radix\obj\x86\Debug\Radix.Popup.Setting.resources
+C:\source\Sanding\Radix\obj\x86\Debug\Radix.Properties.Resources.resources
+C:\source\Sanding\Radix\obj\x86\Debug\Sanding.csproj.GenerateResource.Cache
+D:\Windows\05. 메가젠임플란트\센딩투입기\소스\Sanding\Radix\bin\x86\Debug\Radix.exe.config
+D:\Windows\05. 메가젠임플란트\센딩투입기\소스\Sanding\Radix\obj\x86\Debug\Radix.exe
+D:\Windows\05. 메가젠임플란트\센딩투입기\소스\Sanding\Radix\obj\x86\Debug\Radix.pdb
+C:\source\Sanding\Radix\obj\x86\Debug\Radix.Popup.KUKA_Test.resources
+C:\source\Sanding\Radix\obj\x86\Debug\Radix.Popup.LogViewer.resources
+C:\source\Sanding\Radix\obj\x86\Debug\Radix.Popup.ErrorDialog.resources
+C:\source\Sanding\Radix\obj\x86\Debug\Radix.Popup.KUKA_Process_Test.resources
+C:\source\Sanding\Radix\obj\x86\Debug\Radix.Popup.Init.resources
+C:\source\Sanding\Radix\obj\x86\Debug\Radix.Popup.test.resources
+C:\source\Sanding\Radix\obj\x86\Debug\Radix.Popup.VisionTest.resources
+C:\source\Sanding\Radix\bin\x86\Debug\Sanding.exe.config
+C:\source\Sanding\Radix\bin\x86\Debug\Sanding.exe
+C:\source\Sanding\Radix\bin\x86\Debug\Sanding.pdb
+C:\source\Sanding\Radix\obj\x86\Debug\Sanding.exe
+C:\source\Sanding\Radix\obj\x86\Debug\Sanding.pdb
