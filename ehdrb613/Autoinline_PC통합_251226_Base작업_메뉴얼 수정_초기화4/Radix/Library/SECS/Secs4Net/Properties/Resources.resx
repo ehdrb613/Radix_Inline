@@ -1,0 +1,652 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="T3Timeout" xml:space="preserve">
+    <value>T3 Timeout!</value>
+    <comment>T3Timeout description</comment>
+  </data>
+  <data name="SxF0" xml:space="preserve">
+    <value>Equipment is not online mode</value>
+    <comment>SxF0 EquipmentIsNotOnlineMode description</comment>
+  </data>
+  <data name="S9F1" xml:space="preserve">
+    <value>Unrecognized Device Id</value>
+    <comment>S9F1 Unrecognized Device Id</comment>
+  </data>
+  <data name="S9F3" xml:space="preserve">
+    <value>Unrecognized Stream Type</value>
+    <comment>S9F3 Unrecognized Stream Type</comment>
+  </data>
+  <data name="S9F5" xml:space="preserve">
+    <value>Unrecognized Function Type</value>
+    <comment>S9F5 Unrecognized Function Type</comment>
+  </data>
+  <data name="S9F7" xml:space="preserve">
+    <value>Illegal Data</value>
+    <comment>S9F7 Illegal Data</comment>
+  </data>
+  <data name="S9F9" xml:space="preserve">
+    <value>Transaction Timer Timeout</value>
+    <comment>S9F9 Transaction Timer Timeout</comment>
+  </data>
+  <data name="S9F11" xml:space="preserve">
+    <value>Data Too Long</value>
+    <comment>S9F11 Data Too Long</comment>
+  </data>
+  <data name="S9F13" xml:space="preserve">
+    <value>Conversation Timeout</value>
+    <comment>S9F13 Conversation Timeout</comment>
+  </data>
+  <data name="S9Fy" xml:space="preserve">
+    <value>S9Fy message reply.</value>
+    <comment>S9Fy S9Fy message reply.</comment>
+  </data>
+  <data name="S10F1" xml:space="preserve">
+    <value>Terminal Request</value>
+    <comment>S10F1 Terminal Request</comment>
+  </data>
+  <data name="S10F2" xml:space="preserve">
+    <value>Terminal Response</value>
+    <comment>S10F2 Terminal Response</comment>
+  </data>
+  <data name="S10F3" xml:space="preserve">
+    <value>Terminal Display, Single Block</value>
+    <comment>S10F3 Terminal Display, Single Block</comment>
+  </data>
+  <data name="S10F4" xml:space="preserve">
+    <value>Terminal Display, Single Block Response</value>
+    <comment>S10F4 Terminal Display, Single Block Response</comment>
+  </data>
+  <data name="S10F5" xml:space="preserve">
+    <value>Terminal Display, Multi-block</value>
+    <comment>S10F5 Terminal Display, Multi-block</comment>
+  </data>
+  <data name="S10F6" xml:space="preserve">
+    <value>Terminal Display, Multi-block Response</value>
+    <comment>S10F6 Terminal Display, Multi-block Response</comment>
+  </data>
+  <data name="S10F7" xml:space="preserve">
+    <value>Multi-block Not Allowed</value>
+    <comment>S10F7 Multi-block Not Allowed</comment>
+  </data>
+  <data name="S10Fy" xml:space="preserve">
+    <value>S10Fy message reply</value>
+    <comment>S10Fy message reply</comment>
+  </data>
+  <data name="S14F1" xml:space="preserve">
+    <value>Get Attributes</value>
+    <comment>S14F1 Get Attributes</comment>
+  </data>
+  <data name="S14F10" xml:space="preserve">
+    <value>Control Job Create Response</value>
+    <comment>S14F1 Control Job Create Response</comment>
+  </data>
+  <data name="S14F2" xml:space="preserve">
+    <value>Get Attributes Response</value>
+    <comment>S14F2 Get Attributes Response</comment>
+  </data>
+  <data name="S14F3" xml:space="preserve">
+    <value>Set Attributes</value>
+    <comment>S14F3 Set Attributes</comment>
+  </data>
+  <data name="S14F4" xml:space="preserve">
+    <value>Set Attributes Response</value>
+    <comment>S14F4 Set Attributes Response</comment>
+  </data>
+  <data name="S14F7" xml:space="preserve">
+    <value>Get Attribute Name</value>
+    <comment>S14F7 Get Attribute Name</comment>
+  </data>
+  <data name="S14F8" xml:space="preserve">
+    <value>Get Attribute Name Response</value>
+    <comment>S14F8 Get Attribute Name Response</comment>
+  </data>
+  <data name="S14F9" xml:space="preserve">
+    <value>Control Job Create</value>
+    <comment>S14F9 Control Job Create</comment>
+  </data>
+  <data name="S14Fy" xml:space="preserve">
+    <value>S14Fy message reply</value>
+    <comment>S14Fy message reply</comment>
+  </data>
+  <data name="S16F11" xml:space="preserve">
+    <value>Process Job Create Enh</value>
+    <comment>S16F11 Process Job Create Enh</comment>
+  </data>
+  <data name="S16F12" xml:space="preserve">
+    <value>Process Job Create Enh Response</value>
+    <comment>S16F12 Process Job Create Enh Response</comment>
+  </data>
+  <data name="S16F15" xml:space="preserve">
+    <value>Process Job Multi Create</value>
+    <comment>S16F15 Process Job Multi Create</comment>
+  </data>
+  <data name="S16F16" xml:space="preserve">
+    <value>Process Job Multi Create Response</value>
+    <comment>S16F16 Process Job Multi Create Response</comment>
+  </data>
+  <data name="S16F17" xml:space="preserve">
+    <value>PRJobDequeue</value>
+    <comment>S16F17 PRJobDequeue</comment>
+  </data>
+  <data name="S16F18" xml:space="preserve">
+    <value>PRJobDequeue Response</value>
+    <comment>S16F18 PRJobDequeue Response</comment>
+  </data>
+  <data name="S16F19" xml:space="preserve">
+    <value>PRGetAllJobs</value>
+    <comment>S16F19 PRGetAllJobs</comment>
+  </data>
+  <data name="S16F20" xml:space="preserve">
+    <value>PRGetAllJobs Response</value>
+    <comment>S16F20 PRGetAllJobs Response</comment>
+  </data>
+  <data name="S16F21" xml:space="preserve">
+    <value>PRGetSpace</value>
+    <comment>S16F21 PRGetSpace</comment>
+  </data>
+  <data name="S16F22" xml:space="preserve">
+    <value>PRGetSpace Response</value>
+    <comment>S16F22 PRGetSpace Response</comment>
+  </data>
+  <data name="S16F25" xml:space="preserve">
+    <value>PRJobSetStartMethod</value>
+    <comment>S16F25 PRJobSetStartMethod</comment>
+  </data>
+  <data name="S16F26" xml:space="preserve">
+    <value>PRJobSetStartMethod Response</value>
+    <comment>S16F26 PRJobSetStartMethod Response</comment>
+  </data>
+  <data name="S16F27" xml:space="preserve">
+    <value>CJ Command Request</value>
+    <comment>S16F27 CJ Command Request</comment>
+  </data>
+  <data name="S16F28" xml:space="preserve">
+    <value>CJ Command Response</value>
+    <comment>S16F28 CJ Command Response</comment>
+  </data>
+  <data name="S16F5" xml:space="preserve">
+    <value>Process Job Command</value>
+    <comment>S16F5 Process Job Command</comment>
+  </data>
+  <data name="S16F6" xml:space="preserve">
+    <value>Process Job Command Response</value>
+    <comment>S16F6 Process Job Command Response</comment>
+  </data>
+  <data name="S16Fy" xml:space="preserve">
+    <value>S16Fy message reply</value>
+    <comment>S16Fy message reply</comment>
+  </data>
+  <data name="S1F1" xml:space="preserve">
+    <value>Are You There Request</value>
+    <comment>S1F1 Are You There Request</comment>
+  </data>
+  <data name="S1F11" xml:space="preserve">
+    <value>Status Variable Name List Request</value>
+    <comment>S1F11 Status Variable Name List Request</comment>
+  </data>
+  <data name="S1F12" xml:space="preserve">
+    <value>Status Variable Name List Response</value>
+    <comment>S1F12 Status Variable Name List Response</comment>
+  </data>
+  <data name="S1F13" xml:space="preserve">
+    <value>Establish Communication Request</value>
+    <comment>S1F13 Establish Communication Request</comment>
+  </data>
+  <data name="S1F14" xml:space="preserve">
+    <value>Establish Communication Response</value>
+    <comment>S1F14 Establish Communication Response</comment>
+  </data>
+  <data name="S1F15" xml:space="preserve">
+    <value>Request OFFLINE</value>
+    <comment>S1F15 Request OFFLINE</comment>
+  </data>
+  <data name="S1F16" xml:space="preserve">
+    <value>Response OFFLINE</value>
+    <comment>S1F16 Response OFFLINE</comment>
+  </data>
+  <data name="S1F17" xml:space="preserve">
+    <value>Request ONLINE</value>
+    <comment>S1F17 Request ONLINE</comment>
+  </data>
+  <data name="S1F18" xml:space="preserve">
+    <value>Response ONLINE</value>
+    <comment>S1F18 Response ONLINE</comment>
+  </data>
+  <data name="S1F2" xml:space="preserve">
+    <value>Are You There Response</value>
+    <comment>S1F2 Are You There Response</comment>
+  </data>
+  <data name="S1F3" xml:space="preserve">
+    <value>Selected Equipment Status Request</value>
+    <comment>S1F3 Selected Equipment Status Request</comment>
+  </data>
+  <data name="S1F4" xml:space="preserve">
+    <value>Selected Equipment Status Response</value>
+    <comment>S1F4 Selected Equipment Status Response</comment>
+  </data>
+  <data name="S1Fy" xml:space="preserve">
+    <value>S1Fy message reply</value>
+    <comment>S1Fy message reply</comment>
+  </data>
+  <data name="S2F13" xml:space="preserve">
+    <value>Equipment Constant Request</value>
+    <comment>S2F13 Equipment Constant Request</comment>
+  </data>
+  <data name="S2F14" xml:space="preserve">
+    <value>Equipment Constant Response</value>
+    <comment>S2F14 Equipment Constant Response</comment>
+  </data>
+  <data name="S2F15" xml:space="preserve">
+    <value>New Equipment Constant Send</value>
+    <comment>S2F15 New Equipment Constant Send</comment>
+  </data>
+  <data name="S2F16" xml:space="preserve">
+    <value>New Equipment Constant Send Response</value>
+    <comment>S2F16 New Equipment Constant Send Response</comment>
+  </data>
+  <data name="S2F17" xml:space="preserve">
+    <value>Date and Time Request</value>
+    <comment>S2F17 Date and Time Request</comment>
+  </data>
+  <data name="S2F18" xml:space="preserve">
+    <value>Date and Time Response</value>
+    <comment>S2F18 Date and Time Response</comment>
+  </data>
+  <data name="S2F23" xml:space="preserve">
+    <value>Trace Initialize Send</value>
+    <comment>S2F23 Trace Initialize Send</comment>
+  </data>
+  <data name="S2F24" xml:space="preserve">
+    <value>Trace Initialize Send Response</value>
+    <comment>S2F24 Trace Initialize Send Response</comment>
+  </data>
+  <data name="S2F29" xml:space="preserve">
+    <value>Equipment Constant Name List Request</value>
+    <comment>S2F29 Equipment Constant Name List Request</comment>
+  </data>
+  <data name="S2F30" xml:space="preserve">
+    <value>Equipment Constant Name List Response</value>
+    <comment>S2F30 Equipment Constant Name List Response</comment>
+  </data>
+  <data name="S2F31" xml:space="preserve">
+    <value>Date and Time Set Request</value>
+    <comment>S2F31 Date and Time Set Request</comment>
+  </data>
+  <data name="S2F32" xml:space="preserve">
+    <value>Date and Time Set Response</value>
+    <comment>S2F32 Date and Time Set Response</comment>
+  </data>
+  <data name="S2F33" xml:space="preserve">
+    <value>Define Report</value>
+    <comment>S2F33 Define Report</comment>
+  </data>
+  <data name="S2F34" xml:space="preserve">
+    <value>Define Report Response</value>
+    <comment>S2F34 Define Report Response</comment>
+  </data>
+  <data name="S2F35" xml:space="preserve">
+    <value>Link Report/Event</value>
+    <comment>S2F35 Link Report/Event</comment>
+  </data>
+  <data name="S2F36" xml:space="preserve">
+    <value>Link Report/Event Response</value>
+    <comment>S2F36 Link Report/Event Response</comment>
+  </data>
+  <data name="S2F37" xml:space="preserve">
+    <value>Enable/Disable Event Report</value>
+    <comment>S2F37 Enable/Disable Event Report</comment>
+  </data>
+  <data name="S2F38" xml:space="preserve">
+    <value>Enable/Disable Event Report Response</value>
+    <comment>S2F38 Enable/Disable Event Report Response</comment>
+  </data>
+  <data name="S2F39" xml:space="preserve">
+    <value>Multi-block Inquire</value>
+    <comment>S2F39 Multi-block Inquire</comment>
+  </data>
+  <data name="S2F40" xml:space="preserve">
+    <value>Multi-block Inquire Response</value>
+    <comment>S2F40 Multi-block Inquire Response</comment>
+  </data>
+  <data name="S2F41" xml:space="preserve">
+    <value>Host Command Send</value>
+    <comment>S2F41 Host Command Send</comment>
+  </data>
+  <data name="S2F42" xml:space="preserve">
+    <value>Host Command Send Response</value>
+    <comment>S2F42 Host Command Send Response</comment>
+  </data>
+  <data name="S2F43" xml:space="preserve">
+    <value>Reset Spooling Streams and Functions</value>
+    <comment>S2F43 Reset Spooling Streams and Functions</comment>
+  </data>
+  <data name="S2F44" xml:space="preserve">
+    <value>Reset Spooling Streams and Functions Response</value>
+    <comment>S2F44 Reset Spooling Streams and Functions Response</comment>
+  </data>
+  <data name="S2Fy" xml:space="preserve">
+    <value>S2Fy message reply</value>
+    <comment>S2Fy message reply</comment>
+  </data>
+  <data name="S3F17" xml:space="preserve">
+    <value>Carrier Action Request</value>
+    <comment>S3F17 Carrier Action Request</comment>
+  </data>
+  <data name="S3F18" xml:space="preserve">
+    <value>Carrier Action Response</value>
+    <comment>S3F18 Carrier Action Response</comment>
+  </data>
+  <data name="S3F19" xml:space="preserve">
+    <value>Cancel All Carrier Out Request</value>
+    <comment>S3F19 Cancel All Carrier Out Request</comment>
+  </data>
+  <data name="S3F20" xml:space="preserve">
+    <value>Cancel All Carrier Out Response</value>
+    <comment>S3F20 Cancel All Carrier Out Response</comment>
+  </data>
+  <data name="S3F25" xml:space="preserve">
+    <value>Port Action Request</value>
+    <comment>S3F25 Port Action Request</comment>
+  </data>
+  <data name="S3F26" xml:space="preserve">
+    <value>Port Action Response</value>
+    <comment>S3F26 Port Action Response</comment>
+  </data>
+  <data name="S3F27" xml:space="preserve">
+    <value>Change Access Mode</value>
+    <comment>S3F27 Change Access Mode</comment>
+  </data>
+  <data name="S3F28" xml:space="preserve">
+    <value>Change Access Mode Response</value>
+    <comment>S3F28 Change Access Mode Response</comment>
+  </data>
+  <data name="S3Fy" xml:space="preserve">
+    <value>S3Fy message reply</value>
+    <comment>S3Fy message reply</comment>
+  </data>
+  <data name="S4Fy" xml:space="preserve">
+    <value>S4Fy message reply</value>
+    <comment>S4Fy message reply</comment>
+  </data>
+  <data name="S5F1" xml:space="preserve">
+    <value>Alarm Report Send</value>
+    <comment>S5F1 Alarm Report Send</comment>
+  </data>
+  <data name="S5F2" xml:space="preserve">
+    <value>Alarm Report Send Response</value>
+    <comment>S5F2 Alarm Report Send Response</comment>
+  </data>
+  <data name="S5F3" xml:space="preserve">
+    <value>Enable/Disable Alarm Send</value>
+    <comment>S5F3 Enable/Disable Alarm Send</comment>
+  </data>
+  <data name="S5F4" xml:space="preserve">
+    <value>Enable/Disable Alarm Send Response</value>
+    <comment>S5F4 Enable/Disable Alarm Send Response</comment>
+  </data>
+  <data name="S5F5" xml:space="preserve">
+    <value>List Alarm Request</value>
+    <comment>S5F5 List Alarm Request</comment>
+  </data>
+  <data name="S5F6" xml:space="preserve">
+    <value>List Alarm Response</value>
+    <comment>S5F6 List Alarm Response</comment>
+  </data>
+  <data name="S5F7" xml:space="preserve">
+    <value>List Enabled Alarm Request</value>
+    <comment>S5F7 List Enabled Alarm Request</comment>
+  </data>
+  <data name="S5F8" xml:space="preserve">
+    <value>List Enabled Alarm Response</value>
+    <comment>S5F8 List Enabled Alarm Response</comment>
+  </data>
+  <data name="S5Fy" xml:space="preserve">
+    <value>S5Fy message reply</value>
+    <comment>S5Fy message reply</comment>
+  </data>
+  <data name="S6F1" xml:space="preserve">
+    <value>TraceDataCollection</value>
+    <comment>S6F1 TraceDataCollection</comment>
+  </data>
+  <data name="S6F11" xml:space="preserve">
+    <value>Event Report Send</value>
+    <comment>S6F11 Event Report Send</comment>
+  </data>
+  <data name="S6F12" xml:space="preserve">
+    <value>Event Report Send Response</value>
+    <comment>S6F12 Event Report Send Response</comment>
+  </data>
+  <data name="S6F15" xml:space="preserve">
+    <value>Event Report Request</value>
+    <comment>S6F15 Event Report Request</comment>
+  </data>
+  <data name="S6F16" xml:space="preserve">
+    <value>Event Report Response</value>
+    <comment>S6F16 Event Report Response</comment>
+  </data>
+  <data name="S6F19" xml:space="preserve">
+    <value>Individual Event Report Request</value>
+    <comment>S6F19 Individual Event Report Request</comment>
+  </data>
+  <data name="S6F2" xml:space="preserve">
+    <value>TraceDataCollection Response</value>
+    <comment>S6F2 TraceDataCollection Response</comment>
+  </data>
+  <data name="S6F20" xml:space="preserve">
+    <value>Individual Event Report Response</value>
+    <comment>S6F20 Individual Event Report Response</comment>
+  </data>
+  <data name="S6F23" xml:space="preserve">
+    <value>Request Spool Data</value>
+    <comment>S6F23 Request Spool Data</comment>
+  </data>
+  <data name="S6F24" xml:space="preserve">
+    <value>Response Spool Data</value>
+    <comment>S6F24 Response Spool Data</comment>
+  </data>
+  <data name="S6F5" xml:space="preserve">
+    <value>Multi-block Data Send Inquire</value>
+    <comment>S6F5 Multi-block Data Send Inquire</comment>
+  </data>
+  <data name="S6F6" xml:space="preserve">
+    <value>Multi-block Data Send Inquire Response</value>
+    <comment>S6F6 Multi-block Data Send Inquire Response</comment>
+  </data>
+  <data name="S6Fy" xml:space="preserve">
+    <value>S6Fy message reply</value>
+    <comment>S6Fy message reply</comment>
+  </data>
+  <data name="S7F1" xml:space="preserve">
+    <value>Process Program Load Inquire</value>
+    <comment>S7F1 Process Program Load Inquire</comment>
+  </data>
+  <data name="S7F17" xml:space="preserve">
+    <value>Delete Process Program Send</value>
+    <comment>S7F17 Delete Process Program Send</comment>
+  </data>
+  <data name="S7F18" xml:space="preserve">
+    <value>Delete Process Program Send Response</value>
+    <comment>S7F18 Delete Process Program Send Response</comment>
+  </data>
+  <data name="S7F19" xml:space="preserve">
+    <value>Current EPPD Request</value>
+    <comment>S7F19 Current EPPD Request</comment>
+  </data>
+  <data name="S7F2" xml:space="preserve">
+    <value>Process Program Load Inquire Response</value>
+    <comment>S7F2 Process Program Load Inquire Response</comment>
+  </data>
+  <data name="S7F20" xml:space="preserve">
+    <value>Current EPPD Response</value>
+    <comment>S7F20 Current EPPD Response</comment>
+  </data>
+  <data name="S7F23" xml:space="preserve">
+    <value>Formatted Process Program Send</value>
+    <comment>S7F23 Formatted Process Program Send</comment>
+  </data>
+  <data name="S7F24" xml:space="preserve">
+    <value>Formatted Process Program Send Response</value>
+    <comment>S7F24 Formatted Process Program Send Response</comment>
+  </data>
+  <data name="S7F25" xml:space="preserve">
+    <value>Formatted Process Program Request</value>
+    <comment>S7F25 Formatted Process Program Request</comment>
+  </data>
+  <data name="S7F26" xml:space="preserve">
+    <value>Formatted Process Program Response</value>
+    <comment>S7F26 Formatted Process Program Response</comment>
+  </data>
+  <data name="S7F27" xml:space="preserve">
+    <value>Process Program Verification Send</value>
+    <comment>S7F27 Process Program Verification Send</comment>
+  </data>
+  <data name="S7F28" xml:space="preserve">
+    <value>Process Program Verification Send Response</value>
+    <comment>S7F28 Process Program Verification Send Response</comment>
+  </data>
+  <data name="S7F29" xml:space="preserve">
+    <value>Process Program Verification Inquire</value>
+    <comment>S7F29 Process Program Verification Inquire</comment>
+  </data>
+  <data name="S7F3" xml:space="preserve">
+    <value>Process Program Send</value>
+    <comment>S7F3 Process Program Send</comment>
+  </data>
+  <data name="S7F30" xml:space="preserve">
+    <value>Process Program Verification Inquire Response</value>
+    <comment>S7F30 Process Program Verification Inquire Response</comment>
+  </data>
+  <data name="S7F4" xml:space="preserve">
+    <value>Process Program Send Response</value>
+    <comment>S7F4 Process Program Send Response</comment>
+  </data>
+  <data name="S7F5" xml:space="preserve">
+    <value>Process Program Request</value>
+    <comment>S7F5 Process Program Request</comment>
+  </data>
+  <data name="S7F6" xml:space="preserve">
+    <value>Process Program Response</value>
+    <comment>S7F6 Process Program Response</comment>
+  </data>
+  <data name="S7Fy" xml:space="preserve">
+    <value>S7Fy message reply</value>
+    <comment>S7Fy message reply</comment>
+  </data>
+</root>

@@ -1,0 +1,11 @@
+D:\Windows\0.C#기본\Base_Test\Radix\obj\Debug\Radix.Loading.resources
+D:\Windows\0.C#기본\Base_Test\Radix\obj\Debug\Radix.frmMain.resources
+D:\Windows\0.C#기본\Base_Test\Radix\obj\Debug\Radix.Popup.IoMonitor.resources
+D:\Windows\0.C#기본\Base_Test\Radix\obj\Debug\Radix.Popup.MotionTest.resources
+D:\Windows\0.C#기본\Base_Test\Radix\obj\Debug\Radix.Properties.Resources.resources
+D:\Windows\0.C#기본\Base_Test\Radix\obj\Debug\Base_Test.csproj.GenerateResource.Cache
+D:\Windows\0.C#기본\Base_Test\Radix\obj\Debug\Radix.exe
+D:\Windows\0.C#기본\Base_Test\Radix\obj\Debug\Radix.pdb
+D:\Windows\0.C#기본\Base_Test\Radix\bin\Debug\Radix.exe.config
+D:\Windows\0.C#기본\Base_Test\Radix\bin\Debug\Radix.exe
+D:\Windows\0.C#기본\Base_Test\Radix\bin\Debug\Radix.pdb

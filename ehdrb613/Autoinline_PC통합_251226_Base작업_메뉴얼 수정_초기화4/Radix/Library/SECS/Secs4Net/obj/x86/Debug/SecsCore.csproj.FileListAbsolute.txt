@@ -1,0 +1,13 @@
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\Library\SECS\Secs4Net\bin\x86\Debug\Secs4Net.dll
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\Library\SECS\Secs4Net\bin\x86\Debug\Secs4Net.pdb
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\Library\SECS\Secs4Net\obj\x86\Debug\Secs4Net.Properties.Resources.resources
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\Library\SECS\Secs4Net\obj\x86\Debug\SecsCore.csproj.GenerateResource.Cache
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\Library\SECS\Secs4Net\obj\x86\Debug\Secs4Net.dll
+C:\Users\USER\Desktop\Check\아진 엑스텍\10. Program\AXT_210712\Radix\Library\SECS\Secs4Net\obj\x86\Debug\Secs4Net.pdb
+D:\Windows\00.Project\06.스누콘\03.앰플포장기\Source\SNUC_AmplePacking_240807\Radix\Library\SECS\Secs4Net\bin\x86\Debug\Secs4Net.dll
+D:\Windows\00.Project\06.스누콘\03.앰플포장기\Source\SNUC_AmplePacking_240807\Radix\Library\SECS\Secs4Net\bin\x86\Debug\Secs4Net.pdb
+D:\Windows\00.Project\06.스누콘\03.앰플포장기\Source\SNUC_AmplePacking_240807\Radix\Library\SECS\Secs4Net\obj\x86\Debug\SecsCore.csprojResolveAssemblyReference.cache
+D:\Windows\00.Project\06.스누콘\03.앰플포장기\Source\SNUC_AmplePacking_240807\Radix\Library\SECS\Secs4Net\obj\x86\Debug\Secs4Net.Properties.Resources.resources
+D:\Windows\00.Project\06.스누콘\03.앰플포장기\Source\SNUC_AmplePacking_240807\Radix\Library\SECS\Secs4Net\obj\x86\Debug\SecsCore.csproj.GenerateResource.Cache
+D:\Windows\00.Project\06.스누콘\03.앰플포장기\Source\SNUC_AmplePacking_240807\Radix\Library\SECS\Secs4Net\obj\x86\Debug\Secs4Net.dll
+D:\Windows\00.Project\06.스누콘\03.앰플포장기\Source\SNUC_AmplePacking_240807\Radix\Library\SECS\Secs4Net\obj\x86\Debug\Secs4Net.pdb
