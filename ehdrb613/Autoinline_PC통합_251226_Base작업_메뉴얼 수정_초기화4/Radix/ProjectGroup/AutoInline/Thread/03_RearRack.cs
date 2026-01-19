@@ -205,8 +205,7 @@ namespace Radix
                                 if (!StepFinish)
                                 {
                                     //공급 받아야할때
-                                    if (!trayWorkReady &&
-                                        ((AutoInline)GlobalVar.Class).InShuttle.Action == InShuttle.enumAction.InPutCnyRun)  //투입 단계일때
+                                    if (((AutoInline)GlobalVar.Class).RearRack.Action == RearRack.enumAction.InputTray)  //투입 단계일때
                                     {
                                         Log = $"{Name} 트레이 공급 동작 지령";
                                         FuncLog.WriteLog(Log);
