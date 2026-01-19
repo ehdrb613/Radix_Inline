@@ -1,1 +1,0 @@
-C:\source\Sanding\Radix\bin\x64\Debug\Radix.exe.config
