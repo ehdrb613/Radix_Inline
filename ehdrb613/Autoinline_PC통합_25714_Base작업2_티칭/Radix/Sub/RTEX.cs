@@ -1,0 +1,869 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
+
+namespace Radix
+{
+
+    // JHRYU : 20230615 RTEX 서보 모듈
+    // 변경점 : 추가된 함수 SetSoftLimit(axis, 0, 0); SetEndLimitLevel(axis, 2, 2);
+    // 소프트 또는 하드리미트 센서 사용 유무를 테스트 환경에서는 설정 가능하여야 모션이 동작함.
+    //
+    public static class RTEX
+    {
+
+        public const int MAX_DI = (32*8);       // Global 설정값 맞출것
+        public const int MAX_DO = (32*6);
+        public static bool[] DI = new bool[MAX_DI];    // RTEX 읽은 현재 DI 값
+        public static bool[] DO = new bool[MAX_DO];    // RTEX 읽은 현재 DO 값
+
+        private static void debug(string str) // debug(문자열) class 내부콜용 로컬 debug 
+        {
+            //Util.Debug(str);
+        }
+
+
+        public static void ServoOnAll(bool on) // ServoOnAll(On여부) 서보 전체 전원 On/Off 
+        {
+            if (GlobalVar.Simulation)
+            {
+                // simulation
+                /*
+                for (ushort axis = 0; axis < GlobalVar.Axis_count; axis++)
+                {
+                    GlobalVar.AxisStatus[axis].PowerOn = on;
+                    GlobalVar.AxisStatus[axis].StandStill = true;
+                }
+                //*/
+                return;
+            }
+            switch (GlobalVar.MasterType)
+            {
+                case enumMasterType.AXL:
+                    for (int i = 0; i < GlobalVar.Axis_count; i++)
+                    {
+
+                        // 개별 알람 리셋 사용 하지말고 필요시
+                        // RTEX.ServoReset_All(); 사용할것
+
+                        //if (on)
+                        //{
+                        //    ServoReset((uint)i);
+                        //}
+                        //CAXM.AxmSignalServoOn(i, Convert.ToUInt32(on));
+                        ServoOn((uint)i, on);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public static bool ServoOn(uint axis, bool on) // ServoOn(축번호, On여부) 서보 전원 On/Off 
+        {
+            if (GlobalVar.Simulation)
+            {
+                // simulation
+                /*
+                GlobalVar.AxisStatus[axis].PowerOn = on;
+                GlobalVar.AxisStatus[axis].StandStill = true;
+                //*/
+                return true;
+            }
+            switch (GlobalVar.MasterType)
+            {
+                case enumMasterType.AXL:
+                    CAXM.AxmSignalServoOn(Convert.ToInt32(axis), Convert.ToUInt32(on));
+
+                    if (on)
+                    {
+                        // Remove axis soft-limit
+                        SetSoftLimit(axis, 0, 0);
+                     
+                        // 리미트 사용 설정 (A 접점 : 1 , B접점 : 0 )
+                        SetEndLimitLevel(axis, 1, 1);
+                        
+                    }
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        public static void ServoReset(uint axis) // ServoReset(축번호) 서보 에러 초기화 
+        {
+            if (GlobalVar.Simulation)
+            {
+                // simulation
+                /*
+                GlobalVar.AxisStatus[axis].PowerOn = false;
+                GlobalVar.AxisStatus[axis].Errored = false;
+                GlobalVar.AxisStatus[axis].ErrorStop = false;
+                //*/
+                return;
+            }
+            switch (GlobalVar.MasterType)
+            {
+                case enumMasterType.AXL:
+                    uint a = CAXM.AxmSignalServoAlarmReset(Convert.ToInt32(axis), 1);
+                    Thread.Sleep(500);
+                    uint b = CAXM.AxmSignalServoAlarmReset(Convert.ToInt32(axis), 0);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /**
+         * @brief 모든 서보 에러 초기화 
+         * @return void
+         */
+        public static void ServoReset_All()
+        {
+            for (uint axis = 0; axis < GlobalVar.Axis_count; axis++)
+            {
+                ServoReset(axis, 1);
+            }
+            Thread.Sleep(500);
+            for (uint axis = 0; axis < GlobalVar.Axis_count; axis++)
+            {
+                ServoReset(axis, 0);
+            }
+        }
+
+        /**
+         * @brief 지정 서보 에러 초기화 
+         * @param axis 서보 순번
+         * @param on 리셋 지령 플래그
+         *      MXP 경우 리셋 지령이 On 후 Off 해야 함
+         * @return void
+         */
+        public static void ServoReset(uint axis, uint on) // ServoReset(축번호) 서보 에러 초기화 
+        {
+            if (GlobalVar.Simulation)
+            {
+                // simulation
+                /*
+                GlobalVar.AxisStatus[axis].PowerOn = false;
+                GlobalVar.AxisStatus[axis].Errored = false;
+                GlobalVar.AxisStatus[axis].ErrorStop = false;
+                //*/
+                return;
+            }
+            switch (GlobalVar.MasterType)
+            {
+                case enumMasterType.AXL:
+                    uint a = CAXM.AxmSignalServoAlarmReset(Convert.ToInt32(axis), on);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+
+        public static bool SetEndLimitLevel(uint axisNo, uint uPositiveLevel, uint uNegativeLevel )
+        {
+
+            // 지정 축의 end limit sensor의 사용 유무 및 신호의 입력 레벨을 설정한다. 
+            // end limit sensor 신호 입력 시 감속정지 또는 급정지에 대한 설정도 가능하다.
+            // uStopMode: EMERGENCY_STOP(0), SLOWDOWN_STOP(1)
+            // uPositiveLevel, uNegativeLevel : LOW(0), HIGH(1), UNUSED(2), USED(3)
+            uint uStopMode = 0;
+            uint uiRet = CAXM.AxmSignalSetLimit( (int)axisNo, uStopMode, uPositiveLevel, uNegativeLevel);
+            if (uiRet != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        // Set Soft Limit 
+        public static bool SetSoftLimit(uint axisNo, double dPositivePos = 0.0, double dNegativePos = 0.0 )
+        {
+            int axis = Convert.ToInt32(axisNo);
+            uint duRetCode;
+            uint duUse = 0, duStopMode = 0, duSelection = 0;
+
+            //++ 지정한 축에 Software Limit기능을 확인합니다.
+            //duRetCode = CAXM.AxmSignalGetSoftLimit(axis, ref duUse, ref duStopMode, ref duSelection, ref dPositivePos, ref dNegativePos);
+            //if (duRetCode == (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+            {
+                // 둘다 0 이면 
+                if (Math.Abs(dPositivePos) < 0.0001 && Math.Abs(dNegativePos) < 0.0001)
+                {
+                    duUse = 0;
+                }
+
+                //++ 지정 축의 소프트웨어 리미트를 설정합니다.
+                // uUse       : (0)DISABLE        - 소프트웨어 리미트 기능을 사용하지 않습니다.
+                //              (1)ENABLE         - 소프트웨어 리미트 기능을 사용합니다.
+                // uStopMode  : (0)EMERGENCY_STOP - 소프트웨어 리미트 영역을 벗어날 경우 급정지합니다.
+                //              (1)SLOWDOWN_STOP  - 소프트웨어 리미트 영역을 벗어날 경우 감속정지합니다.
+                // uSelection : (0)COMMAND        - 기준위치를 지령위치로 합니다.
+                //              (1)ACTUAL         - 기준위치를 엔코더 위치로 합니다.
+                uint uiRet = CAXM.AxmSignalSetSoftLimit(axis, duUse, duStopMode, duSelection, dPositivePos, dNegativePos);
+                if (uiRet != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                {
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        }
+
+
+        public static bool IsStandStill( uint axis )
+        {
+            if (GlobalVar.AxisStatus[axis].StandStill)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool MoveHome(uint axis) // MoveHome(축번호, 완료대기, 대기시간) 서보 Home 찾기 
+        {
+            return MoveHome(axis, false, 0);
+        }
+
+        public static bool MoveHome(uint axis, bool WaitDone, uint Timeout) // MoveHome(축번호, 완료대기, 대기시간) 서보 Home 찾기 
+        {
+            debug("MoveHome : " + axis.ToString());
+            if (GlobalVar.Simulation)
+            {
+                // simulation
+                /*
+                GlobalVar.AxisStatus[axis].HomeAbsSwitch = true;
+                GlobalVar.AxisStatus[axis].isHomed = true;
+                GlobalVar.AxisStatus[axis].StandStill = true;
+                GlobalVar.AxisStatus[axis].Position = 0;
+                GlobalVar.AxisStatus[axis].Velocity = 0;
+                //*/
+                return true;
+            }
+            //////////////////////////////////////////////////////////////////////
+            switch (GlobalVar.MasterType)
+            {
+                case enumMasterType.AXL:
+                    #region AXL
+                    //메쏘드 지정
+                    uint duRetCode = 0;
+                    int iHomeDir = 0;// HmDir(홈 방향): DIR_CCW (0) -방향 , DIR_CW(1) +방향
+                    uint duHomeSignal = 4, duZPhaseUse = 0;
+                    // HmSig : PosEndLimit(0) -> +Limit
+                    //         NegEndLimit(1) -> -Limit
+                    //         HomeSensor (4) -> 원점센서(범용 입력 0)
+                    // uZphas: 1차 원점검색 완료 후 엔코더 Z상 검출 유무 설정  0: 사용안함 , 1: Hmdir과 반대 방향, 2: Hmdir과 같은 방향
+                    double dHomeClrTime = 0.0, dHomeOffset = 0.0;
+                    // HClrTim : HomeClear Time : 원점 검색 Encoder 값 Set하기 위한 대기시간         
+                    // HOffset - 원점검출후 이동거리.     
+
+                    bool IsConveyor = false;    // axis 가 컨베이어 인가
+                    bool IsPicker = false;      // axis 가 pick 동작인가
+                    
+
+
+                 
+                    //투입기의 경우 초기화시 원점 위치를 설정해야 한다.
+                    //if (axis == (int)enum_BoxPacking_ServoAxis.N6_Manual_Blister_BoxIn)
+                    //{
+                    //    double dBoxInInitPos = FuncBoxPacking.ServoParamAll.sv6.init_pos;
+                    //    dHomeOffset = FuncMotion.MMToPulse(dBoxInInitPos, GlobalVar.ServoGearRatio[axis], GlobalVar.ServoRevMM[axis], GlobalVar.ServoRevPulse[axis]);
+                    //}
+
+                    //++ 지정한 축의 원점검색 방법을 변경합니다.
+                    duRetCode = CAXM.AxmHomeSetMethod((int)axis, iHomeDir, duHomeSignal, duZPhaseUse, dHomeClrTime, dHomeOffset);
+                    if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                        FuncWin.TopMessageBox(String.Format("AxmHomeSetMethod return error[Code:{0:d}]", duRetCode));
+
+                    //속도 지정
+                    double dVelFirst, dVelSecond, dVelThird, dVelLast, dAccFirst, dAccSecond;
+
+                    // 각각의 Edit 콘트롤에서 설정값을 가져옴
+                    //dVelFirst = 100000;//기능 검사 기준 값
+
+                    dVelFirst = 100000;//기능 검사 속도 기준 값
+
+                    if (IsConveyor)
+                    {
+                        dVelFirst = dVelFirst * 5.0;
+                    }
+                    if ( IsPicker )
+                    {
+                        dVelFirst = dVelFirst * 2;
+                    }
+
+                    //dVelFirst = dVelFirst * 5;
+
+                    //dVelSecond = dVelFirst / 2;
+                    //컨베이어 홈위치가 계속 틀어져서 찾는속도를 수정 by DG 250219
+                    if (IsConveyor)
+                    {
+                        dVelSecond = dVelFirst / 10;
+                        dVelThird = dVelSecond / 20;
+                        dVelLast = dVelThird / 50;
+                        dAccFirst = dVelFirst * 10;
+                        dAccSecond = dVelSecond * 10;
+                    }
+                    else
+                    {
+                        dVelSecond = dVelFirst / 10;
+                        dVelThird = dVelSecond / 10;
+                        dVelLast = dVelThird / 10;
+                        dAccFirst = dVelFirst * 10;
+                        dAccSecond = dVelSecond * 10;
+                    }
+                 
+
+                    //++ 원점검색에 사용되는 단계별 속도를 설정합니다.
+                    duRetCode = CAXM.AxmHomeSetVel((int)axis, dVelFirst, dVelSecond, dVelThird, dVelLast, dAccFirst, dAccSecond);
+                    if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                        FuncWin.TopMessageBox(String.Format("AxmHomeSetVel return error[Code:{0:d}]", duRetCode));
+
+                    //원점 검색 시작
+                    CAXM.AxmHomeSetStart(Convert.ToInt32(axis));
+                    Thread.Sleep(1000);
+                    break;
+                #endregion
+                default:
+                    break;
+            }
+        
+            return false;
+        }
+
+        public static void MoveAbsolute(uint axis, double Pos, double Vel) // MoveAbsolute(축번호, 좌표, 속도) 서보 절대위치 이동  
+        {
+            MoveAbsolute(axis, Pos, Vel, Vel * 5, Vel * 5, Vel * 25, false, 0);  //Jerk는 가감속의 제곱
+        }
+
+        public static void MoveAbsolute(uint axis, double Pos, double Vel, double Acc, double Dec, double Jerk, bool WaitDone, uint Timeout) // MoveAbsolute(축번호, 좌표, 속도, 가속, 감속, 저크, 완료대기, 대기시간) 서보 절대위치 이동  
+        {
+
+
+            debug("MoveAbsolute(" + axis.ToString() + "," + Pos.ToString() + "," + Vel.ToString() + "," + Acc.ToString() + "," + Dec.ToString() + "," + Jerk.ToString() + "," + WaitDone.ToString() + "," + Timeout.ToString() + ",");
+            if (GlobalVar.Simulation)
+            {
+                // simulation
+                debug("MoveAbsoute : " + axis.ToString() + " - " + Pos.ToString());
+                Console.WriteLine("MoveAbsoute : " + axis.ToString() + " - " + Pos.ToString());
+                //*
+                GlobalVar.AxisStatus[axis].HomeAbsSwitch = false;
+                GlobalVar.AxisStatus[axis].StandStill = true;
+                GlobalVar.AxisStatus[axis].Position = Pos;
+                GlobalVar.AxisStatus[axis].Velocity = 0;
+                //*/
+                return;
+            }
+            double pos = Pos;
+            double vel = Vel;
+            double acc = Acc == 0 ? Vel * 10 : Acc;
+            double dec = Dec == 0 ? Vel * 10 : Dec;
+            double jerk = Jerk == 0 ? acc * 10 : Jerk;
+
+            switch (GlobalVar.MasterType)
+            {
+                case enumMasterType.AXL:
+                    uint duRetCode = 0;
+
+                    // 
+                    if ( GlobalVar.AxisStatus[axis].PowerOn == false )
+                    {
+                        debug("MoveAbsolute : Servo PowerOff -> On");
+                        ServoOn(axis, true);
+                    }
+
+                    //++ 지정 축의 구동 좌표계를 설정합니다. 
+                    // dwAbsRelMode : (0)POS_ABS_MODE - 현재 위치와 상관없이 지정한 위치로 절대좌표 이동합니다.
+                    //                (1)POS_REL_MODE - 현재 위치에서 지정한 양만큼 상대좌표 이동합니다.
+                    duRetCode = CAXM.AxmMotSetAbsRelMode((int)axis, 0);
+
+                    //++ 지정한 축을 지정한 거리(또는 위치)/속도/가속도/감속도로 모션구동하고 모션 종료여부와 상관없이 함수를 빠져나옵니다.
+                    duRetCode = CAXM.AxmMoveStartPos((int)axis, pos, vel, acc, dec);
+                    if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                        //MoveStop(0);
+                        FuncWin.TopMessageBox(String.Format("AxmMoveStartPos return error[Code:{0:d}]", duRetCode));
+
+                    break;
+                default:
+                    break;
+
+            }
+        }
+
+        public static void MoveRelative(uint axis, double Pos, double Vel) // MoveAbsolute(축번호, 좌표, 속도) 서보 절대위치 이동  
+        {
+            MoveRelative(axis, Pos, Vel, Vel * 5, Vel * 5, Vel * 25, false, 0);  //Jerk는 가감속의 제곱
+        }
+        public static void MoveRelative(uint axis, double Pos, double Vel, double Acc, double Dec, double Jerk, bool WaitDone, uint Timeout) // MoveAbsolute(축번호, 좌표, 속도, 가속, 감속, 저크, 완료대기, 대기시간) 서보 절대위치 이동  
+        {
+            debug("MoveRelative(" + axis.ToString() + "," + Pos.ToString() + "," + Vel.ToString() + "," + Acc.ToString() + "," + Dec.ToString() + "," + Jerk.ToString() + "," + WaitDone.ToString() + "," + Timeout.ToString() + ",");
+            if (GlobalVar.Simulation)
+            {
+                // simulation
+                debug("MoveRelative : " + axis.ToString() + " - " + Pos.ToString());
+                Console.WriteLine("MoveRelative : " + axis.ToString() + " - " + Pos.ToString());
+                /*
+                GlobalVar.AxisStatus[axis].HomeAbsSwitch = false;
+                GlobalVar.AxisStatus[axis].StandStill = true;
+                GlobalVar.AxisStatus[axis].Position = Pos;
+                GlobalVar.AxisStatus[axis].Velocity = 0;
+                //*/
+                return;
+            }
+            double pos = Pos;
+            double vel = Vel;
+            double acc = Acc == 0 ? Vel * 10 : Acc;
+            double dec = Dec == 0 ? Vel * 10 : Dec;
+            double jerk = Jerk == 0 ? acc * 10 : Jerk;
+
+            switch (GlobalVar.MasterType)
+            {
+                case enumMasterType.AXL:
+                    uint duRetCode = 0;
+
+                    if (GlobalVar.AxisStatus[axis].PowerOn == false)
+                    {
+                        debug("MoveRelative : Servo PowerOff -> On");
+                        ServoOn(axis, true);
+                    }
+
+                    //++ 지정 축의 구동 좌표계를 설정합니다. 
+                    // dwAbsRelMode : (0)POS_ABS_MODE - 현재 위치와 상관없이 지정한 위치로 절대좌표 이동합니다.
+                    //                (1)POS_REL_MODE - 현재 위치에서 지정한 양만큼 상대좌표 이동합니다.
+                    duRetCode = CAXM.AxmMotSetAbsRelMode((int)axis, 1);
+
+                    //++ 지정한 축을 지정한 거리(또는 위치)/속도/가속도/감속도로 모션구동하고 모션 종료여부와 상관없이 함수를 빠져나옵니다.
+                    duRetCode = CAXM.AxmMoveStartPos((int)axis, pos, vel, acc, dec);
+                    if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                        //MoveStop(0);
+                        FuncWin.TopMessageBox(String.Format("AxmMoveStartPos return error[Code:{0:d}]", duRetCode));
+
+                    break;
+                default:
+                    break;
+
+            }
+        }
+
+
+        public static void MoveVelocity(uint axis, double Vel) // 정속 운동
+        {
+            MoveVelocity(axis, Vel, Vel * 5, Vel * 5, Vel * 25);
+        }
+
+        public static void MoveVelocity(uint axis, double Vel, double Acc, double Dec, double Jerk) // MoveVelocity(축번호, 속도, 가속, 감속, 저크) 서보 속도모드 구동 
+        {
+            debug("MoveVelocity : " + axis.ToString() + " - " + Vel.ToString());
+            if (GlobalVar.Simulation)
+            {
+                // simulation
+                debug("MoveVelocity : " + axis.ToString() + " - " + Vel.ToString());
+                /*
+                GlobalVar.AxisStatus[axis].HomeAbsSwitch = false;
+                GlobalVar.AxisStatus[axis].StandStill = false;
+                GlobalVar.AxisStatus[axis].Velocity = Vel;
+                    // 역방향 - 홈으로
+                    if (Vel < 0)
+                    {
+                        GlobalVar.AxisStatus[axis].StandStill = true;
+                        GlobalVar.AxisStatus[axis].HomeAbsSwitch = true;
+                        GlobalVar.AxisStatus[axis].Velocity = 0;
+                        GlobalVar.AxisStatus[axis].Position = 0;
+                    }
+                    else
+                    if (Vel > 0)
+                    {
+                    }
+                    //*/
+                return;
+            }
+
+
+            if (Vel < 0)
+            {
+                /*
+                if (GlobalVar.AxisStatus[axis].LimitSwitchNeg)
+                {
+                    debug("역방향 구동 금지 " + axis.ToString());
+                    MoveStop((int)axis);
+                    return;
+                }
+                //*/
+            }
+            else
+            if (Vel > 0)
+            {
+                /*
+                if (GlobalVar.AxisStatus[axis].LimitSwitchPos)
+                {
+                    debug("정방향 구동 금지 " + axis.ToString());
+                    MoveStop((int)axis);
+                    return;
+                }
+                //*/
+            }
+
+            double acc = Acc == 0 ? Vel * 10 : Acc;
+            double dec = Dec == 0 ? Vel * 10 : Dec;
+            double jerk = Jerk == 0 ? acc * 10 : Jerk;
+            switch (GlobalVar.MasterType)
+            {
+                /*
+                case enumMasterType.MXP:
+                    break;
+                    //*/
+                case enumMasterType.AXL:
+                    //uint duRetCode = 0;
+                    ////++ 지정한 축을 (+)방향으로 지정한 속도/가속도/감속도로 모션구동합니다.
+                    //duRetCode = CAXM.AxmMoveVel((int)axis, Vel * GlobalVar.ServoSpeed_AXT, Math.Abs(acc * GlobalVar.ServoSpeed_AXT), Math.Abs(dec * GlobalVar.ServoSpeed_AXT));
+                    //if (duRetCode != (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                    //    FuncWin.TopMessageBox(String.Format("AxmMoveVel return error[Code:{0:d}]", duRetCode));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public static void MoveStop(int axis) // MoveStop(축번호) 서보 정지 
+        {
+            //Util.Debug("MoveStop : " + axis.ToString());
+            if (GlobalVar.Simulation)
+            {
+                // simulation
+                GlobalVar.AxisStatus[axis].StandStill = true;
+                GlobalVar.AxisStatus[axis].Velocity = 0;
+                return;
+            }
+            float dec = Math.Abs((float)GlobalVar.AxisStatus[axis].Velocity) * 10;
+            float jerk = Math.Abs((float)GlobalVar.AxisStatus[axis].Velocity) * 100;
+            switch (GlobalVar.MasterType)
+            {
+                /*
+                case enumMasterType.MXP:
+                    break;
+                    //*/
+                case enumMasterType.AXL:
+                    //CAXM.AxmMoveSStop(Convert.ToInt32(axis));
+                    CAXM.AxmMoveEStop(axis);
+
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        public static void MoveStopAll() //전체 서보모터 정지
+        {
+            for (int axis = 0; axis < GlobalVar.Axis_count; axis++)
+            {
+                //if (!GlobalVar.AxisStatus[axis].StandStill)
+                //{
+                    MoveStop(axis);
+                //}
+            }
+        }
+
+
+
+        public static bool HomeOffsetMove(uint axis) // 홈 잡은 후 추가 옵셋 만큼 이동
+        {
+            //Thread.Sleep(GlobalVar.HighGain_Robot_Sleep);
+
+            while (!GlobalVar.AxisStatus[axis].isHomed)
+            {
+                if (GlobalVar.SystemStatus != enumSystemStatus.Initialize)
+                {
+                    FuncWin.TopMessageBox("Can't Offest Moving - systemStatus Not Initialize");
+                    return false;
+                }
+                debug("servo " + axis.ToString() + " Homeing");
+                Thread.Sleep(100);
+            }
+
+            //if (axis == (uint)enumServoAxis.Lift_PCBInPut)
+            //{
+            //    if (GlobalVar.AxisStatus[(int)axis].StandStill)
+            //    {
+
+            //    //    if (FuncHigain.MoveServo((int)axis, GlobalVar.HighGain_Lift_PCBinput, GlobalVar.ServoSpeed / GlobalVar.Magazine_LiftSpeed_check, true))
+            //    //    {
+            //    //        return true;
+            //    //    }
+            //    //    else
+            //    //    {
+            //    //        FuncWin.TopMessageBox("Can't PCB IN PUT Lift Offest Moving2");
+            //    //        return false;
+            //    //    }
+
+            //    //}
+            //    //else
+            //    //{
+            //    //    FuncWin.TopMessageBox("Can't PCB IN PUT Lift Offest Moving");
+            //    //    return false;
+            //    //}
+
+            //}
+
+            FuncWin.TopMessageBox("Can't Offest Moving");
+            return false;
+        }
+
+
+        #region 조그 이동시 사용
+        // 조그함수 구동시 지정속도로 이동시작
+        // 주의 JogMoveStop() 호출시까지 계속 이동
+        public static bool JogMoveStart(int axis, double dVel, double dAccel, double dDecel )
+        {
+            if (axis < 0) return false;
+            // S자 속도 프로파일
+            uint uProfileMode = 3;
+            CAXM.AxmMotSetProfileMode(axis, uProfileMode);
+
+            CAXM.AxmMoveVel(axis, dVel, dAccel, dDecel);
+            return true;
+        }
+
+        public static bool JogMoveStop( int axis)
+        {
+            uint uStatus = 0;
+            CAXM.AxmStatusReadInMotion(axis, ref uStatus);
+            if (uStatus != 0) CAXM.AxmMoveSStop(axis);
+            return true;
+        }
+
+        public static bool JogMoveStopAll()
+        {
+            uint uStatus = 0;
+            for (int i = 0; i < GlobalVar.Axis_count; i++)
+            {
+                CAXM.AxmStatusReadInMotion(i, ref uStatus);
+                if (uStatus!=0) CAXM.AxmMoveSStop(i);
+            }
+            return true;
+        }
+
+        // 조그 쓸때만 사용하는 함수
+        public static bool JogWaitMoveDone( int axis )
+        {
+            if (GlobalVar.Simulation) return true;
+
+            if (axis < 0 || axis >= GlobalVar.Axis_count) return false;
+            for ( int i=0; i < 1000; i++ )
+            {
+                uint uStatus = 0;
+                uint uRet = CAXM.AxmStatusReadInMotion(axis, ref uStatus);
+                if (uRet!=0)
+                {
+                    // error
+                    return false;
+                }
+                if (uStatus == 0) break;
+                Thread.Sleep(50);
+                Application.DoEvents();
+            }
+            return true;
+        }
+
+        #endregion
+
+        // StandStill 은 타이머가 돌때까지 즉각적이지 않기때문에 보완적으로 사용한다.
+        public static bool IsMoving(int axis)
+        {
+            if (GlobalVar.Simulation) return false;
+
+            if (axis < 0 || axis >= GlobalVar.Axis_count ) return false;
+            uint uStatus = 0;
+            CAXM.AxmStatusReadInMotion(axis, ref uStatus);
+            if (uStatus == 0) return false;
+            return true;
+        }
+
+
+
+        // JHRYU: IO Update 함수
+
+        static bool IsBusy = false;
+        public static long UpdateStatus()
+        {
+            if (IsBusy) return 0;
+
+            try
+            {
+                IsBusy = true;
+
+                switch (GlobalVar.MasterType)
+                {
+
+                    /*
+                    case enumMasterType.MXP:
+                        break;
+                        //*/
+
+                    case enumMasterType.AXL:
+
+                        // WRITE DO
+                        DOutWrite(GlobalVar.DO_Array);
+
+                        // READ DI, DO
+                        #region DI Data Read
+
+                        uint wInput = 0;
+                        for (int i = 0 + GlobalVar.InputStartNodeID; i < GlobalVar.InputStartNodeID + GlobalVar.Inputmodule; i++)
+                        {
+                            uint result = CAXD.AxdiReadInportDword(i, 0, ref wInput);
+                            if (result != 0)
+                            {
+                                //_SCAN_RESULT result1 = new _SCAN_RESULT();
+                                //uint aa = CAXL.AxlScanStartSIIIH(ref result1);
+                                if (GlobalVar.G_ErrNo != (int)FuncInline.enumErrorCode.Fatal_System_Error)
+                                {
+                                    Func.StatusPrint("AxdiReadInportDword Failed!");
+                                    FuncInline.AddError(FuncInline.enumErrorCode.Fatal_System_Error, "IO 통신 불가로 시스템이 정지되었습니다!.\n시스템 전원을 확인후 프로그램을 재시작 하시기 바랍니다.");
+                                }
+                            }
+
+                            try
+                            {
+                                bool[] arrData = Util.WordToBoolArray(wInput);
+                                for (int k = 0; k < 32; k++)
+                                {
+                                    DI[(i - GlobalVar.InputStartNodeID) * 32 + k] = arrData[k];
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.ToString());
+                                Console.WriteLine(ex.StackTrace);
+                            }
+                        }
+                        #endregion
+
+                        #region DO Data Read
+                        uint wOutput = 0;
+                        for (int i = 0 + GlobalVar.OutputStartNodeID; i < GlobalVar.OutputStartNodeID + GlobalVar.Outputmodule; i++)
+                        {
+                            uint result = CAXD.AxdoReadOutportDword(i, 0, ref wOutput);
+                            //Console.WriteLine(i + " " + wOutput);
+                            try
+                            {
+                                bool[] arrData = Util.WordToBoolArray(wOutput);
+                                for (int k = 0; k < 32; k++)
+                                {
+                                    DO[(i - GlobalVar.OutputStartNodeID) * 32 + k] = arrData[k];
+                                    //Console.WriteLine(k + " "+ arrData[k]);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.ToString());
+                                Console.WriteLine(ex.StackTrace);
+                            }
+                        }
+                        #endregion
+
+                        // UPDATE GLOBAL
+                        for ( int i=0; i < GlobalVar.DI_Array.Length; i++ )
+                        {
+                            GlobalVar.DI_Array[i] = DI[i];
+                        }
+                        for (int i = 0; i < GlobalVar.DO_Read.Length; i++)
+                        {
+                            GlobalVar.DO_Read[i] = DO[i];
+                        }
+
+                        if (!GlobalVar.E_Stop &&
+                       DIO.EMG_Check())
+                        {
+                            GlobalVar.E_Stop = true;
+
+
+
+                            FuncError.AddError(new FuncInline.structError(DateTime.Now.ToString("yyyyMMdd"),
+                                                        DateTime.Now.ToString("HH:mm:ss"),
+                                                        FuncInline.enumErrorPart.System,
+                                                        FuncInline.enumErrorCode.E_Stop,
+                                                        false,
+                                                        "Emergency Stop Button Pressed. Release Button and Initialize system."));
+                            //#region Normal Error
+                            //if (GlobalVar.UseNormalError)
+                            //{
+                            //    FuncError.AddError(enumError.E_Stop);
+                            //}
+                            //#endregion
+                            //#region Part Error
+                            //if (GlobalVar.PartError)
+                            //{
+                            //    FuncError.AddError(new structError(DateTime.Now.ToString("yyyyMMdd"),
+                            //                                DateTime.Now.ToString("HH:mm:ss"),
+                            //                                FuncInline.enumErrorPart.System,
+                            //                                enumErrorCode.E_Stop,
+                            //                                false,
+                            //                                ""));
+                            //}
+                            //#endregion                    
+                        }
+                        break;
+
+
+                    default:
+                        break;
+                }
+
+            }
+            catch (Exception)
+            {
+
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+
+            return 0;
+        }
+
+
+        // array : gloabl bool array
+        public static long DOutWrite(bool[] array)
+        {
+            try
+            {
+
+                // 각각 word로 환산
+                uint [] data = Util.BitArrayToWordArray(array);
+
+                for (int i = 0; i < data.Length; i++)
+                {
+                    //uint result = CAXD.AxdoWriteOutportDword(i, 0, data[i]);
+                    uint result = CAXD.AxdoWriteOutportDword( GlobalVar.OutputStartNodeID+i, 0, data[i]);
+                    if (result != 0)
+                    {
+                        //_SCAN_RESULT result1 = new _SCAN_RESULT();
+                        //uint aa = CAXL.AxlScanStartSIIIH(ref result1);
+
+                        if (GlobalVar.G_ErrNo != (int)enumErrorCode.Fatal_System_Error)
+                        {
+
+                            Func.StatusPrint("AxdoWriteOutportDword Failed!");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Func.StatusPrint("Exception DOutWrite! - " + ex.ToString());
+            }
+
+            return 0;                   // 정상
+        }
+
+
+    }
+
+}

@@ -1,0 +1,1139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FAFE7D2F-F883-4559-A9BE-DDD7EAA38EA6}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Radix</RootNamespace>
+    <AssemblyName>SNUC_Sanding</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>게시\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Radix.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>radix_icon128x128.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AdvMotAPI">
+      <HintPath>.\AdvMotAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="Automation.BDaq4, Version=4.0.0.0, Culture=neutral, PublicKeyToken=463f5928d60183a0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\Automation.BDaq4\4.0.0.0__463f5928d60183a0\Automation.BDaq4.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.1\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NModbus4">
+      <HintPath>..\..\AutoInline_Carrier - 20250819\Radix\bin\Debug\NModbus4.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="frmMain_AutoInline_PC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain_AutoInline_PC.Designer.cs">
+      <DependentUpon>frmMain_AutoInline_PC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Advantech\FuncAdvantech.cs" />
+    <Compile Include="Library\Advantech\FuncAdvantechDIO.cs" />
+    <Compile Include="Library\Autonics\PMCDeviceServer.cs" />
+    <Compile Include="Library\Autonics\PMCMotion.cs" />
+    <Compile Include="Library\Autonics\PMCSerial.cs" />
+    <Compile Include="Library\AXL_RTEX\AXA.cs" />
+    <Compile Include="Library\AXL_RTEX\AXC.cs" />
+    <Compile Include="Library\AXL_RTEX\AXD.cs" />
+    <Compile Include="Library\AXL_RTEX\AXDev.cs" />
+    <Compile Include="Library\AXL_RTEX\AXHD.cs" />
+    <Compile Include="Library\AXL_RTEX\AXHS.cs" />
+    <Compile Include="Library\AXL_RTEX\AXL.cs" />
+    <Compile Include="Library\AXL_RTEX\AXM.cs" />
+    <Compile Include="Library\CIFX\cifxError.cs" />
+    <Compile Include="Library\CIFX\cifxUser.cs" />
+    <Compile Include="Library\DialogForm.cs" />
+    <Compile Include="Library\DialogMessage.cs" />
+    <Compile Include="Library\DominoLaserMark\DominoMark - 백업.cs" />
+    <Compile Include="Library\DominoLaserMark\DominoMark.cs" />
+    <Compile Include="Library\Domino\Domino_Inkjet.cs" />
+    <Compile Include="Library\HoneywellQR\HoneywellQR.cs" />
+    <Compile Include="Library\HoneywellQR\HoneywellQR_Ethernet.cs" />
+    <Compile Include="Library\HoneywellQR\MainScanQR.cs" />
+    <Compile Include="Library\Panasonic\PanasonicVision.cs" />
+    <Compile Include="Library\Panasonic\SerialLVDT.cs" />
+    <Compile Include="Library\SerialCom.cs" />
+    <Compile Include="Library\SerialPort.cs" />
+    <Compile Include="Library\MsSQL\MsSQL.cs" />
+    <Compile Include="Library\PanasonicLaser\PanasonicLaser.cs" />
+    <Compile Include="Library\Panasonic\LaserMarker.cs" />
+    <Compile Include="Popup\RTUTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup\RTUTest.designer.cs">
+      <DependentUpon>RTUTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\Select_Model.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup\Select_Model.Designer.cs">
+      <DependentUpon>Select_Model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\Number_INPUT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup\Number_INPUT.Designer.cs">
+      <DependentUpon>Number_INPUT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\BlockHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\BlockHistory.designer.cs">
+      <DependentUpon>BlockHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\FuncTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\FuncTest.designer.cs">
+      <DependentUpon>FuncTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Initialize.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Initialize.designer.cs">
+      <DependentUpon>Initialize.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Loto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Loto.designer.cs">
+      <DependentUpon>Loto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Machine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Machine.designer.cs">
+      <DependentUpon>Machine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Machine\General.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Machine\General.designer.cs">
+      <DependentUpon>General.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Machine\IoMonitor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Machine\IoMonitor.designer.cs">
+      <DependentUpon>IoMonitor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Machine\PinBlock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Machine\PinBlock.designer.cs">
+      <DependentUpon>PinBlock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Machine\SerialSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Machine\SerialSet.designer.cs">
+      <DependentUpon>SerialSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Machine\TestSite.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Machine\TestSite.designer.cs">
+      <DependentUpon>TestSite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Machine\TowerLamp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Machine\TowerLamp.designer.cs">
+      <DependentUpon>TowerLamp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Manual.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Manual.designer.cs">
+      <DependentUpon>Manual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Manual\Conveyor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Manual\Conveyor.designer.cs">
+      <DependentUpon>Conveyor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Manual\Lift.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Manual\Lift.designer.cs">
+      <DependentUpon>Lift.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Manual\Site.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Manual\Site.designer.cs">
+      <DependentUpon>Site.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Model.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Model.designer.cs">
+      <DependentUpon>Model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\ModelImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\ModelImage.designer.cs">
+      <DependentUpon>ModelImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\ModeSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\ModeSelect.designer.cs">
+      <DependentUpon>ModeSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\NGDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\NGDetail.designer.cs">
+      <DependentUpon>NGDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Origin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Origin.designer.cs">
+      <DependentUpon>Origin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\PartClear.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\PartClear.designer.cs">
+      <DependentUpon>PartClear.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Password.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Password.designer.cs">
+      <DependentUpon>Password.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\SiteDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\SiteDetail.designer.cs">
+      <DependentUpon>SiteDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\SiteOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\SiteOrder.designer.cs">
+      <DependentUpon>SiteOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\SMDTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\SMDTest.designer.cs">
+      <DependentUpon>SMDTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Teaching.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Teaching.designer.cs">
+      <DependentUpon>Teaching.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Teaching\LiftPosition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Teaching\LiftPosition.designer.cs">
+      <DependentUpon>LiftPosition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Teaching\Width.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Teaching\Width.designer.cs">
+      <DependentUpon>Width.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Trace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\Trace.designer.cs">
+      <DependentUpon>Trace.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\VisionTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\VisionTest.designer.cs">
+      <DependentUpon>VisionTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\WidthInit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\FormPages\WidthInit.designer.cs">
+      <DependentUpon>WidthInit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectGroup\AutoInline\Function\FuncInline.cs" />
+    <Compile Include="ProjectGroup\AutoInline\Function\FuncInlineAction.cs" />
+    <Compile Include="ProjectGroup\AutoInline\Function\FuncInlineMove.cs" />
+    <Compile Include="ProjectGroup\AutoInline\Function\SMDSerial.cs" />
+    <Compile Include="ProjectGroup\AutoInline\Thread\BeforeWorkClass_02.cs" />
+    <Compile Include="ProjectGroup\AutoInline\Thread\BeforeLiftClass_01.cs" />
+    <Compile Include="ProjectGroup\AutoInline\MainClass\AutoInline_Class.cs" />
+    <Compile Include="ProjectGroup\AutoInline\SubClass\PCBInfoClass.cs" />
+    <Compile Include="ProjectGroup\AutoInline\Thread\InShuttleThread.cs" />
+    <Compile Include="ProjectGroup\AutoInline\Thread\OneSiteAction.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Sub\Controller.cs" />
+    <Compile Include="Sub\Func.cs" />
+    <Compile Include="Sub\FuncError.cs" />
+    <Compile Include="Sub\RTEX.cs" />
+    <Compile Include="Library\Telnet\ScriptableCommunicator.cs" />
+    <Compile Include="Library\Telnet\TelnetSocket.cs" />
+    <Compile Include="Library\Telnet\TelnetSocketDemo.cs" />
+    <Compile Include="Library\VirtualKB.cs" />
+    <Compile Include="Loading.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Loading.designer.cs">
+      <DependentUpon>Loading.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\CountLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup\CountLog.Designer.cs">
+      <DependentUpon>CountLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\EventTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup\EventTest.Designer.cs">
+      <DependentUpon>EventTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\ServoPopUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup\ServoPopUp.Designer.cs">
+      <DependentUpon>ServoPopUp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\WarningDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup\WarningDialog.Designer.cs">
+      <DependentUpon>WarningDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\SerialTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup\SerialTest.Designer.cs">
+      <DependentUpon>SerialTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\LaserMarkerTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup\LaserMarkerTest.Designer.cs">
+      <DependentUpon>LaserMarkerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\LogViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup\LogViewer.Designer.cs">
+      <DependentUpon>LogViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\AngleTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup\AngleTest.Designer.cs">
+      <DependentUpon>AngleTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\ErrorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup\ErrorDialog.Designer.cs">
+      <DependentUpon>ErrorDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\Init.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup\Init.Designer.cs">
+      <DependentUpon>Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\PCBLoaderTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup\PCBLoaderTest.Designer.cs">
+      <DependentUpon>PCBLoaderTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\ComSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup\ComSet.Designer.cs">
+      <DependentUpon>ComSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\MotionTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup\MotionTest.Designer.cs">
+      <DependentUpon>MotionTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\Setting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup\Setting.Designer.cs">
+      <DependentUpon>Setting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popup\test.Designer.cs">
+      <DependentUpon>test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Sub\FuncForm.cs" />
+    <Compile Include="Sub\FuncLeuzeVision.cs" />
+    <Compile Include="Sub\FuncLog.cs" />
+    <Compile Include="Sub\FuncIni.cs" />
+    <Compile Include="Sub\DIO.cs" />
+    <Compile Include="Sub\FuncFile.cs" />
+    <Compile Include="Sub\FuncKeyboard.cs" />
+    <Compile Include="Sub\FuncMotion.cs" />
+    <Compile Include="Sub\FuncMouse.cs" />
+    <Compile Include="Sub\FuncScreen.cs" />
+    <Compile Include="Sub\FuncSql.cs" />
+    <Compile Include="Sub\FuncWin.cs" />
+    <Compile Include="Sub\Scanner.cs" />
+    <Compile Include="Sub\LoadUnload.cs" />
+    <Compile Include="Thread\cifxThread.cs" />
+    <Compile Include="Thread\LogThread.cs" />
+    <Compile Include="Thread\StatusThread.cs" />
+    <Compile Include="Sub\Util.cs" />
+    <Compile Include="Sub\GlobalVar.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmMain_AutoInline_PC.resx">
+      <DependentUpon>frmMain_AutoInline_PC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Loading.resx">
+      <DependentUpon>Loading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popup\RTUTest.resx">
+      <DependentUpon>RTUTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popup\Select_Model.resx">
+      <DependentUpon>Select_Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popup\CountLog.resx">
+      <DependentUpon>CountLog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popup\EventTest.resx">
+      <DependentUpon>EventTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popup\Number_INPUT.resx">
+      <DependentUpon>Number_INPUT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popup\ServoPopUp.resx">
+      <DependentUpon>ServoPopUp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\BlockHistory.resx">
+      <DependentUpon>BlockHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\FuncTest.resx">
+      <DependentUpon>FuncTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\Initialize.resx">
+      <DependentUpon>Initialize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\Loto.resx">
+      <DependentUpon>Loto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\Machine.resx">
+      <DependentUpon>Machine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\Machine\General.resx">
+      <DependentUpon>General.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\Machine\IoMonitor.resx">
+      <DependentUpon>IoMonitor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\Machine\PinBlock.resx">
+      <DependentUpon>PinBlock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\Machine\SerialSet.resx">
+      <DependentUpon>SerialSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\Machine\TestSite.resx">
+      <DependentUpon>TestSite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\Machine\TowerLamp.resx">
+      <DependentUpon>TowerLamp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\Manual.resx">
+      <DependentUpon>Manual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\Manual\Conveyor.resx">
+      <DependentUpon>Conveyor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\Manual\Lift.resx">
+      <DependentUpon>Lift.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\Manual\Site.resx">
+      <DependentUpon>Site.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\Model.resx">
+      <DependentUpon>Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\ModelImage.resx">
+      <DependentUpon>ModelImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\ModeSelect.resx">
+      <DependentUpon>ModeSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\NGDetail.resx">
+      <DependentUpon>NGDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\Origin.resx">
+      <DependentUpon>Origin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\PartClear.resx">
+      <DependentUpon>PartClear.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\Password.resx">
+      <DependentUpon>Password.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\SiteDetail.resx">
+      <DependentUpon>SiteDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\SiteOrder.resx">
+      <DependentUpon>SiteOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\SMDTest.resx">
+      <DependentUpon>SMDTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\Teaching.resx">
+      <DependentUpon>Teaching.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popup\SerialTest.resx">
+      <DependentUpon>SerialTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popup\LaserMarkerTest.resx">
+      <DependentUpon>LaserMarkerTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popup\LogViewer.resx">
+      <DependentUpon>LogViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popup\AngleTest.resx">
+      <DependentUpon>AngleTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popup\ErrorDialog.resx">
+      <DependentUpon>ErrorDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popup\Init.resx">
+      <DependentUpon>Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popup\PCBLoaderTest.resx">
+      <DependentUpon>PCBLoaderTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popup\ComSet.resx">
+      <DependentUpon>ComSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popup\MotionTest.resx">
+      <DependentUpon>MotionTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popup\Setting.resx">
+      <DependentUpon>Setting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popup\test.resx">
+      <DependentUpon>test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Popup\WarningDialog.resx">
+      <DependentUpon>WarningDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\Teaching\LiftPosition.resx">
+      <DependentUpon>LiftPosition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\Teaching\Width.resx">
+      <DependentUpon>Width.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\Trace.resx">
+      <DependentUpon>Trace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\VisionTest.resx">
+      <DependentUpon>VisionTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectGroup\AutoInline\FormPages\WidthInit.resx">
+      <DependentUpon>WidthInit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2%28x86 및 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="radix_icon128x128.ico" />
+    <None Include="Resources\설비3D이미지_1.png" />
+    <None Include="Resources\설비사진원본1.png" />
+    <None Include="Resources\설비사진원본.png" />
+    <None Include="Resources\AlarmGif.gif" />
+    <None Include="Resources\AlarmGif2.gif" />
+    <None Include="Resources\AlarmPng.png" />
+    <None Include="Resources\AlarmPng1.png" />
+    <None Include="Resources\AlarmGif1.gif" />
+    <Content Include="Resources\alarm_reset.png" />
+    <Content Include="Resources\alarm_reset_red.png" />
+    <None Include="Resources\BoxPacking1.png" />
+    <None Include="Resources\BoxPacking12.png" />
+    <None Include="Resources\alert.png" />
+    <Content Include="Resources\Array1.png" />
+    <Content Include="Resources\Array10.png" />
+    <None Include="Resources\Array101.png" />
+    <Content Include="Resources\Array10_red.png" />
+    <None Include="Resources\Array10_red1.png" />
+    <Content Include="Resources\Array11.png" />
+    <None Include="Resources\Array111.png" />
+    <Content Include="Resources\Array11_red.png" />
+    <None Include="Resources\Array11_red1.png" />
+    <Content Include="Resources\Array12.png" />
+    <None Include="Resources\Array121.png" />
+    <Content Include="Resources\Array12_red.png" />
+    <None Include="Resources\Array12_red1.png" />
+    <None Include="Resources\Array13.png" />
+    <Content Include="Resources\Array1_red.png" />
+    <None Include="Resources\Array1_red1.png" />
+    <Content Include="Resources\Array1_yellow.png" />
+    <None Include="Resources\Array1_yellow1.png" />
+    <Content Include="Resources\Array2.png" />
+    <None Include="Resources\Array21.png" />
+    <Content Include="Resources\Array2_red.png" />
+    <None Include="Resources\Array2_red1.png" />
+    <Content Include="Resources\Array2_yellow.png" />
+    <None Include="Resources\Array2_yellow1.png" />
+    <Content Include="Resources\Array3.png" />
+    <None Include="Resources\Array31.png" />
+    <Content Include="Resources\Array3_red.png" />
+    <None Include="Resources\Array3_red1.png" />
+    <Content Include="Resources\Array3_yellow.png" />
+    <None Include="Resources\Array3_yellow1.png" />
+    <Content Include="Resources\Array4.png" />
+    <None Include="Resources\Array41.png" />
+    <Content Include="Resources\Array4_red.png" />
+    <None Include="Resources\Array4_red1.png" />
+    <Content Include="Resources\Array4_yellow.png" />
+    <None Include="Resources\Array4_yellow1.png" />
+    <Content Include="Resources\Array5.png" />
+    <None Include="Resources\Array51.png" />
+    <Content Include="Resources\Array5_red.png" />
+    <None Include="Resources\Array5_red1.png" />
+    <Content Include="Resources\Array5_yellow.png" />
+    <None Include="Resources\Array5_yellow1.png" />
+    <Content Include="Resources\Array6.png" />
+    <None Include="Resources\array6_61.bmp" />
+    <None Include="Resources\Array61.png" />
+    <Content Include="Resources\Array6_red.png" />
+    <None Include="Resources\Array6_red1.png" />
+    <Content Include="Resources\Array6_yellow.png" />
+    <None Include="Resources\Array6_yellow1.png" />
+    <Content Include="Resources\Array7.png" />
+    <None Include="Resources\Array71.png" />
+    <Content Include="Resources\Array7_red.png" />
+    <None Include="Resources\Array7_red1.png" />
+    <Content Include="Resources\Array8.png" />
+    <None Include="Resources\Array81.png" />
+    <Content Include="Resources\Array8_red.png" />
+    <None Include="Resources\Array8_red1.png" />
+    <Content Include="Resources\Array9.png" />
+    <None Include="Resources\Array91.png" />
+    <Content Include="Resources\Array9_red.png" />
+    <None Include="Resources\Array9_red1.png" />
+    <None Include="Resources\ArrowUp.png" />
+    <None Include="Resources\ArrowDown.png" />
+    <Content Include="Resources\BoxPackingLine.png" />
+    <None Include="Resources\BoxPackingLine1.png" />
+    <None Include="Resources\BoxPackingLine2.png" />
+    <None Include="Resources\BoxPackingLine3.png" />
+    <Content Include="Resources\buzzer_stop_bright.png" />
+    <None Include="Resources\buzzer_stop_kr.png" />
+    <None Include="Resources\buzzer_stop_bright_kr.png" />
+    <None Include="Resources\circle_gray.png" />
+    <Content Include="Resources\close.png" />
+    <Content Include="Resources\close_dark.png" />
+    <Content Include="Resources\daily.png" />
+    <Content Include="Resources\errors1.png" />
+    <Content Include="Resources\errors_bright.png" />
+    <Content Include="Resources\errors_dark.png" />
+    <None Include="Resources\initialize_kr.png" />
+    <None Include="Resources\errors_kr.png" />
+    <None Include="Resources\exit_kr.png" />
+    <None Include="Resources\errors_red_kr.png" />
+    <None Include="Resources\errors_reset.png" />
+    <None Include="Resources\initialize_bright_kr.png" />
+    <None Include="Resources\errors_reset_bright.png" />
+    <Content Include="Resources\in_shuttle.png" />
+    <None Include="Resources\samsung.png" />
+    <None Include="Resources\Round_Gray.png" />
+    <None Include="Resources\Round_Green.png" />
+    <None Include="Resources\Lamp_Green.png" />
+    <None Include="Resources\Lamp_Gray.png" />
+    <None Include="Resources\kuka_center.png" />
+    <None Include="Resources\kuka_move_Left.gif" />
+    <None Include="Resources\kuka_move_Right.gif" />
+    <None Include="Resources\reset1.png" />
+    <None Include="Resources\reset1_bright.png" />
+    <None Include="Resources\sanding_jig_L.png" />
+    <None Include="Resources\sanding_jig_L_bright.png" />
+    <None Include="Resources\sanding_jig_R.png" />
+    <None Include="Resources\sanding_jig_R_bright.png" />
+    <None Include="Resources\start_kr.png" />
+    <None Include="Resources\stop_red_kr.png" />
+    <None Include="Resources\reset1_kr.png" />
+    <None Include="Resources\start_green_kr.png" />
+    <None Include="Resources\stop_kr.png" />
+    <None Include="Resources\main_bottom_kr.png" />
+    <None Include="Resources\Lamp_Green_1.png" />
+    <None Include="Resources\Lamp_Gray_1.png" />
+    <None Include="Resources\megagen_tray.png" />
+    <None Include="Resources\Point.png" />
+    <None Include="Resources\kuka_Run_None.png" />
+    <None Include="Resources\kuka_Run_Center.png" />
+    <None Include="Resources\kuka_Run_Left.png" />
+    <None Include="Resources\kuka_Run_Right.png" />
+    <None Include="Resources\run_mode.png" />
+    <None Include="Resources\run_mode_bright.png" />
+    <None Include="Resources\Origin.png" />
+    <None Include="Resources\Origin_bright.png" />
+    <None Include="Resources\Origin_gray.png" />
+    <Content Include="Resources\sub_Router.png" />
+    <Content Include="Resources\sub_Router_sel.png" />
+    <None Include="Resources\turn_left.png" />
+    <None Include="Resources\turn_right.png" />
+    <None Include="Resources\tray_left.png" />
+    <None Include="Resources\tray_right.png" />
+    <None Include="Resources\traystorage.png" />
+    <None Include="Resources\tray_leftfront.png" />
+    <None Include="Resources\tray_rightfront.png" />
+    <Content Include="Resources\그림1.png" />
+    <Content Include="Resources\사각배출트레이1.png" />
+    <Content Include="Resources\사각트레이.png" />
+    <None Include="Resources\theme.pptx" />
+    <None Include="Resources\vision_sel.png" />
+    <None Include="Resources\vision.png" />
+    <None Include="Resources\vision_check.png" />
+    <None Include="Resources\work_conv_out.png" />
+    <None Include="Resources\work_conv_load.png" />
+    <None Include="Resources\aign.png" />
+    <None Include="Resources\2DMark.png" />
+    <Content Include="Resources\Align.bmp" />
+    <None Include="Resources\initialize.png" />
+    <None Include="Resources\bottom.png" />
+    <None Include="Resources\apply.png" />
+    <None Include="Resources\box.png" />
+    <None Include="Resources\base_inline.png" />
+    <None Include="Resources\auto.png" />
+    <None Include="Resources\allPos.png" />
+    <None Include="Resources\allPos_sel.png" />
+    <Content Include="Resources\bright_button.png" />
+    <None Include="Resources\button_normal.png" />
+    <None Include="Resources\button_blue.png" />
+    <None Include="Resources\button_green.png" />
+    <None Include="Resources\button_red.png" />
+    <None Include="Resources\button_yellow.png" />
+    <None Include="Resources\cancel.png" />
+    <None Include="Resources\cancel_bright.png" />
+    <None Include="Resources\delete.png" />
+    <None Include="Resources\copy_rear_second.png" />
+    <None Include="Resources\copy_rear_first.png" />
+    <None Include="Resources\copy_front_second.png" />
+    <None Include="Resources\copy_front_first.png" />
+    <None Include="Resources\direction.png" />
+    <None Include="Resources\button_blank_normal.png" />
+    <None Include="Resources\button_blank_select.png" />
+    <None Include="Resources\circle.png" />
+    <None Include="Resources\button_blank_on.png" />
+    <None Include="Resources\button_blank_red.png" />
+    <None Include="Resources\cycle_stop.png" />
+    <None Include="Resources\cycle_stop_red.png" />
+    <None Include="Resources\buzzer_stop.png" />
+    <None Include="Resources\buzzer_stop_dark.png" />
+    <None Include="Resources\circle_red.png" />
+    <None Include="Resources\communication_dark.png" />
+    <None Include="Resources\communication.png" />
+    <None Include="Resources\defect_dark.png" />
+    <None Include="Resources\defect.png" />
+    <None Include="Resources\dry_run_mode_bright.png" />
+    <None Include="Resources\dry_run_mode.png" />
+    <Content Include="Resources\errors.png" />
+    <None Include="Resources\errors_red.png" />
+    <None Include="Resources\excel.png" />
+    <Content Include="Resources\exit.png" />
+    <Content Include="Resources\IMG_20200111_110308.jpg" />
+    <None Include="Resources\input_conv_load.png" />
+    <None Include="Resources\init_buffer_conv_normal.png" />
+    <None Include="Resources\init_buffer_conv_yellow.png" />
+    <None Include="Resources\init_dust_cleaner_green.png" />
+    <None Include="Resources\init_dust_cleaner_normal.png" />
+    <None Include="Resources\init_dust_cleaner_yellow.png" />
+    <None Include="Resources\init_input_conv_green.png" />
+    <None Include="Resources\init_input_conv_normal.png" />
+    <None Include="Resources\init_input_conv_yellow.png" />
+    <None Include="Resources\init_input_width_green.png" />
+    <None Include="Resources\init_input_width_normal.png" />
+    <None Include="Resources\init_input_width_yellow.png" />
+    <None Include="Resources\init_pcb_clamp_green.png" />
+    <None Include="Resources\init_pcb_clamp_normal.png" />
+    <None Include="Resources\init_pcb_clamp_yellow.png" />
+    <None Include="Resources\init_turn_axis_green.png" />
+    <None Include="Resources\init_turn_axis_normal.png" />
+    <None Include="Resources\init_turn_axis_yellow.png" />
+    <None Include="Resources\init_work_conv_green.png" />
+    <None Include="Resources\init_work_conv_normal.png" />
+    <None Include="Resources\init_work_conv_yellow.png" />
+    <None Include="Resources\init_work_width_green.png" />
+    <None Include="Resources\init_work_width_normal.png" />
+    <None Include="Resources\init_work_width_yellow.png" />
+    <None Include="Resources\init_x_axis_green.png" />
+    <None Include="Resources\init_x_axis_normal.png" />
+    <None Include="Resources\init_x_axis_yellow.png" />
+    <None Include="Resources\init_y_axis_green.png" />
+    <None Include="Resources\init_y_axis_normal.png" />
+    <None Include="Resources\init_y_axis_yellow.png" />
+    <None Include="Resources\init_z_axis_green.png" />
+    <None Include="Resources\init_z_axis_normal.png" />
+    <None Include="Resources\init_z_axis_yellow.png" />
+    <None Include="Resources\init_buffer_conv_green.png" />
+    <None Include="Resources\initialize_dark.png" />
+    <Content Include="Resources\initialize1.png" />
+    <Content Include="Resources\initialize_bright.png" />
+    <Content Include="Resources\io_data.png" />
+    <None Include="Resources\load.png" />
+    <None Include="Resources\laser_add.png" />
+    <None Include="Resources\laser_modify.png" />
+    <None Include="Resources\laser_delete.png" />
+    <Content Include="Resources\io_data_dark.png" />
+    <Content Include="Resources\logo.png" />
+    <Content Include="Resources\machine.png" />
+    <None Include="Resources\PCB.png" />
+    <None Include="Resources\make.png" />
+    <None Include="Resources\main.png" />
+    <None Include="Resources\machine_cad.png" />
+    <None Include="Resources\main1.png" />
+    <None Include="Resources\main_high.png" />
+    <None Include="Resources\main_inline.png" />
+    <Content Include="Resources\manual.png" />
+    <None Include="Resources\mark_test.png" />
+    <None Include="Resources\Mark2D.png" />
+    <None Include="Resources\man_buffer_conv_green.png" />
+    <None Include="Resources\man_buffer_conv_normal.png" />
+    <None Include="Resources\man_dust_cleaner_green.png" />
+    <None Include="Resources\man_dust_cleaner_normal.png" />
+    <None Include="Resources\man_input_conveyor_green.png" />
+    <None Include="Resources\man_input_conveyor_normal.png" />
+    <None Include="Resources\man_led_light_green.png" />
+    <None Include="Resources\man_led_light_normal.png" />
+    <None Include="Resources\man_pcb_clamp_1_green.png" />
+    <None Include="Resources\man_pcb_clamp_1_normal.png" />
+    <None Include="Resources\man_pcb_clamp_2_green.png" />
+    <None Include="Resources\man_pcb_clamp_2_normal.png" />
+    <None Include="Resources\man_work_conv_forward_green.png" />
+    <None Include="Resources\man_work_conv_forward_normal.png" />
+    <None Include="Resources\man_work_conv_reward_green.png" />
+    <None Include="Resources\man_work_conv_reward_normal.png" />
+    <Content Include="Resources\manual_dark.png" />
+    <Content Include="Resources\matrix.png" />
+    <None Include="Resources\next.png" />
+    <None Include="Resources\motor_home.png" />
+    <None Include="Resources\motor_move.png" />
+    <None Include="Resources\motor_reset.png" />
+    <None Include="Resources\motor_reset_red.png" />
+    <None Include="Resources\motor_stop.png" />
+    <None Include="Resources\ok.png" />
+    <None Include="Resources\move.png" />
+    <None Include="Resources\no_image.png" />
+    <Content Include="Resources\out_shuttle.png" />
+    <Content Include="Resources\pannel.png" />
+    <Content Include="Resources\pannel_bright.png" />
+    <None Include="Resources\part_clear.png" />
+    <None Include="Resources\pass_mode.png" />
+    <None Include="Resources\pass_mode_bright.png" />
+    <None Include="Resources\part_clear_dark.png" />
+    <None Include="Resources\PinBlock.png" />
+    <None Include="Resources\PinBlock_dark.png" />
+    <Content Include="Resources\pannel_yellow.png" />
+    <Content Include="Resources\part_clear_bright.png" />
+    <Content Include="Resources\pass_init.png" />
+    <Content Include="Resources\Place.bmp" />
+    <Content Include="Resources\down.png" />
+    <Content Include="Resources\left.png" />
+    <None Include="Resources\prev.png" />
+    <None Include="Resources\remark.png" />
+    <None Include="Resources\radix.png" />
+    <None Include="Resources\refresh.png" />
+    <Content Include="Resources\reload.png" />
+    <Content Include="Resources\reset.png" />
+    <Content Include="Resources\Reset_bright.png" />
+    <Content Include="Resources\Reset_red.png" />
+    <Content Include="Resources\right.png" />
+    <None Include="Resources\save.png" />
+    <None Include="Resources\search.png" />
+    <None Include="Resources\scan2d.png" />
+    <None Include="Resources\scan2d_sel.png" />
+    <Content Include="Resources\sellect_all.png" />
+    <Content Include="Resources\setting.png" />
+    <None Include="Resources\start.png" />
+    <None Include="Resources\SMIC_icon.png" />
+    <None Include="Resources\simulation_mode.png" />
+    <None Include="Resources\simulation_mode_bright.png" />
+    <Content Include="Resources\setting_dark.png" />
+    <Content Include="Resources\start_green.png" />
+    <None Include="Resources\stop.png" />
+    <Content Include="Resources\stop_red.png" />
+    <None Include="Resources\tab_align_teaching.png" />
+    <None Include="Resources\tab_general_bright.png" />
+    <None Include="Resources\tab_general_info.png" />
+    <None Include="Resources\tab_laser_bright.png" />
+    <None Include="Resources\tab_laser_marker.png" />
+    <None Include="Resources\tab_model_bright.png" />
+    <None Include="Resources\tab_model_info.png" />
+    <None Include="Resources\tab_tower_bright.png" />
+    <None Include="Resources\tab_tower_lamp.png" />
+    <None Include="Resources\tab_align_bright.png" />
+    <None Include="Resources\sub_auto.png" />
+    <None Include="Resources\sub_manual.png" />
+    <None Include="Resources\sub_io.png" />
+    <None Include="Resources\sub_com.png" />
+    <None Include="Resources\sub_model.png" />
+    <None Include="Resources\sub_trace.png" />
+    <None Include="Resources\sub_tower.png" />
+    <None Include="Resources\sub_teaching.png" />
+    <None Include="Resources\sub_auto_sel.png" />
+    <None Include="Resources\sub_com_sel.png" />
+    <None Include="Resources\sub_io_sel.png" />
+    <None Include="Resources\sub_manual_sel.png" />
+    <None Include="Resources\sub_model_sel.png" />
+    <None Include="Resources\sub_teaching_sel.png" />
+    <None Include="Resources\sub_tower_sel.png" />
+    <None Include="Resources\sub_trace_sel.png" />
+    <None Include="Resources\sub_system_sel.png" />
+    <None Include="Resources\sub_system.png" />
+    <None Include="Resources\test_result_dark.png" />
+    <None Include="Resources\test_result.png" />
+    <Content Include="Resources\sub_main.png" />
+    <Content Include="Resources\sub_main_sel.png" />
+    <Content Include="Resources\system_init.png" />
+    <Content Include="Resources\title_bar.png" />
+    <None Include="Resources\top.png" />
+    <None Include="Resources\tower_blank.png" />
+    <None Include="Resources\tower_red.png" />
+    <None Include="Resources\tower_yellow.png" />
+    <None Include="Resources\tower_green.png" />
+    <Content Include="Resources\tower_all.png" />
+    <Content Include="Resources\unsellect_all.png" />
+    <Content Include="Resources\up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LED_round_gray.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LED_round_green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Library\SECS\Secs4Net\SecsCore.csproj">
+      <Project>{3c8c67b8-3746-4d26-b3a8-dcb01b5aa66b}</Project>
+      <Name>SecsCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="Library\SECS\SecsDevice\SecsDevice.csproj">
+      <Project>{8bf9676f-4514-4c43-a33a-23b9a098dc63}</Project>
+      <Name>SecsDevice</Name>
+    </ProjectReference>
+    <ProjectReference Include="Library\SECS\SmlHelper\SmlHelper.csproj">
+      <Project>{36a2c439-8771-4f98-b33f-390e6d7821a2}</Project>
+      <Name>SmlHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Library\LabelPrint\" />
+    <Folder Include="Library\Vision\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

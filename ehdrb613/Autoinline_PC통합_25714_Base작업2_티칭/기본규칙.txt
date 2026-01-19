@@ -1,0 +1,70 @@
+/** 폴더 및 파일 **/
+
+Library : API로 제공되거나 추가한 외부 라이브러리
+    Autonics : 오토닉스 스텝모터 제어 라이브러리
+    AXL : 아진엑스텍 제어기 라이브러리
+    CIFX : KUKA Robot 연결용 DeviceNet Library
+    MsSQL : MsSQL 사용 라이브러리
+    MXP : LS Mecapion MXP Ethercat Master Library
+         Motion_Function.cs 중 MXP_MC_MoveAbsolute는 Thread/StatusThread.cs와 연계되어 수정된 부분이 있음.
+    Panasonic : Laser Marker 제어 Library
+    PanasonicLaser : Laser Marker 제어 Library. 위와 뭐가 맞는지는 미확인
+    Telnet : TCP 통신 라이브러리
+    DialogForm.cs : MessageBox 대체용 Form Class. 아래 API 사용버전을 사용하는 게 좋다.
+    DialogMessage.cs : MessageBox 대체용 Win API Class. 뒤로 숨거나 하는 버그가 없다.
+
+    
+Popup : Popup Dialog 제작시 사용
+    Machine : 장비 세팅관련 서브 Form 폴더
+    Teaching : 장비 티칭 관련 서브 Form 폴더
+    ErrorDialog : 알람 발생시 뜨는 창
+    IoMonitor.cs : 디지털 입출력 메뉴얼 제어
+    LogViewer.cs : 에러 발생시 또는 에러 내역 조회
+    Machine.cs : 장비 세팅 Main form
+    Manual.cs : 메뉴얼 동작 Main form. 필요시 Machine 또는 Teaching과 같이 폴더로 분기
+    Model.cs : 모델 선택 및 관리
+    PartClear.cs : 파트클리어 사용시 수정
+    Password.cs : 관리자 기능 사용시 비밀번호 입력창
+    Teaching.cs : 티칭 Main Form
+
+
+Sub : 하부함수들 선언, API 함수 직접 Call보다는 이 폴더에 선언해서 연결해서 사용한다.
+    FuncMachine : 프로젝트별 작성 함수 클래스 선언
+    DIO.cs : Digital Input / Output 관련 함수
+    DNet.cs : DeviceNet 관련 함수
+    Ecat.cs : 모션 등 Ethercat 관련 함수
+    Func.cs : 작동 로직과 직접 관련된 하부 함수. 구분 가능한 복수 함수는 Func***.cs로 별도 분리할 것
+    GlobalVar.cs : 전역 선언 및 변수
+    Util.cs : 작동 로직과 직접 관련되지 않은 하부 함수. 구분 가능한 복수 함수는 Func***.cs로 별도 분리할 것
+
+Thread : Multi Thread 구현시 사용
+    LogThread.cs : 로그 누락 방지 위해 별도 작성.
+    RobotThread.cs : 로봇동작 제어 쓰레드
+    StatusThread.cs : DIO 처리 및 모션 상태값 조회. 필요시 통신 등 추가
+
+
+frmMain.cs : Main Form
+Loading.cs : Master Card 등 기본 작동 체크 후 frmMain.cs 호출. 로딩폼 사용하지 않고 main에서 처리하도록 한다.
+Program.cs : 프로젝트 초기 구동 Form을 지정
+
+
+
+/** Form(Dialog) 작성 방법 **/
+frmMain.cs / Loading.cs / Popup 폴더 내의 추가 Form
+Timer 및 Thread 사용 기준 : 
+    Form 자체와 관련이면 Timer
+    특정 장비 부분의 운영과 관련이면 Thread
+일반 Timer와 Thread Timer :
+    일반 Timer는 UI 연계성 및 Delay의 영향 낮은 경우 사용
+    Thread Timer는 UI 작동에 영향을 주거나 Load가 높은 경우 사용
+
+/** 주석 작성 방법 **/
+1. 기능이나 용도별로 묶을 경우 #region 이용
+   #region region을 이용한 주석
+   ...
+   #endregion
+2. 함수 또는 변수의 간단한 설명의 경우 // 이용
+   함수 선언 라인 뒤에 // 로 주석을 달 경우 함수 내용을 숨기더라도 주석은 표시된다.
+   예) public static void func1() // 함수 주석 예시
+3. 설명이 길 경우 또는 사용하지 않는 코드라인 숨김 때 /*, //*/ 이용 
+   주석 처리한 코드를 되살릴 때 /* 를 //*로 바꾼다.

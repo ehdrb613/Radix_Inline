@@ -1,0 +1,3685 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Collections.Concurrent; // ConcurrentQueue
+
+using System.Diagnostics;//외부 프로그램 컨트롤(Process)
+
+
+
+using System.Runtime.InteropServices;
+using Radix.Popup;
+
+namespace Radix
+{
+    public partial class frmMain_SNUC_Box_Packing : Form
+    {
+        /* frmMain.cs : 주 HMI 구현용 클래스
+         *    1. 장비의 전반적인 상태 및 카운트 등 표시
+         *    2. 세부적인 프로세스가 아닌 전반적인 장비 컨트롤
+         *    3. 버튼 등을 이용한 기능 분기
+         */
+
+        #region 로컬 변수
+        UInt16 ProcState = 0; // MXP 초기화 제어용
+        UInt32 Status = 0; // MXP 초기화 제어용
+        int startTime = 0; // MXP 초기화 Timeout 체크용
+
+        int buzzerTime = Environment.TickCount; // 부저 시간 제어용
+        private bool beforeStart = false; // 자동 공정 시작 이전값, 변화시 동작 제어용
+
+        private System.Threading.Timer timerUI; // Thread Timer
+        private System.Threading.Timer timerTrayUI; // Thread Timer
+        private bool timerDoing = false;
+        private bool timerDoing_TrayUI = false;
+        private bool led = true; // LED Light 제어용
+        private int runTime = Environment.TickCount; // 공정시간 적산용
+        private int runTotal = 0; // 공정 카운트 적산용
+        private bool initFail = false; // 장치 초기화 체크용
+        private int checkTime = Environment.TickCount; // 로더,언로더 체크시간 주기 세팅용   
+        string beforeArrayImage = ""; // Array Layout 이미지 변경 체크용
+
+        private bool PCB_Move_Array_PutDown_pre = false;  //Tray에 올려놓기전 true되는 값을 확인하기위해(UI용) by DG 220824
+
+
+        private bool MakeArrayImage = false;
+        private int MakeArrayImageCount = 0;
+
+        #endregion
+
+        #region 인라인화한 폼들
+        //Manual_Page1 frmManual = new Manual_Page1();
+        Manual_Main frmManual = new Manual_Main();
+
+        IoMonitor frmIoMonitor = new IoMonitor();
+        Machine frmMachine = new Machine();
+        //Model frmModel = new Model();
+        MES_page frmMES = new MES_page();
+
+        Teaching frmTeaching = new Teaching();
+        Trace frmTrace = new Trace();
+        LogViewer frmLogViewer = new LogViewer();
+        PartClear frmPartClear = new PartClear();
+        ErrorDialog errorDialog = null;
+
+        ToolTip toolTip = new ToolTip();
+
+
+        #endregion
+
+
+
+        private void debug(string str) // 클래스 내부 콜용 Local Debug
+        {
+            Util.Debug("frmMain : " + str);
+        }
+
+        #region 초기화 관련 함수
+        public frmMain_SNUC_Box_Packing() // 클래스 초기화 함수
+        {
+            InitializeComponent();
+        }
+
+        #endregion
+
+
+        private void frmMain_Shown(object sender, EventArgs e) // 화면 출력시
+        {
+#if !DEBUG
+            GlobalVar.Debug = false; // Debug로 컴파일시 Debug옵션 켜고, Release시 끈다
+#endif
+
+            #region 로그 Thread 시작
+            (new Thread((new LogThread()).Run)).Start();
+            #endregion
+
+            FuncIni.LoadSimulationIni(); // simulation.ini 파일 있으면 시뮬레이션모드
+
+            #region 화면 배치
+            Screen[] sc = Screen.AllScreens; // 모니터 정보
+            #endregion
+
+            #region frmMain을 첫 모니터 좌상단에 배치
+            this.Left = sc[0].Bounds.Left;
+            this.Top = sc[0].Bounds.Top;
+            lblVersion.Text = Application.ProductVersion;
+            #endregion
+
+            #region 로딩폼을 첫 모니터 가운데 띄우기
+            Loading dlgLoading = new Loading();
+            dlgLoading.TopMost = true;
+            dlgLoading.Show();
+            dlgLoading.Left = sc[0].Bounds.Right / 2 - dlgLoading.Width / 2;
+            dlgLoading.Top = sc[0].Bounds.Bottom / 2 - dlgLoading.Height / 2;
+            #endregion
+
+            #region NG 모니터 화면을 두 번째 모니터 좌상단에 띄우기
+            //NGViewer dlgNG = new NGViewer();
+            //dlgNG.Show();
+            //if (sc.Length > 0)
+            //{
+            //    dlgNG.Left = sc[1].Bounds.Left;
+            //    dlgNG.Top = sc[1].Bounds.Top;
+            //}
+            #endregion
+
+            this.Activate(); // 다른 화면 띄우다가 포커스 넘어갈 수 있어서 강제로 포커스 가져온다.
+
+
+            // 1STEP 상태는 UI에 따른다.
+            GlobalVar.StepStop = cbOneStep.Checked;
+
+
+
+            /* // 시뮬레이션시 UI변경 천천히 돌려 확인시 사용
+            if (GlobalVar.Simulation)
+            {
+                GlobalVar.ThreadSleep = 1000;
+            }
+            //*/
+
+            #region Ecat Master 등의 초기화 및 동작여부 체크
+
+            GlobalVar.MasterChecked = false;
+            GlobalVar.MasterChecking = true;
+
+            if (GlobalVar.Simulation)
+            {
+                Status = 0;
+                GlobalVar.MasterChecked = true;
+                GlobalVar.MasterChecking = false;
+            }
+            else
+            {
+                if (GlobalVar.MasterType == enumMasterType.AXL)
+                {
+                    //아진은 필요 없을 것 같다.
+                }
+                GlobalVar.MasterChecked = false;
+                GlobalVar.MasterChecking = true;
+            }
+            startTime = Environment.TickCount;
+            Application.DoEvents();
+
+            // 체크 완료까지 대기
+            if (GlobalVar.MasterType == enumMasterType.RTEX_AXL)
+            {
+                GlobalVar.MasterChecked = CheckAXL();
+                GlobalVar.MasterChecking = false;
+
+                // 시뮬레이션용 서보 데이타 초기화
+                RTEX.Init();
+
+                #region 메가젠 인플란트 축동기화(갠트리) Setup by DGKim
+                #endregion 메가젠 인플란트 축동기화(갠트리) Setup by DGKim
+            }
+
+            if (!GlobalVar.MasterChecked)
+            {
+                try
+                {
+                    dlgLoading.Close();
+                }
+                catch { }
+                FuncLog.WriteLog("Kernel Init Failed!");
+                this.BringToFront();
+                FuncWin.TopMessageBox("Kernel Init Failed!");
+                initFail = true;
+                GlobalVar.GlobalStop = true;
+                this.Close();
+                return;
+            }
+
+
+
+            #endregion
+
+
+
+            #region motion & io status thread start
+            //*
+            DIO.InitDIO((int)DIO.DiType);   //State쓰레드 구동전 적용된 프로젝트로 적용 시켜준다.
+            if (GlobalVar.Simulation == false)
+            {
+                StatusThread stat = new StatusThread();
+                Thread t1 = new Thread(stat.Run);
+                t1.Start();
+            }
+            //*/
+            #endregion
+
+            #region 각 외부 통신 인터페이스 관련 추가
+            if (!GlobalVar.Simulation)//각 외부 통신 인터페이스 관련 추가
+            {
+                // 샘플 투입 버튼 감추기
+                //btnSample.Visible = false;
+            }
+            #endregion
+
+            FuncLog.WriteLog("Program Started");
+
+            // IO 초기화
+
+            #region 자동 동작 Thread 시작
+
+
+            // Create 스레드
+            BoxPacking_AutoRun.Create_AutoRun_Threads();
+
+            #endregion
+
+            Thread.Sleep(1000); // 각 쓰레드 구동 확인 위해 잠시 대기
+
+            #region 프로그램 시작시 출력이 나가야 하는 DIO
+            if (GlobalVar.Simulation)
+            {
+                DIO.InitSimulation();
+            }
+
+            //DIO.InitDIO((int)DIO.DiType);   
+
+            //DIO.WriteDOData(enumDONames.Y15_0_Robot_Emg1, true);
+            //DIO.WriteDOData(enumDONames.Y15_1_Robot_Emg2, true);
+            //DIO.WriteDOData(enumDONames.Y18_0_Robot_Move_Enable, true);
+            //DIO.WriteDOData(enumDONames.Y17_0_Boxer_Box_Check, true);
+            #endregion
+
+            #region 시뮬레이션 경우 DI 기본값이 없으므로 각 센서 기본값 강제할당
+            if (GlobalVar.Simulation)
+            {
+                DIO.EMG_Control(true);
+            }
+            #endregion
+
+            #region 변수 초기화
+            // 배열 이외에는 생성시 기본값 지정되어 있어 초기화할 필요 없다
+            #endregion
+
+            #region 설정 저장값 읽기
+            string IniPath = GlobalVar.FaPath + "\\" + GlobalVar.SWName + "\\" + GlobalVar.IniPath + "\\setting.ini";
+            string Section = GlobalVar.IniSection;
+            GlobalVar.ModelName = FuncIni.ReadIniFile(Section, "DefaultModel", IniPath, "");
+            GlobalVar.Language = (enumLanguage)Convert.ToInt16(FuncIni.ReadIniFile("Default", "language", IniPath, "0"));
+
+            // 설정 읽기
+            FuncIni.LoadAllIni(); // 모든 설정을 읽어서 전역변수에 저장
+            #endregion
+
+
+            FuncLog.DeleteLogs();
+            ////////////////////////////////////
+
+            // Domino Laser marking thread
+            GlobalVar.LaserMark.InitThread();
+
+            // Zebra Label Printer thread
+            GlobalVar.LabelPrint.InitThread();
+
+            #region MsSQL 연결
+            if (GlobalVar.UseMsSQL)
+            {
+                GlobalVar.Sql.Disconnect();
+                GlobalVar.Sql = new MsSQL(GlobalVar.MsSQL_Server, GlobalVar.MsSQL_Port, GlobalVar.MsSQL_Id, GlobalVar.MsSQL_Pwd, GlobalVar.MsSQL_DB);
+                GlobalVar.Sql.Connect();
+                if (!GlobalVar.Sql.connected)
+                {
+                    FuncLog.WriteLog("DataBase connection Failed!");
+                    FuncWin.TopMessageBox("DataBase connection Failed!");
+                }
+                else
+                {
+                    //FuncSql.UpdateDatabase();
+                }
+            }
+            #endregion
+
+            #region 로케일 적용
+            setLanguage();
+            #endregion
+
+            RTEX.ServoReset_All();
+
+            //for (ushort axis = 0; axis < GlobalVar.Axis_count; axis++)
+            //{
+            //    //GlobalVar.AxisStatus[axis].StandStill = false;
+            //    RTEX.ServoReset(axis);
+            //}
+
+            RTEX.ServoOnAll(true); // 모든 서보 On
+
+            #region 메가젠 인플란트 축동기화(갠트리) Setup by DGKim
+            #endregion 메가젠 인플란트 축동기화(갠트리) Setup by DGKim
+            //버튼 만들기  
+
+            //이미지 및 바코드 컨트롤 생성 by DGKim
+            //Make_Controls<Button>(ref Before_TrayBtn, "BeforeTray", FuncBoxPacking.Sanding_BeforeTray_RackSize.GetLength(0), FuncBoxPacking.Sanding_BeforeTray_RackSize.GetLength(1), 58, 25, 11, 72, 490, -47);
+
+            ////Make_PictureBox(ref After_PictureBox, "After", FuncBoxPacking.Sanding_AfterTraySize[0], FuncBoxPacking.Sanding_AfterTraySize[1], 18, 18, 532, 23, 62, 18);531, 312
+            ////Make_Controls<PictureBox>(ref After_PictureBox, "After", FuncBoxPacking.Sanding_AfterTraySize[0], FuncBoxPacking.Sanding_AfterTraySize[1], 18, 18, 532, 25, 62, 18);
+            ////Make_Controls<PictureBox>(ref After_PictureBox, "After", FuncBoxPacking.Sanding_AfterTraySize[0], FuncBoxPacking.Sanding_AfterTraySize[1], 18, 18, 807, -25, 62, 18); // YJ 시작좌표와 피치 방향 변경
+            //Make_Controls<PictureBox>(ref After_PictureBox, "After", FuncBoxPacking.Sanding_AfterTraySize[0], FuncBoxPacking.Sanding_AfterTraySize[1], 18, 18, 531, 25, 314, -18); // YJ 시작좌표와 피치 방향 변경
+            //Make_Controls<Button>(ref After_TrayBtn, "AfterTray", FuncBoxPacking.Sanding_AfterTray_RackSize.GetLength(0), FuncBoxPacking.Sanding_AfterTray_RackSize.GetLength(1), 58, 25, 299, -72, 490, -47);
+
+
+            //numBeforeTrayIndex.Maximum = FuncBoxPacking.Sanding_BeforeTraySize[0] * FuncBoxPacking.Sanding_BeforeTraySize[1] + 1;
+            //if (FuncBoxPacking.Megagen)
+            //{
+            //    numAfterTrayIndex.Maximum = FuncBoxPacking.Sanding_AfterTraySize[0] * FuncBoxPacking.Sanding_AfterTraySize[1] + 1 - 30;//-30 홈파기 때문
+            //}
+            //else
+            //{
+            //    numAfterTrayIndex.Maximum = FuncBoxPacking.Sanding_AfterTraySize[0] * FuncBoxPacking.Sanding_AfterTraySize[1] + 1;
+            //}
+
+
+            //#region 일반 타이머 시작
+            ////Thread.Sleep(500);
+            tmrCheck.Enabled = true;
+            //tmrError.Enabled = true;
+            //#endregion
+
+            //#region 화면 제어용 쓰레드 타이머 시작
+            TimerCallback CallBackUI = new TimerCallback(TimerUI);
+            timerUI = new System.Threading.Timer(CallBackUI, false, 0, 100);
+
+            //TimerCallback CallBackTrayUI = new TimerCallback(TimerTrayUI);
+            //timerTrayUI = new System.Threading.Timer(CallBackTrayUI, false, 0, 500);
+            //#endregion
+
+
+            //#region 장비 초기화 창을 열어서 초기화 진행
+            ///*
+            //Init dlg = new Init();
+            //dlg.Show();
+            ////*/
+            //#endregion
+
+            //#region 모델 목록
+            //#endregion
+
+            #region sub form 초기화
+            //frmManual = new Manual();
+            frmManual.FormBorderStyle = FormBorderStyle.None;
+            frmManual.TopMost = true;
+            frmManual.Dock = DockStyle.Fill;
+            frmManual.TopLevel = false;
+            tpManual.Controls.Clear();
+            tpManual.Controls.Add(frmManual);
+            frmManual.Show();
+
+            //frmIoMonitor = new IoMonitor();
+            frmIoMonitor.FormBorderStyle = FormBorderStyle.None;
+            frmIoMonitor.TopMost = true;
+            frmIoMonitor.Dock = DockStyle.Fill;
+            frmIoMonitor.TopLevel = false;
+            tpIO.Controls.Clear();
+            tpIO.Controls.Add(frmIoMonitor);
+            frmIoMonitor.Show();
+
+            //frmMES = new MES();
+            frmMES.FormBorderStyle = FormBorderStyle.None;
+            frmMES.TopMost = true;
+            frmMES.Dock = DockStyle.Fill;
+            frmMES.TopLevel = false;
+            tpModel.Controls.Clear();
+            tpModel.Controls.Add(frmMES);
+            frmMES.Show();
+
+            //frmLogViewer = new LogViewer();
+            frmLogViewer.FormBorderStyle = FormBorderStyle.None;
+            frmLogViewer.TopMost = true;
+            frmLogViewer.Dock = DockStyle.Fill;
+            frmLogViewer.TopLevel = false;
+            tpErrors.Controls.Clear();
+            tpErrors.Controls.Add(frmLogViewer);
+            frmLogViewer.Show();
+
+            //frmMachine = new Machine();
+            frmMachine.FormBorderStyle = FormBorderStyle.None;
+            frmMachine.TopMost = true;
+            frmMachine.Dock = DockStyle.Fill;
+            frmMachine.TopLevel = false;
+            tpMachine.Controls.Clear();
+            tpMachine.Controls.Add(frmMachine);
+            frmMachine.Show();
+
+            tcMain.SelectedIndex = 0;
+            #endregion
+
+
+            // 툴팁 기본 설정
+            ttAuto.SetToolTip(this.btnRePrint, "프린트 오류로 장비 정지시 사용\n다시 시작할 때 프린팅 과정을\n재시도하게 됩니다.");
+
+            ttAuto.SetToolTip(this.btnBoxConv_BarCylinderUP, "Box 컨베이어에서 종이박스를 수거할때 사용\nBox 눌림 실린더를 MANUAL 조작 합니다.");
+
+
+            try
+            {
+                dlgLoading.Close();
+            }
+            catch { }
+        }
+
+        private void frmMain_FormClosed(object sender, FormClosedEventArgs e) // 프로그램 종료시
+        {
+
+            if (!initFail)
+            {
+                FuncLog.WriteLog("Program Ended");
+                if (GlobalVar.Simulation == false)
+                {
+                    //GlobalVar.WorkWidth.Close();
+                    //GlobalVar.WorkConv.Close();
+                    RTEX.ServoOnAll(false);
+                }
+
+
+                if (GlobalVar.UseMsSQL &&
+                    GlobalVar.Sql.connected)
+                {
+                    GlobalVar.Sql.Disconnect();
+                }
+            }
+
+            try
+            {
+                timerUI.Dispose();
+                timerTrayUI.Dispose();
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.StackTrace);
+            }
+
+            //if (GlobalVar.Simulation == true)
+            {
+                Environment.Exit(Environment.ExitCode);//프로그램 남는거 때문에
+                                                       //base.OnFormClosed(e);
+                                                       //Dispose(); // 폼 해제
+            }
+
+
+
+        }
+
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e) // 사용자 확인 후 프로그램 종료 시도
+        {
+            if (!initFail)
+            {
+                if ((int)GlobalVar.SystemStatus < (int)enumSystemStatus.AutoRun)
+                {
+                    this.BringToFront();
+                    if (!GlobalVar.MasterChecked ||
+                        FuncWin.MessageBoxOK("Terminate Program?"))
+                    {
+                        //ClearSubMenu();
+                        //pbRouter.BackgroundImage = Radix.Properties.Resources.sub_Router_sel;
+
+                        //GlobalVar.TabMain = enumTabMain.Router;
+                        //tcMain.SelectedIndex = (int)GlobalVar.TabMain;
+
+                        GlobalVar.GlobalStop = true;
+                        Thread.Sleep(1500);
+
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                    }
+                }
+                else
+                {
+                    e.Cancel = true;
+                    FuncWin.TopMessageBox("Can't close program while system is running.");
+                }
+                //timerKernel.Dispose();
+            }
+        }
+
+        #region 제어기 초기화
+
+        #region MXP
+        private void CheckMXP() // MXP 초기화 함수
+        {
+            debug("Environment.TickCount - startTime : " + (Environment.TickCount - startTime));
+            if (Environment.TickCount - startTime > 60 * 1000)
+            {
+                GlobalVar.MasterChecked = false;
+                GlobalVar.MasterChecking = false;
+            }
+
+            debug("ProcState : " + ((MXP.MXP_KernelState)ProcState).ToString());
+            switch (ProcState)
+            {
+                case (UInt16)MXP.MXP_KernelState.Idle:
+                    {
+                        break;
+                    }
+                case (UInt16)MXP.MXP_KernelState.Init:
+                    {
+                        UInt32 status = 0;
+                        Int32 InitError;
+
+                        InitError = MXP.MXP_InitKernel_Developer(ref status);
+                        Thread.Sleep(1000);
+
+                        InitError = MXP.MXP_InitKernel_Developer(ref status);
+
+                        if (InitError == MXP.MXP_ret.RET_NO_ERROR)
+                        {
+                            ProcState = (UInt16)MXP.MXP_KernelState.Initing;
+                            //Util.TopMessageBox("Succeed to initialize MXP.", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            ProcState = (UInt16)MXP.MXP_KernelState.Idle;
+                            //Util.TopMessageBox("Fail to initialize MXP!!!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        }
+                        break;
+                    }
+                case (UInt16)MXP.MXP_KernelState.Initing:
+                    {
+
+                        UInt32 usNumOfSlave = 0;
+                        if (MXP.MXP_GetSlaveCount(0/*1: get number of axis, 0: get number of all slaves.*/, out usNumOfSlave) == MXP.MXP_ret.RET_NO_ERROR)
+                        {
+                            /*
+                            int nAxisCnt = 0;
+
+                            // Set combobox items based on number of slave.
+                            for (int i = 0; i < usNumOfSlave; i++)
+                            {
+                                UInt32 usNodeType = 0;
+                                string strNum = "";
+
+                                if (MXP.MXP.MXP_QueryNodeType((UInt32)i, out usNodeType) == MXP.MXP.MXP_ret.RET_NO_ERROR)
+                                {
+                                    if (usNodeType == (UInt32)MXP.MXP.MXP_SlaveType.CiA402_ST)
+                                    {
+                                        strNum = string.Format("{0}", i);
+                                        nAxisCnt++;
+                                    }
+                                }
+                            }
+                            //*/
+                            ProcState = (UInt16)MXP.MXP_KernelState.Inited;
+                        }
+                        break;
+                    }
+                case (UInt16)MXP.MXP_KernelState.Inited:
+                    {
+                        ProcState = (UInt16)MXP.MXP_KernelState.Run;
+                        break;
+                    }
+                case (UInt16)MXP.MXP_KernelState.Run:
+                    {
+                        if (MXP.MXP_SystemRun() == MXP.MXP_ret.RET_NO_ERROR)
+                        {
+                            ProcState = (UInt16)MXP.MXP_KernelState.Running;
+                            Status++;
+                            if (Status > 3)
+                            {
+                                //Util.TopMessageBox("Succeed to run MXP.", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                        else
+                        {
+                            //Util.TopMessageBox("Fail to run MXP!!!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        }
+                        break;
+                    }
+                case (UInt16)MXP.MXP_KernelState.Running:
+                    {
+                        UInt32 usNumOfSlave = 0;
+                        if (MXP.MXP_GetSlaveCount(0/*1: get number of axis, 0: get number of all slaves.*/, out usNumOfSlave) == MXP.MXP_ret.RET_NO_ERROR)
+                        {
+                            /*
+                            int nAxisCnt = 0;
+
+                            // Set combobox items based on number of slave.
+                            for (int i = 0; i < usNumOfSlave; i++)
+                            {
+                                UInt32 usNodeType = 0;
+                                string strNum = "";
+
+                                if (MXP.MXP.MXP_QueryNodeType((UInt32)i, out usNodeType) == MXP.MXP.MXP_ret.RET_NO_ERROR)
+                                {
+                                    if (usNodeType == (UInt32)MXP.MXP.MXP_SlaveType.CiA402_ST)
+                                    {
+                                        strNum = string.Format("{0}", i);
+                                        nAxisCnt++;
+                                    }
+                                }
+                            }
+                            //*/
+                            ProcState = (UInt16)MXP.MXP_KernelState.Inited;
+                        }
+
+                        UInt32 status = 0;
+                        MXP.MXP_GetOnlineMode(ref status);
+                        /*
+                        if (status == (UInt32)MXP.MXP.MXP_ONLINESTATE_ENUM.NET_STATE_OP)
+                        {
+                            ProcState = (UInt16)MXP.MXP.MXP_KernelState.Runed;
+                        }
+                        //*/
+                        //RTEX.ServoOnAll(true);
+                        bool servoChecked = true;
+
+                        for (ushort axis = 0; axis < GlobalVar.Axis_count; axis++)
+                        {
+                            MXP.MXP_READAXISINFO_IN inInfo = new MXP.MXP_READAXISINFO_IN { };
+                            MXP.MXP_READAXISINFO_OUT outInfo = new MXP.MXP_READAXISINFO_OUT { };
+
+                            MXP.MXP_READSTATUS_IN statIn = new MXP.MXP_READSTATUS_IN { };
+                            MXP.MXP_READSTATUS_OUT statOut = new MXP.MXP_READSTATUS_OUT { };
+
+                            ushort AxisNo = axis;
+
+                            inInfo.Axis.AxisNo = axis;
+                            inInfo.Enable = 1;
+
+                            statIn.Axis.AxisNo = axis;
+                            statIn.Enable = 1;
+
+                            if (MXP.MXP_ReadAxisInfo(ref inInfo, out outInfo) != MXP.MXP_ret.RET_NO_ERROR ||
+                                MXP.MXP_ReadStatus(ref statIn, out statOut) != MXP.MXP_ret.RET_NO_ERROR)
+                            {
+                                servoChecked = false;
+                            }
+                            if (!RTEX.ServoOn(axis, true))
+                            {
+                                servoChecked = false;
+                            }
+                        }
+                        if (servoChecked)
+                        {
+                            ProcState = (UInt16)MXP.MXP_KernelState.Runed;
+                            GlobalVar.MasterChecked = true;
+                            GlobalVar.MasterChecking = false;
+                        }
+                        else
+                        {
+                            // 초기화 실패시 다시 초기화
+                            ProcState = (UInt16)MXP.MXP_KernelState.Init;
+                            GlobalVar.MasterChecked = false;
+                            GlobalVar.MasterChecking = true;
+                        }
+                        break;
+                    }
+                case (UInt16)MXP.MXP_KernelState.Runed:
+                    {
+                        //러닝중
+                        Status = 0;
+                        GlobalVar.MasterChecked = true;
+                        GlobalVar.MasterChecking = false;
+                        break;
+                    }
+                case (UInt16)MXP.MXP_KernelState.Reset:
+                    {
+                        if (MXP.MXP_SystemReset() == MXP.MXP_ret.RET_NO_ERROR)
+                        {
+                            ProcState = (UInt16)MXP.MXP_KernelState.Running;
+                            //Util.TopMessageBox("Succeed to reset MXP.", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            //Util.TopMessageBox("Fail to reset MXP!!!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        }
+                        break;
+                    }
+                case (UInt16)MXP.MXP_KernelState.Close:
+                    {
+                        Int32 Status = 0;
+                        MXP.MXP_GetKernelStatus(out Status);
+                        if (Status >= MXP.MXP_SysStatus.Initialized)
+                        {
+                            if (MXP.MXP_SystemStop() == MXP.MXP_ret.RET_NO_ERROR)
+                            {
+                                ProcState = (UInt16)MXP.MXP_KernelState.Destory;
+                            }
+                            else if (Status == 0)
+                            {
+                                ProcState = (UInt16)MXP.MXP_KernelState.Idle;
+                                //Util.TopMessageBox("Already destroy MXP", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            }
+                            else
+                            {
+                                //Util.TopMessageBox("Fail to stop MXP!!!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            }
+                        }
+                        break;
+                    }
+                case (UInt16)MXP.MXP_KernelState.Destory:
+                    {
+                        if (MXP.MXP_Destroy() == MXP.MXP_ret.RET_NO_ERROR)
+                        {
+                            ProcState = (UInt16)MXP.MXP_KernelState.Idle;
+                            //Util.TopMessageBox("Succeed to close MXP.", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            //Util.TopMessageBox("Fail to close MXP!!!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        }
+                        break;
+                    }
+
+            }
+        }
+        #endregion
+
+        #region MXN
+        private bool CheckMXN() // MXN 초기화 함수
+        {
+            if (GlobalVar.Simulation)
+            {
+                return true;
+            }
+
+            UInt16 usStatus;
+            Int32 iRet;
+            usStatus = 0;
+            iRet = MXN.MXN_InitKernel(ref usStatus);
+            if (iRet == MXN.KernelReturn.RET_NO_ERROR && usStatus >= MXN.KernelStatus.SYSTEM_INITED)
+                //Util.TopMessageBox("Success to load MXN API.", "SampleVC#", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return true;
+            else
+            {
+                //Util.TopMessageBox("Fail to load MXN API.", "SampleVC#", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+        }
+        #endregion
+
+        #region AXL  
+
+        private bool CheckAXL() // AXL 초기화 함수
+        {
+            if (GlobalVar.Simulation)
+            {
+                return true;
+            }
+            //++
+            // Initialize library 
+            uint uRetCode = (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS;
+            uRetCode = CAXL.AxlOpen(7);
+            if (uRetCode == (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+            {
+                uint uStatus = 0;
+
+                if (CAXD.AxdInfoIsDIOModule(ref uStatus) == (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                {
+                    if ((AXT_EXISTENCE)uStatus == AXT_EXISTENCE.STATUS_EXIST)
+                    {
+                        #region DIO 초기화
+                        int nModuleCount = 0;
+
+                        if (CAXD.AxdInfoGetModuleCount(ref nModuleCount) == (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                        {
+                            short i = 0;
+                            int nBoardNo = 0;
+                            int nModulePos = 0;
+                            uint uModuleID = 0;
+                            string strData = "";
+
+                            for (i = 0; i < nModuleCount; i++)
+                            {
+                                if (CAXD.AxdInfoGetModule(i, ref nBoardNo, ref nModulePos, ref uModuleID) == (uint)AXT_FUNC_RESULT.AXT_RT_SUCCESS)
+                                {
+                                    switch ((AXT_MODULE)uModuleID)
+                                    {
+                                        case AXT_MODULE.AXT_SIO_DI32: strData = String.Format("[{0:D2}:{1:D2}] SIO-DI32", nBoardNo, i); break;
+                                        case AXT_MODULE.AXT_SIO_DO32P: strData = String.Format("[{0:D2}:{1:D2}] SIO-DO32P", nBoardNo, i); break;
+                                        case AXT_MODULE.AXT_SIO_DB32P: strData = String.Format("[{0:D2}:{1:D2}] SIO-DB32P", nBoardNo, i); break;
+                                        case AXT_MODULE.AXT_SIO_DO32T: strData = String.Format("[{0:D2}:{1:D2}] SIO-DO32T", nBoardNo, i); break;
+                                        case AXT_MODULE.AXT_SIO_DB32T: strData = String.Format("[{0:D2}:{1:D2}] SIO-DB32T", nBoardNo, i); break;
+                                        case AXT_MODULE.AXT_SIO_RDI32: strData = String.Format("[{0:D2}:{1:D2}] SIO_RDI32", nBoardNo, i); break;
+                                        case AXT_MODULE.AXT_SIO_RDO32: strData = String.Format("[{0:D2}:{1:D2}] SIO_RDO32", nBoardNo, i); break;
+                                        case AXT_MODULE.AXT_SIO_RDB128MLII: strData = String.Format("[{0:D2}:{1:D2}] SIO-RDB128MLII", nBoardNo, i); break;
+                                        case AXT_MODULE.AXT_SIO_RSIMPLEIOMLII: strData = String.Format("[{0:D2}:{1:D2}] SIO-RSIMPLEIOMLII", nBoardNo, i); break;
+                                        case AXT_MODULE.AXT_SIO_RDO16AMLII: strData = String.Format("[{0:D2}:{1:D2}] SIO-RDO16AMLII", nBoardNo, i); break;
+                                        case AXT_MODULE.AXT_SIO_RDO16BMLII: strData = String.Format("[{0:D2}:{1:D2}] SIO-RDO16BMLII", nBoardNo, i); break;
+                                        case AXT_MODULE.AXT_SIO_RDB96MLII: strData = String.Format("[{0:D2}:{1:D2}] SIO-RDB96MLII", nBoardNo, i); break;
+                                        case AXT_MODULE.AXT_SIO_RDO32RTEX: strData = String.Format("[{0:D2}:{1:D2}] SIO-RDO32RTEX", nBoardNo, i); break;
+                                        case AXT_MODULE.AXT_SIO_RDI32RTEX: strData = String.Format("[{0:D2}:{1:D2}] SIO-RDI32RTEX", nBoardNo, i); break;
+                                        case AXT_MODULE.AXT_SIO_RDB32RTEX: strData = String.Format("[{0:D2}:{1:D2}] SIO-RDB32RTEX", nBoardNo, i); break;
+                                        case AXT_MODULE.AXT_SIO_DI32_P: strData = String.Format("[{0:D2}:{1:D2}] SIO-DI32_P", nBoardNo, i); break;
+                                        case AXT_MODULE.AXT_SIO_DO32T_P: strData = String.Format("[{0:D2}:{1:D2}] SIO-DO32T_P", nBoardNo, i); break;
+                                        case AXT_MODULE.AXT_SIO_RDB32T: strData = String.Format("[{0:D2}:{1:D2}] SIO-RDB32T", nBoardNo, i); break;
+                                        case AXT_MODULE.AXT_ECAT_DIO:
+                                            //uint uModuleSubID = 0;
+                                            //var szModuleName = new System.Text.StringBuilder(50);
+                                            //var szModuleDesc = new System.Text.StringBuilder(80);
+                                            //CAXD.AxdInfoGetModuleEx(i, ref uModuleSubID, szModuleName, szModuleDesc);
+                                            //strData = String.Format("[{0:D2}:{1:D2}] {2}", nBoardNo, i, szModuleName);
+                                            break;
+                                        default:
+                                            strData = String.Format("[{0:D2}:{1:D2}] Unknown", nBoardNo, i);
+                                            break;
+                                    }
+                                    //comboModule.Items.Add(strData);
+                                }
+                            }
+                            //comboModule.SelectedIndex = 0;
+                        }
+                        #endregion
+
+                        #region  Motion 초기화
+                        int m_lAxisCounts = 0;                // 제어 가능한 축갯수 선언 및 초기화
+                        int m_lAxisNo = 0;                    // 제어할 축 번호 선언 및 초기화   
+                        uint m_uModuleID = 0;                // 제어할 축의 모듈 I/O 선언 및 초기화
+                        int m_lBoardNo = 0, m_lModulePos = 0;
+
+                        String strAxis = "";
+
+                        //++ 유효한 전체 모션축수를 반환합니다.
+                        uint a = CAXM.AxmInfoGetAxisCount(ref m_lAxisCounts);
+                        m_lAxisNo = 0;
+                        //++ 지정한 축의 정보를 반환합니다.
+                        // [INFO] 여러개의 정보를 읽는 함수 사용시 불필요한 정보는 NULL(0)을 입력하면 됩니다.
+                        CAXM.AxmInfoGetAxis(m_lAxisNo, ref m_lBoardNo, ref m_lModulePos, ref m_uModuleID);
+                        for (int i = 0; i < m_lAxisCounts; i++)
+                        {
+                            switch (m_uModuleID)
+                            {
+                                //++ 지정한 축의 정보를 반환합니다.
+                                // [INFO] 여러개의 정보를 읽는 함수 사용시 불필요한 정보는 NULL(0)을 입력하면 됩니다.
+                                case (uint)AXT_MODULE.AXT_SMC_4V04: strAxis = String.Format("{0:0}-(AXT_SMC_4V04)", i); break;
+                                case (uint)AXT_MODULE.AXT_SMC_R1V04: strAxis = String.Format("{0:0}-[AXT_SMC_R1V04]", i); break;
+                                case (uint)AXT_MODULE.AXT_SMC_2V04: strAxis = String.Format("{0:0}-[AXT_SMC_2V04]", i); break;
+                                case (uint)AXT_MODULE.AXT_SMC_R1V04MLIIPM: strAxis = String.Format("{0:0}-[AXT_SMC_R1V04MLIIPM]", i); break;
+                                case (uint)AXT_MODULE.AXT_SMC_R1V04PM2Q: strAxis = String.Format("{0:0}-[AXT_SMC_R1V04PM2Q]", i); break;
+                                case (uint)AXT_MODULE.AXT_SMC_R1V04PM2QE: strAxis = String.Format("{0:0}-[AXT_SMC_R1V04PM2QE]", i); break;
+                                case (uint)AXT_MODULE.AXT_SMC_R1V04MLIIIPM: strAxis = String.Format("{0:0}-(AXT_SMC_R1V04MLIIIPM)", i); break;
+                                case (uint)AXT_MODULE.AXT_SMC_R1V04MLIISV: strAxis = String.Format("{0:0}-[AXT_SMC_R1V04MLIISV]", i); break;
+                                case (uint)AXT_MODULE.AXT_SMC_R1V04A5: strAxis = String.Format("{0:0}-[AXT_SMC_R1V04A4]", i); break;
+                                case (uint)AXT_MODULE.AXT_SMC_R1V04A4: strAxis = String.Format("{0:0}-[AXT_SMC_R1V04MLIICL]", i); break;
+                                case (uint)AXT_MODULE.AXT_SMC_R1V04SIIIHMIV: strAxis = String.Format("{0:0}-[AXT_SMC_R1V04SIIIHMIV]", i); break;
+                                case (uint)AXT_MODULE.AXT_SMC_R1V04SIIIHMIV_R: strAxis = String.Format("{0:0}-[AXT_SMC_R1V04SIIIHMIV_R]", i); break;
+                                case (uint)AXT_MODULE.AXT_SMC_R1V04MLIIISV: strAxis = String.Format("{0:0}-[AXT_SMC_R1V04MLIIISV]", i); break;
+                                case (uint)AXT_MODULE.AXT_SMC_R1V04MLIIISV_MD: strAxis = String.Format("{0:0}-[AXT_SMC_R1V04MLIIISV_MD]", i); break;
+                                case (uint)AXT_MODULE.AXT_SMC_R1V04MLIIIS7S: strAxis = String.Format("{0:0}-[AXT_SMC_R1V04MLIIIS7S]", i); break;
+                                case (uint)AXT_MODULE.AXT_SMC_R1V04MLIIIS7W: strAxis = String.Format("{0:0}-[AXT_SMC_R1V04MLIIIS7W]", i); break;
+                                case (uint)AXT_MODULE.AXT_ECAT_MOTION:
+                                    //uint uModuleSubID = 0;
+                                    //var szModuleName = new System.Text.StringBuilder(50);
+                                    //var szModuleDesc = new System.Text.StringBuilder(80);
+                                    //CAXM.AxmInfoGetAxisEx(i, ref uModuleSubID, szModuleName, szModuleDesc);
+                                    //strAxis = String.Format("{0:0}-[ECAT-{1}]", i, szModuleName);
+                                    break;
+                                default: strAxis = String.Format("{0:00}-[Unknown]", i); break;
+                            }
+                            //cboSelAxis.Items.Add(strAxis);
+                        }
+                        #endregion
+                    }
+                    else
+                    {
+                        FuncWin.TopMessageBox("Module not exist.");
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                FuncWin.TopMessageBox("Open Error!");
+                return false;
+            }
+            return true;
+        }
+
+        #endregion
+
+
+        #endregion 제어기 초기화
+
+        public void setLanguage() // 각 Form 클래스마다 각각 정의해서 화면 컨트롤 등에 대한 언어 적용. 이벤트성 메시지는 발생시 직접 읽어오도록
+        {
+            switch (GlobalVar.Language)
+            {
+                case enumLanguage.Korean:
+                    break;
+                case enumLanguage.English:
+                default:
+                    string path = "C:\\FA\\" + GlobalVar.SWName + "\\Language\\" + GlobalVar.Language.ToString() + ".ini";
+                    //btnStart.Text = Util.ReadIniFile("frmMain", "btnStart.Text", path, "Start");
+                    //btnInit.Text = Util.ReadIniFile("frmMain", "btnInit.Text", path, "Initialize");
+                    break;
+            }
+        }
+
+        #region 타이머 함수
+
+        private void TimerUI(Object state) // 화면 제어 쓰레드 타이머 함수
+        {
+            try
+            {
+                if (timerDoing)
+                {
+                    return;
+                }
+                timerDoing = true;
+
+                //               /* 화면 변경 timer */
+                //               this.Invoke(new MethodInvoker(delegate ()
+                //               {
+
+                //                   //tbError.Text = GlobalVar.SystemMsg;
+
+                //                   #region 버튼 이미지 표시
+                //                   //*
+
+
+                //                   if ((int)GlobalVar.SystemStatus >= (int)enumSystemStatus.AutoRun &&
+                //                   (int)GlobalVar.SystemStatus != (int)enumSystemStatus.ErrorStop)
+                //                   {
+                //                       pbStart.BackgroundImage = Radix.Properties.Resources.start_green;
+                //                       pbStop.BackgroundImage = Radix.Properties.Resources.stop;
+
+                //                   }
+                //                   else
+                //                   {
+                //                       pbStart.BackgroundImage = Radix.Properties.Resources.start;
+                //                       pbStop.BackgroundImage = Radix.Properties.Resources.stop_red;
+                //                       //pbCycleStop.BackgroundImage = Radix.Properties.Resources.cycle_stop;
+                //                   }
+                //                   //Tray 공급 중지용으로 사용하려고 바꿈 by DGkim
+                //                   if (GlobalVar.CycleStop)
+                //                   {
+                //                       // pbStop.BackgroundImage = Radix.Properties.Resources.stop;
+                //                       pbCycleStop.BackgroundImage = Radix.Properties.Resources.cycle_stop_red;
+                //                   }
+                //                   else
+                //                   {
+                //                       //pbStop.BackgroundImage = Radix.Properties.Resources.stop;
+                //                       pbCycleStop.BackgroundImage = Radix.Properties.Resources.cycle_stop;
+                //                   }
+                //                   pbErrorLog.BackgroundImage = GlobalVar.SystemErrored || GlobalVar.E_Stop || GlobalVar.DoorOpen ?
+                //                                               Radix.Properties.Resources.errors_red :
+                //                                               Radix.Properties.Resources.errors;
+                //                   pbReset.BackgroundImage = GlobalVar.SystemErrored || GlobalVar.E_Stop || GlobalVar.DoorOpen ?
+                //                                               Radix.Properties.Resources.errors_reset_bright :
+                //                                               Radix.Properties.Resources.errors_reset;
+                //                   //=======================================================================================================
+
+                //                   pbBuzzerStop.BackgroundImage = !GlobalVar.EnableBuzzer || !GlobalVar.EnableBuzzer || !(GlobalVar.SystemErrored || GlobalVar.E_Stop || GlobalVar.DoorOpen) ?
+                //                                                   Properties.Resources.buzzer_stop : Properties.Resources.buzzer_stop_bright;
+                //                   //*/
+
+
+                //                   ////Tray Out 버튼 색상 컨트롤
+                //                   //if (FuncBoxPacking.After_Tray_Out_Start == false &&
+                //                   //FuncBoxPacking.ManualAfterTrayOut == false)
+                //                   //{
+                //                   //    btnAfterTrayOut.BackColor = Color.White;
+                //                   //}
+
+                //                   #endregion
+
+
+                //                   #region 출력에 따른 UI 변경 공간
+
+                //                   #region 샌딩기 - 설비 쓰메마 신호 출력
+                //                   //if (DIO.GetDIChange(DIO_BoxPacking_enumDINames.X04_6_Sanding_SMEMA))   //값이 바뀌었으면 실행
+                //                   //{
+
+                //                   //    if (DIO.GetDIData(DIO_BoxPacking_enumDINames.X04_6_Sanding_SMEMA))
+                //                   //    {
+                //                   //        FuncLog.WriteLog("샌딩기 - 쓰메마 트루"); //로그 기록
+                //                   //    }
+                //                   //    else
+                //                   //    {
+                //                   //        FuncLog.WriteLog("샌딩기 - 쓰메마 펄스");
+                //                   //    }
+
+                //                   //    FuncForm.SetLabelColor2(lbSandingSMEMA, DIO.GetDIData(DIO_BoxPacking_enumDINames.X04_6_Sanding_SMEMA));    //샌딩기 쓰메마 신호 표시
+                //                   //}
+
+                //                   //if (DIO.GetDOChange(DIO_BoxPacking_enumDONames.Y03_1_Sanding_SMEMA))  //값이 바뀌었으면 실행
+                //                   //{
+                //                   //    FuncForm.SetLabelColor2(lbKukaSMEMA, DIO.GetDOData(DIO_BoxPacking_enumDONames.Y03_1_Sanding_SMEMA));   //설비 쓰메마 신호 표시
+                //                   //}
+                //                   #endregion 샌딩기 - 설비 쓰메마 신호 출력
+                //                   //FuncForm.SetButtonColor2(btnBoxOutClamp, GlobalVar.HighGain_Magazine_Change_Tray_Out);
+
+
+
+                //                   //FuncForm.SetLabelColor2(lbboxOutPush_st, (DIO.GetDOData(enumDONames.Y03_6_Box_Out_Push_Cylinder)));
+
+                //                   //lbScanReceive.Text = GlobalVar.Load_Scanner;
+
+                //                   if (DIO.Tower_Lamp_Buzzer_Check())
+                //                   {
+                //                       //lblDOCapFeederPower.Text = "ON";
+                //                       //lblDOCapFeederPower.BackColor = Color.Green;
+                //                   }
+                //                   else
+                //                   {
+                //                       //lblDOCapFeederPower.Text = "OFF";
+                //                       //lblDOCapFeederPower.BackColor = Color.Transparent;
+                //                   }
+
+                //                   #endregion
+
+
+                //                   #region Robot에 따른 UI 변경 공간
+
+                //                   //와이파이 이미지에 대한 용도는  더 생각해 보자
+                ////                   if (FuncRobot.RobotInited())// &&
+                //                                               //FuncRobot.RobotReady())                        
+                //                   {
+                //                       pB_Wifi.Visible = true;
+                //                   }
+                //                   //else
+                //                   //{
+                //                   //    pB_Wifi.Visible = false;
+                //                   //}
+
+                //                   //DNet.GetDNetData((int)Kuka_enumDnetINames.IN_HOME))
+                //                   //#region 메가젠 4,5호기 KuKa로봇이 센터일때 체크(안전 문제로 인해)
+                //                   //if (FuncRobot.RobotReady_Kuka())
+                //                   //{
+
+                //                   //    FuncBoxPacking.KUKA_Center = true;
+                //                   //}
+                //                   //else
+                //                   //{
+                //                   //    FuncBoxPacking.KUKA_Center = false;
+                //                   //}
+                //                   //#endregion
+
+
+
+                //                   #endregion
+
+                //                   #region 시스템 운영상태 표시
+                //                   //if (GlobalVar.DryRun)
+                //                   //{
+                //                   //    pbDryRun.Visible = true;
+                //                   //    lblDryRun.Text = "Dry Run";
+                //                   //}
+                //                   //else
+                //                   //{
+                //                   //    pbDryRun.Visible = false;
+                //                   //    lblDryRun.Text = "Auto Run";
+                //                   //}
+                //                   string runMode = GlobalVar.SystemStatus.ToString();
+                //                   if (GlobalVar.AutoInline_PassMode)
+                //                   {
+                //                       runMode += " PassMode";
+                //                   }
+                //                   if (GlobalVar.AutoInline_SimulationMode)
+                //                   {
+                //                       runMode += " SimulationMode";
+                //                   }
+                //                   if (GlobalVar.DryRun)
+                //                   {
+                //                       runMode += " DryRun";
+                //                   }
+                //                   if (GlobalVar.CycleStop)
+                //                   {
+                //                       runMode += " CycleStop";
+                //                   }
+                //                   lblRunMode.Text = runMode;
+
+
+                //                   lbError_code.Text = FuncBoxPacking.MGG_SandingErrorCode;   //MGG - 에러코드 확인을 위해 추가 by DGKim
+
+                //                   #region 경고창을 띄우기 위해
+                //                   bool bFormNameOpen = false;
+                //                   // Warning 창을 띄우기 위한 by DG 20220817
+                //                   if (GlobalVar.dlgWarning_Check)
+                //                   {
+                //                       //현재 열려있는 폼을 확인해서 중복실행을 방지한다
+                //                       FormCollection fc = Application.OpenForms;
+
+
+                //                       foreach (Form frm in fc)
+                //                       {
+                //                           //WarningDialog 가 열려있으면 bFormNameOpen = true
+                //                           if (frm.Name == "WarningDialog")
+                //                           {
+                //                               bFormNameOpen = true;
+
+                //                           }
+                //                       }
+
+
+
+                //                       WarningDialog Warning_dlg = new WarningDialog();
+                //                       string msgtemp = Warning_dlg.SetText;
+                //                       //WarningDialog 열려 있으면 진입 하지 않는다
+                //                       if (bFormNameOpen == false)
+                //                       {
+                //                           Warning_dlg.SetText = GlobalVar.dlgWarning_Msg;
+                //                           GlobalVar.dlgWarning_Msg = "";
+                //                           GlobalVar.Warning = true;
+                //                           Warning_dlg.TopMost = true;
+                //                           Warning_dlg.Show();
+                //                           Warning_dlg.BringToFront();
+                //                       }
+                //                       else
+                //                       {
+                //                           Warning_dlg.SetText = Warning_dlg.SetText + "\n" + GlobalVar.dlgWarning_Msg;
+                //                           GlobalVar.dlgWarning_Msg = "";
+                //                       }
+
+
+
+                //                       GlobalVar.dlgWarning_Check = false;
+                //                   }
+                //                   #endregion
+
+
+                //                   #endregion
+
+                //                   #region 모델 확인
+                //                   lbModelName.Text = GlobalVar.ModelName;
+                //                   #endregion
+
+
+                //                   //GlobalVar.AxisStatus[0].StandStill = false;
+
+                //                   //lblTackTime.Text = GlobalVar.TackTime.ToString("F1") + " sec";
+
+                //                   FuncForm.SetButtonColor2(btnSmemaAfter, GlobalVar.TestPass);
+
+                //                   //lblRobotSpeed.Text = FuncBoxPacking.RobotSpeed.ToString();
+
+                //                   //lb_Lift_BF_In_Count.Text = FuncBoxPacking.Before_Tray_In_Floor.ToString();
+                //                   //lb_Lift_BF_Out_Count.Text = FuncBoxPacking.Before_Tray_Out_Floor.ToString();
+                //                   //lb_Lift_AF_In_Count.Text = FuncBoxPacking.After_Tray_In_Floor.ToString();
+                //                   //lb_Lift_AF_Out_Count.Text = FuncBoxPacking.After_Tray_Out_Floor.ToString();
+
+                //                   //lbCheckServo.Text = GlobalVar.AxisStatus[(int)enum_BoxPacking_ServoAxis.N1_Box_Conveyor].Position.ToString();
+
+
+                //               }));
+
+
+                this.Invoke(new MethodInvoker(delegate ()
+                {
+
+                    // Wifi 이미지 
+                    pB_Wifi.Visible = false;
+
+                    // Update 라인 Tracking Info text
+                    Update_Tracking_Info();
+
+                    // Update UI 오른쪽 Lot Info
+                    Update_Lot_Info();
+
+                    // 화면우측 AutoRun Step Status Update
+                    FuncBoxPacking.StepPrint();
+
+                    // Runmode Txt
+
+                    string runMode = GlobalVar.SystemStatus.ToString();
+                    if (GlobalVar.AutoInline_PassMode)
+                    {
+                        runMode += " PassMode";
+                    }
+                    if (GlobalVar.AutoInline_SimulationMode)
+                    {
+                        runMode += " SimulationMode";
+                    }
+                    if (GlobalVar.DryRun)
+                    {
+                        runMode += " DryRun";
+                    }
+                    if (GlobalVar.CycleStop)
+                    {
+                        runMode += " CycleStop";
+                    }
+                    lblRunMode.Text = runMode;
+
+
+
+
+                    if ((int)GlobalVar.SystemStatus >= (int)enumSystemStatus.AutoRun &&
+                    (int)GlobalVar.SystemStatus != (int)enumSystemStatus.ErrorStop)
+                    {
+                        pbStart.BackgroundImage = Radix.Properties.Resources.start_green;
+                        pbStop.BackgroundImage = Radix.Properties.Resources.stop;
+
+                    }
+                    else
+                    {
+                        pbStart.BackgroundImage = Radix.Properties.Resources.start;
+                        pbStop.BackgroundImage = Radix.Properties.Resources.stop_red;
+                    }
+
+                    if (GlobalVar.CycleStop)
+                    {
+                        pbCycleStop.BackgroundImage = Radix.Properties.Resources.cycle_stop_red;
+                    }
+                    else
+                    {
+                        pbCycleStop.BackgroundImage = Radix.Properties.Resources.cycle_stop;
+                    }
+
+                    ///////////////////////////////////////////////////////////////
+
+                    pbErrorLog.BackgroundImage = GlobalVar.SystemErrored || GlobalVar.E_Stop || GlobalVar.DoorOpen ?
+                                                Radix.Properties.Resources.errors_red :
+                                                Radix.Properties.Resources.errors;
+                    pbReset.BackgroundImage = GlobalVar.SystemErrored || GlobalVar.E_Stop || GlobalVar.DoorOpen ?
+                                                Radix.Properties.Resources.errors_reset_bright :
+                                                Radix.Properties.Resources.errors_reset;
+                    //=======================================================================================================
+
+                    pbBuzzerStop.BackgroundImage = !GlobalVar.EnableBuzzer || !GlobalVar.EnableBuzzer || !(GlobalVar.SystemErrored || GlobalVar.E_Stop || GlobalVar.DoorOpen) ?
+                                                    Properties.Resources.buzzer_stop : Properties.Resources.buzzer_stop_bright;
+
+
+
+                    // 레이저 마킹기 상태
+                    int statusLaserMark = GlobalVar.Tracking.Status_LaserMark;
+                    int statusLabelPrint = GlobalVar.Tracking.Status_LabelPrint;
+
+
+                    if (statusLaserMark == 2)
+                    {
+                        lbLaserMark.ForeColor = Color.Green;
+                        lbLaserMark.Text = "레이저마킹 OK";
+                    }
+
+                    //if (statusLaserMark == 1 || statusLaserMark == 0 )
+                    //{
+                    //    // 대기 상태
+                    //    lbLaserMark.ForeColor = Color.Black;
+                    //    lbLaserMark.Text = "레이저마킹";
+                    //}
+
+                    if (statusLaserMark == -1)
+                    {
+                        lbLaserMark.ForeColor = Color.Red;
+                        lbLaserMark.Text = "레이저마킹 NG";
+                    }
+
+                    // 라벨 프린터 상태
+                    if (statusLabelPrint == 2)
+                    {
+                        lbLabelPrint.ForeColor = Color.Green;
+                        lbLabelPrint.Text = "라벨프린터 OK";
+                    }
+
+                    //if (statusLabelPrint == 1 || statusLabelPrint == 0)
+                    //{
+                    //    //대기
+                    //    lbLabelPrint.ForeColor = Color.Black;
+                    //    lbLabelPrint.Text = "라벨프린터";
+                    //}
+
+                    if (statusLabelPrint == -1)
+                    {
+                        lbLabelPrint.ForeColor = Color.Red;
+                        lbLabelPrint.Text = "라벨프린터 NG";
+                    }
+
+                    lbPrinterErr1.BackColor = (GlobalVar.LabelPrint.Status_PaperOut) ? Color.Red : Color.DarkGray;
+                    lbPrinterErr2.BackColor = (GlobalVar.LabelPrint.Status_RibbonOut) ? Color.Red : Color.DarkGray;
+                    lbPrinterErr3.BackColor = (GlobalVar.LabelPrint.Status_Pause) ? Color.Red : Color.DarkGray;
+                    lbPrinterLabelWait.BackColor = (GlobalVar.LabelPrint.Status_LabelWait ) ? Color.Lime : Color.DarkGray;
+
+
+                    //  투입기 바코드
+                    int statusBoxIn2 = GlobalVar.Tracking.Status_Barcode2;
+                    int statusBoxIn4 = GlobalVar.Tracking.Status_Barcode4;
+                    if (statusBoxIn2 == 1 && statusBoxIn4 == 1)
+                    {
+                        lbBoxIn.ForeColor = Color.Green;
+                        lbBoxIn.Text = "투입바코드 OK";
+                    }
+                    if (statusBoxIn2 < 0 || statusBoxIn4 < 0)
+                    {
+                        lbBoxIn.ForeColor = Color.Red;
+                        lbBoxIn.Text = "투입바코드 NG";
+                    }
+
+                    // 반전기 바코드
+                    int statusBoxReverse = GlobalVar.Tracking.Status_Barcode5;
+                    if (statusBoxReverse == 1)
+                    {
+                        lbBoxReverse.ForeColor = Color.Green;
+                        lbBoxReverse.Text = "반전바코드 OK";
+                    }
+                    if (statusBoxReverse < 0)
+                    {
+                        lbBoxReverse.ForeColor = Color.Red;
+                        lbBoxReverse.Text = "반전바코드 NG";
+                    }
+
+                    // 라벨기전 바코드
+                    int statusLabelBefore = GlobalVar.Tracking.Status_Barcode6;
+                    if (statusLabelBefore == 1)
+                    {
+                        lbLabelBefore.ForeColor = Color.Green;
+                        lbLabelBefore.Text = "바코드6 OK";
+                    }
+                    if (statusLabelBefore < 0)
+                    {
+                        lbLabelBefore.ForeColor = Color.Red;
+                        lbLabelBefore.Text = "바코드6 NG";
+                    }
+
+                    // 라벨기후 바코드
+                    int statusLabelAfter = GlobalVar.Tracking.Status_Barcode7;
+                    if (statusLabelAfter == 1)
+                    {
+                        lbLabelAfter.ForeColor = Color.Green;
+                        lbLabelAfter.Text = "바코드7 OK";
+                    }
+                    if (statusLabelAfter < 0)
+                    {
+                        lbLabelAfter.ForeColor = Color.Red;
+                        lbLabelAfter.Text = "바코드7 NG";
+                    }
+
+                    // Feeder Status
+                    var LampGreen = Radix.Properties.Resources.Lamp_Green_1;
+                    var LampGray = Radix.Properties.Resources.Lamp_Gray_1;
+
+                    bool isBlisterReady = GlobalVar.Thread_Feeder.Blister_Ready;
+                    //!GlobalVar.Thread_Feeder.Blister_Pickup; // 별 의미없음 픽업중 ON/OFF
+                    bool isFeederRun = DIO.GetDOData(DIO_BoxPacking_enumDONames.Y05_0_Feeder_Table_Roll1);
+                    bool isHopperRun = DIO.GetDOData(DIO_BoxPacking_enumDONames.Y05_2_Feeder_Hopper_Run);
+
+
+                    if (isFeederRun) lbFeeder1.Image = LampGreen;
+                    else lbFeeder1.Image = LampGray;
+
+                    if (isBlisterReady) lbFeeder2.Image = LampGreen;
+                    else lbFeeder2.Image = LampGray;
+
+                    if (isHopperRun) lbFeeder3.Image = LampGreen;
+                    else lbFeeder3.Image = LampGray;
+
+
+                    // Manual Sensor 상태 정보
+                    bool manuSensor1 = DIO.GetDIData(DIO_BoxPacking_enumDINames.X12_4_Manual_Sensor_1);
+                    bool manuSensor2 = DIO.GetDIData(DIO_BoxPacking_enumDINames.X12_5_Manual_Sensor_2);
+                    bool manuSensor3 = DIO.GetDIData(DIO_BoxPacking_enumDINames.X12_6_Manual_Sensor_3);
+
+                    bool manuMiddle1 = DIO.GetDIData(DIO_BoxPacking_enumDINames.X12_2_Manual_middle_Sensor_1);
+                    bool manuMiddle2 = DIO.GetDIData(DIO_BoxPacking_enumDINames.X12_3_Manual_middle_Sensor_2);
+
+                    // manual sensor
+                    if (manuSensor1) lbManualSensor1.Image = LampGreen;
+                    else lbManualSensor1.Image = LampGray;
+                    if (manuSensor2) lbManualSensor2.Image = LampGreen;
+                    else lbManualSensor2.Image = LampGray;
+                    if (manuSensor3) lbManualSensor3.Image = LampGreen;
+                    else lbManualSensor3.Image = LampGray;
+                    // manual middle sensor
+                    if (manuMiddle1) lbMiddleSensor1.Image = LampGreen;
+                    else lbMiddleSensor1.Image = LampGray;
+                    if (manuMiddle2) lbMiddleSensor2.Image = LampGreen;
+                    else lbMiddleSensor2.Image = LampGray;
+
+                    // Laser 마킹 접속상태
+                    if (GlobalVar.LaserMark.connected) lbLaserConnectStatus.Image = LampGreen;
+                    else lbLaserConnectStatus.Image = LampGray;
+
+                    // Label Printer 접속상태
+                    if (GlobalVar.LabelPrint.connected) lbLabelConnectStatus.Image = LampGreen;
+                    else lbLabelConnectStatus.Image = LampGray;
+
+
+                    //BAR UP 상태
+                    bool IsBarUP = DIO.GetDOData(DIO_BoxPacking_enumDONames.Y09_7_BoxConv_Bar_Sol_UP);
+                    if (IsBarUP)
+                    {
+                        btnBoxConv_BarCylinderUP.BackColor = Color.Lime;
+                    }
+                    else
+                    {
+                        btnBoxConv_BarCylinderUP.BackColor = Color.White;
+                    }
+
+                    // RePrint 상태
+                    if (GlobalVar.G_RePrint)
+                    {
+                        btnRePrint.BackColor = Color.Lime;
+                    }
+                    else
+                    {
+                        btnRePrint.BackColor = Color.White;
+                    }
+
+                    // 매뉴얼 각도 실린더 상태
+                    bool isAngleUP = DIO.GetDOData(DIO_BoxPacking_enumDONames.Y11_2_Manual_Angle_Sol_UP);
+                    if (isAngleUP)
+                    {
+                        btn_ManualAngleUP.BackColor = Color.Lime;
+                    }
+                    else
+                    {
+                        btn_ManualAngleUP.BackColor = Color.White;
+                    }
+
+
+
+                    // DATE TIME
+                    string dateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    lbMesDate.Text = dateTime;
+
+                    // MES Color
+                    //int mesDataCount = GlobalVar.MES.GetMesCount();
+                    //lbMes.Text = $"MES ({mesDataCount})";
+                    //if (GlobalVar.MES.IsNewMesData())
+                    //{
+                    //    lbMes.ForeColor = Color.Lime;
+                    //}
+                    //else
+                    //{
+                    //    lbMes.ForeColor = Color.Red;
+                    //}
+
+
+
+
+                    #region 경고창을 띄우기 위해
+                    bool bFormNameOpen = false;
+                    // Warning 창을 띄우기 위한 by DG 20220817
+                    if (GlobalVar.dlgWarning_Check)
+                    {
+                        //현재 열려있는 폼을 확인해서 중복실행을 방지한다
+                        FormCollection fc = Application.OpenForms;
+                        foreach (Form frm in fc)
+                        {
+                            //WarningDialog 가 열려있으면 bFormNameOpen = true
+                            if (frm.Name == "WarningDialog")
+                            {
+                                bFormNameOpen = true;
+                            }
+                        }
+
+                        WarningDialog Warning_dlg = new WarningDialog();
+                        string msgtemp = Warning_dlg.SetText;
+                        //WarningDialog 열려 있으면 진입 하지 않는다
+                        if (bFormNameOpen == false)
+                        {
+                            Warning_dlg.SetText = GlobalVar.dlgWarning_Msg;
+                            GlobalVar.dlgWarning_Msg = "";
+                            GlobalVar.Warning = true;
+                            Warning_dlg.TopMost = true;
+                            Warning_dlg.Show();
+                            Warning_dlg.BringToFront();
+                        }
+                        else
+                        {
+                            Warning_dlg.SetText = Warning_dlg.SetText + "\n" + GlobalVar.dlgWarning_Msg;
+                            GlobalVar.dlgWarning_Msg = "";
+                        }
+
+                        GlobalVar.dlgWarning_Check = false;
+                    }
+                    #endregion
+
+
+
+
+                }));
+
+                timerDoing = false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.StackTrace);
+                //debug(ex.StackTrace);
+            }
+            finally
+            {
+                timerDoing = false;
+            }
+
+        }
+
+
+        // 화면상에 소재를 추적하여 표시
+        void Update_Tracking_Info()
+        {
+            // Tracking Update
+
+            var Tracking = GlobalVar.Tracking;
+            Label[] boxConvLabel = new Label[] { lbBox1, lbBox2, lbBox3, lbBox4, lbBox5, lbBox6, lbBox7, lbBox8, lbBox9, lbBox10, lbBox11 };
+            Label[] outConvLabel = new Label[] { lbOut1, lbOut2, lbOut3, lbOut4, lbOut5, lbOut6, lbOut7, lbOut8, lbOut9, lbOut10 };
+
+
+            // 박스 컨베이어
+            for ( int i=0;i<boxConvLabel.Length; i++)
+            {
+                if (Tracking.boxConv[i].boxQR.Length > 0)
+                {
+                    // 박스 QR이 부여되었으면 QR을
+                    boxConvLabel[i].Text = Tracking.boxConv[i].boxQR;
+                }
+                else
+                {
+                    //박스만 있으면 BOX라고 표시
+                    boxConvLabel[i].Text = (Tracking.boxConv[i].boxType == 1) ? "BOX" : "";
+                }
+                //
+                if ( i>= 3)
+                {
+                    var strManualType = "";
+                    var lang = Tracking.boxConv[i].mesinfo.T_LANGFG;
+                    if (Tracking.boxConv[i].manualType == 1) strManualType = "영어중어";
+                    if (Tracking.boxConv[i].manualType == 2) strManualType = "다국어";
+
+                    if (Tracking.boxConv[i].lotNo.Length > 0)
+                    {
+                        //박스 존재시 투입기 부터는 Lot번호와 매뉴얼 타입을 같이 보여줌
+                        boxConvLabel[i].Text += "\n" + Tracking.boxConv[i].lotNo + "\n" + strManualType + $"({lang})";
+                    }
+                }
+            }
+            // 매뉴얼 컨베이어
+            for ( int i=7;i<=10;i++)
+            {
+                if (Tracking.mansConv[i].manualType == 0 && Tracking.mansConv[i].blisterExist == 0)
+                {
+                    // 아무것도 없으면 정보 메시지 공백으로
+                    Tracking.mansConv[i].msgUI = "";
+                }
+                else
+                {
+                    var strManualType = "없음";
+                    if (Tracking.mansConv[i].manualType == 1) strManualType = "국내용";
+                    if (Tracking.mansConv[i].manualType == 2) strManualType = "해외용";
+                    Tracking.mansConv[i].msgUI = "Manual " + strManualType;
+                    // 블리스터 유무 추가
+                    Tracking.mansConv[i].msgUI += "\nBlister " + Tracking.mansConv[i].blisterExist.ToString();
+                }
+            }
+            lbManu7.Text = Tracking.mansConv[7].msgUI;
+            lbManu8.Text = Tracking.mansConv[8].msgUI;
+            lbManu9.Text = Tracking.mansConv[9].msgUI;
+            lbManuLast.Text = Tracking.mansConv[10].msgUI;
+            // 아웃 컨베이어
+            for (int i = 0; i < outConvLabel.Length; i++)
+            {
+                string errStr = "";
+                if (Tracking.outConv[i].boxType != 0)
+                {
+                    errStr = $"Status: {Tracking.outConv[i].flagError}";
+                }
+                outConvLabel[i].Text = Tracking.outConv[i].boxQR + "\n" + Tracking.outConv[i].lotNo + "\n" + errStr;
+            }
+        }
+
+        // 화면 오른쪽의 Lot별 처리 갯수를 표시한다.
+        void Update_Lot_Info()
+        {
+            var info = GlobalVar.Tracking.OutInfo;
+            
+            lbLot1.Text = info[0].OutLot;
+            lbLot2.Text = info[1].OutLot;
+            lbLot3.Text = info[2].OutLot;
+            lbLot4.Text = info[3].OutLot;
+            lbLot5.Text = info[4].OutLot;
+            lbLot6.Text = info[5].OutLot;
+
+            lbCount1.Text = info[0].GetCountString();
+            lbCount2.Text = info[1].GetCountString();
+            lbCount3.Text = info[2].GetCountString();
+            lbCount4.Text = info[3].GetCountString();
+            lbCount5.Text = info[4].GetCountString();
+            lbCount6.Text = info[5].GetCountString();
+
+            lbLot7.Text = "N.G";
+            lbCount7.Text = info[6].OutCount.ToString();
+
+
+            // TOTAL COUNT
+            lbCountTotal.Text = GlobalVar.Tracking.TotalCount.ToString();
+        }
+
+
+
+        int tick = Environment.TickCount;
+        private void tmrCheck_Tick(object sender, EventArgs e)
+        {
+            tmrCheck.Enabled = false;
+            //debug("tmrCheck time : " + (Environment.TickCount - tick));
+            int runningHour = (Environment.TickCount - runTime) / 1000 / 60 / 60;
+            int runningMin = (Environment.TickCount - runTime - runningHour * 1000 * 60 * 60) / 1000 / 60;
+            int runningSec = (Environment.TickCount - runTime - runningHour * 1000 * 60 * 60 - runningMin * 1000 * 60) / 1000;
+            string runningStr = runningHour + " : " + runningMin + " : " + runningSec;
+
+            int runSumSec = runTotal + (Environment.TickCount - runTime) / 1000;
+            int runTotalHour = runSumSec / 60 / 60;
+            int runTotalMin = (runSumSec - runTotalHour * 60 * 60) / 60;
+            int runTotalSec = runSumSec - runTotalHour * 60 * 60 - runTotalMin * 60;
+            string runTotalStr = runTotalHour + " : " + runTotalMin + " : " + runTotalSec;
+
+            try
+            {
+                //debug("tmrCheck time 1 : " + (Environment.TickCount - tick));
+                //if (GlobalVar.CycleWatch.IsRunning ||
+                //    GlobalVar.CycleWatch.ElapsedMilliseconds == 0)
+                //{
+                //    lblCycleTime.Text = "-";
+                //}
+                //else
+                //{
+                //    lblCycleTime.Text = (GlobalVar.CycleWatch.ElapsedMilliseconds / 1000).ToString("F1") + " sec";
+                //}
+
+                lblCycleTime.Text = (GlobalVar.StepTakeTime/1000.0).ToString("F1") + " sec";
+
+                //Running Time
+                if ((int)GlobalVar.SystemStatus >= (int)enumSystemStatus.AutoRun)
+                {
+                    lblRunningTime.Text = runningStr;
+                    lblTotalTime.Text = runTotalStr;
+                }
+                else
+                {
+                    lblRunningTime.Text = "-";
+                }
+
+                //debug("tmrCheck time 2 : " + (Environment.TickCount - tick));
+                #region OP
+                if (!GlobalVar.E_Stop &&
+                    DIO.EMG_Check())
+                {
+                    GlobalVar.E_Stop = true;
+
+
+
+                    FuncError.AddError(new structError(DateTime.Now.ToString("yyyyMMdd"),
+                                                DateTime.Now.ToString("HH:mm:ss"),
+                                                enumErrorPart.System,
+                                                enumErrorCode.E_Stop,
+                                                false,
+                                                "Emergency Stop Button Pressed. Release Button and Initialize system."));
+                    //#region Normal Error
+                    //if (GlobalVar.UseNormalError)
+                    //{
+                    //    FuncError.AddError(enumError.E_Stop);
+                    //}
+                    //#endregion
+                    //#region Part Error
+                    //if (GlobalVar.PartError)
+                    //{
+                    //    FuncError.AddError(new structError(DateTime.Now.ToString("yyyyMMdd"),
+                    //                                DateTime.Now.ToString("HH:mm:ss"),
+                    //                                enumErrorPart.System,
+                    //                                enumErrorCode.E_Stop,
+                    //                                false,
+                    //                                ""));
+                    //}
+                    //#endregion                    
+                }
+
+
+                DIO.WriteDOData((int)DIO_BoxPacking_enumDONames.Y00_0_OP_Start_Lamp, GlobalVar.SystemStatus >= enumSystemStatus.AutoRun && GlobalVar.SystemStatus != enumSystemStatus.ErrorStop);
+                DIO.WriteDOData((int)DIO_BoxPacking_enumDONames.Y00_1_OP_Stop_Lamp, GlobalVar.SystemStatus < enumSystemStatus.AutoRun || GlobalVar.SystemStatus == enumSystemStatus.ErrorStop);
+                DIO.WriteDOData((int)DIO_BoxPacking_enumDONames.Y00_2_OP_Reset_Lamp, GlobalVar.SystemStatus == enumSystemStatus.ErrorStop ||
+                                                                                        GlobalVar.Warning ||
+                                                                                        GlobalVar.DoorOpen ||
+                                                                                        GlobalVar.E_Stop);
+                if (DIO.GetDIChange(DIO_BoxPacking_enumDINames.X00_2_OP_Reset) && DIO.GetDIData(DIO_BoxPacking_enumDINames.X00_2_OP_Reset) &&
+                    (GlobalVar.SystemStatus == enumSystemStatus.ErrorStop ||
+                                                                                        GlobalVar.Warning ||
+                                                                                        GlobalVar.DoorOpen ||
+                                                                                        GlobalVar.E_Stop))
+                {
+                    GlobalVar.EnableBuzzer = false;
+                }
+
+                if (DIO.GetDIChange(DIO_BoxPacking_enumDINames.X00_0_OP_Start) && DIO.GetDIData(DIO_BoxPacking_enumDINames.X00_0_OP_Start))
+                {
+                    if (GlobalVar.SystemStatus >= enumSystemStatus.AutoRun ||
+                        GlobalVar.SystemErrored ||
+                        GlobalVar.E_Stop ||
+                        GlobalVar.DoorOpen)
+                    {
+
+                    }
+                    else if (tcMain.SelectedIndex != (int)enumTabMain.Auto)
+                    {
+                        FuncWin.TopMessageBox("Change to Auto Window first");
+
+                    }
+                    else
+                    {
+                        FuncLog.WriteLog("Main - OP Start Click ");
+                        Start_Button(true);
+                    }
+                }
+
+                if (DIO.GetDIChange(DIO_BoxPacking_enumDINames.X00_1_OP_Stop) && DIO.GetDIData(DIO_BoxPacking_enumDINames.X00_1_OP_Stop))
+                {
+                    if (GlobalVar.SystemStatus < enumSystemStatus.AutoRun)
+                    {
+
+                    }
+                    else
+                    {
+                        FuncLog.WriteLog("Main - OP Stop Click ");
+                        Stop_Button();
+                    }
+                }
+
+
+                #endregion
+                //debug("tmrCheck time 3: " + (Environment.TickCount - tick));
+                #region CycleStop_End
+                if (GlobalVar.CycleStop_End)
+                {
+                    GlobalVar.CycleStop_End = false;
+                    FuncLog.WriteLog("사이클 스탑을 누르고 작업이 종료 되었다.");
+                    Stop_Button();
+                }
+                #endregion
+                //debug("tmrCheck time 4 : " + (Environment.TickCount - tick));
+                #region Tower Lamp
+
+                #region Green
+                if (!GlobalVar.EnableTower)
+                {
+                    DIO.Tower_Lamp_Green_Control(false);
+                }
+                else if (GlobalVar.TowerAction[(int)GlobalVar.SystemStatus, (int)enumTowerLamp.Green, (int)enumTowerLampAction.Enable] &&
+                    GlobalVar.TowerAction[(int)GlobalVar.SystemStatus, (int)enumTowerLamp.Green, (int)enumTowerLampAction.Blink] &&
+                    (Environment.TickCount - GlobalVar.TowerTick) > 1000) // 점멸
+                {
+                    //DIO.WriteDOData(enumDONames.Y02_2_TOWER_LAMP_GREEN, !DIO.GetDORead(enumDONames.Y02_2_TOWER_LAMP_GREEN));
+                    DIO.Tower_Lamp_Green_Control(DIO.Tower_Lamp_Green_Check());
+                }
+                else
+                {
+                    if (Environment.TickCount - GlobalVar.TowerTick > 1000)
+                    {
+                        //DIO.WriteDOData(enumDONames.Y02_2_TOWER_LAMP_GREEN, GlobalVar.TowerAction[(int)GlobalVar.SystemStatus, 2, 0]);
+                        DIO.Tower_Lamp_Green_Control(GlobalVar.TowerAction[(int)GlobalVar.SystemStatus, (int)enumTowerLamp.Green, (int)enumTowerLampAction.Enable]);
+                    }
+                }
+                #endregion
+                #region Yellow
+                if (!GlobalVar.EnableTower)
+                {
+                    DIO.Tower_Lamp_Green_Control(false);
+                }
+                else if (GlobalVar.TowerAction[(int)GlobalVar.SystemStatus, (int)enumTowerLamp.Yellow, (int)enumTowerLampAction.Enable] &&
+                    GlobalVar.TowerAction[(int)GlobalVar.SystemStatus, (int)enumTowerLamp.Yellow, (int)enumTowerLampAction.Blink] &&
+                    Environment.TickCount - GlobalVar.TowerTick > 1000) // 점멸
+                {
+                    //DIO.WriteDOData(enumDONames.Y02_1_TOWER_LAMP_YELLOW, !DIO.GetDORead(enumDONames.Y02_1_TOWER_LAMP_YELLOW));
+                    DIO.Tower_Lamp_Yellow_Control(DIO.Tower_Lamp_Yellow_Check());
+                }
+                else
+                {
+                    if (Environment.TickCount - GlobalVar.TowerTick > 1000)
+                    {
+                        //DIO.WriteDOData(enumDONames.Y02_1_TOWER_LAMP_YELLOW, GlobalVar.TowerAction[(int)GlobalVar.SystemStatus, 1, 0]);
+                        DIO.Tower_Lamp_Yellow_Control(GlobalVar.TowerAction[(int)GlobalVar.SystemStatus, (int)enumTowerLamp.Yellow, (int)enumTowerLampAction.Enable]);
+                    }
+                }
+                #endregion
+                #region Red
+                if (!GlobalVar.EnableTower)
+                {
+                    DIO.Tower_Lamp_Green_Control(false);
+                }
+                else if (GlobalVar.TowerAction[(int)GlobalVar.SystemStatus, (int)enumTowerLamp.Red, (int)enumTowerLampAction.Enable] &&
+                    GlobalVar.TowerAction[(int)GlobalVar.SystemStatus, (int)enumTowerLamp.Red, (int)enumTowerLampAction.Blink] &&
+                    Environment.TickCount - GlobalVar.TowerTick > 1000) // 점멸
+                {
+                    //DIO.WriteDOData(enumDONames.Y02_0_TOWER_LAMP_RED, !DIO.GetDORead(enumDONames.Y02_0_TOWER_LAMP_RED));
+                    DIO.Tower_Lamp_Red_Control(DIO.Tower_Lamp_Red_Check());
+                }
+                else
+                {
+                    if (Environment.TickCount - GlobalVar.TowerTick > 1000)
+                    {
+                        //DIO.WriteDOData(enumDONames.Y02_0_TOWER_LAMP_RED, GlobalVar.TowerAction[(int)GlobalVar.SystemStatus, 0, 0]);
+                        DIO.Tower_Lamp_Red_Control(GlobalVar.TowerAction[(int)GlobalVar.SystemStatus, (int)enumTowerLamp.Red, (int)enumTowerLampAction.Enable]);
+                    }
+                }
+                #endregion
+
+                #endregion
+                //debug("tmrCheck time 5 : " + (Environment.TickCount - tick));
+                #region buzzer run/stop 등 운영상황에 관련된 것만 일괄 처리하고, 나머지 오퍼레이터 콜 등은 ErrorDialog에서 처리
+                //if (GlobalVar.E_Stop || GlobalVar.DoorOpen || Warning)
+                if (!GlobalVar.EnableTower)
+                {
+                    DIO.Tower_Lamp_Buzzer_Control(false);
+                }
+                else if (GlobalVar.Warning)
+                {
+                    DIO.Tower_Lamp_Buzzer_Control(GlobalVar.EnableBuzzer &&
+                        Environment.TickCount - GlobalVar.WarningTime < 2000);   //202209 부져 상황별 정리 필요 by DG
+                    DIO.Tower_Lamp_Yellow_Control(DIO.Tower_Lamp_Yellow_Check());
+                }
+                else
+                {
+                    if (!GlobalVar.TowerAction[(int)GlobalVar.SystemStatus, (int)enumTowerLamp.Buzzer, (int)enumTowerLampAction.Enable])
+                    {
+                        GlobalVar.BuzzerTime = Environment.TickCount;   //buzzer 아닐때 시간 체크
+                    }
+                    DIO.Tower_Lamp_Buzzer_Control(GlobalVar.EnableBuzzer &&
+                                                GlobalVar.TowerAction[(int)GlobalVar.SystemStatus, (int)enumTowerLamp.Buzzer, (int)enumTowerLampAction.Enable] &&
+                                                (GlobalVar.TowerTime[(int)GlobalVar.SystemStatus] == 0 ||
+                                                        Environment.TickCount - GlobalVar.BuzzerTime < GlobalVar.TowerTime[(int)GlobalVar.SystemStatus] * 1000));
+                }
+                if (!GlobalVar.Warning)
+                {
+                    GlobalVar.WarningTime = Environment.TickCount;   //Warning 아닐때 시간 체크
+                }
+
+
+
+                #endregion
+                //debug("tmrCheck time 6: " + (Environment.TickCount - tick));
+                #region Door Check
+                //*
+                if (GlobalVar.UseDoor)
+                {
+                    if (GlobalVar.SystemStatus >= enumSystemStatus.AutoRun &&
+                    GlobalVar.SystemStatus != enumSystemStatus.ErrorStop &&
+                    (DIO.Door_Check1()))
+                    {
+                        GlobalVar.SystemStatus = enumSystemStatus.ErrorStop;
+                        FuncError.AddError(new structError(DateTime.Now.ToString("yyyyMMdd"),
+                                              DateTime.Now.ToString("HH:mm:ss"),
+                                              enumErrorPart.System,
+                                              enumErrorCode.Door_Opened,
+                                              false,
+                                              "Door area1 opened while system is running. Close door and try again."));
+
+
+
+
+
+                        //#region Normal Error
+                        //if (GlobalVar.UseNormalError)
+                        //{
+                        //    FuncError.AddError(enumError.Door_Opened);
+                        //}
+                        //#endregion
+                        //#region Part Error
+                        //if (GlobalVar.PartError)
+                        //{
+                        //    FuncError.AddError(new structError(DateTime.Now.ToString("yyyyMMdd"),
+                        //                         DateTime.Now.ToString("HH:mm:ss"),
+                        //                         enumErrorPart.System,
+                        //                         enumErrorCode.Door_Opened,
+                        //                         false,
+                        //                         ""));
+                        //}
+                        //#endregion                     
+                    }
+
+                    if (GlobalVar.SystemStatus >= enumSystemStatus.AutoRun &&
+                    GlobalVar.SystemStatus != enumSystemStatus.ErrorStop &&
+                    (DIO.Door_Check2()))
+                    {
+                        GlobalVar.SystemStatus = enumSystemStatus.ErrorStop;
+                        FuncError.AddError(new structError(DateTime.Now.ToString("yyyyMMdd"),
+                                              DateTime.Now.ToString("HH:mm:ss"),
+                                              enumErrorPart.System,
+                                              enumErrorCode.Door_Opened,
+                                              false,
+                                              "Door area2 opened while system is running. Close door and try again."));
+
+
+                    }
+
+                    if (GlobalVar.SystemStatus >= enumSystemStatus.AutoRun &&
+                    GlobalVar.SystemStatus != enumSystemStatus.ErrorStop &&
+                    (DIO.Door_Check3()))
+                    {
+                        GlobalVar.SystemStatus = enumSystemStatus.ErrorStop;
+                        FuncError.AddError(new structError(DateTime.Now.ToString("yyyyMMdd"),
+                                              DateTime.Now.ToString("HH:mm:ss"),
+                                              enumErrorPart.System,
+                                              enumErrorCode.Door_Opened,
+                                              false,
+                                              "Door area3 opened while system is running. Close door and try again."));
+
+
+                    }
+
+                    /* 사용 미확정
+                    if (GlobalVar.SystemStatus >= enumSystemStatus.AutoRun &&
+                    GlobalVar.SystemStatus != enumSystemStatus.ErrorStop &&
+                    (DIO.Door_Check4()))
+                    {
+                        GlobalVar.SystemStatus = enumSystemStatus.ErrorStop;
+                        FuncError.AddError(new structError(DateTime.Now.ToString("yyyyMMdd"),
+                                              DateTime.Now.ToString("HH:mm:ss"),
+                                              enumErrorPart.System,
+                                              enumErrorCode.Door_Opened,
+                                              false,
+                                              "Door area4(FEEDER) opened while system is running. Close door and try again."));
+                    }
+                    */
+                }
+
+                    //*/
+                    #endregion
+                    //debug("tmrCheck time 7 : " + (Environment.TickCount - tick));
+                #region 서보상태
+                if (GlobalVar.SystemStatus >= enumSystemStatus.AutoRun)
+                {
+                    /*
+                    if (GlobalVar.AxisStatus[0].Disabled ||
+                        !GlobalVar.AxisStatus[0].PowerOn)
+                    {
+                        Func.AddError(enumError.Work_X_Disabled);
+                    }
+                    if (GlobalVar.AxisStatus[0].LimitSwitchPos ||
+                        GlobalVar.AxisStatus[0].LimitSwitchNeg)
+                    {
+                        Func.AddError(enumError.Work_X_Limit);
+                    }
+                    //*/
+                }
+                #endregion
+                //debug("tmrCheck time 8 : " + (Environment.TickCount - tick));
+                #region 조명 컨트롤 B접점
+                //DIO.WriteDOData(enumDONames.Y00_4_LED_Lamp1, GlobalVar.SystemStatus >= enumSystemStatus.AutoRun);
+                #endregion
+                //debug("tmrCheck time 9 : " + (Environment.TickCount - tick));
+                #region 상태표시
+                #endregion
+                //debug("tmrCheck time 10 : " + (Environment.TickCount - tick));
+                #region Timeout
+                //if (GlobalVar.SystemStatus == enumSystemStatus.AutoRun)
+                //{
+
+                //    if (Environment.TickCount - GlobalVar.OutputTime > GlobalVar.OutStopTime * 60 * 1000)
+                //    {
+                //        GlobalVar.SystemStatus = enumSystemStatus.OutputStop;
+                //    }
+                //    else if (Environment.TickCount - GlobalVar.InputTime > GlobalVar.InStopTime * 60 * 1000)
+                //    {
+                //        GlobalVar.SystemStatus = enumSystemStatus.InputStop;
+                //    }
+                //    //*
+                //    else if (GlobalVar.SystemStatus != enumSystemStatus.ErrorStop)
+                //    {
+                //        GlobalVar.SystemStatus = enumSystemStatus.AutoRun;
+                //        //GlobalVar.OutputTime = Environment.TickCount;
+                //        //GlobalVar.InputTime = Environment.TickCount;
+                //    }
+                //    //*/
+                //    /*
+                //  else if (GlobalVar.SystemStatus != enumSystemStatus.InputStop &&
+                //      GlobalVar.SystemStatus != enumSystemStatus.OutputStop)
+                //  {
+                //      //GlobalVar.SystemStatus = enumSystemStatus.AutoRun;
+                //      GlobalVar.OutputTime = Environment.TickCount;
+                //      GlobalVar.InputTime = Environment.TickCount;
+                //  }
+                //  //*/
+
+                //}
+                #endregion
+                //debug("tmrCheck time 11 : " + (Environment.TickCount - tick));
+                #region 에러창
+                if (GlobalVar.SystemErrorQueue.Count > 0)
+                {
+                    //if (GlobalVar.NormalError)
+                    //{
+                    //    structError er = new structError(DateTime.Now.ToString("yyyyMMdd"),
+                    //                                    DateTime.Now.ToString("HH:mm:ss"),
+                    //                                    enumErrorPart.No_Error,
+                    //                                    enumErrorCode.No_Error,
+                    //                                    false,
+                    //                                    "");
+                    //    GlobalVar.SystemErrorQueue.TryDequeue(out er);
+                    //    ErrorDialog dlg = new ErrorDialog(er);
+                    //    dlg.Owner = this;
+                    //    dlg.Show();
+                    //}
+                    //if (GlobalVar.PartError)
+                    //{
+                    structError er = new structError(DateTime.Now.ToString("yyyyMMdd"),
+                                                    DateTime.Now.ToString("HH:mm:ss"),
+                                                    enumErrorPart.No_Error,
+                                                    enumErrorCode.No_Error,
+                                                    false,
+                                                    "");
+                    GlobalVar.SystemErrorQueue.TryDequeue(out er);
+                    if (er.ErrorCode != enumErrorCode.No_Error)
+                    {
+                        #region 에러창 떠 있으면 닫고 다른 창을 연다
+                        try
+                        {
+                            Form fc = Application.OpenForms["ErrorDialog"];
+                            if (fc != null)
+                            {
+                                fc.Close();
+                            }
+                        }
+                        catch (Exception xx)
+                        {
+                            FuncLog.WriteLog(xx.ToString());
+                            FuncLog.WriteLog(xx.StackTrace);
+                        }
+                        #endregion
+
+                        errorDialog = new ErrorDialog(er);
+                        errorDialog.Owner = this;
+                        errorDialog.Show();
+                    }
+                    //}
+                }
+                #endregion
+
+                #region 메인 페이지 변경
+                if ((int)GlobalVar.TabMain != tcMain.SelectedIndex)
+                {
+                    tcMain.SelectedIndex = (int)GlobalVar.TabMain;
+                }
+                #endregion
+
+
+                // 라벨 프린터, 레이저 마킹 장비 통신상태 체크
+                if (Environment.TickCount - checkTime > 3000)
+                {
+                    // 3초마다 통신 체크
+                    GlobalVar.LabelPrint.UpdateHostStatus();
+
+                    GlobalVar.LaserMark.UpdateHostStatus();
+
+                    checkTime = Environment.TickCount;
+                }
+
+
+                // 스누콘 박스포장기 분류기 서브타워 상태 업데이트
+                for (int i = 0; i < 6; i++)
+                {
+                    if (GlobalVar.Tracking.OutInfo[i].IsLotDone())
+                    {
+                        if (Environment.TickCount - GlobalVar.TowerTick > 1000)
+                        {
+                            bool blink = false; // 감빡일까 말까
+                            if (blink)
+                            {
+                                bool isOn = DIO.SNC_Sub_Tower_BlinkState(i + 1);
+                                if (isOn)
+                                {
+                                    DIO.SNC_Sub_Tower(i + 1, true);
+                                }
+                                else
+                                {
+                                    DIO.SNC_Sub_Tower(i + 1, false);
+                                }
+                            }
+                            else
+                            {
+                                DIO.SNC_Sub_Tower(i + 1, true);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        DIO.SNC_Sub_Tower(i + 1, false);
+                    }
+                }
+                lbSubTower.Text = "SubT: " + DIO.SNC_GetSubTowerState();
+
+                // 보이스 알람 체크
+                bool UseVoiceAlarm = true;
+                if (UseVoiceAlarm)
+                {
+                    GlobalVar.Tracking.CheckVoiceAlarm();
+                }
+                // 보이스 알람 스테이터스 체크
+                if ( DIO.GetDOData(DIO_BoxPacking_enumDONames.Y04_5_Voice_Alarm) )
+                {
+                    lbVoiceAlarm.BackColor = Color.Lime;
+                }
+                else
+                {
+                    lbVoiceAlarm.BackColor = Color.White;
+                }
+
+
+                ////////////////////
+                if (Environment.TickCount - GlobalVar.TowerTick > 1000)
+                {
+                    GlobalVar.TowerTick = Environment.TickCount;
+                }
+                //debug("tmrCheck time 12 : " + (Environment.TickCount - tick));
+                tick = Environment.TickCount;
+            }
+            catch (Exception ex)
+            {
+                FuncLog.WriteLog(ex.ToString());
+                FuncLog.WriteLog(ex.StackTrace);
+            }
+
+            //DIO.WriteDOData(enumDONames.Y04_1_Cleaner_Run, GlobalVar.SystemStatus == enumSystemStatus.AutoRun);
+            tmrCheck.Enabled = true;
+        }
+
+        //private int beforeRowIndex = 0;
+        //private int beforeColumnIndex = 0;
+        //private int afterRowIndex = 0;
+        //private int afterColumnIndex = 0;
+        //private void TimerTrayUI(Object state) // 화면 제어 쓰레드 Tray UI 타이머 함수
+        //{
+        //    try
+        //    {
+        //        if (timerDoing_TrayUI)
+        //        {
+        //            return;
+        //        }
+        //        timerDoing_TrayUI = true;
+
+        //        /* 화면 변경 timer */
+        //        this.Invoke(new MethodInvoker(delegate ()
+        //        {
+        //            //로드할때 적용 전값과 적용 후 값이 다를때 한번만 컨트롤 다시 생성
+        //            if (FuncBoxPacking.SettingChange)
+        //            {
+        //                //MakeArrayImage = false;
+
+        //                if (FuncBoxPacking.Sanding_Before_Tray_LR_Pickup == true)
+        //                {
+        //                    //BeforeTray L->R    
+        //                    Make_Controls<PictureBox>(ref Before_PictureBox, "Before", FuncBoxPacking.Sanding_BeforeTraySize[0], FuncBoxPacking.Sanding_BeforeTraySize[1], 18, 18, 38, 17, 62, 18);
+        //                }
+        //                else
+        //                {
+        //                    //BeforeTray R->L
+        //                    Make_Controls<PictureBox>(ref Before_PictureBox, "Before", FuncBoxPacking.Sanding_BeforeTraySize[0], FuncBoxPacking.Sanding_BeforeTraySize[1], 18, 18, 191, -17, 62, 18);
+        //                }
+        //                FuncBoxPacking.SettingChange = false;
+        //            }
+
+        //            if (MakeArrayImage)//이미지가 다 만들어지고                        
+        //            {
+        //                if (MakeArrayImageCount > 2)//1초 이후 돌아라   (0.5초 타이머)
+        //                {
+        //                    if (beforeRowIndex != FuncBoxPacking.Sanding_BeforeTrayRowIndex ||
+        //                        beforeColumnIndex != FuncBoxPacking.Sanding_BeforeTrayColumnIndex)
+        //                    {
+        //                        #region Before Tray UI
+        //                        for (int i = 0; i < FuncBoxPacking.Sanding_BeforeTraySize[0]; i++)//15
+        //                        {
+        //                            for (int j = 0; j < FuncBoxPacking.Sanding_BeforeTraySize[1]; j++)//10
+        //                            {
+        //                                try
+        //                                {
+        //                                    if ((FuncBoxPacking.Sanding_BeforeTrayRowIndex < i ||
+        //                                            (FuncBoxPacking.Sanding_BeforeTrayRowIndex == i &&
+        //                                                FuncBoxPacking.Sanding_BeforeTrayColumnIndex <= j)) &&
+        //                                         i * 10 + j < FuncBoxPacking.Sanding_BeforeTrayMax)
+        //                                    {
+        //                                        Before_PictureBox[i, j].Visible = true;
+
+        //                                        if (FuncBoxPacking.LineJump)
+        //                                        {
+        //                                            if (j % 2 == 1 && FuncBoxPacking.Megagen)
+        //                                            {
+        //                                                Before_PictureBox[i, j].Image = Radix.Properties.Resources.Lamp_Gray_1;
+        //                                            }
+        //                                            else
+        //                                            {
+        //                                                if (i == 14 && j == 8 && FuncBoxPacking.Megagen)
+        //                                                {
+        //                                                    Before_PictureBox[i, j].Image = Radix.Properties.Resources.Lamp_Gray_1;
+        //                                                }
+        //                                                else
+        //                                                {
+        //                                                    Before_PictureBox[i, j].Image = Radix.Properties.Resources.Lamp_Green_1;
+        //                                                }
+        //                                            }
+        //                                        }
+        //                                        else
+        //                                        {
+        //                                            Before_PictureBox[i, j].Image = Radix.Properties.Resources.Lamp_Green_1;
+        //                                        }
+
+        //                                    }
+        //                                    else
+        //                                    {
+        //                                        //Before_PictureBox[i, j].Visible = false;
+        //                                        Before_PictureBox[i, j].Image = Radix.Properties.Resources.Lamp_Gray_1;
+        //                                    }
+
+        //                                }
+        //                                catch (Exception ex)
+        //                                {
+        //                                    FuncLog.WriteLog(ex.ToString());
+        //                                }
+        //                            }
+        //                        }
+        //                        #endregion
+        //                    }
+
+        //                    if (afterRowIndex != FuncBoxPacking.Sanding_BeforeTrayRowIndex ||
+        //                        afterColumnIndex != FuncBoxPacking.Sanding_BeforeTrayColumnIndex)
+        //                    {
+        //                        #region After Tray UI
+        //                        for (int i = 0; i < FuncBoxPacking.Sanding_AfterTraySize[0]; i++)
+        //                        {
+        //                            for (int j = 0; j < FuncBoxPacking.Sanding_AfterTraySize[1]; j++)
+        //                            {
+        //                                try
+        //                                {
+        //                                    int cnt = i * 15 + j;
+
+        //                                    if (FuncBoxPacking.Megagen)
+        //                                    {
+        //                                        if (i > 8)
+        //                                        {
+        //                                            cnt = 15 * 3 + 10 * 6 + (i - 9) * 15 + j;
+        //                                        }
+        //                                        else if (i >= 3)
+        //                                        {
+        //                                            cnt = 15 * 3 + (i - 3) * 10 + j;
+        //                                        }
+        //                                    }
+
+        //                                    if ((FuncBoxPacking.Sanding_AfterTrayRowIndex < i ||
+        //                                        (FuncBoxPacking.Sanding_AfterTrayRowIndex == i &&
+        //                                            FuncBoxPacking.Sanding_AfterTrayColumnIndex <= j)) &&
+        //                                        cnt < FuncBoxPacking.Sanding_AfterTrayMax)
+        //                                    {
+        //                                        if (i >= 3 && i <= 8 &&
+        //                                           j >= 5 && j <= 9)
+        //                                        {
+        //                                            After_PictureBox[i, j].Visible = false;
+        //                                            After_PictureBox[i, j + 5].Image = Radix.Properties.Resources.Lamp_Gray_1;
+        //                                            continue;
+        //                                        }
+        //                                        else
+        //                                        {
+        //                                            if (i >= 3 && i <= 8 &&
+        //                                           j >= 5 + 5 && j <= 9 + 5)
+        //                                            {
+        //                                                //pass                                                
+        //                                            }
+        //                                            else
+        //                                            {
+        //                                                After_PictureBox[i, j].Image = Radix.Properties.Resources.Lamp_Gray_1;
+        //                                            }
+        //                                        }
+        //                                    }
+        //                                    else
+        //                                    {
+        //                                        if (i >= 3 && i <= 8 &&
+        //                                      j >= 5 && j <= 9)
+        //                                        {
+        //                                            j = j + 5;
+        //                                            After_PictureBox[i, j].Image = Radix.Properties.Resources.Lamp_Green_1;
+        //                                            j = j - 5;
+        //                                        }
+        //                                        else
+        //                                        {
+        //                                            if (FuncBoxPacking.LineJump)
+        //                                            {
+        //                                                if (i % 2 == 1 && FuncBoxPacking.Megagen)
+        //                                                {
+
+
+        //                                                    After_PictureBox[i, j].Image = Radix.Properties.Resources.Lamp_Gray_1;
+        //                                                }
+        //                                                else
+        //                                                {
+        //                                                    if (j == 14 && i == 10 && FuncBoxPacking.Megagen)
+        //                                                    {
+        //                                                        After_PictureBox[i, j].Image = Radix.Properties.Resources.Lamp_Gray_1;
+        //                                                    }
+        //                                                    else
+        //                                                    {
+        //                                                        After_PictureBox[i, j].Image = Radix.Properties.Resources.Lamp_Green_1;
+        //                                                    }
+        //                                                }
+        //                                            }
+        //                                            else
+        //                                            {
+        //                                                After_PictureBox[i, j].Image = Radix.Properties.Resources.Lamp_Green_1;
+        //                                            }
+        //                                        }
+        //                                    }
+        //                                }
+        //                                catch (Exception ex)
+        //                                {
+        //                                    FuncLog.WriteLog(ex.ToString());
+        //                                }
+
+
+
+
+        //                                /* // 기본로직
+        //                                    if ((FuncBoxPacking.Sanding_AfterTrayRowIndex < i ||
+        //                                        (FuncBoxPacking.Sanding_AfterTrayRowIndex == i &&
+        //                                            FuncBoxPacking.Sanding_AfterTrayColumnIndex <= j)) &&
+        //                                        i * 10 + j < FuncBoxPacking.Sanding_AfterTrayMax)
+        //                                    {
+
+        //                                        After_PictureBox[i, j].Visible = true;
+        //                                        After_PictureBox[i, j].Image = Radix.Properties.Resources.Lamp_Green_1;
+        //                                    }
+
+
+        //                                    else
+        //                                    {
+        //                                        After_PictureBox[i, j].Image = Radix.Properties.Resources.Lamp_Gray_1;
+        //                                    }
+        //                                //*/
+
+        //                                /* // 메가젠 속 빈 모양 환산 로직
+        //                                int cnt = i * 15 + j;
+
+        //                                if (!FuncBoxPacking.Neo_Biotech)
+        //                                {
+        //                                    if (i >= 3 && i <= 8 &&
+        //                                    j >= 10)
+        //                                    {
+        //                                        continue;
+        //                                    }
+        //                                    if (i > 8)
+        //                                    {
+        //                                        cnt = 15 * 3 + 10 * 6 + (i - 9) * 15 + j;
+        //                                    }
+        //                                    else if (i >= 3)
+        //                                    {
+        //                                        cnt = 15 * 3 + (i - 3) * 10 + j;
+        //                                    }
+        //                                }
+
+        //                                if ((FuncBoxPacking.Sanding_AfterTrayRowIndex < i ||
+        //                                        (FuncBoxPacking.Sanding_AfterTrayRowIndex == i &&
+        //                                            FuncBoxPacking.Sanding_AfterTrayColumnIndex <= j)) ||
+        //                                    cnt >= FuncBoxPacking.Sanding_AfterTrayMax)
+        //                                {
+        //                                    //Controls.Find("pbAfterTray_" + i + "_" + j, true)[0].Visible = false;
+        //                                    After_PictureBox[i, j].Image = Radix.Properties.Resources.Lamp_Gray;
+        //                                }
+        //                                else
+        //                                {
+        //                                    //Controls.Find("pbAfterTray_" + i + "_" + j, true)[0].Visible = true;
+        //                                    After_PictureBox[i, j].Image = Radix.Properties.Resources.Lamp_Green;
+        //                                }
+        //                                //*/
+        //                            }
+        //                        }
+        //                        #endregion
+        //                    }
+
+        //                    beforeRowIndex = FuncBoxPacking.Sanding_BeforeTrayRowIndex;
+        //                    beforeColumnIndex = FuncBoxPacking.Sanding_BeforeTrayColumnIndex;
+        //                    afterRowIndex = FuncBoxPacking.Sanding_AfterTrayRowIndex;
+        //                    afterColumnIndex = FuncBoxPacking.Sanding_AfterTrayColumnIndex;
+
+
+
+
+        //                }
+        //                else//설정 시간(?*10) 이후에는 추가 증가 하지 마라
+        //                {
+        //                    MakeArrayImageCount++;
+        //                }
+
+        //            }
+        //        }));
+
+        //        timerDoing_TrayUI = false;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.ToString());
+        //        Console.WriteLine(ex.StackTrace);
+        //        //debug(ex.StackTrace);
+        //    }
+        //    finally
+        //    {
+        //        timerDoing_TrayUI = false;
+        //    }
+
+        //}
+        
+        #endregion
+
+        #region 버튼 등 공통 UI 컨트롤 이벤트
+
+        #region Main Tap 관련
+        private void pbAuto_Click(object sender, EventArgs e)//Main
+        {
+            ClearSubMenu();
+            pbAuto.BackgroundImage = Radix.Properties.Resources.sub_main_sel;
+            GlobalVar.TabMain = enumTabMain.Auto;
+            tcMain.SelectedIndex = (int)GlobalVar.TabMain;
+
+
+            //모델 변경후 Main누를때 체크하고 모델명 변경하기 위해 by DG 220913
+            //MXN.MXN_GetModelInfo(GlobalVar.ModelPath_MXN, GlobalVar.ModelName_MXN);
+            //LabelModelName.Text = GlobalVar.ModelName_MXN.ToString();
+        }
+        private void pbManual_Click(object sender, EventArgs e)
+        {
+            if ((int)GlobalVar.SystemStatus >= (int)enumSystemStatus.AutoRun &&     // 작동 중 자동 닫기
+                (int)GlobalVar.SystemStatus != (int)enumSystemStatus.ErrorStop)    //ErrorStop일 경우는 메뉴얼창 들어갈수 있게 , 금수석님 인라인모듈쪽에 이렇게 하셨음 by DGKim
+            {
+                FuncWin.TopMessageBox("Can't use while system is running.");
+                return;
+            }
+            ClearSubMenu();
+            pbManual.BackgroundImage = Radix.Properties.Resources.sub_manual_sel;
+            GlobalVar.TabMain = enumTabMain.Manual;
+            tcMain.SelectedIndex = (int)GlobalVar.TabMain;
+            frmManual.Manual_Click();
+        }
+        private void pbIOMonitor_Click(object sender, EventArgs e)
+        {
+            ClearSubMenu();
+            pbIOMonitor.BackgroundImage = Radix.Properties.Resources.sub_io_sel;
+            GlobalVar.TabMain = enumTabMain.IO;
+            tcMain.SelectedIndex = (int)GlobalVar.TabMain;
+        }
+        private void pbTower_Click(object sender, EventArgs e)//System
+        {
+
+            if ((int)GlobalVar.SystemStatus >= (int)enumSystemStatus.AutoRun) // 작동 중 자동 닫기
+            {
+                FuncWin.TopMessageBox("Can't use while system is running.");
+                return;
+            }
+            GlobalVar.PwdPass = false;
+            Password dlg = new Password();
+            dlg.ShowDialog();
+            if (GlobalVar.PwdPass)
+            {
+
+                ClearSubMenu();
+                pbTower.BackgroundImage = Radix.Properties.Resources.sub_system_sel;
+                GlobalVar.TabMain = enumTabMain.Machine;
+                tcMain.SelectedIndex = (int)GlobalVar.TabMain;
+
+                frmMachine.LoadAllValue();
+            }
+
+
+        }
+        private void pbModel_Click(object sender, EventArgs e)
+        {
+            if ((int)GlobalVar.SystemStatus >= (int)enumSystemStatus.AutoRun) // 작동 중 자동 닫기
+            {
+                FuncWin.TopMessageBox("Can't use while system is running.");
+                return;
+            }
+            ClearSubMenu();
+            pbMES.BackgroundImage = Radix.Properties.Resources.sub_model_sel;
+
+            GlobalVar.TabMain = enumTabMain.MES;
+            tcMain.SelectedIndex = (int)GlobalVar.TabMain;
+
+            frmMES.UpdateMesTable();
+        }
+        private void pbTeaching_Click(object sender, EventArgs e)
+        {
+            if ((int)GlobalVar.SystemStatus >= (int)enumSystemStatus.AutoRun) // 작동 중 자동 닫기
+            {
+                FuncWin.TopMessageBox("Can't use while system is running.");
+                return;
+            }
+            ClearSubMenu();
+            pbTeaching.BackgroundImage = Radix.Properties.Resources.sub_teaching_sel;
+            GlobalVar.TabMain = enumTabMain.Teaching;
+            tcMain.SelectedIndex = (int)GlobalVar.TabMain;
+
+            frmTeaching.LoadAllValue();
+        }
+        private void pbTrace_Click(object sender, EventArgs e)
+        {
+            ClearSubMenu();
+            pbTrace.BackgroundImage = Radix.Properties.Resources.sub_trace_sel;
+            GlobalVar.TabMain = enumTabMain.Trace;
+            tcMain.SelectedIndex = (int)GlobalVar.TabMain;
+        }
+        #region Router Program 창 활성화
+        //이미 실행중이면, 포커스
+        [DllImport("user32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr handle);
+        //이미 실행중이면 보이게
+        [DllImport("user32.dll")]
+        private static extern int ShowWindow(IntPtr hwnd, int nCmdShow);
+        //이미 실행중이면, 맨 앞으로
+        [DllImport("user32.dll")]
+        private static extern void BringWindowToTop(IntPtr hwnd);
+        private void pbRouter_Click(object sender, EventArgs e)
+        {
+            ClearSubMenu();
+            pbRouter.BackgroundImage = Radix.Properties.Resources.sub_Router_sel;
+
+            GlobalVar.TabMain = enumTabMain.Router;
+            tcMain.SelectedIndex = (int)GlobalVar.TabMain;
+
+            String RouterProgram = "MXN_HMI.exe";
+
+            if (FuncWin.FindWindowByExname(RouterProgram) == IntPtr.Zero)
+            {
+                foreach (Process process in Process.GetProcesses())
+                {
+
+                    if (process.ProcessName == RouterProgram.Replace(".exe", ""))
+                    {
+                        ShowWindow(process.MainWindowHandle, 5);
+                        BringWindowToTop(process.MainWindowHandle);
+                        SetForegroundWindow(process.MainWindowHandle);
+                    }
+                }
+            }
+        }
+        #endregion
+        private void ClearSubMenu()
+        {
+            pbAuto.BackgroundImage = Radix.Properties.Resources.sub_main;
+            pbManual.BackgroundImage = Radix.Properties.Resources.sub_manual;
+            pbIOMonitor.BackgroundImage = Radix.Properties.Resources.sub_io;
+            pbTower.BackgroundImage = Radix.Properties.Resources.sub_system;
+            pbMES.BackgroundImage = Radix.Properties.Resources.sub_model;
+            pbTeaching.BackgroundImage = Radix.Properties.Resources.sub_teaching;
+            pbTrace.BackgroundImage = Radix.Properties.Resources.sub_trace;
+            pbRouter.BackgroundImage = Radix.Properties.Resources.sub_Router;
+            pbPartClear.BackgroundImage = Properties.Resources.part_clear;
+
+        }
+        #endregion
+
+        #region 우측 버튼 관련
+
+        private void pbStart_Click(object sender, EventArgs e)
+        {
+            if (GlobalVar.SystemStatus == enumSystemStatus.BeforeInitialize)
+            {
+                FuncWin.MessageBoxOK("Do Initialize First!");
+                return;
+            }
+
+            if (GlobalVar.SystemStatus >= enumSystemStatus.AutoRun)
+            {
+                int i = 0;
+                return;
+            }
+            if (tcMain.SelectedIndex != (int)enumTabMain.Auto)
+            {
+                FuncWin.TopMessageBox("Change to Auto Window first");
+                return;
+            }
+
+            if (GlobalVar.SystemStatus != enumSystemStatus.Manual) return;
+
+            if (GlobalVar.G_ManualType == 0)
+            {
+                FuncWin.TopMessageBox("매뉴얼 공급 타입(영어중국어/다국어)을\n먼저 설정하세요.");
+                return;
+            }
+
+
+            if (!GlobalVar.Simulation)
+            {
+                //if (!GlobalVar.LaserMark.connected)
+                //{
+                //    FuncWin.TopMessageBox("레이저 마킹기 미접속 오류로\n작업이 취소되었습니다.");
+                //    return;
+                //}
+
+                //if (GlobalVar.LaserMark.LaserState != 1 && GlobalVar.LaserMark.LaserState != 3)
+                //{
+                //    FuncWin.TopMessageBox("레이저 마킹기가 준비 상태가 아닙니다.\n안전 키를 돌려주세요.");
+                //    return;
+                //}
+
+                if (!GlobalVar.LabelPrint.connected)
+                {
+                    FuncWin.TopMessageBox("라벨 프린터 미접속 오류로\n작업이 취소되었습니다.");
+                    return;
+                }
+
+                if (!GlobalVar.QR.ConnectCheckAll())
+                {
+                    string msg = "바코드 리더기중 하나 이상이 접속되지 않았습니다.\n작업이 취소되었습니다.";
+                    msg += "\n(지속적인 바코드 접속 이상시 PC본체 후면의 USB포트를 다시 접속 하세요.)";
+                    FuncWin.TopMessageBox(msg);
+                    return;
+                }
+
+            }
+
+
+
+
+            if (FuncWin.MessageBoxOK("Start operation?"))
+            {
+                FuncLog.WriteLog("Main - Start Click ");
+
+                runTime = Environment.TickCount;
+
+                // 에러 발생으로 백업된 DO가 있으면 복원한다.
+                DIO.DO_RestoreALL();
+
+                Start_Button(false);
+
+                GlobalVar.SystemStatus = enumSystemStatus.AutoRun;
+
+                GlobalVar.Thread_AutoRun.Start();
+
+                //// State Print
+                //FuncBoxPacking.LogView2("===============START==============");
+                //FuncBoxPacking.StepPrint();
+            }
+
+            //// 시작시 리프린트 설정 해제
+            //btnRePrint.BackColor = Color.WhiteSmoke;
+
+        }
+        private void pbStop_Click(object sender, EventArgs e)
+        {
+            GlobalVar.WarningStatePre.Clear();
+
+            FuncLog.WriteLog("Main - Stop Click ");
+            //if (GlobalVar.SystemStatus < enumSystemStatus.AutoRun)
+            //{
+            //    return;
+            //}
+
+            Stop_Button();
+
+            //// State Print
+            //FuncBoxPacking.LogView2("===============STOP==============");
+            //FuncBoxPacking.StepPrint();
+
+
+        }
+        private void pbCycleStop_Click(object sender, EventArgs e)
+        {
+            FuncLog.WriteLog("Main - Cycle Stop Click ");
+            //return 조건 변경 by DGkim
+            if (GlobalVar.SystemStatus != enumSystemStatus.AutoRun &&
+                GlobalVar.SystemStatus != enumSystemStatus.Manual)
+            {
+                return;
+            }
+            if (!GlobalVar.CycleStop &&
+                FuncWin.MessageBoxOK("Cycle Stop operation?"))
+            {
+                FuncLog.WriteLog("Main - Cycle Stop Click - ON ");
+                GlobalVar.CycleStop = true;
+                pbCycleStop.BackgroundImage = Properties.Resources.cycle_stop_red;
+            }
+            else
+            {
+                FuncLog.WriteLog("Main - Cycle Stop Click - OFF ");
+                GlobalVar.CycleStop = false;
+                pbCycleStop.BackgroundImage = Properties.Resources.cycle_stop;
+            }
+        }
+        private void pbInit_Click(object sender, EventArgs e)
+        {
+            FuncLog.WriteLog("Main - Init Click ");
+
+            GC.Collect();
+
+            if (GlobalVar.TabMain != enumTabMain.Auto)
+            {
+                FuncWin.TopMessageBox("Main화면에서 선택 해주세요");
+                return;
+            }
+
+
+            #region Door 관련 확인
+            //*/             
+
+            if (GlobalVar.UseDoor)
+            {
+                if (DIO.Door_Check1())
+                {
+                    FuncWin.TopMessageBox("Can't Initialize while area1 doors are opened.");
+                    return;
+                }
+                if (DIO.Door_Check2())
+                {
+                    FuncWin.TopMessageBox("Can't Initialize while area2 doors are opened.");
+                    return;
+                }
+                if (DIO.Door_Check3())
+                {
+                    FuncWin.TopMessageBox("Can't Initialize while area3 doors are opened.");
+                    return;
+                }
+                /* 사용 미확정
+                if (DIO.Door_Check4())
+                {
+                    FuncWin.TopMessageBox("Can't Initialize while FEEDER doors are opened.");
+                    return;
+                }
+                */
+
+            }
+            //*/
+            #endregion
+
+            #region Status 관련 확인
+            if ((GlobalVar.SystemStatus >= enumSystemStatus.AutoRun) ||
+                (GlobalVar.SystemStatus == enumSystemStatus.Initialize))
+            {
+                FuncWin.TopMessageBox("Can't Initialize while machine is running or initializing.");
+                return;
+            }
+            #endregion
+
+            //#region 제품 잔존 여부 확인
+            //if (DIO.Product_Residual_Check())
+            //{
+            //    return;
+            //}
+            //#endregion
+
+            #region 초기화 진행
+            if (FuncWin.MessageBoxOK("Initialize facility?"))
+            {
+                // 레이저 마킹기와 라벨 프린터의 접속을 종료하여 자동 재접속을 시도한다.
+                GlobalVar.LaserMark.SocketClose();
+                GlobalVar.LabelPrint.SocketClose();
+
+                DIO.DO_BackupALL(false);
+
+
+                //Func.WriteLog("Init Click");
+                pbInit.BackgroundImage = Properties.Resources.initialize_bright;
+
+                Loading dlgLoading = new Loading();
+                dlgLoading.TopMost = true;  //Init창 최상위로 유지 시킨다 by DG
+                dlgLoading.Show();
+
+                // TRACKING 정보 초기화
+                GlobalVar.Tracking.clearAll();
+
+                // 서보 초기화
+                RTEX.ServoReset_All();
+
+                RTEX.ServoOnAll(true); // 모든 서보 On
+
+                #region 전역 변수 초기화
+                #endregion
+
+                #region 지역 변수 초기화
+                GlobalVar.Init_Finish = false;
+                GlobalVar.Init_Variable_Need = true;//해당 변수(전역,지역)를 통해 각 쓰레드 초기화 시작                
+                #endregion
+
+                GlobalVar.SystemStatus = enumSystemStatus.Initialize;
+                int startTime = Environment.TickCount;
+
+                while (Environment.TickCount - startTime < 2 * 60 * 1000 &&
+                    GlobalVar.SystemStatus == enumSystemStatus.Initialize) // 2분
+                {
+                    //if (GlobalVar.Simulation)
+                    //{
+                    //    FuncBoxPacking.AsyncDelay(3000);
+                    //    GlobalVar.Init_Finish = true;
+                    //}
+
+                    //쓰레드에서 초기화 경우를 만들어서 진행
+                    if (GlobalVar.Init_Variable_Need)// && DIO.Check_Init_Variable())
+                    {
+                        GlobalVar.Thread_AutoRun.Init_Start();
+                        GlobalVar.Init_Variable_Need = false;
+                    }
+
+                    if (GlobalVar.Init_AutoRun_Finish)
+                    {
+                        GlobalVar.Init_Finish = true;
+                        FuncBoxPacking.LogView("Init All Done.");
+                    }
+
+
+                    if (GlobalVar.Init_Finish)
+                    {
+                        dlgLoading.Close();
+
+                        FuncWin.TopMessageBox("Initialize finished.");
+                        GlobalVar.SystemStatus = enumSystemStatus.Manual;
+
+                        pbInit.BackgroundImage = Properties.Resources.initialize;
+
+                        return;
+                    }
+
+                    Application.DoEvents();
+                    Thread.Sleep(100);
+                }
+
+                #region 초기화 실패 사유 조합
+                string stat = "";
+
+                if (!GlobalVar.Init_Feeder_Finish)
+                {
+                    stat += "\n 피더 Check";
+                }
+
+                if (!GlobalVar.Init_InBlster_Finish)
+                {
+                    stat += "\n 블리스터 안착기 Check";
+                }
+
+                if (!GlobalVar.Init_SupplyManual_Finish)
+                {
+                    stat += "\n 매뉴얼공급기 Check";
+                }
+
+                if (!GlobalVar.Init_SupplyBox_Finish)
+                {
+                    stat += "\n 박스공급기 Check";
+                }
+
+                if (!GlobalVar.Init_BoxIn_Finish)
+                {
+                    stat += "\n 투입기 Check";
+                }
+                if (!GlobalVar.Init_BoxReverse_Finish)
+                {
+                    stat += "\n 박스반전기 Check";
+                }
+
+                if (!GlobalVar.Init_BoxLabel_Finish)
+                {
+                    stat += "\n 라벨기/OutConveyor Check";
+                }
+
+                if (!GlobalVar.Init_SortOut_Finish)
+                {
+                    stat += "\n 분류기 Check";
+                }
+
+                if (!GlobalVar.Init_MES_Finish)
+                {
+                    stat += "\n MES Check";
+                }
+
+
+                #endregion
+
+                GlobalVar.SystemStatus = enumSystemStatus.BeforeInitialize;
+
+                pbInit.BackgroundImage = Properties.Resources.initialize;
+                dlgLoading.Close();
+                FuncWin.TopMessageBox("initialize failed." + stat);
+
+            }
+            #endregion
+            /*
+            if (GlobalVar.dlgOpened)
+            {
+                return;
+            }
+            Init dlg = new Init();
+            dlg.Show();
+            //*/
+        }
+        private void pbPartClear_Click(object sender, EventArgs e)
+        {
+            if ((int)GlobalVar.SystemStatus >= (int)enumSystemStatus.AutoRun) // 작동 중 자동 닫기
+            {
+                FuncWin.TopMessageBox("Can't use while system is running.");
+                return;
+            }
+            ClearSubMenu();
+            GlobalVar.TabMain = enumTabMain.PartClear;
+            tcMain.SelectedIndex = (int)GlobalVar.TabMain;
+            pbPartClear.BackgroundImage = Properties.Resources.part_clear_bright;
+        }
+        private void pbErrorLog_Click(object sender, EventArgs e)
+        {
+            ClearSubMenu();
+            GlobalVar.TabMain = enumTabMain.Errors;
+            tcMain.SelectedIndex = (int)GlobalVar.TabMain;
+
+            //
+
+            frmLogViewer.ShowFromMain();
+
+        }
+        private void pbBuzzerStop_Click(object sender, EventArgs e)
+        {
+            if (!GlobalVar.EnableTower ||
+                !GlobalVar.EnableBuzzer ||
+                !(GlobalVar.SystemErrored || GlobalVar.E_Stop || GlobalVar.DoorOpen))
+            {
+                return;
+            }
+            //string msg = (GlobalVar.EnableBuzzer ? "Disable" : "Enable") + " Buzzer?";
+            //if (FuncWin.MessageBoxOK(msg))
+            //{
+            GlobalVar.EnableBuzzer = !GlobalVar.EnableBuzzer;
+            pbBuzzerStop.BackgroundImage = GlobalVar.EnableBuzzer ? Properties.Resources.buzzer_stop : Properties.Resources.buzzer_stop_bright;
+            //}
+        }
+        private void pbDailyCountReset_Click(object sender, EventArgs e)
+        {
+            this.BringToFront();
+            if (FuncWin.MessageBoxOK("Reset production count?"))
+            {
+                //GlobalVar.ProductCanCount = 0;
+                //GlobalVar.ProductBoxCount = 0;
+                runTime = Environment.TickCount;
+                runTotal = 0;
+                GlobalVar.TackStart = Environment.TickCount;
+
+                lblRunningTime.Text = "-";
+                lblTotalTime.Text = "-";
+            }
+        }
+        private void pbExit_Click(object sender, EventArgs e)
+        {
+            FuncLog.WriteLog("Main - Exit Click ");
+            //ClearSubMenu();
+            //pbRouter.BackgroundImage = Radix.Properties.Resources.sub_Router_sel;
+
+            //GlobalVar.TabMain = enumTabMain.Router;
+            //tcMain.SelectedIndex = (int)GlobalVar.TabMain;
+
+            //String RouterProgram = "MXN_HMI.exe";
+
+            //if (FuncWin.FindWindowByExname(RouterProgram) == IntPtr.Zero)
+            //{
+            //    foreach (Process process in Process.GetProcesses())
+            //    {
+
+            //        if (process.ProcessName == RouterProgram.Replace(".exe", ""))
+            //        {
+            //            ShowWindow(process.MainWindowHandle, 5);
+            //            BringWindowToTop(process.MainWindowHandle);
+            //            SetForegroundWindow(process.MainWindowHandle);
+            //        }
+            //    }
+            //}
+
+            if ((int)GlobalVar.SystemStatus < (int)enumSystemStatus.AutoRun ||
+                GlobalVar.SystemStatus == enumSystemStatus.ErrorStop)
+            {
+                //FuncWin.CloseWindowByExname("MXN_HMI.exe"); //확인필요
+                this.Close();
+            }
+            else
+            {
+                this.BringToFront();
+                FuncWin.TopMessageBox("Can't stop program while system is running.");
+            }
+        }
+        #endregion
+
+        #region 상위 테스트 버튼
+
+        private void btnSMD_Click(object sender, EventArgs e)
+        {
+            SMDTest dlg = new SMDTest();
+            dlg.Show();
+        }
+        private void btnPCBInput_Click(object sender, EventArgs e)
+        {
+            //DIO.WriteDIData(enumDINames.X01_0_Input_Lift_Start_Sensor, true);
+        }
+        private void btnSmemaAfter_Click(object sender, EventArgs e)
+        {
+            //DIO.WriteDIData(enumDINames.X06_2_SMEMA_After_Ready, !DIO.GetDIData(enumDINames.X06_2_SMEMA_After_Ready));
+            GlobalVar.TestPass = !GlobalVar.TestPass;
+
+        }
+        private void btnStepTest_Click_1(object sender, EventArgs e)
+        {
+            StepTest dlg = new StepTest();
+            dlg.Show();
+        }
+        #endregion
+
+        #endregion
+
+        #region Start / STop 함수화
+        public void Start_Button(bool op)
+        {
+            if (GlobalVar.SystemStatus == enumSystemStatus.Manual)
+            {
+                GlobalVar.SystemStatus = enumSystemStatus.AutoRun;
+            }
+            else if (GlobalVar.SystemStatus == enumSystemStatus.ErrorStop)
+            {
+                if (op) // op 버튼으로 시작시는 에러차 있으면 안 되므로 그냥 리턴
+                {
+                    return;
+                }
+                else
+                {
+                    FuncWin.TopMessageBox("See error log first.");
+                }
+            }
+            else if (GlobalVar.SystemErrored)
+            {
+                if (op) // op 버튼으로 시작시는 에러차 있으면 안 되므로 그냥 리턴
+                {
+                    return;
+                }
+                else
+                {
+                    FuncWin.TopMessageBox("Error Check.");
+                }
+            }
+            else // BeforeInit
+            {
+                if (op) // op 버튼으로 시작시는 에러차 있으면 안 되므로 그냥 리턴
+                {
+                    return;
+                }
+                else
+                {
+                    FuncWin.TopMessageBox("Run system initialization first.");
+                }
+            }
+            if (GlobalVar.dlgOpened)
+            {
+                return;
+            }
+        }
+        public void Stop_Button()
+        {
+            if (GlobalVar.SystemStatus >= enumSystemStatus.Manual)
+            {
+                GlobalVar.SystemStatus = enumSystemStatus.Manual;
+            }
+            else
+            {
+                GlobalVar.SystemStatus = enumSystemStatus.BeforeInitialize;
+            }
+
+            GlobalVar.SystemMsg = "Run stoped";
+            runTotal += (Environment.TickCount - runTime) / 1000;
+
+            // 정지전에 작업했던 종이매뉴얼 슬롯 설정값을 연노랑으로 표시한다.(착오방지용)
+            //if (GlobalVar.G_ManualType == 1 )
+            //{
+            //    btn_KorManual.BackColor = Color.LightYellow;
+            //    btn_EngManual.BackColor = Color.White;
+            //}
+            //else if(GlobalVar.G_ManualType == 2)
+            //{
+            //    btn_KorManual.BackColor = Color.White;
+            //    btn_EngManual.BackColor = Color.LightYellow;
+            //}
+            // 종이매뉴얼 설정 상태 리셋
+            //GlobalVar.G_ManualType = 0;
+
+            DIO.DO_BackupALL(false);
+
+            // 모터를 강제로 정지해야할까? 
+            // 서보 이동중 강제정지시 재시작해도 위치 도달 실패로 에러가 발생한다. 
+            RTEX.MoveStopAll();
+        }
+        #endregion
+
+
+        #region 수동조작 이벤트
+
+        #region 수동 버튼
+        private void pbDistributor_Click(object sender, EventArgs e)
+        {
+            if (GlobalVar.SystemStatus < enumSystemStatus.AutoRun)
+            {
+                //DIO.WriteDOData(enumDONames.Y01_4_Label_Vacuum, DIO.GetDIData(enumDINames.X01_2_));
+            }
+        }
+
+        private void lblDistributor_Click(object sender, EventArgs e)
+        {
+            pbDistributor_Click(sender, e);
+        }
+
+        private void pbSuppy2Stopper_Click(object sender, EventArgs e)
+        {
+            if (GlobalVar.SystemStatus < enumSystemStatus.AutoRun)
+            {
+                //DIO.WriteDOData(enumDONames.Y02_5_, DIO.GetDIData(enumDINames.X02_6_));
+            }
+        }
+
+        private void lblSuppy2Stopper_Click(object sender, EventArgs e)
+        {
+            pbSuppy2Stopper_Click(sender, e);
+        }
+
+
+        private void pbCapStopper_Click(object sender, EventArgs e)
+        {
+            if (GlobalVar.SystemStatus < enumSystemStatus.AutoRun)
+            {
+                //DIO.WriteDOData(enumDONames.Y08_5_Cap_Stopper_Forward, DIO.GetDIData(enumDINames.X10_7_Cap_Stopper_Reward));
+            }
+        }
+
+        private void lblCapStopper_Click(object sender, EventArgs e)
+        {
+            pbCapStopper_Click(sender, e);
+        }
+
+
+        #endregion
+
+        #endregion
+
+        private void numBeforeTrayIndex_ValueChanged(object sender, EventArgs e)
+        {
+            if (GlobalVar.SystemStatus == enumSystemStatus.AutoRun)
+            {
+                return;
+            }
+
+            //FuncBoxPacking.Sanding_BeforeTrayRowIndex = int.Parse((((int)numBeforeTrayIndex.Value - 1) / FuncBoxPacking.Sanding_BeforeTraySize[1]).ToString());
+            //FuncBoxPacking.Sanding_BeforeTrayColumnIndex = ((int)numBeforeTrayIndex.Value - 1) % FuncBoxPacking.Sanding_BeforeTraySize[1];
+        }
+
+        private void numAfterTrayIndex_ValueChanged(object sender, EventArgs e)
+        {
+            if (!((NumericUpDown)sender).Name.Equals("numAfterTrayIndex"))
+            {
+                return;
+            }
+
+            if (GlobalVar.SystemStatus == enumSystemStatus.AutoRun)
+            {
+                return;
+            }
+
+
+        }
+
+
+
+        #region Input Box 입력을 받아야 되는 경우가 있을 때
+        public static DialogResult InputBox(string title, string content, ref string value)
+        {
+            Form form = new Form();
+            PictureBox picture = new PictureBox();
+            Label label = new Label();
+            TextBox textBox = new TextBox();
+            Button buttonOk = new Button();
+            Button buttonCancel = new Button();
+
+            form.ClientSize = new Size(300, 300);
+            form.Controls.AddRange(new Control[] { label, picture, textBox, buttonOk, buttonCancel });
+            form.FormBorderStyle = FormBorderStyle.FixedDialog;
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MaximizeBox = false;
+            form.MinimizeBox = false;
+            form.AcceptButton = buttonOk;
+            form.CancelButton = buttonCancel;
+
+            form.Text = title;
+            picture.SizeMode = PictureBoxSizeMode.StretchImage;
+            label.Text = content;
+            textBox.Text = value;
+            buttonOk.Text = "확인";
+            buttonCancel.Text = "취소";
+
+            buttonOk.DialogResult = DialogResult.OK;
+            buttonCancel.DialogResult = DialogResult.Cancel;
+
+            picture.SetBounds(10, 10, 50, 50);
+            label.SetBounds(25, 17, 100, 120);
+            textBox.SetBounds(25, 220, 220, 20);
+            buttonOk.SetBounds(135, 270, 70, 20);
+            buttonCancel.SetBounds(215, 270, 70, 20);
+
+            DialogResult dialogResult = form.ShowDialog();
+
+            value = textBox.Text;
+            return dialogResult;
+        }
+        #endregion
+
+        #region 배열로 버튼 만듬
+        private Button[,] buttons = null;
+
+        private void RemoveAllButton()
+        {
+            if (buttons != null)
+            {
+                for (int j = 0; j < buttons.GetLength(0); j++)
+                {
+                    for (int i = 0; i < buttons.GetLength(1); i++)
+                    {
+                        if (buttons[j, i] != null)
+                        {
+                            try
+                            {
+                                this.Controls.Remove((Button)buttons[j, i]);
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.ToString());
+                                Console.WriteLine(ex.StackTrace);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void btnButton_Click(object sender, EventArgs e)
+        {
+            string name = ((Button)sender).Name;
+            string[] rowCol = name.Replace("Button", "").Split('_');
+            int rowIndex = -1;
+            int colIndex = -1;
+            int.TryParse(rowCol[0], out rowIndex);
+            int.TryParse(rowCol[1], out colIndex);
+            MessageBox.Show("Button Click \n row : " + rowIndex + "\n col : " + colIndex);
+        }
+
+        private void Make_Burron(int RowCount, int ColCount, int Width, int Height, int XStar, int XPitch, int YStart, int YPitch)
+        {
+            RemoveAllButton();
+
+            int numRowCount = RowCount;//세로 갯수
+            int numColCount = ColCount;//가로 갯수
+            int numWidth = Width;//가로 크기
+            int numHeight = Height;//세로 크기
+
+            int numXStart = XStar;//X 시작 좌표
+            int numXPitch = XPitch;//X Pitch
+            int numYStart = YStart;//Y 시작 좌표
+            int numYPitch = YPitch;//Y Pitch
+
+            buttons = new Button[numRowCount, numColCount];
+
+            for (int j = 0; j < buttons.GetLength(0); j++)
+            {
+                for (int i = 0; i < buttons.GetLength(1); i++)
+                {
+                    buttons[j, i] = new Button();
+                    buttons[j, i].Location = new Point(numXStart + i * numXPitch, numYStart + j * numYPitch);
+                    buttons[j, i].Size = new Size(numWidth, numHeight);
+                    buttons[j, i].Text = j.ToString() + "_" + i.ToString();
+                    buttons[j, i].Name = "Button" + j.ToString() + "_" + i.ToString();
+                    buttons[j, i].Click += new System.EventHandler(this.btnButton_Click);
+                    buttons[j, i].Image = Radix.Properties.Resources.LED_round_green;
+                    buttons[j, i].BackgroundImageLayout = ImageLayout.Stretch;
+                    tpMain.Controls.Add(buttons[j, i]);
+                }
+            }
+        }
+        #endregion
+
+
+
+
+
+        //테스트 버튼 ////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        private void pbReset_Click(object sender, EventArgs e)
+        {
+            if (GlobalVar.SystemStatus == enumSystemStatus.ErrorStop)
+            {
+                DIO.DO_BackupALL(true);
+            }
+
+            FuncError.RemoveAllError();
+
+            GlobalVar.E_Stop = false;
+            GlobalVar.EnableTower = true;
+            GlobalVar.EnableBuzzer = true;
+            GlobalVar.SystemErrored = false;
+
+            // Clear Servo Alarm
+            RTEX.ServoReset_All();
+
+            RTEX.ServoOnAll(true);
+
+        }
+
+        #region 컨트롤러 인스턴스
+        /// <summary>
+        /// PLCStatusThread에서 Main UI를 컨트롤 하기 위해 by DGKim 230327
+        /// </summary>
+
+
+        public void logView(string msg)
+        {
+            try
+            {
+                if (listBoxStatus.InvokeRequired)
+                {
+                    Invoke(new MethodInvoker(delegate ()
+                    {
+                        String timeString = DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss] ");
+                        //StatusLabel1.Text = timeString + msg;
+
+                        listBoxStatus.Items.Insert(0, timeString + msg);
+                        if (listBoxStatus.Items.Count > 100)
+                            listBoxStatus.Items.RemoveAt(listBoxStatus.Items.Count - 1);
+                        listBoxStatus.SelectedIndex = 0;
+
+                    }));
+                }
+                else
+                {
+                    String timeString = DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss] ");
+                    //StatusLabel1.Text = timeString + msg;
+
+                    listBoxStatus.Items.Insert(0, timeString + msg);
+                    if (listBoxStatus.Items.Count > 100)
+                        listBoxStatus.Items.RemoveAt(listBoxStatus.Items.Count - 1);
+                    listBoxStatus.SelectedIndex = 0;
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+
+        public void logView2(string msg)
+        {
+            try
+            {
+                if (listBoxStep.InvokeRequired)
+                {
+                    Invoke(new MethodInvoker(delegate ()
+                    {
+                        if (msg.Length == 0)
+                        {
+                            listBoxStep.Items.Clear();
+                        }
+                        else
+                        {
+
+                            String timeString = DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss] ");
+                            //StatusLabel1.Text = timeString + msg;
+
+                            listBoxStep.Items.Insert(0, timeString + msg);
+                            if (listBoxStep.Items.Count > 100)
+                                listBoxStep.Items.RemoveAt(listBoxStatus.Items.Count - 1);
+                            listBoxStep.SelectedIndex = 0;
+                        }
+                    }));
+                }
+                else
+                {
+                    if (msg.Length == 0)
+                    {
+                        listBoxStep.Items.Clear();
+                    }
+                    else
+                    {
+                        String timeString = DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss] ");
+                        //StatusLabel1.Text = timeString + msg;
+
+                        listBoxStep.Items.Insert(0, timeString + msg);
+                        if (listBoxStep.Items.Count > 100)
+                            listBoxStep.Items.RemoveAt(listBoxStep.Items.Count - 1);
+                        listBoxStep.SelectedIndex = 0;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+
+        #endregion
+
+        public void UpdateLogViewerDialog()
+        {
+            // ErrorDialog 에서 Log로 전환시 강제 조회 갱신 해줌
+            frmLogViewer.ShowFromMain();
+            
+        }
+
+
+
+        private void btnRtexTest_Click(object sender, EventArgs e)
+        {
+
+            GlobalVar.SystemStatus = enumSystemStatus.EmgStop;
+
+            //uint nAxis = (uint)0;       // 0번축
+            //if (!RTEX.IsStandStill(nAxis)) return;
+            //RTEX.MoveRelative(nAxis, 10000, 50000);
+        }
+
+
+        private void cbOneStep_CheckedChanged(object sender, EventArgs e)
+        {
+            GlobalVar.StepStop = cbOneStep.Checked;
+        }
+
+        private void btnSample_Click(object sender, EventArgs e)
+        {
+            var box = new BoxPacking_Tracking.Box();
+            var manual = new BoxPacking_Tracking.Manual();
+            var Tracking = GlobalVar.Tracking;
+
+            //manual.manualType = 1;
+            //manual.blisterExist = 1;
+
+            //box.manualType = 1;
+            box.lotNo = "TEST1234";
+            //box.boxQR = "231103122321";
+            //box.blisterQR = "F230815050";
+            box.boxType = 1;
+
+            Tracking.boxConv[0] = box;
+            //Tracking.mansConv[0] = manual;
+        }
+
+        private void btnBoxConv_BarCylinderUP_Click(object sender, EventArgs e)
+        {
+            // 자동운전이나 에러 상태에서는 사용불가
+            if (GlobalVar.SystemStatus >= enumSystemStatus.AutoRun) return;
+
+            if (!(sender is Button)) return;
+
+            bool IsBarUP = DIO.GetDOData(DIO_BoxPacking_enumDONames.Y09_7_BoxConv_Bar_Sol_UP);
+            if (IsBarUP)
+            {
+                // DOWN
+                DIO.SingleSol(DIO_BoxPacking_enumDONames.Y09_7_BoxConv_Bar_Sol_UP, false);
+            }
+            else
+            {
+                // UP
+                DIO.SingleSol(DIO_BoxPacking_enumDONames.Y09_7_BoxConv_Bar_Sol_UP, true);
+            }
+        }
+
+        private void btnRePrint_Click(object sender, EventArgs e)
+        {
+            // 자동운전이나 에러 상태에서는 사용불가
+            if (GlobalVar.SystemStatus >= enumSystemStatus.AutoRun) return;
+            if (!(sender is Button)) return;
+
+            //// 여기서 변경 가능 하게 하려면 푼다
+            //GlobalVar.G_RePrint = !GlobalVar.G_RePrint;
+        }
+
+
+        // 1번 매뉴얼 슬롯 ( 영어/중국어 ) 선택
+        private void btn_KorManual_Click(object sender, EventArgs e)
+        {
+            if (GlobalVar.SystemStatus < enumSystemStatus.AutoRun)
+            {
+                GlobalVar.G_ManualType = 1;
+                btn_KorManual.BackColor = Color.Lime;
+                btn_EngManual.BackColor = Color.White;
+            }
+        }
+
+        // 2번 매뉴얼 슬롯 ( 다국어 ) 선택
+        private void btn_EngManual_Click(object sender, EventArgs e)
+        {
+            if (GlobalVar.SystemStatus < enumSystemStatus.AutoRun)
+            {
+                GlobalVar.G_ManualType = 2;
+                btn_KorManual.BackColor = Color.White;
+                btn_EngManual.BackColor = Color.Lime;
+            }
+        }
+
+        private void btn_ManualAngleUP_Click(object sender, EventArgs e)
+        {
+            // 정지중 매뉴얼 각도 실린더 조작 가능
+            if (GlobalVar.SystemStatus < enumSystemStatus.AutoRun)
+            {
+                bool isUP = DIO.GetDOData(DIO_BoxPacking_enumDONames.Y11_2_Manual_Angle_Sol_UP);
+                DIO.SingleSol(DIO_BoxPacking_enumDONames.Y11_2_Manual_Angle_Sol_UP, !isUP);
+            }
+        }
+
+        private void btnClear1_Click(object sender, EventArgs e)
+        {
+            if (FuncWin.MessageBoxOK("Clear Lot Info?"))
+            {
+                var outInfo = GlobalVar.Tracking.OutInfo[0];
+                string lotNo = outInfo.OutLot;
+                int count = outInfo.OutCount;
+                int mesSize = outInfo.MesLotSize;
+                FuncLog.WriteLog($"작업자 LotClear 1 : Lot: {lotNo} {count}/{mesSize}");
+                GlobalVar.Tracking.ClearOutLot(1);
+            }
+        }
+
+        private void btnClear2_Click(object sender, EventArgs e)
+        {
+            if (FuncWin.MessageBoxOK("Clear Lot Info?"))
+            {
+                var outInfo = GlobalVar.Tracking.OutInfo[1];
+                string lotNo = outInfo.OutLot;
+                int count = outInfo.OutCount;
+                int mesSize = outInfo.MesLotSize;
+                FuncLog.WriteLog($"작업자 LotClear 2 : Lot: {lotNo} {count}/{mesSize}");
+                GlobalVar.Tracking.ClearOutLot(2);
+            }
+        }
+
+        private void btnClear3_Click(object sender, EventArgs e)
+        {
+            if (FuncWin.MessageBoxOK("Clear Lot Info?"))
+            {
+                var outInfo = GlobalVar.Tracking.OutInfo[2];
+                string lotNo = outInfo.OutLot;
+                int count = outInfo.OutCount;
+                int mesSize = outInfo.MesLotSize;
+                FuncLog.WriteLog($"작업자 LotClear 3 : Lot: {lotNo} {count}/{mesSize}");
+                GlobalVar.Tracking.ClearOutLot(3);
+            }
+        }
+
+        private void btnClear4_Click(object sender, EventArgs e)
+        {
+            if (FuncWin.MessageBoxOK("Clear Lot Info?"))
+            {
+                var outInfo = GlobalVar.Tracking.OutInfo[3];
+                string lotNo = outInfo.OutLot;
+                int count = outInfo.OutCount;
+                int mesSize = outInfo.MesLotSize;
+                FuncLog.WriteLog($"작업자 LotClear 4 : Lot: {lotNo} {count}/{mesSize}");
+                GlobalVar.Tracking.ClearOutLot(4);
+            }
+
+        }
+
+        private void btnClear5_Click(object sender, EventArgs e)
+        {
+            if (FuncWin.MessageBoxOK("Clear Lot Info?"))
+            {
+                var outInfo = GlobalVar.Tracking.OutInfo[4];
+                string lotNo = outInfo.OutLot;
+                int count = outInfo.OutCount;
+                int mesSize = outInfo.MesLotSize;
+                FuncLog.WriteLog($"작업자 LotClear 5 : Lot: {lotNo} {count}/{mesSize}");
+                GlobalVar.Tracking.ClearOutLot(5);
+            }
+
+        }
+
+        private void btnClear6_Click(object sender, EventArgs e)
+        {
+            if (FuncWin.MessageBoxOK("Clear Lot Info?"))
+            {
+                var outInfo = GlobalVar.Tracking.OutInfo[5];
+                string lotNo = outInfo.OutLot;
+                int count = outInfo.OutCount;
+                int mesSize = outInfo.MesLotSize;
+                FuncLog.WriteLog($"작업자 LotClear 6 : Lot: {lotNo} {count}/{mesSize}");
+                GlobalVar.Tracking.ClearOutLot(6);
+            }
+
+        }
+
+        private void btnClear7_Click(object sender, EventArgs e)
+        {
+            // ERROR CLEAR
+            if (FuncWin.MessageBoxOK("Clear Lot Info?"))
+            {
+                var outInfo = GlobalVar.Tracking.OutInfo[6];
+                string lotNo = outInfo.OutLot;
+                int count = outInfo.OutCount;
+                int mesSize = outInfo.MesLotSize;
+                FuncLog.WriteLog($"작업자 LotClear 7 : Lot: {lotNo} {count}/{mesSize}");
+                GlobalVar.Tracking.ClearOutLot(7);
+            }
+        }
+
+
+
+        private void btnClearAll_Click(object sender, EventArgs e)
+        {
+            if (FuncWin.MessageBoxOK("Clear ALL Lot Info?"))
+            {
+                for (int i = 1; i <= 7; i++)
+                {
+                    var outInfo = GlobalVar.Tracking.OutInfo[i-1];
+                    string lotNo = outInfo.OutLot;
+                    int count = outInfo.OutCount;
+                    int mesSize = outInfo.MesLotSize;
+                    FuncLog.WriteLog($"작업자 LotClear {i} : Lot: {lotNo} {count}/{mesSize}");
+                    GlobalVar.Tracking.ClearOutLot(i);
+                }
+
+                GlobalVar.Tracking.TotalCount = 0;
+            }
+        }
+
+        private void btnFeederRelease_Click(object sender, EventArgs e)
+        {
+            if (GlobalVar.SystemStatus < enumSystemStatus.AutoRun)
+            {
+                DIO.SingleSol(DIO_BoxPacking_enumDONames.Y05_6_Feeder_Blister_Wait_Stopper_UP, false);
+                DIO.SingleSol(DIO_BoxPacking_enumDONames.Y05_7_Feeder_Blister_Wait_Stopper_DOWN, true);
+
+                DIO.SingleSol(DIO_BoxPacking_enumDONames.Y05_4_Feeder_Blister_Wait_Hold_UP, false);
+                DIO.SingleSol(DIO_BoxPacking_enumDONames.Y05_5_Feeder_Blister_Wait_Hold_DOWN, true);
+            }
+        }
+
+
+        private void cbBacodePass_CheckedChanged(object sender, EventArgs e)
+        {
+            // 바코드 스케너가 정상동작 한것으로 처리한다.
+            GlobalVar.BarcodePass = cbBarcodePass.Checked;
+        }
+
+        private void cbMesPass_CheckedChanged(object sender, EventArgs e)
+        {
+            // MES 통신을 정상 송수신 한것으로 처리한다.
+            GlobalVar.MesPass = cbMesPass.Checked;
+        }
+
+        private void cbFeederOn_CheckedChanged(object sender, EventArgs e)
+        {
+            // 피더를 강제로 구동한다
+            GlobalVar.G_FeederON = cbFeederOn.Checked;
+        }
+
+        private void cbLaserPass_CheckedChanged(object sender, EventArgs e)
+        {
+            // 레이저 마킹기 패스
+            GlobalVar.G_LaserPass = cbLaserPass.Checked;
+        }
+
+        private void cbLabelPass_CheckedChanged(object sender, EventArgs e)
+        {
+            GlobalVar.LabelPass = cbLabelPass.Checked;
+        }
+
+        private void btn_StepReset_Click(object sender, EventArgs e)
+        {
+            if ( GlobalVar.SystemStatus == enumSystemStatus.Manual )
+            {
+                if (FuncWin.MessageBoxOK("STEP RESET ?"))
+                {
+                    // 모든 스레드의 동작을 강제로 초기화 한다.
+                    // 에러가 발생한후 에러 처리를 하고 원점 초기화 없이 동작을 이어서 하고 싶을경우
+                    // 불가피하게 사용한다. 
+                    GlobalVar.Thread_AutoRun.StepResetAll();
+                }
+            }
+        }
+
+
+    }
+
+}

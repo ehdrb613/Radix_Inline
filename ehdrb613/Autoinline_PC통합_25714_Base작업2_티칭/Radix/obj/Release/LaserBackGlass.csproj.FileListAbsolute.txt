@@ -1,0 +1,26 @@
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\bin\Release\LaserBackGlass.exe.config
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\obj\Release\LaserBackGlass.exe
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\obj\Release\LaserBackGlass.pdb
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\bin\Release\LaserBackGlass.exe
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\bin\Release\LaserBackGlass.pdb
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\obj\Release\LaserBackGlass.Loading.resources
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\obj\Release\LaserBackGlass.frmMain.resources
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\obj\Release\LaserBackGlass.Popup.AlarmHistory.resources
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\obj\Release\LaserBackGlass.Popup.DataSetting.resources
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\obj\Release\LaserBackGlass.Popup.ErrorDialog.resources
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\obj\Release\LaserBackGlass.Popup.KUKA_renewal.resources
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\obj\Release\LaserBackGlass.Popup.LabelSet.resources
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\obj\Release\LaserBackGlass.Popup.IoMonitor.resources
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\obj\Release\LaserBackGlass.Popup.Maintenance.resources
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\obj\Release\LaserBackGlass.Popup.ManualMove.resources
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\obj\Release\LaserBackGlass.Popup.MotionTest.resources
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\obj\Release\LaserBackGlass.Popup.Origin.resources
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\obj\Release\LaserBackGlass.Popup.Password.resources
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\obj\Release\LaserBackGlass.Popup.SelectMode.resources
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\obj\Release\LaserBackGlass.Popup.Teaching.resources
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\obj\Release\LaserBackGlass.Popup.VisionTest.resources
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\obj\Release\LaserBackGlass.Properties.Resources.resources
+D:\Windows\03.Laser Back Glass\src\C#\LaserBackGlass\LaserBackGlass\obj\Release\LaserBackGlass.csproj.GenerateResource.Cache
+D:\Windows\0.C#기본\Base\LaserBackGlass\bin\Release\LaserBackGlass.exe.config
+D:\Windows\0.C#기본\Base\LaserBackGlass\obj\Release\LaserBackGlass.exe
+D:\Windows\0.C#기본\Base\LaserBackGlass\obj\Release\LaserBackGlass.pdb

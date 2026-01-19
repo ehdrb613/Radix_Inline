@@ -1,0 +1,1253 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+using System.Runtime.CompilerServices;
+
+namespace Radix
+{
+    /** @brief DIO 선언된 형식 구분 */
+    //public enum enumDIOType
+    //{
+    //    enumDINames,
+    //   FuncInline.enumDONames,
+    //    DIO_Sanding_enumDINames,
+    //    DIO_Sanding_enumDONames,
+    //    DIO_BoxPacking_enumDINames,
+    //    DIO_BoxPacking_enumDONames
+    //}
+
+    /**
+     * @brief 작동 로직과는 직접 관련 안 된 DI 동작에 대한 기본 함수들을 선언
+     */
+    class DIO
+    {
+        /* DIO.cs
+           작동 로직과는 직접 관련 안 된 DI 동작에 대한 기본 함수들을 선언
+        //*/
+        /** @brief 디지털 입력 구분. 프로젝트에 따라서 수정해 준다. */
+        //public static enumDIOType DiType = enumDIOType.DIO_Sanding_enumDINames; // 프로젝트에 따라서 수정해 준다.
+        //public static enumDIOType DiType = enumDIOType.DIO_BoxPacking_enumDINames; // 프로젝트에 따라서 수정해 준다.
+        /** @brief 디지털 출력 구분. 프로젝트에 따라서 수정해 준다. */
+        //public static enumDIOType DoType = enumDIOType.DIO_Sanding_enumDONames; // 프로젝트에 따라서 수정해 준다.
+        //public static enumDIOType DoType = enumDIOType.DIO_BoxPacking_enumDONames; // 프로젝트에 따라서 수정해 준다.
+
+        /** 
+         * @brief DIO클래스 내부에서 사용하는 Debug, 코드 내에서는 이 함수 콜한다
+         * @param str 디버그 처리할 문자열
+         * @return void
+         */
+        private static void debug(string str) // debug(문자열) DIO클래스 내부에서 사용하는 Debug, 코드 내에서는 이 함수 콜한다.
+        {
+            //Util.Debug("DIO : " + str); // 클래스의 디버그를 표시할 때 주석 제거
+        }
+
+        /** 
+         * @brief DIO 관련 전역 변수를 GlobalVar에 작성하지 않고 프로젝트에 따라 구분을 하기 위해 초기화 작업
+         * @param index 순번
+         * @return void 
+         */
+        public static void InitDIO()
+        {
+            switch (GlobalVar.ProjectType)
+            {
+                case enumProject.AutoInline:
+                    //FuncAmplePacking.InitDIO(); //SNUC_AmplePacking.cs 에 클래스화해서 연동할 필요 없다.
+                    break;
+            }
+            /*
+            switch (DiType)
+            {
+                case enumDIOType.enumDINames:
+                    break;
+                case enumDIOType.DIO_Sanding_enumDINames:
+                    //GlobalVar.DiSize[0] = 60 * 8;
+                    //GlobalVar.DiSize[1] = (uint)((Enum.GetValues(typeof(DIO_BoxPacking_enumDINames))).Length) - (60 * 8);
+
+                    //GlobalVar.DI_Array = new bool[Enum.GetValues(typeof(DIO_BoxPacking_enumDINames)).Length]; // 현재 디지털 입력 
+                    //GlobalVar.DI_Before = new bool[Enum.GetValues(typeof(DIO_BoxPacking_enumDINames)).Length]; // 이전 디지털 입력
+                    //GlobalVar.DI_Change = new bool[Enum.GetValues(typeof(DIO_BoxPacking_enumDINames)).Length]; // 디지털 입력 변화여부
+
+                    //GlobalVar.DoSize[0] = 0;
+                    //GlobalVar.DoSize[1] = (uint)(Enum.GetValues(typeof(DIO_BoxPacking_enumDINames)).Length);
+
+                    //GlobalVar.DO_Array = new bool[Enum.GetValues(typeof(enumDONames)).Length]; // 현재 시도중인 디지털 출력 
+                    //GlobalVar.DO_Read = new bool[Enum.GetValues(typeof(enumDONames)).Length]; // 출력 확인된 디지털 출력
+                    //GlobalVar.DO_Before = new bool[Enum.GetValues(typeof(enumDONames)).Length]; // 이전 디지털 출력
+                    //GlobalVar.DO_Change = new bool[Enum.GetValues(typeof(enumDONames)).Length]; // 디지털 출력 변화여부
+                    break;
+
+                case enumDIOType.DIO_BoxPacking_enumDINames:
+                    GlobalVar.DiSize[0] = (uint)((Enum.GetValues(typeof(DIO_BoxPacking_enumDINames))).Length);
+                    GlobalVar.DiSize[1] = 0;
+
+                    GlobalVar.DI_Array = new bool[Enum.GetValues(typeof(DIO_BoxPacking_enumDINames)).Length]; // 현재 디지털 입력 
+                    GlobalVar.DI_Before = new bool[Enum.GetValues(typeof(DIO_BoxPacking_enumDINames)).Length]; // 이전 디지털 입력
+                    GlobalVar.DI_Change = new bool[Enum.GetValues(typeof(DIO_BoxPacking_enumDINames)).Length]; // 디지털 입력 변화여부
+
+                    GlobalVar.DoSize[0] = 0;
+                    GlobalVar.DoSize[1] = (uint)(Enum.GetValues(typeof(DIO_BoxPacking_enumDONames)).Length);
+                    GlobalVar.DO_Array = new bool[Enum.GetValues(typeof(DIO_BoxPacking_enumDONames)).Length]; // 현재 시도중인 디지털 출력 
+                    GlobalVar.DO_Read = new bool[Enum.GetValues(typeof(DIO_BoxPacking_enumDONames)).Length]; // 출력 확인된 디지털 출력
+                    GlobalVar.DO_Before = new bool[Enum.GetValues(typeof(DIO_BoxPacking_enumDONames)).Length]; // 이전 디지털 출력
+                    GlobalVar.DO_Change = new bool[Enum.GetValues(typeof(DIO_BoxPacking_enumDONames)).Length]; // 디지털 출력 변화여부
+                    break;
+            }
+            //*/
+        }
+
+        /** 
+         * @brief 입력 구분에 따라 해당하는 이름을 리턴
+         * @param index 입력 데이터 순번
+         * @return string 해당 IO 이름
+         */
+        public static string GetDIName(int index)
+        {
+            switch (GlobalVar.ProjectType)
+            {
+                case enumProject.AutoInline:
+                    return FuncInline.GetDIName(index);
+            }
+            /*
+            switch (DiType)
+            {
+                case enumDIOType.enumDINames:
+                    return ((enumDINames)index).ToString();
+                case enumDIOType.DIO_Sanding_enumDINames:
+                    return ((DIO_BoxPacking_enumDINames)index).ToString();
+                case enumDIOType.DIO_BoxPacking_enumDINames:
+                    return ((DIO_BoxPacking_enumDINames)index).ToString();
+            }
+            //*/
+            return "";
+        }
+
+        /** 
+         * @brief 출력 구분에 따라 해당하는 이름을 리턴
+         * @param index 출력 데이터 순번
+         * @return string 해당 IO 이름
+         */
+        public static string GetDOName(int index)
+        {
+            switch (GlobalVar.ProjectType)
+            {
+                case enumProject.AutoInline:
+                    return FuncInline.GetDOName(index);
+            }
+            /*
+            switch (DoType)
+            {
+                case enumDIOType.enumDONames:
+                    return ((enumDONames)index).ToString();
+                case enumDIOType.DIO_Sanding_enumDONames:
+                    return ((DIO_BoxPacking_enumDONames)index).ToString();
+                case enumDIOType.DIO_BoxPacking_enumDONames:
+                    return ((DIO_BoxPacking_enumDONames)index).ToString();
+
+            }
+            //*/
+            return "";
+        }
+
+
+
+
+        #region 단동솔 작동
+        /** 
+         * @brief 단동솔 작동, 
+         *      솔밸브만이 아니라 모든 출력장치에 적용할 수 있다.
+         * @param Do1 출력 데이터 enum 개체
+         * @param DoData1 출력할 값
+         * @return bool 출력 수행 여부
+         */
+        public static bool SingleSol(object Do1, bool DoData1) // SingleSol(DO이름, 값) 단동솔 작동, 
+        {
+            return SingleSol((int)Do1, DoData1);
+        }
+
+
+        /** 
+         * @brief 단동솔 작동, 
+         *      솔밸브만이 아니라 모든 출력장치에 적용할 수 있다.
+         * @param Do1 출력 데이터 순번
+         * @param DoData1 출력할 값
+         * @return bool 출력 수행 여부
+         */
+        public static bool SingleSol(int Do1, bool DoData1) // SingleSol(DO이름, 값) 단동솔 작동, 
+        {
+            if (GlobalVar.GlobalStop == false)
+            {
+                WriteDOData(Do1, DoData1);
+            }
+            return GlobalVar.GlobalStop;
+        }
+
+        /** 
+         * @brief DI센서값 따라 단동솔 작동 
+         *      센서값 체크에 따라 작동을 수행한다
+         *      솔밸브만이 아니라 모든 출력장치에 적용할 수 있다.
+         * @param Di 체크할 입력 데이터 enum 개체
+         * @param DiData 체크할 데이터 입력 값
+         * @param Do1 출력 데이터 enum 개체
+         * @param DoData1 출력할 값
+         * @return bool 출력 수행 여부
+         */
+        public static bool SingleSol(object Di, bool DiData, object Do1, bool DoData1)  // SingleSol(DI이름, DI값, DO이름, DO값) DI센서값 따라 단동솔 작동, 
+        {
+            return SingleSol((int)Di, DiData, (int)Do1, DoData1);
+        }
+
+        /** 
+         * @brief DI센서값 따라 단동솔 작동 
+         *      센서값 체크에 따라 작동을 수행한다
+         *      솔밸브만이 아니라 모든 출력장치에 적용할 수 있다.
+         * @param Di 체크할 입력 데이터 순번
+         * @param DiData 체크할 데이터 입력 값
+         * @param Do1 출력 데이터 순번
+         * @param DoData1 출력할 값
+         * @return bool 출력 수행 여부
+         */
+        public static bool SingleSol(int Di, bool DiData, int Do1, bool DoData1) // SingleSol(DI코드, DI값, DO이름, DO값) DI센서값 따라 단동솔 작동, 
+        {
+            if (GetDIData(Di) != DiData &&
+                GlobalVar.GlobalStop == false)
+            {
+                WriteDOData(Do1, DoData1);
+            }
+            return GetDIData((int)Di) == DiData ||
+                   GlobalVar.GlobalStop;
+        }
+        #endregion
+
+        #region 복동솔 작동
+        /** 
+         * @brief 출력 하나를 지정하여 복동솔 작동
+         *      지정 출력과 다음 출력을 동시에 제어한다.
+         *      솔밸브만이 아니라 모든 출력장치에 적용할 수 있다.
+         * @param Do 출력 데이터 enum 개체
+         *      다른 출력은 지정 개체의 이전 값
+         * @param DoData 출력 데이터 값
+         *      다음 출력의 값은 지정값의 반대값
+         * @return bool 출력 수행 여부
+         */
+        public static bool DoubleSol2(object Do, bool DoData) // DoubleSol(DO이름, DO값) 복동솔 작동, DO2는 DO코드의 이전. 
+        {
+            return DoubleSol((int)Do, DoData, (int)Do - 1, !DoData);
+        }
+        /** 
+         * @brief 출력 하나를 지정하여 복동솔 작동
+         *      지정 출력과 다음 출력을 동시에 제어한다.
+         *      솔밸브만이 아니라 모든 출력장치에 적용할 수 있다.
+         * @param Do 출력 데이터 enum 개체
+         *      다른 출력은 지정 개체의 다음 값
+         * @param DoData 출력 데이터 값
+         *      다음 출력의 값은 지정값의 반대값
+         * @return bool 출력 수행 여부
+         */
+        public static bool DoubleSol(object Do, bool DoData) // DoubleSol(DO이름, DO값) 복동솔 작동, DO2는 DO코드의 다음. 
+        {
+            return DoubleSol((int)Do, DoData, (int)Do + 1, !DoData);
+        }
+
+        /** 
+         * @brief 출력 하나를 지정하여 복동솔 작동
+         *      지정 출력과 다음 출력을 동시에 제어한다.
+         *      솔밸브만이 아니라 모든 출력장치에 적용할 수 있다.
+         * @param Do 출력 데이터 순번
+         *      다른 출력은 지정 순번의 다음 값
+         * @param DoData 출력 데이터 값
+         *      다음 출력의 값은 지정값의 반대값
+         * @return bool 출력 수행 여부
+         */
+        public static bool DoubleSol(int Do, bool DoData)  // DoubleSol(DO코드, DO값) 복동솔 작동, DO2는 DO코드의 다음. 
+        {
+            return DoubleSol(Do, DoData, Do + 1, !DoData);
+        }
+
+        /** 
+         * @brief 입력값 확인하면서 복동솔 작동
+         *      지정 출력과 다음 출력을 동시에 제어한다.
+         *      솔밸브만이 아니라 모든 출력장치에 적용할 수 있다.
+         * @param Di 체크할 Di 입력 데이터 enum 개체
+         * @param DiData 체크할 입력값
+         * @param Do 출력 데이터 enum 개체
+         *      다른 출력은 지정 순번의 다음 값
+         * @param DoData 출력 데이터 값
+         *      다음 출력의 값은 지정값의 반대값
+         * @return bool 출력 수행 여부
+         */
+        public static bool DoubleSol(object Di, bool DiData, object Do, bool DoData) // DoubleSol(DI이름, DI값, DO이름, DO값) 복동솔 작동, DO2는 DO코드의 다음. 
+        {
+            return DoubleSol((int)Di, DiData, (int)Do, DoData, (int)Do + 1, !DoData);
+        }
+
+        /** 
+         * @brief 입력값 확인하면서 복동솔 작동
+         *      지정 출력과 다음 출력을 동시에 제어한다.
+         *      솔밸브만이 아니라 모든 출력장치에 적용할 수 있다.
+         * @param Di 체크할 Di 입력 데이터 순번
+         * @param DiData 체크할 입력값
+         * @param Do 출력 데이터 순번
+         *      다른 출력은 지정 순번의 다음 값
+         * @param DoData 출력 데이터 값
+         *      다음 출력의 값은 지정값의 반대값
+         * @return bool 출력 수행 여부
+         */
+        public static bool DoubleSol(int Do1, bool DoData1, int Do2, bool DoData2) // DoubleSol(DO코드1, DO값1, DO코드2, DO값2)복동솔 작동, 
+        {
+            try
+            {
+                if (GlobalVar.GlobalStop == false)
+                {
+                    WriteDOData(Do1, DoData1);
+                    WriteDOData(Do2, DoData2);
+                }
+            }
+            catch (Exception ex)
+            {
+                debug(ex.ToString());
+                debug(ex.StackTrace);
+            }
+            return GlobalVar.GlobalStop;
+        }
+
+        /** 
+         * @brief 입력값 확인하면서 복동솔 작동
+         *      두 개 출력을 동시에 제어한다.
+         *      솔밸브만이 아니라 모든 출력장치에 적용할 수 있다.
+         * @param Di 체크할 Di 입력 데이터 enum 개체
+         * @param DiData 체크할 입력값
+         * @param Do1 출력 데이터 enum 개체
+         * @param DoData1 출력 데이터 값
+         * @param Do2 반대 출력 데이터 enum 개체
+         * @param DoData2 반대 출력 데이터 값
+         * @return bool 출력 수행 여부
+         */
+        public static bool DoubleSol(object Di, bool DiData, object Do1, bool DoData1, object Do2, bool DoData2) // DoubleSol(DI이름, DI값, DO이름1, DO값1, DO이름2, DO값2) 복동솔 작동, 
+        {
+            return DoubleSol((int)Di, DiData, (int)Do1, DoData1, (int)Do2, DoData2);
+        }
+
+        /** 
+         * @brief 입력값 확인하면서 복동솔 작동
+         *      두 개 출력을 동시에 제어한다.
+         *      솔밸브만이 아니라 모든 출력장치에 적용할 수 있다.
+         * @param Di 체크할 Di 입력 데이터 순번
+         * @param DiData 체크할 입력값
+         * @param Do1 출력 데이터 순번
+         * @param DoData1 출력 데이터 값
+         * @param Do2 반대 출력 데이터 순번
+         * @param DoData2 반대 출력 데이터 값
+         * @return bool 출력 수행 여부
+         */
+        public static bool DoubleSol(int Di, bool DiData, int Do1, bool DoData1, int Do2, bool DoData2) // DoubleSol(DI코드, DI값, DO코드1, DO값1, DO코드2, DO값2) 복동솔 작동, 
+        {
+            if (GetDIData(Di) != DiData &&
+                GlobalVar.GlobalStop == false &&
+                Di < Enum.GetValues(typeof(FuncInline.enumDINames)).Length &&
+                Do1 < Enum.GetValues(typeof(FuncInline.enumDONames)).Length &&
+                Do2 < Enum.GetValues(typeof(FuncInline.enumDONames)).Length)
+            {
+                WriteDOData(Do1, DoData1);
+                WriteDOData(Do2, DoData2);
+            }
+            return GetDIData((int)Di) == DiData ||
+                   GlobalVar.GlobalStop;
+        }
+        #endregion
+
+
+        /** 
+         * @brief 정역 컨베어 작동
+         * @param Do 동작할 컨베어 IO enum 개체
+         * @param act 동작구분
+         * @return bool 동작 수행 여부
+         */
+        public static bool MoveConveyor(object Do, enumConveyorAction act) // MoveConveyor(DO이름, 방향) 정역 컨베어 작동
+        {
+            return MoveConveyor((int)Do, act);
+        }
+        /** 
+         * @brief 정역 컨베어 작동
+         * @param Do 동작할 컨베어 IO 순번
+         * @param act 동작구분
+         * @return bool 동작 수행 여부
+         */
+        public static bool MoveConveyor(int Do, enumConveyorAction act) // MoveConveyor(DO이름, 방향) 정역 컨베어 작동
+        {
+            switch (act)
+            {
+                case enumConveyorAction.Forward:
+                    if (DIO.GetDORead(Do + 1))
+                    {
+                        DIO.WriteDOData(Do + 1, false);
+                        Thread.Sleep(GlobalVar.ConveyorReverseTime);
+                    }
+                    DIO.WriteDOData(Do, true);
+                    break;
+                case enumConveyorAction.Reward:
+                    if (DIO.GetDORead(Do))
+                    {
+                        DIO.WriteDOData(Do, false);
+                        Thread.Sleep(GlobalVar.ConveyorReverseTime);
+                    }
+                    DIO.WriteDOData(Do + 1, true);
+                    break;
+                case enumConveyorAction.Stop:
+                default:
+                    DIO.WriteDOData(Do, false);
+                    DIO.WriteDOData(Do + 1, false);
+                    break;
+            }
+            return true;
+        }
+
+        #region 해당 DI 데이터 반환
+        /** 
+         * @brief DI 값을 읽는다. 
+         * @param di 체크할 입력 순번
+         * @return bool 입력값
+         */
+        public static bool GetDIData(int di) // GetDIData(DI코드) DI 값을 읽는다. 
+        {
+            //return GlobalVar.DI_Array[di];
+            bool rtn = true;
+            try
+            {
+                //if (di < Enum.GetValues(typeof(enumDINames)).Length)
+                if (di < GlobalVar.DiSize[0] + GlobalVar.DiSize[1])
+                {
+                    //rtn = GetDIData((enumDINames)di);            
+                    rtn = GlobalVar.DI_Array[di];
+                }
+                else
+                {
+                    debug("invalid di : " + di);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.StackTrace);
+            }
+            return rtn;
+        }
+        /** 
+         * @brief DI 값을 읽는다. 
+         * @param di 체크할 입력 enum 개체
+         * @return bool 입력값
+         */
+        public static bool GetDIData(object di) // GetDIData(DI이름) DI 값을 읽는다. 
+        {
+            return GlobalVar.DI_Array[(int)di];
+        }
+        /** 
+         * @brief DI 값과 변화여부 읽는다. 
+         * @param di 체크할 입력 순번
+         * @param changed 변화 여부를 저장할 변수 포인터
+         * @return bool 입력값
+         */
+        public static bool GetDIData(int di, ref bool changed) // GetDIData(DI코드, edge참조) DI 값을 읽는다. 
+        {
+            bool data = false;
+            try
+            {
+                //if (di < Enum.GetValues(typeof(enumDINames)).Length)
+                if (di < GlobalVar.DiSize[0] + GlobalVar.DiSize[1])
+                {
+                    data = GlobalVar.DI_Array[di];
+                    changed = GetDIChange(di);
+                }
+            }
+            catch (Exception ex)
+            {
+                debug(ex.ToString());
+                debug(ex.StackTrace);
+            }
+            return data;
+        }
+        /** 
+         * @brief DI 값과 변화여부 읽는다. 
+         * @param di 체크할 입력 enum 개체
+         * @param changed 변화 여부를 저장할 변수 포인터
+         * @return bool 입력값
+         */
+        public static bool GetDIData(object di, ref bool changed) // GetDIData(DI이름, edge참조) DI 값을 읽는다. 
+        {
+            return GetDIData((int)di, ref changed);
+        }
+        #endregion
+
+        #region 해당 DI 데이터 변화 여부 반환
+        /** 
+         * @brief DI 변화를 리턴. 
+         * @param di 체크할 입력 순번
+         * @return bool 변화 여부
+         */
+        public static bool GetDIChange(int di) // GetDIChange(DI코드) DI 변화를 리턴. 
+        {
+            bool data = GlobalVar.DI_Before[(int)di] != GlobalVar.DI_Array[(int)di];
+            GlobalVar.DI_Before[(int)di] = GlobalVar.DI_Array[(int)di];
+            return data;
+        }
+
+        /** 
+         * @brief DI 변화를 리턴. 
+         * @param di 체크할 입력 enum 개체
+         * @return bool 변화 여부
+         */
+        public static bool GetDIChange(object di) // GetDIChange(DI이름) DI 변화를 리턴. 
+        {
+            return GetDIChange((int)di);
+        }
+        #endregion
+
+        #region simulation용
+        /** 
+         * @brief DI (시뮬레이션용)데이터를 쓴다.  
+         * @param di 적용할 입력 순번
+         * @param di 적용할 데이터 값
+         * @return void
+         */
+        public static void WriteDIData(int di, bool value) // WriteDIData(DI코드, 값) (simulation용)DI 데이터를 쓴다. 
+        {
+            try
+            {
+                if (!GlobalVar.Simulation)
+                {
+                    return;
+                }
+
+                if (GlobalVar.ProjectType == enumProject.AutoInline)
+                {
+                    Console.WriteLine("DI Write : " + ((FuncInline.enumDINames)di).ToString() + " - " + value.ToString());
+                }
+                GlobalVar.DI_Array[di] = value;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.StackTrace);
+            }
+        }
+
+        /** 
+         * @brief DI (시뮬레이션용)데이터를 쓴다.  
+         * @param di 적용할 입력 enum 개체
+         * @param di 적용할 데이터 값
+         * @return void
+         */
+        public static void WriteDIData(object di, bool value) // WriteDIData(DI이름, 값) (simulation용)DI 데이터를 쓴다. 
+        {
+            WriteDIData((int)di, value);
+        }
+
+        /** 
+         * @brief 시뮬레이션 경우 초기 할당해야 할 IO 를 할당
+         * @return void
+         */
+        public static void InitSimulation() // 시뮬레이션 경우 초기 할당해야 할 IO
+        {
+            switch (GlobalVar.ProjectType)
+            {
+                case enumProject.AutoInline:
+                    FuncInline.InitSimulation();
+                    break;
+            }
+            return;
+            if (!GlobalVar.Simulation)
+            {
+                return;
+            }
+            for (int i = 0; i < FuncInline.MaxSiteCount * FuncInline.MaxTestPCCount; i++)
+            {
+            }
+        }
+
+        /** 
+         * @brief 시뮬레이션 로직. 
+         *      특정 출력이 동작시 특정 입력을 변화시킨다
+         *      예) 실린더 전진 출력시 전진센서 감지
+         * @param dn 체크할 출력 enum 개체
+         * @param data 출력값
+         * @return void
+         */
+        public static void SimulateDIO(object dn, bool data) // SimulateDIO(DO이름, 값) 시뮬레이션 로직. 
+        {
+            SimulateDIO((int)dn, data);
+        }
+        /** 
+         * @brief 시뮬레이션 로직. 
+         *      특정 출력이 동작시 특정 입력을 변화시킨다
+         *      예) 실린더 전진 출력시 전진센서 감지
+         * @param dn 체크할 출력 순번
+         * @param data 출력값
+         * @return void
+         */
+        public static void SimulateDIO(int dn, bool data) // SimulateDIO(DO이름, 값) 시뮬레이션 로직. 
+        {
+            /* 시뮬레이션 */
+            /* DO 입력에 따라 해당 센서 DI 변경 */
+            // DryRun 때는 PCB센서 강제감지를 하지 말아야 함
+
+            if (!GlobalVar.Simulation ||
+                GlobalVar.E_Stop ||
+                GlobalVar.SystemStatus == enumSystemStatus.ErrorStop)
+            {
+                return;
+            }
+
+            switch (GlobalVar.ProjectType)
+            {
+                case enumProject.AutoInline:
+                    FuncInline.Simulate_DIO(dn, data);
+                    break;
+            }
+            /*
+
+            GlobalVar.DO_Read[(int)dn] = data;
+
+            switch (dn)
+            {
+                default:
+                    break;
+
+            }
+            //*/
+        }
+        #endregion
+
+        #region 해당 DO 데이터 반환
+        /** 
+         * @brief write시도중인 DO 데이터 반환.  
+         * @param dn 체크할 출력 순번
+         * @return bool 출력할 DO 값
+         */
+        public static bool GetDOData(int dn) // GetDOData(DO코드) write시도중인 DO 데이터 반환.  
+        {
+            return GlobalVar.DO_Array[(int)dn];
+        }
+
+        /** 
+         * @brief write시도중인 DO 데이터 반환.  
+         * @param dn 체크할 출력 enum 개체
+         * @return bool 출력할 DO 값
+         */
+        public static bool GetDOData(object dn) // GetDOData(DO이름) write시도중인 DO 데이터 반환.  
+        {
+            return GetDOData((int)dn);
+        }
+
+        /** 
+         * @brief write된 DO 데이터 반환.  
+         * @param dn 체크할 출력 순번
+         * @return bool 출력한 DO 값
+         */
+        public static bool GetDORead(int dn) // GetDOData(DO코드) write된 DO 데이터 반환.  
+        {
+            return GlobalVar.DO_Read[(int)dn];
+        }
+
+        /** 
+         * @brief write된 DO 데이터 반환.  
+         * @param dn 체크할 출력 enum 개체
+         * @return bool 출력한 DO 값
+         */
+        public static bool GetDORead(object dn) // GetDOData(DO이름) write된 DO 데이터 반환.  
+        {
+            return GetDORead((int)dn);
+        }
+
+        /** 
+         * @brief 변화 여부 포함하여 write된 DO 데이터 반환.  
+         * @param dn 체크할 출력 순번
+         * @param changed 변화 여부 저장할 변수 포인터
+         * @return bool 출력한 DO 값
+         */
+        public static bool GetDORead(int dn, ref bool changed) // GetDOData(DO코드, edge참조) write된 DO 데이터 반환.  
+        {
+            bool data = GetDORead(dn);
+            changed = GetDOChange(dn);
+            return data;
+        }
+
+        /** 
+         * @brief 변화 여부 포함하여 write된 DO 데이터 반환.  
+         * @param dn 체크할 출력 enum 개체
+         * @param changed 변화 여부 저장할 변수 포인터
+         * @return bool 출력한 DO 값
+         */
+        public static bool GetDORead(object dn, ref bool changed) // GetDOData(DO이름, edge참조) write된 DO 데이터 반환.  
+        {
+            return GetDORead((int)dn, ref changed);
+        }
+        #endregion
+
+        #region 해당 DO 데이터 변화 여부 반환
+        /** 
+         * @brief 해당 DO 데이터 변화 여부 반환
+         * @param dn 체크할 출력 순번
+         * @return bool DO 변화 여부
+         */
+        public static bool GetDOChange(int dn) // GetDOChange(DO코드) DO 변화여부 반환. 
+        {
+            bool data = GlobalVar.DO_Before[(int)dn] != GlobalVar.DO_Read[(int)dn];
+            GlobalVar.DO_Before[(int)dn] = GlobalVar.DO_Read[(int)dn];
+            return data;
+        }
+
+        /** 
+         * @brief 해당 DO 데이터 변화 여부 반환
+         * @param dn 체크할 출력 enum 개체
+         * @return bool DO 변화 여부
+         */
+        public static bool GetDOChange(object dn) // GetDOChange(DO이름) DO 변화여부 반환. 
+        {
+            return GetDOChange((int)dn);
+        }
+        #endregion
+
+        #region DO Write
+        /** 
+         * @brief 해당 DO 데이터 출력
+         * @param dn 체크할 출력 순번
+         * @param data 출력할 데이터
+         * @return void
+         */
+        public static void WriteDOData(object dn, bool data) // WriteDOData(DO이름, 값) DO 쓰기 
+        {
+            WriteDOData((int)dn, data);
+        }
+        /** 
+         * @brief 해당 DO 데이터 출력
+         * @param dn 체크할 출력 enum 개체
+         * @param data 출력할 데이터
+         * @return void
+         */
+        public static void WriteDOData(int dn, bool data) // WriteDOData(DO코드, 값) DO 쓰기 
+        {
+            /*
+            GlobalVar.DO_Array[(int)dn] = data;
+            if (GlobalVar.Simulation)
+            {
+                GlobalVar.DO_Read[(int)dn] = data;
+            }
+            //*/
+
+            //*
+
+            if (GlobalVar.Simulation &&
+                GlobalVar.ProjectType == enumProject.AutoInline &&
+                GetDORead(dn) != data)
+            {
+                Console.WriteLine("DO Write : " + ((FuncInline.enumDONames)dn).ToString() + " - " + data.ToString());
+            }
+            if (CheckInterLock(dn, data))
+            {
+                GlobalVar.DO_Array[(int)dn] = data;
+                if (GlobalVar.Simulation)
+                {
+                    GlobalVar.DO_Read[(int)dn] = data;
+                    SimulateDIO(dn, data);
+                }
+                #region 특정 위치를 찾고 싶다면 IO를 변경하고 함수 콜하는 부위를 열어줘라
+                //if (dn == FuncInline.enumDONames.Y04_7_Lift_BoxInPut_Push_1_Cylinder)
+                //{
+                //    FuncLog.WriteLog("누가 콜 하노 : " + "dn : " + dn + "memberName : " + memberName + "sourceFilePath : " + sourceFilePath + "sourceLineNumber : " + sourceLineNumber);
+                //}
+                #endregion
+            }
+            else
+            {
+                //debug("interlock : " + dn.ToString() + " - " + data.ToString());
+            }
+            //*/
+        }
+        #endregion
+
+        /** 
+         * @brief  인터락 체크. 
+         *      지정 출력이 수행가능한가 체크
+         * @param dn 체크할 출력 순번
+         * @param data 출력할 데이터
+         * @return void
+         */
+        public static bool CheckInterLock(int dn, bool data) // ChackInterLock(DO이름, 값) 인터락 체크. 
+        {
+          
+            if (GlobalVar.GlobalStop)
+            {
+                // 프로그램 정지시 IO 멈추게 함
+                return false;
+            }
+
+            //메뉴얼 테스트일때 일단 True
+            if (GlobalVar.Simulation)
+            {
+                return true;
+            }
+                //if (!data)
+                //{
+                //    // 출력 해제는 항시 OK
+                //    return true;
+                //}
+
+            switch (GlobalVar.ProjectType)
+            {
+                case enumProject.AutoInline:
+                    return FuncInline.CheckInterlock(dn, data);
+            }
+            /* 프로젝트별로 분기
+            switch (dn)
+            {
+
+                default:
+                    break;
+            }
+            //*/
+
+            return true;
+        }
+
+
+
+
+
+
+        #region DIO Check 자주 쓰는 것들 한곳에서 수정하자.
+
+        #region EMG
+        /** 
+         * @brief  E_Stop OP 체크
+         * @return bool B접점
+         *      EMG Normal : False
+         *      EMG Push : True
+         */
+        public static bool EMG_Check() // EMG Normal : False, EMG Push : True    //B접점
+        {
+            //if (GlobalVar.Simulation) return false;
+
+            switch (GlobalVar.ProjectType)
+            {
+                case enumProject.AutoInline:
+                    return FuncInline.EMG_Check();
+            }
+            /*
+            if (!DIO.GetDIData((int)DIO_BoxPacking_enumDINames.X00_3_Emergency_Stop))
+            {
+                GlobalVar.E_Stop = false;
+                return false;
+            }
+            else
+            {
+                GlobalVar.E_Stop = true;
+                return true;
+            }
+            //*/
+
+            return false;
+        }
+        /** 
+         * @brief 시뮬레이션용 E_Stop 입력 조작
+         *      시뮬레이션시 OP가 없어 B 접점 신호가 없으므로 강제로 세팅한다
+         * @param value 지정할 값
+         * @return void
+         */
+        public static void EMG_Control(bool value)
+        {
+            switch (GlobalVar.ProjectType)
+            {
+                case enumProject.AutoInline:
+                    break;
+            }
+            //DIO.WriteDIData((int)DIO_BoxPacking_enumDINames.X00_3_Emergency_Stop, value);
+        }
+        #endregion
+
+        #region Door
+        /** 
+         * @brief 도어 센서 체크
+         * @return bool A접점
+         *      DOOR Close : False 
+         *      DOOR Open : True
+         */
+        public static bool Door_Check1() // DOOR Close : False, DOOR Open : True //A접점
+        {
+            switch (GlobalVar.ProjectType)
+            {
+                case enumProject.AutoInline:  //도어까지 이렇게 할필요있을까?
+                    break;
+            }
+            List<string> failedDoors = new List<string>();
+
+            if (!DIO.GetDIData((int)FuncInline.enumDINames.X00_0_Door_Open_Front_Left))
+                failedDoors.Add("X00_0_Door_Open_Front_Left");
+            if (!DIO.GetDIData((int)FuncInline.enumDINames.X00_1_Door_Open_Front_Right))
+                failedDoors.Add("X00_1_Door_Open_Front_Right");
+            if (!DIO.GetDIData((int)FuncInline.enumDINames.X00_2_Door_Open_Rear_Left))
+                failedDoors.Add("X00_2_Door_Open_Rear_Left");
+            if (!DIO.GetDIData((int)FuncInline.enumDINames.X02_0_Door_Open_Rear_Right))
+                failedDoors.Add("X02_0_Door_Open_Rear_Right");
+       
+            if (failedDoors.Count > 0)
+            {
+                // 줄바꿈(\n)으로 구분하여 문자열로 반환
+                FuncInline.OpenDoorInfo1 = string.Join("\n", failedDoors);
+                FuncInline.OpenDoorInfo1 += "\n Door Open Check";
+                return true; 
+            }
+            else
+            {
+                FuncInline.OpenDoorInfo1 = "";
+                return false; 
+            }
+
+        }
+
+   
+
+        // FEEDER DOOR
+        public static bool Door_Check4() // DOOR Close : False, DOOR Open : True //A접점
+        {
+            switch (GlobalVar.ProjectType)
+            {
+                case enumProject.AutoInline:
+                    break;
+            }
+            /*
+            if (DIO.GetDIData((int)DIO_BoxPacking_enumDINames.X23_2_4ST_Door1_Open) ||
+                DIO.GetDIData((int)DIO_BoxPacking_enumDINames.X23_3_4ST_Door2_Open) ||
+                DIO.GetDIData((int)DIO_BoxPacking_enumDINames.X23_4_4ST_Door3_Open) ||
+                DIO.GetDIData((int)DIO_BoxPacking_enumDINames.X23_5_4ST_Door4_Open) ||
+                DIO.GetDIData((int)DIO_BoxPacking_enumDINames.X23_6_4ST_Door5_Open) ||
+                DIO.GetDIData((int)DIO_BoxPacking_enumDINames.X23_7_4ST_Door6_Open) )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            //*/
+            return false;
+        }
+
+
+
+
+
+
+
+        #endregion
+
+        #region Tower Lamp
+
+        #region Green
+        /** 
+         * @brief 녹색 타워램프 제어
+         * @param value 점등 여부
+         * @return void
+         */
+        public static void Tower_Lamp_Green_Control(bool value)
+        {
+            DIO.WriteDOData((int)FuncInline.enumDONames.Y4_3_Tower_Lamp_Green, value);
+        }
+        /** 
+         * @brief 녹색 타워램프 점등 여부 체크
+         * @return bool 점등 여부
+         */
+        public static bool Tower_Lamp_Green_Check()
+        {
+            if (DIO.GetDORead((int)FuncInline.enumDONames.Y4_3_Tower_Lamp_Green))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        #endregion
+        #region Yellow
+        /** 
+         * @brief 황색 타워램프 제어
+         * @param value 점등 여부
+         * @return void
+         */
+        public static void Tower_Lamp_Yellow_Control(bool value)
+        {
+            DIO.WriteDOData((int)FuncInline.enumDONames.Y412_3_Tower_Lamp_Yellow, value);
+        }
+        /** 
+         * @brief 황색 타워램프 점등 여부 체크
+         * @return bool 점등 여부
+         */
+        public static bool Tower_Lamp_Yellow_Check()
+        {
+            if (DIO.GetDORead((int)FuncInline.enumDONames.Y412_3_Tower_Lamp_Yellow))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        #endregion
+        #region Red
+        /** 
+         * @brief 적색 타워램프 제어
+         * @param value 점등 여부
+         * @return void
+         */
+        public static void Tower_Lamp_Red_Control(bool value)
+        {
+            DIO.WriteDOData((int)FuncInline.enumDONames.Y4_4_Tower_Lamp_Red, value);
+        }
+        /** 
+         * @brief 적색 타워램프 점등 여부 체크
+         * @return bool 점등 여부
+         */
+        public static bool Tower_Lamp_Red_Check()
+        {
+            if (DIO.GetDORead((int)FuncInline.enumDONames.Y4_4_Tower_Lamp_Red))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        #endregion
+        #region Buzzer
+        /** 
+         * @brief 부저 제어
+         * @param value 부저 발생 여부
+         * @return void
+         */
+        public static void Tower_Lamp_Buzzer_Control(bool value)
+        {
+            DIO.WriteDOData((int)FuncInline.enumDONames.Y412_2_Tower_Lamp_Buzzer, value);
+        }
+        /** 
+         * @brief 부저 출력 여부 체크
+         * @return bool 부저 출력 여부
+         */
+        public static bool Tower_Lamp_Buzzer_Check()
+        {
+            if (DIO.GetDORead((int)FuncInline.enumDONames.Y412_2_Tower_Lamp_Buzzer))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        #endregion
+
+        #endregion
+
+        #region 초기화 할때 제품 잔존 여부 체크
+        /** 
+         * @brief 초기화 할때 제품 잔존 여부 체크
+         * @return bool 
+         *      문제 없으면 : False
+         *      문제 있으면 : True
+         */
+        public static bool Product_Residual_Check() // 초기화 할때 제품 잔존 여부 체크 - 문제 없으면 : False, 문제 있으면 : True
+        {
+            //if (DIO.GetDIData((int)DIO_BoxPacking_enumDINames.X01_0_Before_Tray_MoveArea_Check_Sensor) ||
+            //    DIO.GetDIData((int)DIO_BoxPacking_enumDINames.X01_1_Before_Tray_WorkArea_Check_Sensor) ||
+            //    DIO.GetDIData((int)DIO_BoxPacking_enumDINames.X02_0_After_Tray_MoveArea_Check_Sensor) ||
+            //    DIO.GetDIData((int)DIO_BoxPacking_enumDINames.X02_1_After_Tray_WorkArea_Check_Sensor))
+            //{
+            //    if (GlobalVar.SystemStatus != enumSystemStatus.Initialize)
+            //    {
+            //        FuncWin.TopMessageBox("Can't Initialize when Tray is in Conveyer. Remove Tray and retry.");
+            //    }
+            //    return true;
+            //}
+
+            return false; ;
+        }
+        #endregion
+
+        #region 초기화 시작 
+        #region 변수 초기화 확인
+        /** 
+         * @brief 초기화 할때 각 쓰레드 별로 완료가 되면 True 리턴
+         * @return bool 
+         */
+        public static bool Check_Init_Variable() // 초기화 할때 각 쓰레드 별로 완료가 되면 True 리턴
+        {
+            //쓰레드를 사용하지 않는 것은 따로 초기화 해야 함.
+            // Global
+
+            //if (FuncBoxPacking.Init_Variable_Before_Tray_Finish &&
+            //    FuncBoxPacking.Init_Variable_After_Tray_Finish &&
+            //    FuncBoxPacking. Init_Variable_Kuka_Finish
+            //    )
+            //{
+            //    FuncBoxPacking.Init_Variable_Before_Tray_Finish = false;
+            //    FuncBoxPacking.Init_Variable_After_Tray_Finish = false;
+            //    FuncBoxPacking.Init_Variable_Kuka_Finish = false;
+
+            //    return true;
+            //}
+            return false;
+        }
+        #endregion
+        #region 실린더 초기화 확인
+        /** 
+         * @brief 초기화 할때 각 쓰레드 별로 완료가 되면 True 리턴
+         * @return bool 
+         */
+        public static bool Check_Init_Cylinder() // 초기화 할때 각 쓰레드 별로 완료가 되면 True 리턴
+        {
+            //if (FuncBoxPacking.Init_Cylinder_Before_Tray_Finish &&
+            //    FuncBoxPacking.Init_Cylinder_After_Tray_Finish
+            //    )
+            //{
+            //    FuncBoxPacking.Init_Cylinder_Before_Tray_Finish = false;
+            //    FuncBoxPacking.Init_Cylinder_After_Tray_Finish = false;
+
+            //    return true;
+            //}
+            return false; ;
+        }
+        #endregion
+   
+        #endregion
+
+        #endregion
+
+        /** 
+         * @brief 뭐하는 건지 모르겠음
+         */
+        public static void TraceMessage(string message, [CallerMemberName] string memberName = "",
+            [CallerFilePath] string sourceFilePath = "", [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            Console.WriteLine("메시지: " + message);
+            Console.WriteLine("메서드 이름: " + memberName);
+            Console.WriteLine("파일의 경로: " + sourceFilePath);
+            Console.WriteLine("줄 번호: " + sourceLineNumber);
+        }
+
+
+        
+
+        //public static bool SNC_Sub_Tower_BlinkState( int nPos )
+        //{
+        //    if (nPos == 1)
+        //    {
+        //        return (DIO.GetDORead((int)DIO_BoxPacking_enumDONames.Y01_4_Tower1_Lamp_Red)) ? false : true;
+        //    }
+        //    if (nPos == 2)
+        //    {
+        //        return (DIO.GetDORead((int)DIO_BoxPacking_enumDONames.Y02_0_Tower2_Lamp_Red)) ? false : true;
+        //    }
+        //    if (nPos == 3)
+        //    {
+        //        return (DIO.GetDORead((int)DIO_BoxPacking_enumDONames.Y02_4_Tower3_Lamp_Red)) ? false : true;
+        //    }
+        //    if (nPos == 4)
+        //    {
+        //        return (DIO.GetDORead((int)DIO_BoxPacking_enumDONames.Y03_0_Tower4_Lamp_Red)) ? false : true;
+        //    }
+        //    if (nPos == 5)
+        //    {
+        //        return (DIO.GetDORead((int)DIO_BoxPacking_enumDONames.Y03_4_Tower5_Lamp_Red)) ? false : true;
+        //    }
+        //    if (nPos == 6)
+        //    {
+        //        return (DIO.GetDORead((int)DIO_BoxPacking_enumDONames.Y04_0_Tower6_Lamp_Red)) ? false : true;
+        //    }
+        //    return false;
+        //}
+
+
+        // 현재 출력중인 서브타워 상태문자열 반환
+        //public static string SNC_GetSubTowerState()
+        //{
+        //    string tower = "";
+        //    tower += DIO.GetDORead((int)DIO_BoxPacking_enumDONames.Y01_4_Tower1_Lamp_Red) ? "1" : "0";
+        //    tower += DIO.GetDORead((int)DIO_BoxPacking_enumDONames.Y02_0_Tower2_Lamp_Red) ? "1" : "0";
+        //    tower += DIO.GetDORead((int)DIO_BoxPacking_enumDONames.Y02_4_Tower3_Lamp_Red) ? "1" : "0";
+        //    tower += DIO.GetDORead((int)DIO_BoxPacking_enumDONames.Y03_0_Tower4_Lamp_Red) ? "1" : "0";
+        //    tower += DIO.GetDORead((int)DIO_BoxPacking_enumDONames.Y03_4_Tower5_Lamp_Red) ? "1" : "0";
+        //    tower += DIO.GetDORead((int)DIO_BoxPacking_enumDONames.Y04_0_Tower6_Lamp_Red) ? "1" : "0";
+        //    return tower;
+        //}
+
+
+        // DO 를 백업하고 복원하는 기능 제공
+        // 에러 발생시 백업 한후에 재시작시 복원 하는 용도, 백업후 DIO를 조작하여 끼임등의 조치를 취하게 할수 있게 한다.
+
+        private static bool Is_DOBackupExist = false;    // 백업여부
+        private static bool[] DO_ArrayBackup = new bool[Enum.GetValues(typeof(FuncInline.enumDONames)).Length];
+        // 모든 현재 출력중인 DO 를 백업 (ErrorStop 발생시만)
+        public static void DO_BackupALL( bool isBackup )
+        {
+            //if (GlobalVar.SystemStatus == enumSystemStatus.ErrorStop)
+            //{
+            //    for (int i = 0; i < DO_ArrayBackup.Length; i++)
+            //    {
+            //        DO_ArrayBackup[i] = GlobalVar.DO_Array[i];
+            //    }
+            //    Is_DOBackupExist = true;
+            //}
+            //else
+            //{
+            //    Is_DOBackupExist = false;
+            //}
+
+            if ( isBackup )
+            {
+                for (int i = 0; i < DO_ArrayBackup.Length; i++)
+                {
+                    DO_ArrayBackup[i] = GlobalVar.DO_Array[i];
+                }
+                Is_DOBackupExist = true;
+            }
+            else
+            {
+                Is_DOBackupExist = false;
+            }
+
+
+        }
+        // 백업한 DO를 복원
+        public static void DO_RestoreALL()
+        {
+            // 이전에 백업한것이 있어야 함
+            if (!Is_DOBackupExist) return;
+            // 한번 리스토어 하면 재사용 할수 없음
+            Is_DOBackupExist = false;
+
+            for ( int i=0; i< DO_ArrayBackup.Length; i++ )
+            {
+                if (i < 160)    //RobotIO는 제외
+                {
+                    GlobalVar.DO_Array[i] = DO_ArrayBackup[i];
+                }
+               
+            }
+        }
+
+
+        public static void BAR_UPDOWN( bool moveUp )
+        {
+            
+
+
+           
+        }
+
+    }
+}
