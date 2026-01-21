@@ -318,14 +318,15 @@ namespace Radix
 
                             }
                             if (GlobalVar.LetsHoming &&
-                                FuncInline.InitialStarted[(int)FuncInline.enumInitialize.OutShuttle] == false &&
-                                FuncInline.InitialDone[(int)FuncInline.enumInitialize.OutShuttle] == false &&
-                                 FuncInline.InitialDone[(int)FuncInline.enumInitialize.InShuttle] == true)
+                              FuncInline.InitialStarted[(int)FuncInline.enumInitialize.InConveyor] == false &&
+                              FuncInline.InitialDone[(int)FuncInline.enumInitialize.InConveyor] == false &&
+                              FuncInline.InitialDone[(int)FuncInline.enumInitialize.InShuttle] == true)
                             {
-                                Log = $"{Name} Init - OutShuttle Width Homing Start";
+                                Log = $"{Name} Init - InConveyor Width Homing Start";
                                 FuncLog.WriteLog(Log);
-                                FuncInline.InitialStarted[(int)FuncInline.enumInitialize.OutShuttle] = true;
-                                FuncLetsMotion.HomeRun((int)1);
+                                FuncInline.InitialStarted[(int)FuncInline.enumInitialize.InConveyor] = true;
+                                FuncLetsMotion.HomeRun((int)3);
+
                             }
 
                             // Main Control Thread 에서 초기화 지령 들어오면 초기화 수행

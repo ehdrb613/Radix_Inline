@@ -177,22 +177,7 @@ namespace Radix
                     {
                         case enumAction.Waiting:
                             #region Case Waiting
-                            if (GlobalVar.LetsHoming &&
-                               FuncInline.InitialStarted[(int)FuncInline.enumInitialize.OutConveyor] == false &&
-                               FuncInline.InitialDone[(int)FuncInline.enumInitialize.OutConveyor] == false)
-                            {
-                                FuncInline.InitialStarted[(int)FuncInline.enumInitialize.OutConveyor] = true;
-                                FuncLetsMotion.HomeRun((int)2);
-                            }
-                            if (GlobalVar.LetsHoming &&
-                                FuncInline.InitialStarted[(int)FuncInline.enumInitialize.InConveyor] == false &&
-                                FuncInline.InitialDone[(int)FuncInline.enumInitialize.InConveyor] == false &&
-                                FuncInline.InitialDone[(int)FuncInline.enumInitialize.OutConveyor] == true)
-                            {
-                                FuncInline.InitialStarted[(int)FuncInline.enumInitialize.InConveyor] = true;
-                                FuncLetsMotion.HomeRun((int)3);
-
-                            }
+                           
 
                             if (GlobalVar.SystemStatus >= enumSystemStatus.AutoRun)
                             {
@@ -290,6 +275,7 @@ namespace Radix
 
 
                             }
+
                             //Lift 호밍
                             if ((GlobalVar.AxisStatus[SV02_Lift1].isHomed &&
                                  FuncInlineMove.IsArrived(SV02_Lift1, 0)) &&

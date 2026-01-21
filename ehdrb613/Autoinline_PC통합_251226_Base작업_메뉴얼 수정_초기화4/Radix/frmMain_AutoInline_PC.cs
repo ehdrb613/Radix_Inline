@@ -2880,8 +2880,7 @@ namespace Radix
             this.Invoke(new MethodInvoker(delegate ()
             {
                 //FuncLog.WriteLog("Init Click");
-                pbInit.BackgroundImage = Properties.Resources.initialize_bright;
-
+                pbInit.BackgroundImage = Properties.Resources.Origin_bright;
                 Loading dlgLoading = new Loading();
                 dlgLoading.TopMost = true;  //Init창 최상위로 유지 시킨다 by DG
                 dlgLoading.Show();
@@ -2914,7 +2913,7 @@ namespace Radix
                         FuncWin.TopMessageBox("Initialize finished.");
                         GlobalVar.SystemStatus = enumSystemStatus.Manual;
 
-                        pbInit.BackgroundImage = Properties.Resources.initialize;
+                        pbInit.BackgroundImage = Properties.Resources.Origin;
 
                         #region 하부 클래스 상태 변경
                         FuncInline.InitAllSubAction();
@@ -2955,7 +2954,7 @@ namespace Radix
 
                 GlobalVar.SystemStatus = enumSystemStatus.BeforeInitialize;
 
-                pbInit.BackgroundImage = Properties.Resources.initialize;
+                pbInit.BackgroundImage = Properties.Resources.Origin;
                 dlgLoading.Close();
                 FuncWin.TopMessageBox("initialize failed.\n" + stat);
 

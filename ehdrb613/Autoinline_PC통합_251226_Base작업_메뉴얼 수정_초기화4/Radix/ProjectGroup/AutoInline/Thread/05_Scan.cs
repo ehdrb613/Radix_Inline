@@ -70,6 +70,8 @@ namespace Radix
         public int SV07_Scan_X = (int)FuncInline.enumServoAxis.SV07_Scan_X;
         public int SV06_Scan_Y = (int)FuncInline.enumServoAxis.SV06_Scan_Y;
 
+        public string Name = "";
+
         /** @brief 상승시 위치 */
         public double ready_pos = 0;
         /** @brief 버퍼 취출시 위치 */
@@ -94,10 +96,12 @@ namespace Radix
         /** @brief 생성자 */
         public Scan()
         {
-
             // 쓰레드를 시작한다
             actionThread = new Thread(ActionThread);
             actionThread.Start();
+
+            Name = $"[Scan]";
+
         }
 
         /** @brief 소멸자 */
@@ -129,22 +133,7 @@ namespace Radix
                     {
                         case enumAction.Waiting:
                             #region Case Waiting
-                            if (GlobalVar.LetsHoming &&
-                               FuncInline.InitialStarted[(int)FuncInline.enumInitialize.OutConveyor] == false &&
-                               FuncInline.InitialDone[(int)FuncInline.enumInitialize.OutConveyor] == false)
-                            {
-                                FuncInline.InitialStarted[(int)FuncInline.enumInitialize.OutConveyor] = true;
-                                FuncLetsMotion.HomeRun((int)2);
-                            }
-                            if (GlobalVar.LetsHoming &&
-                                FuncInline.InitialStarted[(int)FuncInline.enumInitialize.InConveyor] == false &&
-                                FuncInline.InitialDone[(int)FuncInline.enumInitialize.InConveyor] == false &&
-                                FuncInline.InitialDone[(int)FuncInline.enumInitialize.OutConveyor] == true)
-                            {
-                                FuncInline.InitialStarted[(int)FuncInline.enumInitialize.InConveyor] = true;
-                                FuncLetsMotion.HomeRun((int)3);
-                                
-                            }
+                        
                         
                             if (GlobalVar.SystemStatus >= enumSystemStatus.AutoRun)
                             {
@@ -160,7 +149,7 @@ namespace Radix
                                 if (!StepFinish)
                                 {
                                     //공급 받아야할때
-                                    if (((AutoInline)GlobalVar.Class).InShuttle.Action == InShuttle.enumAction.InPutCnyRun)  //투입 단계일때
+                                    if (((AutoInline)GlobalVar.Class).Scan.Action == Scan.enumAction.InputTray)  //투입 단계일때
                                     {
                                         Log = "[#2 샌딩 전 작업위치] 트레이 공급 동작 지령";
                                         FuncLog.WriteLog(Log);
@@ -202,19 +191,48 @@ namespace Radix
                         case enumAction.Init:
                             #region Case Init
                             // Main Control Thread 에서 초기화 지령 들어오면 초기화 수행
-                           
 
-                            if (true)
+                            if ((GlobalVar.AxisStatus[SV06_Scan_Y].isHomed &&
+                                 FuncInlineMove.IsArrived(SV06_Scan_Y, 0)) &&
+                                 (GlobalVar.AxisStatus[SV07_Scan_X].isHomed &&
+                                 FuncInlineMove.IsArrived(SV07_Scan_X, 0)))
                             {
+                                if (InitServo == false)
+                                {
+                                    InitServo = true;
+                                    Log = $"{Name} Init - Servo Home Finish";
+                                    FuncLog.WriteLog(Log);
+                                }
 
-                                Log = "[#2 샌딩 전 작업위치] 초기화 완료";
+                                Log = $"{Name} Init Finish";
                                 FuncLog.WriteLog(Log);
+                                // 모든 실린더 후진 확인 되면 완료
                                 Action = enumAction.InitFinish;
+
+                                InitServo = false;
                             }
                             else
                             {
-                               
+
+                                // (1) Y축
+                                if (!GlobalVar.AxisStatus[SV06_Scan_Y].isHomed && 
+                                    GlobalVar.AxisStatus[SV06_Scan_Y].StandStill &&
+                                    !GlobalVar.AxisStatus[SV06_Scan_Y].Homing)
+                                {
+                                    FuncLog.WriteLog($"{Name} Y-Axis Homing Start");
+                                    FuncMotion.MoveHome((uint)SV06_Scan_Y);
+                                }
+                                // (2) X축
+                                if (!GlobalVar.AxisStatus[SV07_Scan_X].isHomed &&
+                                    GlobalVar.AxisStatus[SV07_Scan_X].StandStill &&
+                                    !GlobalVar.AxisStatus[SV07_Scan_X].Homing)
+                                {
+                                    FuncLog.WriteLog($"{Name} X-Axis Homing Start");
+                                    FuncMotion.MoveHome((uint)SV07_Scan_X);
+                                }
+
                             }
+
 
                             Util.ResetWatch(ref watch);
                             break;

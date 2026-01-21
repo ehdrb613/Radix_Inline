@@ -6490,6 +6490,140 @@ SELECT [Date]
             return full;
         }
 
+        /// <summary>
+        /// 장비 전체의 잔류 PCB를 확인합니다.
+        /// (시뮬레이션 모드일 경우 센서를 강제로 끕니다.)
+        /// </summary>
+        /// <returns>true: PCB 없음(Clear), false: PCB 감지됨(Not Clear)</returns>
+        public static bool CheckAndClearResidualPCB()
+        {
+            // 감지된 구역 목록
+            List<string> detectedList = new List<string>();
+
+            // ---------------------------------------------------------
+            // [내부 헬퍼 함수] 반복되는 체크 로직을 하나로 통합
+            // ---------------------------------------------------------
+            void CheckZone(string zoneName, params FuncInline.enumDINames[] sensors)
+            {
+                bool isDetected = false;
+                foreach (var s in sensors)
+                {
+                    if (DIO.GetDIData(s)) isDetected = true;
+                }
+
+                if (isDetected)
+                {
+                    if (GlobalVar.Simulation)
+                    {
+                        // 시뮬레이션이면 해당 센서들을 강제로 끔
+                        foreach (var s in sensors) DIO.WriteDIData(s, false);
+                    }
+                    else
+                    {
+                        // 실제 장비면 목록에 이름 추가
+                        detectedList.Add($"- {zoneName}");
+                    }
+                }
+            }
+            // ---------------------------------------------------------
+
+            // 1. In Conveyor
+            CheckZone("In Conveyor",
+                FuncInline.enumDINames.X302_0_In_Shuttle_Pcb_In_Sensor,
+                FuncInline.enumDINames.X302_1_In_Shuttle_Pcb_Stop_Sensor,
+                FuncInline.enumDINames.X303_4_In_Shuttle_Pcb_Interlock_Sensor);
+
+            // 2. In Shuttle
+            CheckZone("In Shuttle",
+                FuncInline.enumDINames.X303_4_In_Shuttle_Pcb_Interlock_Sensor,
+                FuncInline.enumDINames.X302_1_In_Shuttle_Pcb_Stop_Sensor);
+
+            // 3. Front PassLine
+            CheckZone("Front PassLine", FuncInline.enumDINames.X114_6_Front_PASSLINE_PCB_Stop_Sensor);
+
+            // 4. Front ScanSite
+            CheckZone("Front ScanSite", FuncInline.enumDINames.X03_4_Front_Scan_PCB_Dock_Sensor);
+
+            // 5. Lift1 Up (Front)
+            CheckZone("Front Lift UP",
+                FuncInline.enumDINames.X403_2_Front_Lift_Up_PCB_In_Sensor,
+                FuncInline.enumDINames.X403_5_Front_Lift_Up_PCB_Stop_Sensor);
+
+            // 6. Lift1 Down (Front)
+            CheckZone("Front Lift DOWN",
+                FuncInline.enumDINames.X400_0_Front_Lift_Down_PCB_In_Sensor,
+                FuncInline.enumDINames.X400_2_Front_Lift_Down_PCB_Stop_Sensor);
+
+            // 7. Rear PassLine
+            CheckZone("Rear PassLine", FuncInline.enumDINames.X405_0_Rear_Pass_OkLine_PCB_In_Sensor);
+
+            // 8. Rear NGLine
+            CheckZone("Rear NGLine", FuncInline.enumDINames.X406_4_Rear_Pass_NgLine_PCB_Stop_Sensor);
+
+            // 9. Lift2 Up (Rear)
+            CheckZone("Rear Lift UP",
+                FuncInline.enumDINames.X404_6_Rear_Lift_Up_PCB_In_Sensor,
+                FuncInline.enumDINames.X405_1_Rear_Lift_Up_PCB_Stop_Sensor);
+
+            // 10. Lift2 Down (Rear)
+            CheckZone("Rear Lift DOWN",
+                FuncInline.enumDINames.X405_5_Rear_Lift_Down_PCB_In_Sensor,
+                FuncInline.enumDINames.X405_7_Rear_Lift_Down_PCB_Stop_Sensor);
+
+            // 11. Out Shuttle Up
+            CheckZone("Out Shuttle Up",
+                FuncInline.enumDINames.X302_3_Out_Shuttle_OK_PCB_In_Sensor,
+                FuncInline.enumDINames.X302_4_Out_Shuttle_OK_PCB_Stop_Sensor,
+                FuncInline.enumDINames.X304_1_Out_Shuttle_Ok_Interlock_Sensor);
+
+            // 12. Out Shuttle Down
+            CheckZone("Out Shuttle Down",
+                FuncInline.enumDINames.X402_0_Out_Shuttle_Ng_PCB_In_Sensor,
+                FuncInline.enumDINames.X04_2_Out_Shuttle_NG_PCB_Stop_Sensor,
+                FuncInline.enumDINames.X304_2_Out_Shuttle_Ng_Interlock_Sensor);
+
+            // 13. Out Conveyor
+            CheckZone("Output Conveyor",
+                FuncInline.enumDINames.X02_3_Out_Conveyor_PASSLIne_PCB_Start_Sensor,
+                FuncInline.enumDINames.X02_4_Out_Conveyor_PASSLine_PCB_Stop_Sensor);
+
+            // 14. NG Buffer
+            CheckZone("NG Buffer Conveyor",
+                FuncInline.enumDINames.X304_2_Out_Shuttle_Ng_Interlock_Sensor,
+                FuncInline.enumDINames.X03_7_NgBuffer_PCB_Stop_Sensor);
+
+            // 15. All Teaching Sites (반복문 처리)
+            for (int i = 0; i < FuncInline.MaxTestPCCount * FuncInline.MaxSiteCount; i++)
+            {
+                var pos = (FuncInline.enumTeachingPos)((int)FuncInline.enumTeachingPos.Site1_F_DT1 + i);
+                if (FuncInline.SiteIoMaps.TryGetPcbDockDI(pos, out var dockDi) && DIO.GetDIData(dockDi))
+                {
+                    if (GlobalVar.Simulation)
+                    {
+                        DIO.WriteDIData(dockDi, false);
+                    }
+                    else
+                    {
+                        string label = FuncInline.SiteDisplay.GetSiteDisplayName(pos);
+                        detectedList.Add($"- Site #{label}");
+                    }
+                }
+            }
+
+            // [결과 처리]
+            if (!GlobalVar.Simulation && detectedList.Count > 0)
+            {
+                // 하나로 합쳐서 메시지 출력
+                string msgBody = string.Join("\n", detectedList);
+                string finalMsg = $"PCB detected in the following areas:\n\n{msgBody}\n\nRemove PCB and try again.";
+
+                FuncWin.TopMessageBox(finalMsg);
+                return false; // 잔류 PCB 있음 (실패)
+            }
+
+            return true; // 잔류 PCB 없음 (성공)
+        }
+
         public static enumTeachingPos GetSiteNoToPos(int no) // 좌하부터 가로순으로 된 번호를 enumTeachingPos로
         {
             int col = (no - 1) % FuncInline.MaxTestPCCount;

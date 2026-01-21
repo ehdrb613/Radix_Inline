@@ -49,18 +49,7 @@ namespace Radix
                                 i <= (int)FuncInline.enumInitialize.Site1_F_DT1 + FuncInline.MaxSiteCount - 1)
                             {
                                 int siteIndex = i - (int)FuncInline.enumInitialize.Site1_F_DT1;
-                                /*
-                                if (!FuncInline.GetDISiteData(siteIndex, (int)FuncInline.enumDISite.X28_Module_Power))
-                                {
-                                    label.Visible = true;
-                                    label.Text = "Power Off";
-                                }
-                                else if (!FuncInline.UseSite[siteIndex])
-                                {
-                                    label.Visible = true;
-                                    label.Text = "Not Use";
-                                }
-                                //*/
+                               
                                 if (FuncInline.SiteState[siteIndex] != FuncInline.enumSiteState.Valid)
                                 {
                                     label.Visible = true;

@@ -1742,187 +1742,253 @@ namespace Radix
                 if (FuncWin.MessageBoxOK("Clear All Parts?"))
                 {
                     #region PCB 존재 유무 확인 (명칭 최신화 + 사이트는 SiteIoMaps 사용)
-                    // In Conveyor
-                    if (DIO.GetDIData(FuncInline.enumDINames.X302_0_In_Shuttle_Pcb_In_Sensor) ||
-                        DIO.GetDIData(FuncInline.enumDINames.X302_1_In_Shuttle_Pcb_Stop_Sensor) ||
-                        DIO.GetDIData(FuncInline.enumDINames.X303_4_In_Shuttle_Pcb_Interlock_Sensor))
+                    // ===== 여기부터 "Clear All Parts?" 분기 =====
+                    if (FuncWin.MessageBoxOK("Clear All Parts?"))
                     {
-                        if (GlobalVar.Simulation)
-                        {
-                            DIO.WriteDIData(FuncInline.enumDINames.X302_0_In_Shuttle_Pcb_In_Sensor, false);
-                            DIO.WriteDIData(FuncInline.enumDINames.X302_1_In_Shuttle_Pcb_Stop_Sensor, false);
-                            DIO.WriteDIData(FuncInline.enumDINames.X303_4_In_Shuttle_Pcb_Interlock_Sensor, false);
-                        }
-                        else { FuncWin.TopMessageBox("PCB detected in In Conveyor. Remove PCB and try again."); return; }
-                    }
-                    // In Shuttle
-                    if (DIO.GetDIData(FuncInline.enumDINames.X303_4_In_Shuttle_Pcb_Interlock_Sensor) ||
-                        DIO.GetDIData(FuncInline.enumDINames.X302_1_In_Shuttle_Pcb_Stop_Sensor))
-                    {
-                        if (GlobalVar.Simulation)
-                        {
-                            DIO.WriteDIData(FuncInline.enumDINames.X303_4_In_Shuttle_Pcb_Interlock_Sensor, false);
-                            DIO.WriteDIData(FuncInline.enumDINames.X302_1_In_Shuttle_Pcb_Stop_Sensor, false);
-                        }
-                        else { FuncWin.TopMessageBox("PCB detected in In Shuttle. Remove PCB and try again."); return; }
-                    }
+                        // 감지된 구역들을 저장할 리스트 생성
+                        List<string> detectedList = new List<string>();
 
-                    // Front PassLine
-                    if (DIO.GetDIData(FuncInline.enumDINames.X114_6_Front_PASSLINE_PCB_Stop_Sensor))
-                    {
-                        if (GlobalVar.Simulation)
-                        {
-                            DIO.WriteDIData(FuncInline.enumDINames.X114_6_Front_PASSLINE_PCB_Stop_Sensor, false);
-                        }
-                        else { FuncWin.TopMessageBox("PCB detected in Front PassLine Conveyor. Remove PCB and try again."); return; }
-                    }
-                    // Front ScanSite
-                    if (DIO.GetDIData(FuncInline.enumDINames.X03_4_Front_Scan_PCB_Dock_Sensor))
-                    {
-                        if (GlobalVar.Simulation)
-                        {
-                            DIO.WriteDIData(FuncInline.enumDINames.X03_4_Front_Scan_PCB_Dock_Sensor, false);
-                        }
-                        else { FuncWin.TopMessageBox("PCB detected in Front ScanSite Conveyor. Remove PCB and try again."); return; }
-                    }
-                    // Lift1 Up
-                    if (DIO.GetDIData(FuncInline.enumDINames.X403_2_Front_Lift_Up_PCB_In_Sensor) ||
-                        DIO.GetDIData(FuncInline.enumDINames.X403_5_Front_Lift_Up_PCB_Stop_Sensor))
-                    {
-                        if (GlobalVar.Simulation)
-                        {
-                            DIO.WriteDIData(FuncInline.enumDINames.X403_2_Front_Lift_Up_PCB_In_Sensor, false);
-                            DIO.WriteDIData(FuncInline.enumDINames.X403_5_Front_Lift_Up_PCB_Stop_Sensor, false);
-                        }
-                        else { FuncWin.TopMessageBox("PCB detected in Front Lift UP Conveyor. Remove PCB and try again."); return; }
-                    }
+                        #region PCB 존재 유무 확인 (명칭 최신화 + 사이트는 SiteIoMaps 사용)
 
-                    // Lift1 Down
-                    if (DIO.GetDIData(FuncInline.enumDINames.X400_0_Front_Lift_Down_PCB_In_Sensor) ||
-                        DIO.GetDIData(FuncInline.enumDINames.X400_2_Front_Lift_Down_PCB_Stop_Sensor))
-                    {
-                        if (GlobalVar.Simulation)
+                        // 1. In Conveyor
+                        if (DIO.GetDIData(FuncInline.enumDINames.X302_0_In_Shuttle_Pcb_In_Sensor) ||
+                            DIO.GetDIData(FuncInline.enumDINames.X302_1_In_Shuttle_Pcb_Stop_Sensor) ||
+                            DIO.GetDIData(FuncInline.enumDINames.X303_4_In_Shuttle_Pcb_Interlock_Sensor))
                         {
-                            DIO.WriteDIData(FuncInline.enumDINames.X400_0_Front_Lift_Down_PCB_In_Sensor, false);
-                            DIO.WriteDIData(FuncInline.enumDINames.X400_2_Front_Lift_Down_PCB_Stop_Sensor, false);
-                        }
-                        else { FuncWin.TopMessageBox("PCB detected in Front Lift DOWN Conveyor. Remove PCB and try again."); return; }
-                    }
-
-
-                    // Rear PassLine
-                    if (DIO.GetDIData(FuncInline.enumDINames.X405_0_Rear_Pass_OkLine_PCB_In_Sensor))
-                    {
-                        if (GlobalVar.Simulation)
-                        {
-                            DIO.WriteDIData(FuncInline.enumDINames.X405_0_Rear_Pass_OkLine_PCB_In_Sensor, false);
-                        }
-                        else { FuncWin.TopMessageBox("PCB detected in Rear PassLine Conveyor. Remove PCB and try again."); return; }
-                    }
-                    // Rear NGLine
-                    if (DIO.GetDIData(FuncInline.enumDINames.X406_4_Rear_Pass_NgLine_PCB_Stop_Sensor))
-                    {
-                        if (GlobalVar.Simulation)
-                        {
-                            DIO.WriteDIData(FuncInline.enumDINames.X406_4_Rear_Pass_NgLine_PCB_Stop_Sensor, false);
-                        }
-                        else { FuncWin.TopMessageBox("PCB detected in Rear NGLine Conveyor. Remove PCB and try again."); return; }
-                    }
-
-                    // Lift2 Up
-                    if (DIO.GetDIData(FuncInline.enumDINames.X404_6_Rear_Lift_Up_PCB_In_Sensor) ||
-                        DIO.GetDIData(FuncInline.enumDINames.X405_1_Rear_Lift_Up_PCB_Stop_Sensor))
-                    {
-                        if (GlobalVar.Simulation)
-                        {
-                            DIO.WriteDIData(FuncInline.enumDINames.X404_6_Rear_Lift_Up_PCB_In_Sensor, false);
-                            DIO.WriteDIData(FuncInline.enumDINames.X405_1_Rear_Lift_Up_PCB_Stop_Sensor, false);
-                        }
-                        else { FuncWin.TopMessageBox("PCB detected in Rear Lift UP Conveyor. Remove PCB and try again."); return; }
-                    }
-
-                    // Lift2 Down
-                    if (DIO.GetDIData(FuncInline.enumDINames.X405_5_Rear_Lift_Down_PCB_In_Sensor) ||
-                        DIO.GetDIData(FuncInline.enumDINames.X405_7_Rear_Lift_Down_PCB_Stop_Sensor))
-                    {
-                        if (GlobalVar.Simulation)
-                        {
-                            DIO.WriteDIData(FuncInline.enumDINames.X405_5_Rear_Lift_Down_PCB_In_Sensor, false);
-                            DIO.WriteDIData(FuncInline.enumDINames.X405_7_Rear_Lift_Down_PCB_Stop_Sensor, false);
-                        }
-                        else { FuncWin.TopMessageBox("PCB detected in Rear Lift DOWN Conveyor. Remove PCB and try again."); return; }
-                    }
-                    // Out Shuttle up
-                    if (DIO.GetDIData(FuncInline.enumDINames.X302_3_Out_Shuttle_OK_PCB_In_Sensor) ||
-                                            DIO.GetDIData(FuncInline.enumDINames.X302_4_Out_Shuttle_OK_PCB_Stop_Sensor) ||
-                                            DIO.GetDIData(FuncInline.enumDINames.X304_1_Out_Shuttle_Ok_Interlock_Sensor))
-                    {
-                        if (GlobalVar.Simulation)
-                        {
-                            DIO.WriteDIData(FuncInline.enumDINames.X302_3_Out_Shuttle_OK_PCB_In_Sensor, false);
-                            DIO.WriteDIData(FuncInline.enumDINames.X302_4_Out_Shuttle_OK_PCB_Stop_Sensor, false);
-                            DIO.WriteDIData(FuncInline.enumDINames.X304_1_Out_Shuttle_Ok_Interlock_Sensor, false);
-                        }
-                        else { FuncWin.TopMessageBox("PCB detected in Out Shuttle Up Conveyor. Remove PCB and try again."); return; }
-                    }
-
-                    // Out Shuttle Down
-                    if (DIO.GetDIData(FuncInline.enumDINames.X402_0_Out_Shuttle_Ng_PCB_In_Sensor) ||
-                        DIO.GetDIData(FuncInline.enumDINames.X04_2_Out_Shuttle_NG_PCB_Stop_Sensor) ||
-                        DIO.GetDIData(FuncInline.enumDINames.X304_2_Out_Shuttle_Ng_Interlock_Sensor))
-                    {
-                        if (GlobalVar.Simulation)
-                        {
-                            DIO.WriteDIData(FuncInline.enumDINames.X402_0_Out_Shuttle_Ng_PCB_In_Sensor, false);
-                            DIO.WriteDIData(FuncInline.enumDINames.X04_2_Out_Shuttle_NG_PCB_Stop_Sensor, false);
-                            DIO.WriteDIData(FuncInline.enumDINames.X304_2_Out_Shuttle_Ng_Interlock_Sensor, false);
-                        }
-                        else { FuncWin.TopMessageBox("PCB detected in Out Shuttle Down Conveyor. Remove PCB and try again."); return; }
-                    }
-
-                    // Out Conveyor
-                    if (DIO.GetDIData(FuncInline.enumDINames.X02_3_Out_Conveyor_PASSLIne_PCB_Start_Sensor) ||
-                        DIO.GetDIData(FuncInline.enumDINames.X02_4_Out_Conveyor_PASSLine_PCB_Stop_Sensor))
-                    {
-                        if (GlobalVar.Simulation)
-                        {
-                            DIO.WriteDIData(FuncInline.enumDINames.X02_3_Out_Conveyor_PASSLIne_PCB_Start_Sensor, false);
-                            DIO.WriteDIData(FuncInline.enumDINames.X02_4_Out_Conveyor_PASSLine_PCB_Stop_Sensor, false);
-                        }
-                        else { FuncWin.TopMessageBox("PCB detected in Output Conveyor. Remove PCB and try again."); return; }
-                    }
-
-                    // NG Buffer
-                    if (DIO.GetDIData(FuncInline.enumDINames.X304_2_Out_Shuttle_Ng_Interlock_Sensor) ||
-                        DIO.GetDIData(FuncInline.enumDINames.X03_7_NgBuffer_PCB_Stop_Sensor))
-                    {
-                        if (GlobalVar.Simulation)
-                        {
-                            DIO.WriteDIData(FuncInline.enumDINames.X304_2_Out_Shuttle_Ng_Interlock_Sensor, false);
-                            DIO.WriteDIData(FuncInline.enumDINames.X03_7_NgBuffer_PCB_Stop_Sensor, false);
-
-                        }
-                        else { FuncWin.TopMessageBox("PCB detected in NG Buffer Conveyor. Remove PCB and try again."); return; }
-                    }
-
-                    // 모든 사이트 도크 감지(***SiteIoMaps 사용***)
-                    for (int i = 0; i < FuncInline.MaxTestPCCount * FuncInline.MaxSiteCount; i++)
-                    {
-                        var pos = (FuncInline.enumTeachingPos)((int)FuncInline.enumTeachingPos.Site1_F_DT1 + i);
-                        if (FuncInline.SiteIoMaps.TryGetPcbDockDI(pos, out var dockDi) && DIO.GetDIData(dockDi))
-                        {
-                            //세대별 사이트 명칭 변경
-                            string label = FuncInline.SiteDisplay.GetSiteDisplayName(pos);
                             if (GlobalVar.Simulation)
                             {
-                                DIO.WriteDIData(dockDi, false);
+                                DIO.WriteDIData(FuncInline.enumDINames.X302_0_In_Shuttle_Pcb_In_Sensor, false);
+                                DIO.WriteDIData(FuncInline.enumDINames.X302_1_In_Shuttle_Pcb_Stop_Sensor, false);
+                                DIO.WriteDIData(FuncInline.enumDINames.X303_4_In_Shuttle_Pcb_Interlock_Sensor, false);
                             }
-
                             else
                             {
-                                FuncWin.TopMessageBox($"PCB detected in Site #{label}. Remove PCB and try again.");
-                                return;
+                                detectedList.Add("- In Conveyor");
                             }
+                        }
+
+                        // 2. In Shuttle
+                        if (DIO.GetDIData(FuncInline.enumDINames.X303_4_In_Shuttle_Pcb_Interlock_Sensor) ||
+                            DIO.GetDIData(FuncInline.enumDINames.X302_1_In_Shuttle_Pcb_Stop_Sensor))
+                        {
+                            if (GlobalVar.Simulation)
+                            {
+                                DIO.WriteDIData(FuncInline.enumDINames.X303_4_In_Shuttle_Pcb_Interlock_Sensor, false);
+                                DIO.WriteDIData(FuncInline.enumDINames.X302_1_In_Shuttle_Pcb_Stop_Sensor, false);
+                            }
+                            else
+                            {
+                                detectedList.Add("- In Shuttle");
+                            }
+                        }
+
+                        // 3. Front PassLine
+                        if (DIO.GetDIData(FuncInline.enumDINames.X114_6_Front_PASSLINE_PCB_Stop_Sensor))
+                        {
+                            if (GlobalVar.Simulation)
+                            {
+                                DIO.WriteDIData(FuncInline.enumDINames.X114_6_Front_PASSLINE_PCB_Stop_Sensor, false);
+                            }
+                            else
+                            {
+                                detectedList.Add("- Front PassLine");
+                            }
+                        }
+
+                        // 4. Front ScanSite
+                        if (DIO.GetDIData(FuncInline.enumDINames.X03_4_Front_Scan_PCB_Dock_Sensor))
+                        {
+                            if (GlobalVar.Simulation)
+                            {
+                                DIO.WriteDIData(FuncInline.enumDINames.X03_4_Front_Scan_PCB_Dock_Sensor, false);
+                            }
+                            else
+                            {
+                                detectedList.Add("- Front ScanSite");
+                            }
+                        }
+
+                        // 5. Lift1 Up (Front)
+                        if (DIO.GetDIData(FuncInline.enumDINames.X403_2_Front_Lift_Up_PCB_In_Sensor) ||
+                            DIO.GetDIData(FuncInline.enumDINames.X403_5_Front_Lift_Up_PCB_Stop_Sensor))
+                        {
+                            if (GlobalVar.Simulation)
+                            {
+                                DIO.WriteDIData(FuncInline.enumDINames.X403_2_Front_Lift_Up_PCB_In_Sensor, false);
+                                DIO.WriteDIData(FuncInline.enumDINames.X403_5_Front_Lift_Up_PCB_Stop_Sensor, false);
+                            }
+                            else
+                            {
+                                detectedList.Add("- Front Lift UP");
+                            }
+                        }
+
+                        // 6. Lift1 Down (Front)
+                        if (DIO.GetDIData(FuncInline.enumDINames.X400_0_Front_Lift_Down_PCB_In_Sensor) ||
+                            DIO.GetDIData(FuncInline.enumDINames.X400_2_Front_Lift_Down_PCB_Stop_Sensor))
+                        {
+                            if (GlobalVar.Simulation)
+                            {
+                                DIO.WriteDIData(FuncInline.enumDINames.X400_0_Front_Lift_Down_PCB_In_Sensor, false);
+                                DIO.WriteDIData(FuncInline.enumDINames.X400_2_Front_Lift_Down_PCB_Stop_Sensor, false);
+                            }
+                            else
+                            {
+                                detectedList.Add("- Front Lift DOWN");
+                            }
+                        }
+
+                        // 7. Rear PassLine
+                        if (DIO.GetDIData(FuncInline.enumDINames.X405_0_Rear_Pass_OkLine_PCB_In_Sensor))
+                        {
+                            if (GlobalVar.Simulation)
+                            {
+                                DIO.WriteDIData(FuncInline.enumDINames.X405_0_Rear_Pass_OkLine_PCB_In_Sensor, false);
+                            }
+                            else
+                            {
+                                detectedList.Add("- Rear PassLine");
+                            }
+                        }
+
+                        // 8. Rear NGLine
+                        if (DIO.GetDIData(FuncInline.enumDINames.X406_4_Rear_Pass_NgLine_PCB_Stop_Sensor))
+                        {
+                            if (GlobalVar.Simulation)
+                            {
+                                DIO.WriteDIData(FuncInline.enumDINames.X406_4_Rear_Pass_NgLine_PCB_Stop_Sensor, false);
+                            }
+                            else
+                            {
+                                detectedList.Add("- Rear NGLine");
+                            }
+                        }
+
+                        // 9. Lift2 Up (Rear)
+                        if (DIO.GetDIData(FuncInline.enumDINames.X404_6_Rear_Lift_Up_PCB_In_Sensor) ||
+                            DIO.GetDIData(FuncInline.enumDINames.X405_1_Rear_Lift_Up_PCB_Stop_Sensor))
+                        {
+                            if (GlobalVar.Simulation)
+                            {
+                                DIO.WriteDIData(FuncInline.enumDINames.X404_6_Rear_Lift_Up_PCB_In_Sensor, false);
+                                DIO.WriteDIData(FuncInline.enumDINames.X405_1_Rear_Lift_Up_PCB_Stop_Sensor, false);
+                            }
+                            else
+                            {
+                                detectedList.Add("- Rear Lift UP");
+                            }
+                        }
+
+                        // 10. Lift2 Down (Rear)
+                        if (DIO.GetDIData(FuncInline.enumDINames.X405_5_Rear_Lift_Down_PCB_In_Sensor) ||
+                            DIO.GetDIData(FuncInline.enumDINames.X405_7_Rear_Lift_Down_PCB_Stop_Sensor))
+                        {
+                            if (GlobalVar.Simulation)
+                            {
+                                DIO.WriteDIData(FuncInline.enumDINames.X405_5_Rear_Lift_Down_PCB_In_Sensor, false);
+                                DIO.WriteDIData(FuncInline.enumDINames.X405_7_Rear_Lift_Down_PCB_Stop_Sensor, false);
+                            }
+                            else
+                            {
+                                detectedList.Add("- Rear Lift DOWN");
+                            }
+                        }
+
+                        // 11. Out Shuttle Up
+                        if (DIO.GetDIData(FuncInline.enumDINames.X302_3_Out_Shuttle_OK_PCB_In_Sensor) ||
+                            DIO.GetDIData(FuncInline.enumDINames.X302_4_Out_Shuttle_OK_PCB_Stop_Sensor) ||
+                            DIO.GetDIData(FuncInline.enumDINames.X304_1_Out_Shuttle_Ok_Interlock_Sensor))
+                        {
+                            if (GlobalVar.Simulation)
+                            {
+                                DIO.WriteDIData(FuncInline.enumDINames.X302_3_Out_Shuttle_OK_PCB_In_Sensor, false);
+                                DIO.WriteDIData(FuncInline.enumDINames.X302_4_Out_Shuttle_OK_PCB_Stop_Sensor, false);
+                                DIO.WriteDIData(FuncInline.enumDINames.X304_1_Out_Shuttle_Ok_Interlock_Sensor, false);
+                            }
+                            else
+                            {
+                                detectedList.Add("- Out Shuttle Up");
+                            }
+                        }
+
+                        // 12. Out Shuttle Down
+                        if (DIO.GetDIData(FuncInline.enumDINames.X402_0_Out_Shuttle_Ng_PCB_In_Sensor) ||
+                            DIO.GetDIData(FuncInline.enumDINames.X04_2_Out_Shuttle_NG_PCB_Stop_Sensor) ||
+                            DIO.GetDIData(FuncInline.enumDINames.X304_2_Out_Shuttle_Ng_Interlock_Sensor))
+                        {
+                            if (GlobalVar.Simulation)
+                            {
+                                DIO.WriteDIData(FuncInline.enumDINames.X402_0_Out_Shuttle_Ng_PCB_In_Sensor, false);
+                                DIO.WriteDIData(FuncInline.enumDINames.X04_2_Out_Shuttle_NG_PCB_Stop_Sensor, false);
+                                DIO.WriteDIData(FuncInline.enumDINames.X304_2_Out_Shuttle_Ng_Interlock_Sensor, false);
+                            }
+                            else
+                            {
+                                detectedList.Add("- Out Shuttle Down");
+                            }
+                        }
+
+                        // 13. Out Conveyor
+                        if (DIO.GetDIData(FuncInline.enumDINames.X02_3_Out_Conveyor_PASSLIne_PCB_Start_Sensor) ||
+                            DIO.GetDIData(FuncInline.enumDINames.X02_4_Out_Conveyor_PASSLine_PCB_Stop_Sensor))
+                        {
+                            if (GlobalVar.Simulation)
+                            {
+                                DIO.WriteDIData(FuncInline.enumDINames.X02_3_Out_Conveyor_PASSLIne_PCB_Start_Sensor, false);
+                                DIO.WriteDIData(FuncInline.enumDINames.X02_4_Out_Conveyor_PASSLine_PCB_Stop_Sensor, false);
+                            }
+                            else
+                            {
+                                detectedList.Add("- Output Conveyor");
+                            }
+                        }
+
+                        // 14. NG Buffer
+                        if (DIO.GetDIData(FuncInline.enumDINames.X304_2_Out_Shuttle_Ng_Interlock_Sensor) ||
+                            DIO.GetDIData(FuncInline.enumDINames.X03_7_NgBuffer_PCB_Stop_Sensor))
+                        {
+                            if (GlobalVar.Simulation)
+                            {
+                                DIO.WriteDIData(FuncInline.enumDINames.X304_2_Out_Shuttle_Ng_Interlock_Sensor, false);
+                                DIO.WriteDIData(FuncInline.enumDINames.X03_7_NgBuffer_PCB_Stop_Sensor, false);
+                            }
+                            else
+                            {
+                                detectedList.Add("- NG Buffer Conveyor");
+                            }
+                        }
+
+                        // 15. All Teaching Sites (Loop)
+                        for (int i = 0; i < FuncInline.MaxTestPCCount * FuncInline.MaxSiteCount; i++)
+                        {
+                            var pos = (FuncInline.enumTeachingPos)((int)FuncInline.enumTeachingPos.Site1_F_DT1 + i);
+                            if (FuncInline.SiteIoMaps.TryGetPcbDockDI(pos, out var dockDi) && DIO.GetDIData(dockDi))
+                            {
+                                // 세대별 사이트 명칭 변경
+                                string label = FuncInline.SiteDisplay.GetSiteDisplayName(pos);
+
+                                if (GlobalVar.Simulation)
+                                {
+                                    DIO.WriteDIData(dockDi, false);
+                                }
+                                else
+                                {
+                                    // 사이트 명칭을 리스트에 추가
+                                    detectedList.Add($"- Site #{label}");
+                                }
+                            }
+                        }
+                        #endregion
+
+                        // 시뮬레이션이 아니고, 감지된 항목이 있다면 종합 메시지 출력
+                        if (!GlobalVar.Simulation && detectedList.Count > 0)
+                        {
+                            // 리스트 내용을 줄바꿈으로 연결
+                            string msgBody = string.Join("\n", detectedList);
+                            string finalMsg = $"PCB detected in the following areas:\n\n{msgBody}\n\nRemove PCB and try again.";
+
+                            FuncWin.TopMessageBox(finalMsg);
+                            return; // 함수 종료
                         }
                     }
                     #endregion

@@ -138,13 +138,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.lbOutShuttle = new System.Windows.Forms.Label();
-            this.lbScan = new System.Windows.Forms.Label();
             this.lbInShuttle = new System.Windows.Forms.Label();
-            this.lbRearRack = new System.Windows.Forms.Label();
-            this.lbOutConveyor = new System.Windows.Forms.Label();
-            this.lbFrontRack = new System.Windows.Forms.Label();
+            this.lbOutShuttle = new System.Windows.Forms.Label();
             this.listBoxStep = new System.Windows.Forms.ListBox();
+            this.lbOutConveyor = new System.Windows.Forms.Label();
             this.listBoxStatus = new System.Windows.Forms.ListBox();
             this.pnSite = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -367,7 +364,9 @@
             this.btnPCBLift1Up = new System.Windows.Forms.Button();
             this.lblLift1UpArray1 = new System.Windows.Forms.Label();
             this.lblMuting = new System.Windows.Forms.Label();
+            this.lbScan = new System.Windows.Forms.Label();
             this.lblRed = new System.Windows.Forms.Label();
+            this.lbFrontRack = new System.Windows.Forms.Label();
             this.pnSite4 = new System.Windows.Forms.Panel();
             this.btnPCBSite4 = new System.Windows.Forms.Button();
             this.btnSite4STS = new System.Windows.Forms.Button();
@@ -377,6 +376,7 @@
             this.lblSite4Time = new System.Windows.Forms.Label();
             this.lblSite4 = new System.Windows.Forms.Label();
             this.lblYellow = new System.Windows.Forms.Label();
+            this.lbRearRack = new System.Windows.Forms.Label();
             this.pnSite5 = new System.Windows.Forms.Panel();
             this.btnPCBSite5 = new System.Windows.Forms.Button();
             this.btnSite5STS = new System.Windows.Forms.Button();
@@ -1841,32 +1841,6 @@
             this.label3.Text = "Product Count";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lbOutShuttle
-            // 
-            this.lbOutShuttle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.lbOutShuttle.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbOutShuttle.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
-            this.lbOutShuttle.Location = new System.Drawing.Point(1376, 888);
-            this.lbOutShuttle.Name = "lbOutShuttle";
-            this.lbOutShuttle.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.lbOutShuttle.Size = new System.Drawing.Size(150, 22);
-            this.lbOutShuttle.TabIndex = 532;
-            this.lbOutShuttle.Text = "Outshuttle";
-            this.lbOutShuttle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbScan
-            // 
-            this.lbScan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.lbScan.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbScan.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
-            this.lbScan.Location = new System.Drawing.Point(376, 16);
-            this.lbScan.Name = "lbScan";
-            this.lbScan.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.lbScan.Size = new System.Drawing.Size(150, 22);
-            this.lbScan.TabIndex = 369;
-            this.lbScan.Text = "Scan";
-            this.lbScan.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // lbInShuttle
             // 
             this.lbInShuttle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
@@ -1880,44 +1854,18 @@
             this.lbInShuttle.Text = "InShuttle";
             this.lbInShuttle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // lbRearRack
+            // lbOutShuttle
             // 
-            this.lbRearRack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.lbRearRack.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbRearRack.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
-            this.lbRearRack.Location = new System.Drawing.Point(736, 48);
-            this.lbRearRack.Name = "lbRearRack";
-            this.lbRearRack.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.lbRearRack.Size = new System.Drawing.Size(150, 22);
-            this.lbRearRack.TabIndex = 356;
-            this.lbRearRack.Text = "RearRack";
-            this.lbRearRack.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbOutConveyor
-            // 
-            this.lbOutConveyor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.lbOutConveyor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbOutConveyor.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
-            this.lbOutConveyor.Location = new System.Drawing.Point(1528, 888);
-            this.lbOutConveyor.Name = "lbOutConveyor";
-            this.lbOutConveyor.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.lbOutConveyor.Size = new System.Drawing.Size(150, 22);
-            this.lbOutConveyor.TabIndex = 354;
-            this.lbOutConveyor.Text = "OutConveyor";
-            this.lbOutConveyor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbFrontRack
-            // 
-            this.lbFrontRack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.lbFrontRack.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbFrontRack.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lbFrontRack.Location = new System.Drawing.Point(219, 43);
-            this.lbFrontRack.Name = "lbFrontRack";
-            this.lbFrontRack.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.lbFrontRack.Size = new System.Drawing.Size(150, 22);
-            this.lbFrontRack.TabIndex = 352;
-            this.lbFrontRack.Text = "FrontRack";
-            this.lbFrontRack.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbOutShuttle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.lbOutShuttle.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lbOutShuttle.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
+            this.lbOutShuttle.Location = new System.Drawing.Point(1376, 888);
+            this.lbOutShuttle.Name = "lbOutShuttle";
+            this.lbOutShuttle.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.lbOutShuttle.Size = new System.Drawing.Size(150, 22);
+            this.lbOutShuttle.TabIndex = 532;
+            this.lbOutShuttle.Text = "Outshuttle";
+            this.lbOutShuttle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // listBoxStep
             // 
@@ -1931,6 +1879,19 @@
             this.listBoxStep.Size = new System.Drawing.Size(195, 4);
             this.listBoxStep.TabIndex = 348;
             this.listBoxStep.Visible = false;
+            // 
+            // lbOutConveyor
+            // 
+            this.lbOutConveyor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.lbOutConveyor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lbOutConveyor.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
+            this.lbOutConveyor.Location = new System.Drawing.Point(1528, 888);
+            this.lbOutConveyor.Name = "lbOutConveyor";
+            this.lbOutConveyor.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.lbOutConveyor.Size = new System.Drawing.Size(150, 22);
+            this.lbOutConveyor.TabIndex = 354;
+            this.lbOutConveyor.Text = "OutConveyor";
+            this.lbOutConveyor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // listBoxStatus
             // 
@@ -2166,7 +2127,7 @@
             this.pnLift2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pnLift2.Controls.Add(this.pnLift2Title);
             this.pnLift2.Controls.Add(this.pnLift2Up);
-            this.pnLift2.Location = new System.Drawing.Point(892, 408);
+            this.pnLift2.Location = new System.Drawing.Point(892, 416);
             this.pnLift2.Name = "pnLift2";
             this.pnLift2.Size = new System.Drawing.Size(144, 184);
             this.pnLift2.TabIndex = 622;
@@ -4503,6 +4464,19 @@
             this.lblMuting.Text = "M";
             this.lblMuting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lbScan
+            // 
+            this.lbScan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.lbScan.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lbScan.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
+            this.lbScan.Location = new System.Drawing.Point(376, 16);
+            this.lbScan.Name = "lbScan";
+            this.lbScan.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.lbScan.Size = new System.Drawing.Size(150, 22);
+            this.lbScan.TabIndex = 369;
+            this.lbScan.Text = "Scan";
+            this.lbScan.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lblRed
             // 
             this.lblRed.BackColor = System.Drawing.Color.Red;
@@ -4512,6 +4486,19 @@
             this.lblRed.TabIndex = 610;
             this.lblRed.Text = "R";
             this.lblRed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbFrontRack
+            // 
+            this.lbFrontRack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.lbFrontRack.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lbFrontRack.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lbFrontRack.Location = new System.Drawing.Point(219, 43);
+            this.lbFrontRack.Name = "lbFrontRack";
+            this.lbFrontRack.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.lbFrontRack.Size = new System.Drawing.Size(150, 22);
+            this.lbFrontRack.TabIndex = 352;
+            this.lbFrontRack.Text = "FrontRack";
+            this.lbFrontRack.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // pnSite4
             // 
@@ -4613,6 +4600,19 @@
             this.lblYellow.TabIndex = 612;
             this.lblYellow.Text = "Y";
             this.lblYellow.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbRearRack
+            // 
+            this.lbRearRack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.lbRearRack.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lbRearRack.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold);
+            this.lbRearRack.Location = new System.Drawing.Point(736, 48);
+            this.lbRearRack.Name = "lbRearRack";
+            this.lbRearRack.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.lbRearRack.Size = new System.Drawing.Size(150, 22);
+            this.lbRearRack.TabIndex = 356;
+            this.lbRearRack.Text = "RearRack";
+            this.lbRearRack.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // pnSite5
             // 

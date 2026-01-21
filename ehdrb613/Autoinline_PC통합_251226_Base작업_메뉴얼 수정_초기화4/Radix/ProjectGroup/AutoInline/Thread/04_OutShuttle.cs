@@ -90,7 +90,7 @@ namespace Radix
         /** @brief 현재 공정에서 작업중인 모델정보 */
         public string NowModel = "";
         public int SV01_Out_Shuttle = (int)FuncInline.enumServoAxis.SV01_Out_Shuttle;
-      
+
         /** @brief 상승시 위치 */
         public double ready_pos = 0;
         /** @brief 버퍼 취출시 위치 */
@@ -284,7 +284,7 @@ namespace Radix
                     //PCB OK 라인 진입부 감지 센서
                     X_OutConveyor_PCB_IN_Sensor = DIO.GetDIData(FuncInline.enumDINames.X02_3_Out_Conveyor_PASSLIne_PCB_Start_Sensor);
                     //PCB OK 라인 도착 감지 센서
-                    X_OutConveyor_PCB_Stop_Sensor = DIO.GetDIData(FuncInline.enumDINames.X02_4_Out_Conveyor_PASSLine_PCB_Stop_Sensor); 
+                    X_OutConveyor_PCB_Stop_Sensor = DIO.GetDIData(FuncInline.enumDINames.X02_4_Out_Conveyor_PASSLine_PCB_Stop_Sensor);
                     //PCB OK 라인 진입부 감지 센서
                     X_NGbuffer_PCB_IN_Sensor = DIO.GetDIData(FuncInline.enumDINames.X402_2_Out_Conveyor_Ng_PCB_In_Sensor); ;
                     //PCB OK 라인 도착 감지 센서
@@ -300,25 +300,13 @@ namespace Radix
                     #endregion
 
                     #region 시스템 상태 따라
+                    Name = $"[OutShuttle]";
                     switch (OutShuttleAction)
                     {
+
                         case OutShuttle_enumAction.Waiting:
                             #region Case Waiting
-                            if (GlobalVar.LetsHoming &&
-                               FuncInline.InitialStarted[(int)FuncInline.enumInitialize.OutConveyor] == false &&
-                               FuncInline.InitialDone[(int)FuncInline.enumInitialize.OutConveyor] == false)
-                            {
-                                FuncInline.InitialStarted[(int)FuncInline.enumInitialize.OutConveyor] = true;
-                                FuncLetsMotion.HomeRun((int)2);
-                            }
-                            if (GlobalVar.LetsHoming &&
-                                FuncInline.InitialStarted[(int)FuncInline.enumInitialize.InConveyor] == false &&
-                                FuncInline.InitialDone[(int)FuncInline.enumInitialize.InConveyor] == false &&
-                                FuncInline.InitialDone[(int)FuncInline.enumInitialize.OutConveyor] == true)
-                            {
-                                FuncInline.InitialStarted[(int)FuncInline.enumInitialize.InConveyor] = true;
-                                FuncLetsMotion.HomeRun((int)3);
-                            }
+                           
 
                             if (GlobalVar.SystemStatus >= enumSystemStatus.AutoRun)
                             {
@@ -334,7 +322,7 @@ namespace Radix
                                 if (!StepFinish)
                                 {
                                     //공급 받아야할때
-                                    if (((AutoInline)GlobalVar.Class).InShuttle.Action == InShuttle.enumAction.InPutCnyRun)  //투입 단계일때
+                                    if (((AutoInline)GlobalVar.Class).OutShuttle.OutShuttleAction == OutShuttle.OutShuttle_enumAction.InputTray)  //투입 단계일때
                                     {
                                         Log = $"{Name} 트레이 공급 동작 지령";
                                         FuncLog.WriteLog(Log);
@@ -377,17 +365,125 @@ namespace Radix
                             #region Case Init
                             // Main Control Thread 에서 초기화 지령 들어오면 초기화 수행
 
+                            // 2. 잔류 PCB 감지
+                            //if (X_OK_PCB_IN_Sensor || X_OK_PCB_Stop_Sensor || X_NG_PCB_IN_Sensor || X_NG_PCB_Stop_Sensor)
+                            //{
+                            //    FuncInline.enumErrorPart errorPart = FuncInline.enumErrorPart.OutShuttle_Up;
 
-                            if (true)
+                            //    FuncError.AddError(new FuncInline.structError(
+                            //        DateTime.Now.ToString("yyyyMMdd"), DateTime.Now.ToString("HH:mm:ss"),
+                            //        errorPart, FuncInline.enumErrorCode.PCB_Detect_Fail,
+                            //        false, $"{Name} PCB Detected. Remove PCB first."));
+                        
+                            //    return;
+                            //}
+
+
+                            if (Y_OK_Motor_CW)
                             {
-
-                                Log = $"{Name} 초기화 완료";
+                                Log = $"{Name} Init - Out_Shuttle OK Conveyor CW Stop";
                                 FuncLog.WriteLog(Log);
+                                DIO.WriteDOData(FuncInline.enumDONames.Y304_0_Out_Shuttle_Ok_Motor_Cw, false);
+                            }
+                            if (Y_OK_Motor_Ccw)
+                            {
+                                Log = $"{Name} Init - Out_Shuttle OK Conveyor CCW Stop";
+                                FuncLog.WriteLog(Log);
+                                DIO.WriteDOData(FuncInline.enumDONames.Y402_7_Out_Shuttle_Ok_Motor_Ccw, false);
+                            }
+                            if (Y_NG_Motor_CW)
+                            {
+                                Log = $"{Name} Init - Out_Shuttle NG Conveyor CW Stop";
+                                FuncLog.WriteLog(Log);
+                                DIO.WriteDOData(FuncInline.enumDONames.Y400_5_Out_Shuttle_Ng_Motor_Cw, false);
+                            }
+                            if (Y_NG_Motor_Ccw)
+                            {
+                                Log = $"{Name} Init - Out_Shuttle NG  Conveyor CW Stop";
+                                FuncLog.WriteLog(Log);
+                                DIO.WriteDOData(FuncInline.enumDONames.Y400_7_Out_Shuttle_Ng_Motor_Ccw, false);
+                            }
+
+                            if (Y_IN_Stopper)
+                            {
+                                Log = $"{Name} Init - Out_Shuttle IN Stopper False";
+                                FuncLog.WriteLog(Log);
+                                DIO.WriteDOData(FuncInline.enumDONames.Y300_2_Out_Shuttle_CONTACT_STOPPER_IN_SOL, false);
+                            }
+                            if (Y_OUT_Stopper)
+                            {
+                                Log = $"{Name} Init -  Out_Shuttle Out Stopper False";
+                                FuncLog.WriteLog(Log);
+                                DIO.WriteDOData(FuncInline.enumDONames.Y302_1_Out_Shuttle_CONTACT_STOPPER_Out_SOL, false);
+                            }
+
+
+                            if (!X_Turn_CCW_Sensor)
+                            {
+                                Log = $"{Name} init - Turn Check";
+                                DIO.WriteDOData(FuncInline.enumDONames.Y304_4_Out_Shuttle_Turn_Ccw_Cylinder, true);
+                                DIO.WriteDOData(FuncInline.enumDONames.Y304_3_Out_Shuttle_Turn_Cw_Cylinder, false);
+                                continue;
+                            }
+
+
+                            if (GlobalVar.LetsHoming &&
+                              FuncInline.InitialStarted[(int)FuncInline.enumInitialize.OutConveyor] == false &&
+                              FuncInline.InitialDone[(int)FuncInline.enumInitialize.OutConveyor] == false)
+                            {
+                                Log = $"{Name} Init - OutConveyor Width Homing Start";
+                                FuncLog.WriteLog(Log);
+
+                                FuncInline.InitialStarted[(int)FuncInline.enumInitialize.OutConveyor] = true;
+                                FuncLetsMotion.HomeRun((int)2);
+                            }
+                            if (GlobalVar.LetsHoming &&
+                               FuncInline.InitialStarted[(int)FuncInline.enumInitialize.OutShuttle] == false &&
+                               FuncInline.InitialDone[(int)FuncInline.enumInitialize.OutShuttle] == false &&
+                                FuncInline.InitialDone[(int)FuncInline.enumInitialize.OutConveyor] == true)
+                            {
+                                Log = $"{Name} Init - OutShuttle Width Homing Start";
+                                FuncLog.WriteLog(Log);
+                                FuncInline.InitialStarted[(int)FuncInline.enumInitialize.OutShuttle] = true;
+                                FuncLetsMotion.HomeRun((int)1);
+                            }
+                         
+
+
+                            // Main Control Thread 에서 초기화 지령 들어오면 초기화 수행
+                            if (GlobalVar.AxisStatus[SV01_Out_Shuttle].isHomed &&
+                                 FuncInlineMove.IsArrived(SV01_Out_Shuttle, 0))
+                            {
+                                if (InitServo == false)
+                                {
+                                    InitServo = true;
+                                    Log = $"{Name} Init - Servo Home Finish";
+                                    FuncLog.WriteLog(Log);
+                                }
+
+                                Log = $"{Name} Init Finish";
+                                FuncLog.WriteLog(Log);
+                                // 모든 실린더 후진 확인 되면 완료
                                 OutShuttleAction = OutShuttle_enumAction.InitFinish;
                             }
                             else
                             {
 
+                                if (GlobalVar.AxisStatus[SV01_Out_Shuttle].StandStill &&
+                                    !GlobalVar.AxisStatus[SV01_Out_Shuttle].Homing)
+                                {
+                                    Log = $"{Name} Init - SV01_Out_Shuttle Home Move Start";
+                                    FuncLog.WriteLog(Log);
+                                    FuncMotion.MoveHome((uint)SV01_Out_Shuttle);
+                                }
+
+                            }
+
+                            //호밍중에 센서 감지 안되면 바로 정지 지령( 안전문제)
+                            if (!X_Turn_CCW_Sensor)
+                            {
+                                Log = $"{Name} Init -  Turn Sensor Not Detected, Servo Stop";
+                                FuncMotion.MoveStop(SV01_Out_Shuttle); //정지상태 되면 서보 정지
                             }
 
                             Util.ResetWatch(ref watch);
@@ -403,27 +499,12 @@ namespace Radix
                             #endregion
                     }
 
+                    Name = $"[OutConveyor]";
                     switch (OutConveyorAction)
                     {
                         case OutConveyor_enumAction.Waiting:
                             #region Case Waiting
-                            if (GlobalVar.LetsHoming &&
-                               FuncInline.InitialStarted[(int)FuncInline.enumInitialize.OutConveyor] == false &&
-                               FuncInline.InitialDone[(int)FuncInline.enumInitialize.OutConveyor] == false)
-                            {
-                                FuncInline.InitialStarted[(int)FuncInline.enumInitialize.OutConveyor] = true;
-                                FuncLetsMotion.HomeRun((int)2);
-                            }
-                            if (GlobalVar.LetsHoming &&
-                                FuncInline.InitialStarted[(int)FuncInline.enumInitialize.InConveyor] == false &&
-                                FuncInline.InitialDone[(int)FuncInline.enumInitialize.InConveyor] == false &&
-                                FuncInline.InitialDone[(int)FuncInline.enumInitialize.OutConveyor] == true)
-                            {
-                                FuncInline.InitialStarted[(int)FuncInline.enumInitialize.InConveyor] = true;
-                                FuncLetsMotion.HomeRun((int)3);
-
-                            }
-
+                            
                             if (GlobalVar.SystemStatus >= enumSystemStatus.AutoRun)
                             {
 
@@ -438,7 +519,7 @@ namespace Radix
                                 if (!StepFinish)
                                 {
                                     //공급 받아야할때
-                                    if (((AutoInline)GlobalVar.Class).InShuttle.Action == InShuttle.enumAction.InPutCnyRun)  //투입 단계일때
+                                    if (((AutoInline)GlobalVar.Class).OutShuttle.OutConveyorAction == OutShuttle.OutConveyor_enumAction.InputTray)  //투입 단계일때
                                     {
                                         Log = $"{Name} 트레이 공급 동작 지령";
                                         FuncLog.WriteLog(Log);
@@ -536,6 +617,7 @@ namespace Radix
                             Util.InitWatch(ref watch);
                             continue;
                         }
+                        Name = $"[OutShuttle]";
                         switch (OutShuttleAction)
                         {
 
