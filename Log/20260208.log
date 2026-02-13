@@ -1,0 +1,2652 @@
+[10:52:28] Program Started
+[10:52:28] Version - 1.0.0.6
+[10:52:30] MasterKernel Init OK
+[10:52:30] LetsMotion Init OK
+[10:52:31] LetsMotion Scan Node OK
+[10:52:36] Main - Init Click 
+[10:52:39] [OutShuttle] Init - OutConveyor Width Homing Start
+[10:52:39] [Rear Rack] Init - InitialDone - Site14_R_DT1
+[10:52:39] [Front Rack] Init - InitialDone - Site1_F_DT1
+[10:52:39] [InShuttle] Init - InShuttle Width Homing Start
+[10:52:39] [Scan] Y-Axis Homing Start
+[10:52:39] LetsMotion 2 raw=0x00070A15, dir=0, init=1000, end=1000, acc=10000
+[10:52:39] [Rear Rack] Init - InitialDone - Site15_R_DT2
+[10:52:39] [Front Rack] Init - InitialDone - Site2_F_DT2
+[10:52:39] LetsMotion 0 raw=0x00070A14, dir=0, init=1000, end=1000, acc=10000
+[10:52:39] 홈 찾기 지령 콜 - 6
+[10:52:39] [Rear Rack] Init - InitialDone - Site16_R_DT3
+[10:52:39] [Front Rack] Init - InitialDone - Site3_F_DT3
+[10:52:39] [Rear Rack] Init - InitialDone - Site17_R_DT4
+[10:52:39] [Front Rack] Init - InitialDone - Site4_F_DT4
+[10:52:39] [Rear Rack] Init - InitialDone - Site18_R_DT5
+[10:52:39] [Front Rack] Init - InitialDone - Site5_F_DT5
+[10:52:39] [Rear Rack] Init - InitialDone - Site19_R_DT6
+[10:52:39] [Front Rack] Init - InitialDone - Site6_F_DT6
+[10:52:39] [Rear Rack] Init - InitialDone - Site20_R_DT7
+[10:52:39] [Front Rack] Init - InitialDone - Site7_F_DT7
+[10:52:39] [Rear Rack] Init - InitialDone - Site21_R_DT8
+[10:52:39] [Front Rack] Init - InitialDone - Site8_F_DT8
+[10:52:39] [Rear Rack] Init - InitialDone - Site22_R_DT9
+[10:52:39] [Front Rack] Init - InitialDone - Site9_F_DT9
+[10:52:39] [Rear Rack] Init - InitialDone - Site23_R_DT10_FT4
+[10:52:39] [Front Rack] Init - InitialDone - Site10_F_DT10_FT4
+[10:52:39] [Rear Rack] Init - InitialDone - Site24_R_FT1
+[10:52:39] [Front Rack] Init - InitialDone - Site11_F_FT1
+[10:52:39] [Rear Rack] Init - InitialDone - Site25_R_FT2
+[10:52:39] [Front Rack] Init - InitialDone - Site12_F_FT2
+[10:52:39] [Rear Rack] Init - InitialDone - Site26_R_FT3
+[10:52:39] [Front Rack] Init - InitialDone - Site13_F_FT3
+[10:52:39] [Rear Rack] Init - SV04_Lift2 Home Move Start
+[10:52:39] [Front Rack] Init - SV02_Lift1 Home Move Start
+[10:52:39] 홈 찾기 지령 콜 - 4
+[10:52:39] 홈 찾기 지령 콜 - 2
+[10:52:40] [Scan] X-Axis Homing Start
+[10:52:40] 홈 찾기 지령 콜 - 7
+[10:52:40] [Rear Rack] Init - SV05_Rack2_Width Home Move Start
+[10:52:40] [Front Rack] Init - SV03_Rack1_Width Home Move Start
+[10:52:40] 홈 찾기 지령 콜 - 5
+[10:52:40] 홈 찾기 지령 콜 - 3
+[10:52:41] [Rear Rack] Init - Servo Home Finish
+[10:52:41] [Front Rack] Init - Servo Home Finish
+[10:52:41] [Rear Rack] Init Finish
+[10:52:41] [Front Rack] Init Finish
+[10:52:44] Home Command OK Axis: ST00_InShuttle_Width
+[10:52:44] [InShuttle] Init - InShuttle Width Home OK
+[10:52:44] [InShuttle] Init - InConveyor Width Homing Start
+[10:52:44] LetsMotion 3 raw=0x01070A15, dir=0, init=1000, end=1000, acc=10000
+[10:52:45] Home Command OK Axis: ST02_OutConveyor_Width
+[10:52:45] [InShuttle] Init - OutConveyor Width Home OK
+[10:52:45] [OutShuttle] Init - OutShuttle Width Homing Start
+[10:52:45] Lets Homeing Fail, Now Moveing
+[10:52:45] [OutShuttle] Init - SV01_Out_Shuttle Home Move Start
+[10:52:45] 홈 찾기 지령 콜 - 1
+[10:52:46] [OutShuttle] Init - OutShuttle Width Homing Start
+[10:52:46] LetsMotion 1 raw=0x01070A14, dir=0, init=1000, end=1000, acc=10000
+[10:52:50] Home Command OK Axis: ST03_InConveyor_Width
+[10:52:50] [InShuttle] Init - InConveyor Width Home OK
+[10:52:50] [InShuttle] Init - SV00_InShuttle Home Move Start
+[10:52:50] 홈 찾기 지령 콜 - 0
+[10:52:51] Home Command OK Axis: ST01_OutShuttle_Width
+[10:52:51] [InShuttle] Init - OutShuttle Width Home OK
+[10:52:51] [OutShuttle] Init - Servo Home Finish
+[10:52:51] [OutShuttle] Init Finish
+[10:52:53] [Scan] Init - Servo Home Finish
+[10:52:53] [Scan] Init Finish
+[10:53:19] [InShuttle] Init - Servo Home Finish
+[10:53:19] [InShuttle] Init Finish
+[10:53:27] MoveAbs Comand Fail Axis :2
+[10:53:27] MoveABCheck - 2208600Receive -2208600
+[10:53:27] MoveABCheck - 2251000Receive -2251000
+[10:53:31] MoveAbs Comand Fail Axis :2
+[10:53:35] Main - Start Click 
+[10:53:35] [InShuttle] MoveLoading Position action
+[10:53:35] [InShuttle] Move to Loading Position
+[10:53:35] MoveABCheck - 3557550Receive -3557550
+[10:53:43] [InShuttle] Move to Loading Position
+[10:53:43] MoveABCheck - 3557550Receive -3557550
+[10:53:43] [InShuttle] Move LoadingPos Finish, Waiting
+[10:53:48] Main - InputPCB Click
+[10:53:52] [InShuttle] Loading Action
+[10:53:52] [InShuttle] Loading Start
+[10:53:56] AddError - InShuttle,PCB_Interlock,[InConveyor][InShuttle] Loading Start PCB Interlock Check.
+[10:53:56] Alarm - PCB_Interlock
+[10:53:56] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[10:53:56] AddError - InConveyor,PCB_Interlock,[InShuttle] Loading Start PCB Interlock Check.
+[10:53:56] Alarm - PCB_Interlock
+[10:54:04] System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values.
+Parameter name: index
+   at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er) in D:\Program\Autoinline_PC통합_251226_Base작업_메뉴얼 수정_초기화7\Radix\Sub\FuncError.cs:line 697
+[10:54:04]    at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er) in D:\Program\Autoinline_PC통합_251226_Base작업_메뉴얼 수정_초기화7\Radix\Sub\FuncError.cs:line 697
+[10:54:04] AddError - InShuttle,PCB_Interlock,[InConveyor][InShuttle] Loading Start PCB Interlock Check.
+[10:54:04] Alarm - PCB_Interlock
+[10:54:09] PartClear - InConveyor
+[10:54:10] Alarm Clear - InConveyor
+[10:54:14] PartClear - InShuttle
+[10:54:15] Alarm Clear - InShuttle
+[10:54:34] Main - Main Click
+[10:54:46] Main - Teaching Click
+[10:54:49] Main - Teaching Click
+[10:54:50] Teaching - Width Click
+[10:54:56] Teaching - Save Width
+[10:54:57] Teaching - Load Width
+[10:54:58] Main - Main Click
+[10:55:00] Main - Start Click 
+[10:55:00] [InShuttle] Loading Start
+[10:55:05] AddError - InShuttle,PCB_Interlock,[InConveyor][InShuttle] Loading Start PCB Interlock Check.
+[10:55:05] Alarm - PCB_Interlock
+[10:55:05] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[10:55:05] AddError - InConveyor,PCB_Interlock,[InShuttle] Loading Start PCB Interlock Check.
+[10:55:05] Alarm - PCB_Interlock
+[10:55:16] System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values.
+Parameter name: index
+   at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er) in D:\Program\Autoinline_PC통합_251226_Base작업_메뉴얼 수정_초기화7\Radix\Sub\FuncError.cs:line 697
+[10:55:16]    at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er) in D:\Program\Autoinline_PC통합_251226_Base작업_메뉴얼 수정_초기화7\Radix\Sub\FuncError.cs:line 697
+[10:55:16] AddError - InShuttle,PCB_Interlock,[InConveyor][InShuttle] Loading Start PCB Interlock Check.
+[10:55:16] Alarm - PCB_Interlock
+[10:55:34] Main - Main Click
+[10:55:37] Main - Start Click 
+[10:55:37] [InShuttle] Loading Start
+[10:55:41] Main - Stop Click 
+[10:55:48] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[10:58:24] Main - Start Click 
+[10:58:24] [InShuttle] Loading Start
+[10:58:44] AddError - InShuttle,Conveyor_Timeout,[InShuttle] Loading Start Timeout. Remove PCB and restart.
+[10:58:44] Alarm - Conveyor_Timeout
+[10:58:44] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[10:58:56] PartClear - InShuttle
+[10:58:58] Alarm Clear - InShuttle
+[10:59:03] Main - Main Click
+[10:59:07] Main - PartClear Click
+[10:59:12] Main - PartClear Click
+[10:59:24] Main - Main Click
+[10:59:26] Main - Start Click 
+[10:59:31] Main - InputPCB Click
+[11:11:48] Main - Stop Click 
+[11:11:48] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[11:11:48] Main - PartClear Click
+[11:11:50] PartClear - InConveyor
+[11:11:52] Alarm Clear - InConveyor
+[11:11:54] Main - Main Click
+[11:11:56] Main - Start Click 
+[11:12:03] Main - InputPCB Click
+[11:12:07] [InShuttle] Loading Action
+[11:12:12] [InShuttle] Loading Start
+[11:12:13] AddError - InShuttle,PCB_Interlock,[InConveyor][InShuttle] Loading Start PCB Interlock Check.
+[11:12:13] Alarm - PCB_Interlock
+[11:12:13] AddError - InConveyor,PCB_Interlock,[InShuttle] Loading Start PCB Interlock Check.
+[11:12:13] Alarm - PCB_Interlock
+[11:12:13] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[11:12:21] System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values.
+Parameter name: index
+   at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:12:21]    at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:12:21] AddError - InShuttle,PCB_Interlock,[InConveyor][InShuttle] Loading Start PCB Interlock Check.
+[11:12:21] Alarm - PCB_Interlock
+[11:12:23] System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values.
+Parameter name: index
+   at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:12:23]    at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:12:23] AddError - InConveyor,PCB_Interlock,[InShuttle] Loading Start PCB Interlock Check.
+[11:12:23] Alarm - PCB_Interlock
+[11:12:26] System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values.
+Parameter name: index
+   at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:12:26]    at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:12:26] AddError - InShuttle,PCB_Interlock,[InConveyor][InShuttle] Loading Start PCB Interlock Check.
+[11:12:26] Alarm - PCB_Interlock
+[11:12:27] System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values.
+Parameter name: index
+   at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:12:27]    at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:12:27] AddError - InConveyor,PCB_Interlock,[InShuttle] Loading Start PCB Interlock Check.
+[11:12:27] Alarm - PCB_Interlock
+[11:12:27] System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values.
+Parameter name: index
+   at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:12:27]    at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:12:27] AddError - InShuttle,PCB_Interlock,[InConveyor][InShuttle] Loading Start PCB Interlock Check.
+[11:12:27] Alarm - PCB_Interlock
+[11:12:28] System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values.
+Parameter name: index
+   at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:12:28]    at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:12:28] AddError - InConveyor,PCB_Interlock,[InShuttle] Loading Start PCB Interlock Check.
+[11:12:28] Alarm - PCB_Interlock
+[11:12:28] System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values.
+Parameter name: index
+   at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:12:28]    at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:12:28] AddError - InShuttle,PCB_Interlock,[InConveyor][InShuttle] Loading Start PCB Interlock Check.
+[11:12:28] Alarm - PCB_Interlock
+[11:12:29] System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values.
+Parameter name: index
+   at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:12:29]    at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:12:29] AddError - InConveyor,PCB_Interlock,[InShuttle] Loading Start PCB Interlock Check.
+[11:12:29] Alarm - PCB_Interlock
+[11:13:04] System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values.
+Parameter name: index
+   at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:13:04]    at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:13:04] AddError - InShuttle,PCB_Interlock,[InConveyor][InShuttle] Loading Start PCB Interlock Check.
+[11:13:04] Alarm - PCB_Interlock
+[11:13:23] PartClear - InShuttle
+[11:13:28] Alarm Clear - InShuttle
+[11:13:31] PartClear - InConveyor
+[11:13:32] Alarm Clear - InConveyor
+[11:13:55] Main - Main Click
+[11:15:23] Main - Start Click 
+[11:15:23] [InShuttle] Loading Start
+[11:15:33] Main - Stop Click 
+[11:15:33] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[11:16:54] Main - Start Click 
+[11:16:54] [InShuttle] Loading Start
+[11:17:14] AddError - InShuttle,Conveyor_Timeout,[InShuttle] Loading Start Timeout. Remove PCB and restart.
+[11:17:14] Alarm - Conveyor_Timeout
+[11:17:14] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[11:17:21] PartClear - InShuttle
+[11:17:23] Alarm Clear - InShuttle
+[11:17:36] Main - Main Click
+[11:17:40] Main - Start Click 
+[11:17:43] Main - InputPCB Click
+[11:17:47] [InShuttle] Loading Action
+[11:17:55] [InShuttle] Loading Start
+[11:17:56] AddError - InShuttle,PCB_Interlock,[InConveyor][InShuttle] Loading Start PCB Interlock Check.
+[11:17:56] Alarm - PCB_Interlock
+[11:17:56] AddError - InConveyor,PCB_Interlock,[InShuttle] Loading Start PCB Interlock Check.
+[11:17:56] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[11:17:56] Alarm - PCB_Interlock
+[11:18:12] System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values.
+Parameter name: index
+   at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:18:12]    at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:18:12] AddError - InShuttle,PCB_Interlock,[InConveyor][InShuttle] Loading Start PCB Interlock Check.
+[11:18:12] Alarm - PCB_Interlock
+[11:21:08] Main - Main Click
+[11:21:11] Main - Start Click 
+[11:22:03] Main - Stop Click 
+[11:22:03] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[11:22:03] Main - PartClear Click
+[11:22:06] PartClear - InShuttle
+[11:22:08] Alarm Clear - InShuttle
+[11:22:09] Main - Main Click
+[11:22:16] Main - Start Click 
+[11:24:03] Main - Stop Click 
+[11:24:03] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[11:24:04] Main - PartClear Click
+[11:24:07] Main - PartClear Click
+[11:24:11] PartClear - InConveyor
+[11:24:14] Alarm Clear - InConveyor
+[11:24:19] Main - Main Click
+[11:24:21] Main - Start Click 
+[11:24:41] Main - InputPCB Click
+[11:24:44] [InShuttle] Loading Action
+[11:24:44] [InShuttle] Loading Start
+[11:24:50] AddError - InShuttle,PCB_Interlock,[InConveyor][InShuttle] Loading Start PCB Interlock Check.
+[11:24:50] Alarm - PCB_Interlock
+[11:24:50] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[11:24:52] System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values.
+Parameter name: index
+   at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:24:52]    at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   at Radix.FuncError.CheckError(structError er)
+[11:24:52] AddError - InConveyor,PCB_Interlock,[InShuttle] Loading Start PCB Interlock Check.
+[11:24:52] Alarm - PCB_Interlock
+[11:28:03] PartClear - InConveyor
+[11:28:05] Alarm Clear - InConveyor
+[11:28:24] Main - Main Click
+[11:28:27] Main - Start Click 
+[11:28:30] Main - InputPCB Click
+[11:28:34] [InShuttle] Loading Action
+[11:28:34] [InShuttle] Loading Start
+[11:31:44] AddError - InShuttle,Conveyor_Timeout,[InShuttle] Loading Start Timeout. Remove PCB and restart.
+[11:31:44] Alarm - Conveyor_Timeout
+[11:31:44] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[11:32:00] PartClear - InShuttle
+[11:32:04] Alarm Clear - InShuttle
+[11:32:14] Main - Main Click
+[11:32:16] Main - Start Click 
+[11:32:19] Main - InputPCB Click
+[11:32:33] Main - Stop Click 
+[11:32:33] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[11:32:34] Main - PartClear Click
+[11:32:37] PartClear - InConveyor
+[11:32:38] Alarm Clear - InConveyor
+[11:32:42] Main - Main Click
+[11:32:43] Main - Start Click 
+[11:32:46] Main - InputPCB Click
+[11:32:49] [InShuttle] Loading Action
+[11:32:49] [InShuttle] Loading Start
+[11:32:52] [InShuttle] PCB Detected - Temporary Stop
+[11:32:52] [InShuttle] Restart Conveyor (Overdrive)
+[11:32:54] [InShuttle] Loading Finish (Overdrive Complete)
+[11:33:04] [InShuttle][PCB_ID:1]CoolingFinish 
+[11:33:04] [InShuttle] Check_Destination Action
+[11:33:04] [InShuttle][PCB_ID:1] Destination: FRONT (Site1_F_DT1)
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] MoveABCheck - 4214200Receive -4214200
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:04] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] [InShuttle] Move to Front Position
+[11:33:05] MoveABCheck - 4214200Receive -4214200
+[11:33:05] [InShuttle] Start Front UnLoading Action
+[11:33:05] [Front Rack]PassLine PCB Loding Action
+[11:33:07] [Front Rack]PassLine LoadingCheck Action
+[11:33:07] [Front Rack]PCB IN -> Move MovePassline Position
+[11:33:07] [Front Rack][PCB_ID:1] PassLine Loading Complete
+[11:33:07] [Front Rack]Move to FrontPassLine Position
+[11:33:07] MoveABCheck - 1650000Receive -1650000
+[11:33:10] [Front Rack]Move to FrontPassLine Position
+[11:33:10] MoveABCheck - 1650000Receive -1650000
+[11:33:10] [Front Rack]Move to FrontPassLine Position
+[11:33:10] MoveABCheck - 1650000Receive -1650000
+[11:33:10] [Front Rack]FrontPassLine Move OK ->Loading Action
+[11:33:10] [Front Rack]FrontPassLine Move OK -> Loading Action
+[11:33:10] [Front Rack][PCB_ID:1]PassLine PCB UnLoding Action
+[11:37:10] AddError - InShuttle,Conveyor_Timeout,[InShuttle] Start Front UnLoading Action FrontUnLoading Timeout. Check PCB/Sensors. 
+[PassLine] FrontLoading Timeout. Check PCB/ Sensors.
+[11:37:10] Alarm - Conveyor_Timeout
+[11:37:10] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[11:37:10] AddError - FrontPassLine,Conveyor_Timeout,[InShuttle] Start Front UnLoading Action FrontUnLoading Timeout. Check PCB/Sensors. 
+[PassLine] FrontLoading Timeout. Check PCB/ Sensors.
+[11:37:10] Alarm - Conveyor_Timeout
+[11:37:13] [Front Rack].ActionThread : System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at Radix.FrontRack.ActionThread()
+[11:37:13] [Front Rack].ActionThread :    at Radix.FrontRack.ActionThread()
+[11:37:31] PartClear - FrontPassLine
+[11:37:33] Alarm Clear - FrontPassLine
+[11:37:35] PartClear - InShuttle
+[11:37:36] Alarm Clear - InShuttle
+[11:37:48] Main - Main Click
+[11:37:50] Main - Start Click 
+[11:40:09] [InShuttle] MoveLoading Position action
+[11:40:09] [InShuttle] Move MoveTurnPos Action
+[11:40:09] [InShuttle] Move to Turn Position
+[11:40:09] MoveABCheck - 2168250Receive -2168250
+[11:40:54] [InShuttle] Move to Turn Position
+[11:40:54] MoveABCheck - 2168250Receive -2168250
+[11:41:05] [Front Rack].ActionThread : System.IndexOutOfRangeException: Index was outside the bounds of the array.
+   at Radix.FrontRack.ActionThread()
+[11:41:05] [Front Rack].ActionThread :    at Radix.FrontRack.ActionThread()
+[11:41:05] AddError - InShuttle,TurnInterlock_Error,[InShuttle] Move to Turn Position X303_0_In_Shuttle_Turn_Position_Interlock Sensor Check, Remove the PCB 
+ check for interference or sensor issues, and then restart.
+[11:41:05] Alarm - TurnInterlock_Error
+[11:41:05] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[11:41:10] PartClear - InShuttle
+[11:41:12] Alarm Clear - InShuttle
+[11:41:21] Main - Main Click
+[11:41:23] Main - Start Click 
+[11:41:23] [InShuttle] MoveLoading Position action
+[11:41:23] [InShuttle] Move MoveTurnPos Action
+[11:41:23] [InShuttle] Move to Turn Position
+[11:41:23] MoveABCheck - 2168250Receive -2168250
+[11:41:23] [InShuttle] Move to Turn Position
+[11:41:23] MoveABCheck - 2168250Receive -2168250
+[11:41:23] [InShuttle] Move to Turn Position
+[11:41:23] MoveABCheck - 2168250Receive -2168250
+[11:41:23] [InShuttle] Move to LoadingPos action
+[11:41:23] [InShuttle] Move to Loading Position
+[11:41:23] MoveABCheck - 3557550Receive -3557550
+[11:41:26] [InShuttle] Move to Loading Position
+[11:41:26] MoveABCheck - 3557550Receive -3557550
+[11:41:26] [InShuttle] Move to Loading Position
+[11:41:26] MoveABCheck - 3557550Receive -3557550
+[11:41:26] [InShuttle] Move LoadingPos Finish, Waiting
+[11:41:29] Main - InputPCB Click
+[11:41:34] [InShuttle] Loading Action
+[11:41:34] [InShuttle] Loading Start
+[11:41:36] [InShuttle] PCB Detected - Temporary Stop
+[11:41:36] [InShuttle] Restart Conveyor (Overdrive)
+[11:41:38] [InShuttle] Loading Finish (Overdrive Complete)
+[11:41:38] [InShuttle][PCB_ID:2]CoolingFinish 
+[11:41:38] [InShuttle] Check_Destination Action
+[11:41:38] [InShuttle][PCB_ID:2] Destination: FRONT (Site2_F_DT2)
+[11:41:38] [InShuttle] Move to Front Position
+[11:41:38] MoveABCheck - 4214200Receive -4214200
+[11:41:38] [InShuttle] Move to Front Position
+[11:41:38] [InShuttle] Move to Front Position
+[11:41:38] [InShuttle] Move to Front Position
+[11:41:38] [InShuttle] Move to Front Position
+[11:41:38] [InShuttle] Move to Front Position
+[11:41:38] [InShuttle] Move to Front Position
+[11:41:38] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:39] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] [InShuttle] Move to Front Position
+[11:41:40] MoveABCheck - 4214200Receive -4214200
+[11:41:40] [InShuttle] Start Front UnLoading Action
+[11:41:57] [Front Rack] Restart Conveyor (Overdrive)
+[11:41:58] [Front Rack] PassLine UnLoading Complete
+[11:41:58] [Front Rack]PassLine PCB Loding Action
+[11:42:39] AddError - InShuttle,Conveyor_Timeout,[InShuttle] Start Front UnLoading Action FrontUnLoading Timeout. Check PCB/Sensors. 
+[PassLine] FrontLoading Timeout. Check PCB/ Sensors.
+[11:42:39] Alarm - Conveyor_Timeout
+[11:42:39] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[11:42:39] AddError - FrontPassLine,Conveyor_Timeout,[InShuttle] Start Front UnLoading Action FrontUnLoading Timeout. Check PCB/Sensors. 
+[PassLine] FrontLoading Timeout. Check PCB/ Sensors.
+[11:42:39] Alarm - Conveyor_Timeout
+[11:42:39] AddError - InShuttle,Conveyor_Timeout,[Front Rack]PassLine PCB Loding Action FrontUnLoading Timeout. Check PCB/Sensors.
+[11:42:39] Alarm - Conveyor_Timeout
+[11:42:46] PartClear - FrontPassLine
+[11:42:48] Alarm Clear - FrontPassLine
+[11:42:51] PartClear - InShuttle
+[11:42:52] Alarm Clear - InShuttle
+[11:43:10] Main - Main Click
+[11:45:52] Main - Start Click 
+[11:45:52] [InShuttle] MoveLoading Position action
+[11:45:52] [InShuttle] Move MoveTurnPos Action
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] MoveABCheck - 2168250Receive -2168250
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:52] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:53] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:54] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:55] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] MoveABCheck - 2168250Receive -2168250
+[11:45:56] [InShuttle] Move to Turn Position
+[11:45:56] MoveABCheck - 2168250Receive -2168250
+[11:45:56] [InShuttle] Move to LoadingPos action
+[11:45:56] [InShuttle] Move to Loading Position
+[11:45:56] MoveABCheck - 3557550Receive -3557550
+[11:45:59] [InShuttle] Move to Loading Position
+[11:45:59] MoveABCheck - 3557550Receive -3557550
+[11:45:59] [InShuttle] Move LoadingPos Finish, Waiting
+[11:46:04] Main - InputPCB Click
+[11:46:07] [InShuttle] Loading Action
+[11:46:07] [InShuttle] Loading Start
+[11:46:10] [InShuttle] PCB Detected - Temporary Stop
+[11:46:10] [InShuttle] Restart Conveyor (Overdrive)
+[11:46:12] [InShuttle] Loading Finish (Overdrive Complete)
+[11:46:12] [InShuttle][PCB_ID:3]CoolingFinish 
+[11:46:12] [InShuttle] Check_Destination Action
+[11:46:12] [InShuttle][PCB_ID:3] Destination: FRONT (Site3_F_DT3)
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] MoveABCheck - 4214200Receive -4214200
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:12] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:13] [InShuttle] Move to Front Position
+[11:46:14] [InShuttle] Move to Front Position
+[11:46:14] [InShuttle] Move to Front Position
+[11:46:14] [InShuttle] Move to Front Position
+[11:46:14] [InShuttle] Move to Front Position
+[11:46:14] [InShuttle] Move to Front Position
+[11:46:14] [InShuttle] Move to Front Position
+[11:46:14] MoveABCheck - 4214200Receive -4214200
+[11:46:14] [InShuttle] Start Front UnLoading Action
+[11:46:15] [Front Rack]PassLine LoadingCheck Action
+[11:46:15] [Front Rack][PCB_ID:3] PassLine Loading Complete
+[11:46:15] [Front Rack][PCB_ID:3]PassLine PCB UnLoding Action
+[11:46:21] [Front Rack] Loading Finish (Overdrive Complete)
+[11:46:21] [Front Rack]PassLine->LiftUp Loading Finish, LoadingCheck Action 
+[11:46:21] [Front Rack][PCB_ID:3] PassLine Loading Complete from [FrontPassLine].
+[11:46:21] [Front Rack][PCB_ID:3]PCB IN -> Move Site Position (Site3_F_DT3)
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:21] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:21] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:22] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:22] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:23] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:23] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:24] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:24] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:25] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:25] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:26] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:26] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:27] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:27] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:28] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:28] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:29] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:29] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveAbsMM 2 ServoInterlockCheck failed!
+SV02_Lift1 cannot be moved - PCB interlock sensor detected. X114_7_Front_Rack_PCB_Interlock_Sensor
+[11:46:30] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:30] MoveABCheck - 400150Receive -400150
+[11:46:33] [Front Rack]MoveLift Move to OutShuttle_Down Position
+[11:46:33] MoveABCheck - 400150Receive -400150
+[11:46:33] [Front Rack][PCB_ID:3]MoveLiftOutShuttle_Down Move OK -> UnLoading Action
+[11:46:33] [Front Rack][PCB_ID:3] Lift->Site[Site3_F_DT3] UnLoading Start
+[11:46:33] [Site3_F_DT3] [Loading] Start
+[11:46:33] [Front Rack][PCB_ID:3] Lift->Site[Site3_F_DT3] UnLoading Finish
+[11:46:48] [Site3_F_DT3] [Loading] Fail: Timeout (Sensor Not Detected)
+[11:46:48] AddError - InShuttle,Conveyor_Timeout,[InShuttle] Start Front UnLoading Action FrontUnLoading Timeout. Check PCB/Sensors. 
+[PassLine] FrontLoading Timeout. Check PCB/ Sensors.
+[11:46:48] Alarm - Conveyor_Timeout
+[11:46:48] AddError - FrontPassLine,Conveyor_Timeout,[InShuttle] Start Front UnLoading Action FrontUnLoading Timeout. Check PCB/Sensors. 
+[PassLine] FrontLoading Timeout. Check PCB/ Sensors.
+[11:46:48] Alarm - Conveyor_Timeout
+[11:46:48] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[11:46:57] PartClear - FrontPassLine
+[11:47:00] Alarm Clear - FrontPassLine
+[11:47:00] PartClear - FrontPassLine
+[11:47:02] Alarm Clear - FrontPassLine
+[11:47:09] Main - Main Click

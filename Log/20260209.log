@@ -1,0 +1,493 @@
+[02:28:01] Main - Stop Click 
+[02:28:03] Main - PartClear Click
+[02:28:06] PartClear - Site3_F_DT3
+[02:28:06] Alarm Clear - Site3_F_DT3
+[02:28:06] Main - Main Click
+[02:28:21] Main - RunMode Click
+[02:28:26] Main - Start Click 
+[02:28:26] [InShuttle] MoveLoading Position action
+[02:28:26] [InShuttle] Move MoveTurnPos Action
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] MoveABCheck - 2168250Receive -2168250
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:26] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:27] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:28] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:29] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] MoveABCheck - 2168250Receive -2168250
+[02:28:30] [InShuttle] Move to Turn Position
+[02:28:30] MoveABCheck - 2168250Receive -2168250
+[02:28:30] [InShuttle] Move to LoadingPos action
+[02:28:30] [InShuttle] Move to Loading Position
+[02:28:30] MoveABCheck - 3557550Receive -3557550
+[02:28:33] [InShuttle] Move to Loading Position
+[02:28:33] MoveABCheck - 3557550Receive -3557550
+[02:28:33] [InShuttle] Move LoadingPos Finish, Waiting
+[02:28:40] [InShuttle] Loading Action
+[02:28:40] [InShuttle] Loading Start
+[02:28:46] AddError - InShuttle,Conveyor_Timeout,[Front Rack][PCB_ID:3] Lift->Site[Site3_F_DT3] UnLoading Finish FrontUnLoading Timeout. Check PCB/Sensors.
+[02:28:46] Alarm - Conveyor_Timeout
+[02:28:46] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[02:29:11] PartClear - InShuttle
+[02:29:11] Alarm Clear - InShuttle
+[02:29:13] PartClear - InConveyor
+[02:29:13] Alarm Clear - InConveyor
+[02:29:13] Main - Main Click
+[02:29:21] Main - PartClear Click
+[02:29:26] Main - PartClear Click
+[02:29:34] Main - Main Click
+[02:29:36] Main - Start Click 
+[02:29:36] [InShuttle] Loading Start
+[02:29:49] Main - Stop Click 
+[02:29:49] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[02:29:51] Main - Start Click 
+[02:29:51] [InShuttle] Loading Start
+[02:29:51] [InShuttle] Loading Start
+[02:30:04] [InShuttle] PCB Detected - Temporary Stop
+[02:30:04] [InShuttle] Restart Conveyor (Overdrive)
+[02:30:06] [InShuttle] Loading Finish (Overdrive Complete)
+[02:30:06] [InShuttle][PCB_ID:4]CoolingFinish 
+[02:30:06] [InShuttle][TestPass] MoveFrontPos Action
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:06] MoveABCheck - 4214200Receive -4214200
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:06] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:07] [InShuttle] Move to Front Position
+[02:30:08] [InShuttle] Move to Front Position
+[02:30:08] [InShuttle] Move to Front Position
+[02:30:08] [InShuttle] Move to Front Position
+[02:30:08] [InShuttle] Move to Front Position
+[02:30:08] [InShuttle] Move to Front Position
+[02:30:08] [InShuttle] Move to Front Position
+[02:30:08] [InShuttle] Move to Front Position
+[02:30:08] [InShuttle] Move to Front Position
+[02:30:08] [InShuttle] Move to Front Position
+[02:30:08] [InShuttle] Move to Front Position
+[02:30:08] [InShuttle] Move to Front Position
+[02:30:08] [InShuttle] Move to Front Position
+[02:30:08] [InShuttle] Move to Front Position
+[02:30:08] MoveABCheck - 4214200Receive -4214200
+[02:30:08] [InShuttle] Start Front UnLoading Action
+[02:30:11] AddError - InShuttle,Conveyor_Timeout,[Front Rack][PCB_ID:3] Lift->Site[Site3_F_DT3] UnLoading Finish FrontUnLoading Timeout. Check PCB/Sensors.
+[02:30:11] Alarm - Conveyor_Timeout
+[02:30:11] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[02:30:31] Main - Main Click
+[02:30:36] Main - Start Click 
+[02:30:49] Main - Stop Click 
+[02:30:49] System Mode Changed (Auto -> Stop/Manual). Stop All Conveyors.
+[02:30:55] Main - PartClear Click
+[02:31:09] PartClear - Lift1_Up
+[02:31:09] Alarm Clear - Lift1_Up
+[02:31:11] PartClear - Site3_F_DT3
+[02:31:11] Alarm Clear - Site3_F_DT3
+[02:31:12] Main - Main Click
+[02:31:17] Main - Exit Click 
