@@ -2827,8 +2827,8 @@ namespace Radix
         public static enumLiftAction RearNGLineAction = FuncInline.enumLiftAction.Waiting; // RearNGLine 동작
         public static enumShuttleAction OutShuttleUpAction = FuncInline.enumShuttleAction.Waiting; // 배출셔틀 동작
         public static enumShuttleAction OutShuttleDownAction = FuncInline.enumShuttleAction.Waiting; // 배출셔틀 동작
-        public static enumLiftAction OutConveyorAction = FuncInline.enumLiftAction.Waiting; // InPickup 동작
-        public static enumLiftAction NGBufferAction = FuncInline.enumLiftAction.Waiting; // InPickup 동작
+        //public static enumLiftAction OutConveyorAction = FuncInline.enumLiftAction.Waiting; // InPickup 동작
+        //public static enumLiftAction NGBufferAction = FuncInline.enumLiftAction.Waiting; // InPickup 동작
 
         public static enumScanAction ScanAction = FuncInline.enumScanAction.Waiting; // ScanX,Y 동작
 
@@ -12078,7 +12078,7 @@ SELECT [Date]
                 {
                     //debug("MoveOutputConveyorToNextMachine PCB 정보 없으면 액션 삭제");
                     Util.ResetWatch(ref FuncInline.OutConveyorActionWatch);
-                    FuncInline.OutConveyorAction = FuncInline.enumLiftAction.Waiting;
+                    AutoInline.Class.OutShuttle.OutConveyorAction = OutShuttle.OutConveyor_enumAction.Waiting;
                     DIO.WriteDOData(enumDONames.Y400_1_Out_Conveyor_Motor_Cw, false);
                     return true;
                 }
@@ -12089,7 +12089,7 @@ SELECT [Date]
                 {
                     //debug("MoveOutputConveyorToNextMachine PCB 정보 배출대상 아니면 액션 삭제");
                     Util.ResetWatch(ref FuncInline.OutConveyorActionWatch);
-                    FuncInline.OutConveyorAction = FuncInline.enumLiftAction.Waiting;
+                    AutoInline.Class.OutShuttle.OutConveyorAction = OutShuttle.OutConveyor_enumAction.Waiting;
                     DIO.WriteDOData(enumDONames.Y400_1_Out_Conveyor_Motor_Cw, false);
                     return false;
                 }
@@ -12154,7 +12154,7 @@ SELECT [Date]
                     DIO.WriteDOData(enumDONames.Y412_1_SMEMA_After_Ready, false); // 스메마 출력 가동
                     DIO.WriteDOData(enumDONames.Y400_1_Out_Conveyor_Motor_Cw, false);
                     //debug("if 모든 센서 확인 안 되면 종료");
-                    FuncInline.OutConveyorAction = FuncInline.enumLiftAction.Waiting;
+                    AutoInline.Class.OutShuttle.OutConveyorAction = OutShuttle.OutConveyor_enumAction.Waiting;
                     //GlobalVar.DryRunMethod = enumDryRunMethod.None; // 드라이런 method 초기화
                     FuncInline.OutConveyorActionWatch.Stop();
                     FuncInline.OutConveyorActionWatch.Reset();
@@ -12190,7 +12190,7 @@ SELECT [Date]
                         DIO.WriteDOData(enumDONames.Y412_1_SMEMA_After_Ready, false); // 스메마 출력 가동
                         DIO.WriteDOData(enumDONames.Y400_1_Out_Conveyor_Motor_Cw, false);
                         //debug("if dryrun 시간 경과시 이동 완료");
-                        FuncInline.OutConveyorAction = FuncInline.enumLiftAction.Waiting;
+                        AutoInline.Class.OutShuttle.OutConveyorAction = OutShuttle.OutConveyor_enumAction.Waiting;
                         //GlobalVar.DryRunMethod = enumDryRunMethod.None; // 드라이런 method 초기화
                         FuncInline.ClearPCBInfo(enumTeachingPos.OutConveyor);
                         Util.ResetWatch(ref FuncInline.OutConveyorActionWatch);
@@ -14037,7 +14037,7 @@ SELECT [Date]
         /// </summary>
         /// <param name="isFront">true: Front, false: Rear</param>
         /// <returns>찾은 빈 사이트 위치 (없거나 불가하면 None 반환)</returns>
-        public static FuncInline.enumTeachingPos GetAvailableSite(bool isFront)
+        public static FuncInline.enumTeachingPos GetAvailableDLSite(bool isFront)
         {
             // 1. [InputStop Check] 투입 정지 확인
             int rackIdx = isFront ? 0 : 1;
@@ -14073,7 +14073,8 @@ SELECT [Date]
             {
                 int offset = (lastIndex + k) % validSiteCount;
                 int currentSiteIdx = startBaseIdx + offset;
-                int useSiteIdx = startBaseIdx - (int)FuncInline.enumTeachingPos.Site1_F_DT1;
+                int useSiteIdx = currentSiteIdx - (int)FuncInline.enumTeachingPos.Site1_F_DT1;
+                //int useSiteIdx = startBaseIdx - (int)FuncInline.enumTeachingPos.Site1_F_DT1;
                 // 조건 만족 시 해당 위치(Enum)를 즉시 반환
                 if (FuncInline.UseSite[useSiteIdx] &&
                     FuncInline.PCBInfo[currentSiteIdx].PCBStatus == FuncInline.enumSMDStatus.UnKnown)
@@ -14090,6 +14091,66 @@ SELECT [Date]
             }
 
             return FuncInline.enumTeachingPos.None; // 불가
+        }
+
+
+        /// <summary>
+        /// 마지막으로 투입된 사이트의 다음 인덱스부터 순차적으로 검색하여 빈 사이트를 반환합니다.
+        /// </summary>
+        /// <param name="isFront">true: Front, false: Rear</param>
+        /// <returns>찾은 빈 사이트 위치 (없으면 None)</returns>
+        public static FuncInline.enumTeachingPos GetAvailableFTSite(bool isFront)
+        {
+            // 1. [InputStop Check] 해당 랙 투입 정지 확인
+            int rackIdx = isFront ? 0 : 1;
+
+            // 3. [Range Setting] 세대별 사이트 수 설정
+            int validSiteCount = 0;
+            int startBaseIdx = 0;
+
+            if (FuncInline.InlineType == FuncInline.enumInlineType.Gen6)
+            {
+                validSiteCount = 13; // DT1 ~ FT3 전체
+                startBaseIdx = isFront ? (int)enumTeachingPos.Site1_F_DT1 : (int)enumTeachingPos.Site14_R_DT1;
+            }
+            else if (FuncInline.InlineType == FuncInline.enumInlineType.Gen5)
+            {
+                validSiteCount = 4;  // FT4, FT1, FT2, FT3
+                                     // Gen5의 FT 시작점은 FT4 위치인 Site10(Front) / Site23(Rear)
+                startBaseIdx = isFront ? (int)enumTeachingPos.Site10_F_DT10_FT4 : (int)enumTeachingPos.Site23_R_DT10_FT4;
+            }
+            else
+            {
+                validSiteCount = 3;  // FT1, FT2, FT3
+                                     // Gen4 이하의 FT 시작점은 FT1 위치인 Site11(Front) / Site24(Rear)
+                startBaseIdx = isFront ? (int)enumTeachingPos.Site11_F_FT1 : (int)enumTeachingPos.Site24_R_FT1;
+            }
+
+            // 4. [Sequential Search] 마지막 투입 위치 다음부터 순회
+            // LastIndex는 0 ~ (validSiteCount-1) 값을 가짐
+            int lastIndex = isFront ? AutoInline.Class.FrontRack.LastFrontFTIndex : AutoInline.Class.RearRack.LastRearFTIndex;         
+
+            for (int k = 1; k <= validSiteCount; k++)
+            {
+                // 마지막 인덱스 + 1 부터 시작하여 한 바퀴 순회
+                int offset = (lastIndex + k) % validSiteCount;
+                int currentSiteIdx = startBaseIdx + offset;
+
+                // UseSite 설정값 인덱스 (Site1_F_DT1을 0번으로 기준 잡음)
+                int useSiteIdx = currentSiteIdx - (int)FuncInline.enumTeachingPos.Site1_F_DT1;
+
+                // 1) 사이트 사용 설정(UseSite)이 True이고
+                // 2) 해당 사이트의 보드 상태가 UnKnown(비어있음)인 경우
+                if (FuncInline.UseSite[useSiteIdx] &&
+                    FuncInline.PCBInfo[currentSiteIdx].PCBStatus == FuncInline.enumSMDStatus.UnKnown)
+                {
+                    // 찾은 위치 반환
+                    return (FuncInline.enumTeachingPos)currentSiteIdx;
+                }
+            }
+
+            // 모든 사이트가 꽉 찼거나 사용할 수 없음
+            return FuncInline.enumTeachingPos.None;
         }
     }
 

@@ -81,22 +81,7 @@ namespace Radix
                 {
                     //아진은 필요 없을 것 같다.
                 }
-                else if (GlobalVar.MasterType == enumMasterType.ADVANTECH)
-                {
-                    if (!FuncAdvantech.InitializeComponent())
-                    {
-                        FuncLog.WriteLog("Get Device Numbers Failed!");
-                        //this.BringToFront();
-                        MessageBox.Show("Get Device Numbers Failed!");
-                        //initFail = true;
-                        GlobalVar.GlobalStop = true;
-                        //this.Close();
-                        return false;
-                    }
-
-                    FuncAdvantech.OpenBoard();
-                    FuncAdvantechDIO.InitializeComponent();
-                }
+          
                 Controller.MasterChecked = false;
                 Controller.MasterChecking = true;
             }

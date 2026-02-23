@@ -339,13 +339,14 @@ namespace Radix
             if (ServoSelect == FuncInline.enumServoAxis.SV02_Lift1 ||
                          ServoSelect == FuncInline.enumServoAxis.SV04_Lift2)
             {
-                FuncMotion.MoveRelative((uint)axis,
+
+                FuncInlineMove.MoveRelative((uint)axis,
                  1000,
                  speed);
             }
             else
             {
-                FuncMotion.MoveRelative((uint)axis,
+                FuncInlineMove.MoveRelative((uint)axis,
                   -1000,
                   speed);
             }
@@ -393,13 +394,13 @@ namespace Radix
             if (ServoSelect == FuncInline.enumServoAxis.SV02_Lift1 ||
                         ServoSelect == FuncInline.enumServoAxis.SV04_Lift2)
             {
-                FuncMotion.MoveRelative((uint)axis,
+                FuncInlineMove.MoveRelative((uint)axis,
                    -1000,
                    speed);
             }
             else
             {
-                FuncMotion.MoveRelative((uint)axis,
+                FuncInlineMove.MoveRelative((uint)axis,
                    1000,
                    speed);
             }
@@ -440,7 +441,7 @@ namespace Radix
 
             int axis = (int)ServoSelect;
 
-            FuncMotion.MoveRelative((uint)axis,
+            FuncInlineMove.MoveRelative((uint)axis,
                   -1000,
                   GlobalVar.ServoManualSpeed);
         }
@@ -454,7 +455,7 @@ namespace Radix
 
             int axis = (int)ServoSelect;
 
-            FuncMotion.MoveRelative((uint)axis,
+            FuncInlineMove.MoveRelative((uint)axis,
                   1000,
                   GlobalVar.ServoManualSpeed);
         }
@@ -476,7 +477,7 @@ namespace Radix
             //
 
 
-            FuncMotion.MoveRelative((uint)axis,
+            FuncInlineMove.MoveRelative((uint)axis,
                   1000,
                   speed);
             //GlobalVar.ServoManualSpeed);
@@ -505,7 +506,7 @@ namespace Radix
             double speed = GlobalVar.ServoManualSpeed;  // mm/s
 
 
-            FuncMotion.MoveRelative((uint)axis,
+            FuncInlineMove.MoveRelative((uint)axis,
                   -1000,
                   speed);
 

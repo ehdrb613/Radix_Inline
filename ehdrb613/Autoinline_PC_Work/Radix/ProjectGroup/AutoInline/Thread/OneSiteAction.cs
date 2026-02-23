@@ -18,7 +18,9 @@ namespace Radix
          */
         private int SiteIndex = 0;
         private int pcIndex = 0;
-
+        private bool LoadingOk = false;
+        private bool unLoadingOk = false;
+        String delayName = "";
         private void debug(string str)
         {
             Util.Debug("SiteAction : " + str);
@@ -41,7 +43,7 @@ namespace Radix
                 try
                 {
                     Util.StartWatch(ref watch);
-
+                    delayName = $"Site{SiteIndex}";
                     // 공통 변수 정의
                     FuncInline.enumTeachingPos pos = FuncInline.enumTeachingPos.Site1_F_DT1 + SiteIndex;
                     int smdIndex = FuncInline.MapSmdIndex(SiteIndex);
@@ -66,27 +68,35 @@ namespace Radix
                                 case FuncInline.enumSiteAction.Loading:
                                     #region Loading
                                     // 로딩 시퀀스 수행 (완료 시 true 반환)
-                                    if (FuncInlineAction.OneSiteMove(pos, FuncInline.enumSiteAction.Loading))
+                                    if (LoadingOk || FuncInlineAction.OneSiteMove(pos, FuncInline.enumSiteAction.Loading))
                                     {
+                                        LoadingOk = true;   //한번만 OneSiteMove를 하기 위해 추가
                                         FuncLog.WriteLog($"[{pos}][Loading] Finish");
-                                        // 1. 어레이 상태 초기화 (Testing 준비)
-                                        for (int j = 0; j < pcbInfo.SMDStatus.Length; j++)
+                                        if(pcbInfo.PCBStatus != FuncInline.enumSMDStatus.UnKnown)
                                         {
-                                            // DL/FT 구분하여 대상 어레이인지 확인 (함수 사용)
-                                            if (IsTargetArray(pos, j) &&
-                                                pcbInfo.SMDStatus[j] != FuncInline.enumSMDStatus.Test_Pass &&
-                                                pcbInfo.SMDStatus[j] != FuncInline.enumSMDStatus.No_Test &&
-                                                !pcbInfo.Xout[j] && !pcbInfo.BadMark[j])
+                                            // 1. 어레이 상태 초기화 (Testing 준비)
+                                            for (int j = 0; j < pcbInfo.SMDStatus.Length; j++)
                                             {
-                                                pcbInfo.SMDReady[j] = false;
-                                                pcbInfo.SMDReadySent[j] = false;
-                                                pcbInfo.SMDStatus[j] = FuncInline.enumSMDStatus.Before_Command;
+                                                // DL/FT 구분하여 대상 어레이인지 확인 (함수 사용)
+                                                if (IsTargetArray(pos, j) &&
+                                                    pcbInfo.SMDStatus[j] != FuncInline.enumSMDStatus.Test_Pass &&
+                                                    pcbInfo.SMDStatus[j] != FuncInline.enumSMDStatus.No_Test &&
+                                                    !pcbInfo.Xout[j] && !pcbInfo.BadMark[j])
+                                                {
+                                                    pcbInfo.SMDReady[j] = false;
+                                                    pcbInfo.SMDReadySent[j] = false;
+                                                    pcbInfo.SMDStatus[j] = FuncInline.enumSMDStatus.Before_Command;
+                                                }
+                                            }
+                                            pcbInfo.PCBStatus = FuncInline.enumSMDStatus.Before_Command;
+                                            if (FuncInline.IsDelayOver(delayName, 1000))
+                                            {
+                                                // 2. 상태 전환: Testing
+                                                ChangeSiteAction(SiteIndex, FuncInline.enumSiteAction.Testing, "Load Done");
+                                                LoadingOk = false;
                                             }
                                         }
-                                        pcbInfo.PCBStatus = FuncInline.enumSMDStatus.Before_Command;
-
-                                        // 2. 상태 전환: Testing
-                                        ChangeSiteAction(SiteIndex, FuncInline.enumSiteAction.Testing, "Load Done");
+                                      
                                     }
                                     #endregion
                                     break;
@@ -107,7 +117,7 @@ namespace Radix
                                         // 핀 다운 확인 (물리적 고정 확인)
                                         bool hasUpDownDO = FuncInline.SiteIoMaps.TryGetContactUpDownDO(pos, out var doContactUpDown);
                                         bool hasUpDI = FuncInline.SiteIoMaps.TryGetContactUpDI(pos, out var diContactUp);
-                                        bool isPinDown = (hasUpDownDO && hasUpDI && !DIO.GetDIData(diContactUp) && !DIO.GetDOData(doContactUpDown));
+                                        bool isPinDown = (hasUpDownDO && hasUpDI && !DIO.GetDIData(diContactUp) && DIO.GetDOData(doContactUpDown));
 
                                         if (isPinDown)
                                         {
@@ -122,7 +132,10 @@ namespace Radix
                                         {
                                             // 핀이 제대로 안 내려갔으면 다시 로딩 시도? 혹은 알람?
                                             // 여기선 기존 로직대로 Loading으로 복귀 시도
-                                            ChangeSiteAction(SiteIndex, FuncInline.enumSiteAction.Loading, "Pin Down Fail Retry");
+                                            if (FuncInline.IsDelayOver(delayName, 1000))
+                                            {
+                                                ChangeSiteAction(SiteIndex, FuncInline.enumSiteAction.Loading, "Pin Down Fail Retry");
+                                            }
                                         }
                                     }
 
@@ -138,7 +151,8 @@ namespace Radix
                                             pcbInfo.TestTime = (int)(pcbInfo.StopWatch.ElapsedMilliseconds / 1000);
                                             pcbInfo.StopWatch.Stop();
                                         }
-                                        if (FuncInline.SiteUnclamp(pos))
+                                        //FuncInline.SiteUnclamp(pos) 중복 함수 바꿈
+                                        if (FuncInlineAction.OneSiteMove(pos, FuncInline.enumSiteAction.Tested))
                                         {
                                             // 다음 단계: UnLoading (배출 대기)
                                             ChangeSiteAction(SiteIndex, FuncInline.enumSiteAction.Unloading, "Test Finish");
@@ -155,16 +169,16 @@ namespace Radix
                                     #region UnLoading
                                     // 1. 물리적 해제 (핀 업 & 언클램프)
                                     // SiteUnclamp 내부에서 IO 제어 수행
-
-                                    if(SiteIndex < 13)
+                                    if (SiteIndex < 13)
                                     {
 
-                                        int sitePosindex = (int)SiteIndex - (int)FuncInline.enumTeachingPos.Site1_F_DT1 + (int)FuncInline.enumLiftPos.Site1_F_DT1_Up;
-                                        if (FuncInlineMove.IsArrived(0, FuncInline.LiftPos[0, sitePosindex]) &&
+                                        int sitePosindex = (int)SiteIndex  + (int)FuncInline.enumLiftPos.Site1_F_DT1_Up;
+                                        if (FuncInlineMove.IsArrived((int)FuncInline.enumServoAxis.SV02_Lift1, FuncInline.LiftPos[0, sitePosindex]) &&
                                             (AutoInline.Class.FrontRack.Action == FrontRack.enumAction.Loading ||
                                             AutoInline.Class.FrontRack.Action == FrontRack.enumAction.LoadingCheck))
                                         {
-                                            FuncInlineAction.ControlConveyor(pos, FuncInline.enumMotorDir.CW);
+                                            FuncInlineAction.OneSiteMove(pos, FuncInline.enumSiteAction.Unloading);
+                                           // FuncInlineAction.ControlConveyor(pos, FuncInline.enumMotorDir.CW); //중복기능 바꿈
                                         }
 
                                         // 2. 데이터 확인 (Rack이 가져갔는지?)
@@ -173,8 +187,11 @@ namespace Radix
                                         if (pcbInfo.PCBStatus == FuncInline.enumSMDStatus.UnKnown &&
                                             FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.Lift1_Up].PCBStatus != FuncInline.enumSMDStatus.UnKnown)
                                         {
-                                            // Rack이 가져감 -> 대기 상태로 전환
-                                            ChangeSiteAction(SiteIndex, FuncInline.enumSiteAction.Waiting, "Unloaded (Empty)");
+                                            if (FuncInline.IsDelayOver(delayName, 1000))
+                                            {
+                                                // Rack이 가져감 -> 대기 상태로 전환
+                                                ChangeSiteAction(SiteIndex, FuncInline.enumSiteAction.Waiting, "Unloaded (Empty)");
+                                            }
                                             FuncInlineAction.ControlConveyor(pos, FuncInline.enumMotorDir.Stop);
                                             // 타이머 리셋 등 마무리
                                             if (pcbInfo.StopWatch != null) pcbInfo.StopWatch.Reset();
@@ -184,12 +201,13 @@ namespace Radix
                                     else
                                     {
 
-                                        int sitePosindex = (int)SiteIndex - (int)FuncInline.enumTeachingPos.Site1_F_DT1 + (int)FuncInline.enumLiftPos.Site1_F_DT1_Up;
-                                        if (FuncInlineMove.IsArrived(0, FuncInline.LiftPos[0, sitePosindex]) &&
+                                        int sitePosindex = (int)SiteIndex + (int)FuncInline.enumLiftPos.Site1_F_DT1_Up;
+                                        if (FuncInlineMove.IsArrived((int)FuncInline.enumServoAxis.SV04_Lift2, FuncInline.LiftPos[1, sitePosindex]) &&
                                             (AutoInline.Class.RearRack.Action == RearRack.enumAction.Loading ||
                                             AutoInline.Class.RearRack.Action == RearRack.enumAction.LoadingCheck))
                                         {
-                                            FuncInlineAction.ControlConveyor(pos, FuncInline.enumMotorDir.CW);
+                                            FuncInlineAction.OneSiteMove(pos, FuncInline.enumSiteAction.Unloading);
+                                            //FuncInlineAction.ControlConveyor(pos, FuncInline.enumMotorDir.CW);
                                         }
                                         // 2. 데이터 확인 (Rack이 가져갔는지?)
                                         // Rack(Front/Rear)이 Loading 동작을 수행하면 해당 Site의 PCBInfo를 가져가고
@@ -359,26 +377,67 @@ namespace Radix
                 {
                     if (!IsTargetArray(pos, j)) continue;
 
-                    if (pcbInfo.SMDStatus[j] != FuncInline.enumSMDStatus.Test_Pass &&
-                        pcbInfo.SMDStatus[j] != FuncInline.enumSMDStatus.No_Test)
+                    if (pcbInfo.SMDStatus[j] != FuncInline.enumSMDStatus.Test_Pass ||
+                        pcbInfo.SMDStatus[j] == FuncInline.enumSMDStatus.No_Test)
                     {
                         anyFail = true;
                         break;
                     }
                 }
 
+                //PASS,FAIL 판단
                 if (anyFail)
                 {
+                    if (pos >= FuncInline.enumTeachingPos.Site1_F_DT1 && pos <= FuncInline.enumTeachingPos.Site13_F_FT3)
+                    {
+                        //DL일때 ScanSite로
+                        pcbInfo.Destination = FuncInline.enumTeachingPos.FrontScanSite;
+                        //FT일때 Fail이면 NG로 배출
+                    }
+                    else
+                    {
+                        pcbInfo.Destination = FuncInline.enumTeachingPos.Lift2_Up;
+                    }
+
+                    //캔슬일때 배출
+                    for (int j = 0; j < FuncInline.MaxArrayCount; j++)
+                    {
+                        if (!IsTargetArray(pos, j)) continue;
+
+                        if (pcbInfo.SMDStatus[j] == FuncInline.enumSMDStatus.No_Test)
+                        {
+                            pcbInfo.Destination = FuncInline.enumTeachingPos.OutShuttle_Down;
+                            break;
+                        }
+                        
+                    }
                     // 재테스트 로직 (Self/Other Retest)
                     // (필요 시 기존 로직의 복잡한 Retest 조건 추가)
                     // 여기서는 간략히 Fail 처리
                     pcbInfo.PCBStatus = FuncInline.enumSMDStatus.Test_Fail;
                     pcbInfo.NgType = FuncInline.enumNGType.NormalFail;
+                    //수정필요byDG 260212
+                    //재테스트 후 All FAIL일 경우 NG로 배출해야함
+                    //하나라도 PASS있으면 SCAN하러 가야함(Rear층은 LIft에서 스캔 진행)
+                    
+
                 }
                 else
                 {
+                    //DL PASS 일경우 DTest_Pass
+                    //FT 최종 PASS 일경우 Test_Pass
                     pcbInfo.PCBStatus = FuncInline.enumSMDStatus.Test_Pass;
                     pcbInfo.NgType = FuncInline.enumNGType.OK;
+                    //수정필요byDG 260212
+                    if(pos >= FuncInline.enumTeachingPos.Site1_F_DT1 && pos <= FuncInline.enumTeachingPos.Site13_F_FT3)
+                    {
+                        pcbInfo.Destination = FuncInline.enumTeachingPos.FrontScanSite;
+                    }
+                    else
+                    {
+                        pcbInfo.Destination = FuncInline.enumTeachingPos.Lift2_Up;
+                    }
+                    
                 }
 
                 return true; // 테스트 종료

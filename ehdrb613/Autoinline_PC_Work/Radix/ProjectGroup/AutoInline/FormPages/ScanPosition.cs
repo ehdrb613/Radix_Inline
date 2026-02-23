@@ -448,9 +448,9 @@ namespace Radix
             //axis = (int)FuncInline.enumServoAxis.RobotZ2;
             if (btnPitch.BackColor == Color.Lime)
             {
-
+              
                 FuncInlineMove.MoveAbsolute((uint)actionAxisY,
-                double.Parse(lblPosX.Text) - (double)numPitch.Value,
+                double.Parse(lblPosY.Text) - (double)numPitch.Value,
                 (double)numSpeed.Value);
 
             }
@@ -473,6 +473,87 @@ namespace Radix
                 
                 jog = false;
                
+            }
+        }
+
+        private void btnJogLeft_MouseDown(object sender, MouseEventArgs e)
+        {
+            FuncInlineMove.StopAllJog(true);
+
+            #region 마우스 이외의 방법으로 클릭시 동작 방지
+            /*
+            if (e.Button == MouseButtons.None)
+            {
+                FuncWin.TopMessageBox("Use mouse at jog action.");
+                return;
+            }
+            //*/
+
+            #endregion
+
+            if (btnPitch.BackColor == Color.Lime)
+            {
+
+                FuncInlineMove.MoveAbsolute((uint)actionAxisX,
+                double.Parse(lblPosX.Text) + (double)numPitch.Value,
+                (double)numSpeed.Value);
+
+            }
+            else
+            {
+                jog = true;
+
+                FuncInlineMove.MoveAbsolute((uint)actionAxisX, 10000, (double)numSpeed.Value);
+            }
+        }
+        private void btnJogLeft_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (btnSpeed.BackColor == Color.Lime)
+            {
+                FuncInlineMove.StopAllJog(true);
+                Thread.Sleep(200);
+                FuncInlineMove.StopAllJog(true);
+                jog = false;
+            }
+        }
+        private void btnJogRigth_MouseDown(object sender, MouseEventArgs e)
+        {
+            FuncInlineMove.StopAllJog(true);
+
+            #region 마우스 이외의 방법으로 클릭시 동작 방지
+            /*
+            if (e.Button == MouseButtons.None)
+            {
+                FuncWin.TopMessageBox("Use mouse at jog action.");
+                return;
+            }
+            //*/
+
+            #endregion
+
+            if (btnPitch.BackColor == Color.Lime)
+            {
+
+                FuncInlineMove.MoveAbsolute((uint)actionAxisX,
+                double.Parse(lblPosX.Text) - (double)numPitch.Value,
+                (double)numSpeed.Value);
+
+            }
+            else
+            {
+                jog = true;
+
+                FuncInlineMove.MoveAbsolute((uint)actionAxisX, -15, (double)numSpeed.Value);
+            }
+        }
+        private void btnJogRigth_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (btnSpeed.BackColor == Color.Lime)
+            {
+                FuncInlineMove.StopAllJog(true);
+                Thread.Sleep(200);
+                FuncInlineMove.StopAllJog(true);
+                jog = false;
             }
         }
 
@@ -859,88 +940,7 @@ namespace Radix
 
 
 
-        private void btnJogLeft_MouseDown(object sender, MouseEventArgs e)
-        {
-            FuncInlineMove.StopAllJog(true);
-
-            #region 마우스 이외의 방법으로 클릭시 동작 방지
-            /*
-            if (e.Button == MouseButtons.None)
-            {
-                FuncWin.TopMessageBox("Use mouse at jog action.");
-                return;
-            }
-            //*/
-
-            #endregion
-
-            if (btnPitch.BackColor == Color.Lime)
-            {
-
-                FuncInlineMove.MoveAbsolute((uint)actionAxisX,
-                double.Parse(lblPosX.Text) + (double)numPitch.Value,
-                (double)numSpeed.Value);
-
-            }
-            else
-            {
-                jog = true;
-
-                FuncInlineMove.MoveAbsolute((uint)actionAxisX, 10000, (double)numSpeed.Value);
-            }
-        }
-        private void btnJogLeft_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (btnSpeed.BackColor == Color.Lime)
-            {
-                FuncInlineMove.StopAllJog(true);
-                Thread.Sleep(200);
-                FuncInlineMove.StopAllJog(true);
-                jog = false;
-            }
-        }
-        private void btnJogRigth_MouseDown(object sender, MouseEventArgs e)
-        {
-            FuncInlineMove.StopAllJog(true);
-
-            #region 마우스 이외의 방법으로 클릭시 동작 방지
-            /*
-            if (e.Button == MouseButtons.None)
-            {
-                FuncWin.TopMessageBox("Use mouse at jog action.");
-                return;
-            }
-            //*/
-
-            #endregion
-
-            if (btnPitch.BackColor == Color.Lime)
-            {
-
-                FuncInlineMove.MoveAbsolute((uint)actionAxisX,
-                double.Parse(lblPosX.Text) - (double)numPitch.Value,
-                (double)numSpeed.Value);
-
-            }
-            else
-            {
-                jog = true;
-
-                FuncInlineMove.MoveAbsolute((uint)actionAxisX, -15, (double)numSpeed.Value);
-            }
-        }
-
-        private void btnJogRigth_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (btnSpeed.BackColor == Color.Lime)
-            {
-                FuncInlineMove.StopAllJog(true);
-                Thread.Sleep(200);
-                FuncInlineMove.StopAllJog(true);
-                jog = false;
-            }
-        }
-
+       
         private void ScanPosition_FormClosed(object sender, FormClosedEventArgs e)
         {
             timerUI.Dispose();

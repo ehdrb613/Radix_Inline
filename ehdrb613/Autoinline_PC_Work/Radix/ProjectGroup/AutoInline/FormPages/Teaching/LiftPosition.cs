@@ -1088,7 +1088,7 @@ namespace Radix.Popup.Teaching
               btnPosRearInshuttlePos.BackColor == Color.Lime &&
               btnLiftUp.BackColor == Color.Lime)
             {
-                activeLiftPos = FuncInline.enumLiftPos.RearScanPos; // FrontLift 상단에서 패스라인2로 이송
+                activeLiftPos = FuncInline.enumLiftPos.RearInShuttlePos; // FrontLift 상단에서 패스라인2로 이송
                 validPos = true;
             }
             else if (siteIndex >= 0 &&

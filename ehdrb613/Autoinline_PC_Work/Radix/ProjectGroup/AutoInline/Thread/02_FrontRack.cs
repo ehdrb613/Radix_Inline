@@ -75,7 +75,7 @@ namespace Radix
         #endregion
         #region 동작 설정용
         public double ThreadSleep = 100; // 쓰레드 동작 속도, 클래스 초기화 후 메인에서 설정값을 지정할 것
-        public double ActionTimeout = 20 * 1000; // 타임아웃 처리 시간. 클래스 초기화 후 메인에서 설정값을 지정할 것
+        public double ActionTimeout = FuncInline.ConveyorTimeout * 1000; // 타임아웃 처리 시간. 클래스 초기화 후 메인에서 설정값을 지정할 것
         #endregion
         /** @brief 쓰레드의 동작 단계 */
         public enumAction Action = enumAction.Waiting;
@@ -83,6 +83,9 @@ namespace Radix
         public enumPassLineAction PasslineAction = enumPassLineAction.Waiting;
         /** @brief 쓰레드의 동작 단계 */
         public enumScanSiteAction ScanSiteAction = enumScanSiteAction.Waiting;
+
+        public bool ScanReady = false;  //Front 스캔 준비
+
         /** @brief 쓰레드의 이전 동작 단계 */
         private enumAction beforeAction = enumAction.Waiting;
         /** @brief 시스템의 이전 상태 */
@@ -93,7 +96,7 @@ namespace Radix
         // 로딩 스텝 및 딜레이 타이머
         private int loadingStep = 0;
 
-        public int LastFrontFTIndex = 0; // FT 사이트 순차 투입용 인덱스
+        public int LastFrontFTIndex = -1; // FT 사이트 순차 투입용 인덱스
         private Stopwatch delayWatch = new Stopwatch();
 
         /** @brief 한 공정 완료 여부. 각 하부 Part별로 완료여부 체크되면 컨베어 움직이고, 컨베어 움직이기 시작하면 완료여부 clear 하면 된다. */
@@ -106,7 +109,9 @@ namespace Radix
         public int SV03_Rack1_Width = (int)FuncInline.enumServoAxis.SV03_Rack1_Width;
         public int Front = (int)enumLiftName.FrontLift;
         private enumTeachingPos NextDestination = enumTeachingPos.None;
-
+        enumSMDStatus LiftStatus = enumSMDStatus.UnKnown;
+        enumSMDStatus PassLineStatus = enumSMDStatus.UnKnown;
+        enumSMDStatus ScanSiteStatus = enumSMDStatus.UnKnown;
         private const string Key_PassLine_Load = "PassLine_Load";
         private const string Key_PassLine_Unload = "PassLine_Unload";
         private const string Key_Lift_Load = "Lift_Load";
@@ -115,6 +120,13 @@ namespace Radix
         private const string Key_Conveyor_Unload = "Conveyor_Unload";
         private const string Key_NG_Load = "NG_Load";
         private const string Key_NG_Unload = "NG_Unload";
+        private const string Key_ScanSite_Load = "ScanSite_Load";
+
+        static enumTeachingPos dest =enumTeachingPos.None;
+        //SiteAction 인덱스
+        int siteIdxLocal = (int)dest - (int)enumTeachingPos.Site1_F_DT1;
+        //SiteLiftPos 인덱스
+        int sitePosindex = (int)dest - (int)enumTeachingPos.Site1_F_DT1 + (int)enumLiftPos.Site1_F_DT1_Up;
 
         #region InShuttle DIO 변수
 
@@ -142,6 +154,7 @@ namespace Radix
         #endregion
         #region Di 출력부
         int startNum = (int)enumTeachingPos.Site1_F_DT1;
+
         //PCB층별 감지 센서
         public static bool[] Front_PCB_Sensor = new bool[13];
 
@@ -154,8 +167,8 @@ namespace Radix
         public bool FLift_UpPCB_Stop_Sensor = false;   //Lift Up PCB 정지센서
         public bool FLift_DownPCB_IN_Sensor = false;   //Lift Up PCB 진입센서
         public bool FLift_DownPCB_Stop_Sensor = false;   //Lift Up PCB 정지센서
-
-        public bool Front_PassLine_PCB_Sensor = false;  //Front Rack 인터락 센서
+        public bool FScan_Stop_Sensor = false;
+        public bool Front_PassLine_PCB_Sensor = false;  //Front Rack PassLine센서
 
         public static bool Front_Interlock_Sensor = false;  //Front Rack 인터락 센서
         #endregion
@@ -212,13 +225,17 @@ namespace Radix
                 try
                 {
                     #region 상시 체크할 부분
-
+                    ActionTimeout = FuncInline.ConveyorTimeout * 1000;
                     UpdateFrontAllStatus();    //층별센서,출력상태 확인
                     UpdateFrontETCStatus();
 
-                    enumSMDStatus LiftStatus = FuncInline.PCBInfo[(int)enumTeachingPos.Lift1_Up].PCBStatus;
-                    enumSMDStatus PassLineStatus = FuncInline.PCBInfo[(int)enumTeachingPos.FrontPassLine].PCBStatus;
-                    enumSMDStatus ScanSiteStatus = FuncInline.PCBInfo[(int)enumTeachingPos.FrontScanSite].PCBStatus;
+                    if(FuncInline.PCBInfo[(int)enumTeachingPos.Lift1_Up] != null)
+                    {
+                        LiftStatus = FuncInline.PCBInfo[(int)enumTeachingPos.Lift1_Up].PCBStatus;
+                        PassLineStatus = FuncInline.PCBInfo[(int)enumTeachingPos.FrontPassLine].PCBStatus;
+                        ScanSiteStatus = FuncInline.PCBInfo[(int)enumTeachingPos.FrontScanSite].PCBStatus;
+                    }
+                   
 
                     int PcbLiftID = FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.Lift1_Up].Num;
                     String logPcbLiftID = $"[PCB_ID:{PcbLiftID}]";
@@ -313,11 +330,21 @@ namespace Radix
                                         {
                                             //NextDestination = targetSite; // 가야할 곳 저장
                                             FuncInline.PCBInfo[(int)enumTeachingPos.Lift1_Up].Destination = targetSite;
+                                            if (targetSite == enumTeachingPos.FrontScanSite)
+                                            {
+                                                Log = $"{Name}MoveLift Action -> {targetSite}";
+                                                FuncLog.WriteLog(Log);
 
-                                            Log = $"{Name}MoveLift Action -> {targetSite}";
-                                            FuncLog.WriteLog(Log);
+                                                Action = enumAction.MoveScanSite; // MoveScanSite 상태로 전환
+                                            }
+                                            else
+                                            {
+                                                Log = $"{Name}MoveLift Action -> {targetSite}";
+                                                FuncLog.WriteLog(Log);
 
-                                            Action = enumAction.MoveLift; // MoveLift 상태로 전환
+                                                Action = enumAction.MoveLift; // MoveLift 상태로 전환
+                                            }
+                                           
                                         }
                                         else
                                         {
@@ -434,8 +461,6 @@ namespace Radix
                                         Action = enumAction.MovePassline;
                                     }
                                 }
-
-
                             }
                             Util.InitWatch(ref watch);
                             break;
@@ -471,6 +496,7 @@ namespace Radix
                             // Front 시작(Site1) ~ 끝(Site13) 범위 설정
                             int startPos = (int)enumTeachingPos.Site1_F_DT1;
                             int endPos = (int)enumTeachingPos.Site13_F_FT3;
+                            LastFrontFTIndex = -1;
 
                             // Site1_F_DT1(15) 부터 Site13_F_FT3(27) 까지 순차 반복
                             for (int i = startPos; i <= endPos; i++)
@@ -626,12 +652,17 @@ namespace Radix
                     #region if AutoRun
                     if (GlobalVar.SystemStatus >= enumSystemStatus.AutoRun)
                     {
-                        var dest = PCBInfo[(int)enumTeachingPos.Lift1_Up].Destination;
+                        if(PCBInfo[(int)enumTeachingPos.Lift1_Up].Destination != enumTeachingPos.None)
+                        {
+                            dest = PCBInfo[(int)enumTeachingPos.Lift1_Up].Destination;
+                            //SiteAction 인덱스
+                            siteIdxLocal = (int)dest - (int)enumTeachingPos.Site1_F_DT1;
+                            //SiteLiftPos 인덱스
+                            sitePosindex = (int)dest - (int)enumTeachingPos.Site1_F_DT1 + (int)enumLiftPos.Site1_F_DT1_Up;
+                        }
+                        
 
-                        //SiteAction 인덱스
-                        int siteIdxLocal = (int)dest - (int)enumTeachingPos.Site1_F_DT1;
-                        //SiteLiftPos 인덱스
-                        int sitePosindex = (int)dest - (int)enumTeachingPos.Site1_F_DT1 + (int)enumLiftPos.Site1_F_DT1_Up;
+                       
 
                         double targetPos = -9999;
                         // 1. 상태 변경 감지 및 타이머 리셋
@@ -797,13 +828,13 @@ namespace Radix
                                 // 센서 감지 시 일시 정지
                                 if (Front_PassLine_PCB_Sensor)
                                 {
- 
+
                                     Log = $"{Name}[PassLine] LoadingCheck Action";
                                     FuncLog.WriteLog(Log);
                                     PasslineAction = enumPassLineAction.LoadingCheck;
                                     DIO.WriteDOData(enumDONames.Y404_1_Front_Passline_Motor_Cw, false);
 
-                                  
+
                                 }
 
                                 break;
@@ -829,7 +860,7 @@ namespace Radix
                                         PasslineAction = enumPassLineAction.Waiting;
                                     }
                                 }
-                            
+
                                 break;
                             #endregion
                             case enumPassLineAction.UnLoading:
@@ -879,71 +910,10 @@ namespace Radix
 
                         }
                         //ScanSite
-                        switch (ScanSiteAction)
-                        {
+                        // 02_FrontRack.cs 내부 switch (ScanSiteAction) 부분
 
-                            case enumScanSiteAction.Waiting:
-                                #region Waiting
-
-                                break;
-                            #endregion
-                            case enumScanSiteAction.Loading:
-                                #region Loading
-
-
-                                break;
-                            #endregion
-                            case enumScanSiteAction.LoadingCheck:
-                                #region WLoadingCheckaiting
-
-
-                                break;
-                            #endregion
-                            case enumScanSiteAction.ScanWait:
-                                #region ScanWait
-
-
-                                break;
-                            #endregion
-                            case enumScanSiteAction.ScanOK:
-                                #region ScanOK
-
-                                // 3. 빈 FT 사이트 탐색 및 목적지 설정
-                                var targetFT = GetAvailableFrontFTSite();
-
-                                if (targetFT != FuncInline.enumTeachingPos.None)
-                                {
-                                    // 목적지 설정
-                                    FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.FrontScanSite].Destination = targetFT;
-
-                                    Log = $"{Name} Scan Complete. Next Destination: {targetFT}";
-                                    FuncLog.WriteLog(Log);
-
-                                    // 언로딩으로 전환
-                                    ScanSiteAction = enumScanSiteAction.UnLoading;
-                                }
-                                else
-                                {
-                                    // 빈 FT가 없으면 대기 (Waiting) 혹은 알람?
-                                    // 보통은 여기서 계속 대기하며 빈 자리가 날 때까지 돔
-                                    // Log = $"{Name} Scan Complete but No Empty FT Site. Waiting...";
-                                }
-                                break;
-                            #endregion
-                            case enumScanSiteAction.UnLoading:
-                                #region UnLoading
-
-
-                                break;
-                            #endregion
-                            case enumScanSiteAction.UnLoadingCheck:
-                                #region UnLoadingCheck
-
-                                break;
-                                #endregion
-
-
-                        }
+                        //ScanSite
+                        Logic_ScanSite();
 
                         //LiftAction
                         switch (Action)
@@ -959,17 +929,21 @@ namespace Radix
                                 #region MovePassline
                                 //PassLine으로 이동
                                 double Pos = LiftPos[Front, (int)enumLiftPos.FrontPassLine];
-                                if (GlobalVar.AxisStatus[SV02_Lift1].StandStill)
-                                {
-                                    Log = $"{Name}[Lift]Move to FrontPassLine Position";
-                                    FuncLog.WriteLog(Log);
-                                    FuncInlineMove.MoveAbsolute((uint)SV02_Lift1, Pos);
-                                }
+
                                 if (FuncInlineMove.IsArrived((int)SV02_Lift1, Pos))
                                 {
                                     Log = $"{Name}[Lift]FrontPassLine Move OK ->Loading Action";
                                     FuncLog.WriteLog(Log);
                                     Action = enumAction.Waiting;
+                                }
+                                else
+                                {
+                                    if (GlobalVar.AxisStatus[SV02_Lift1].StandStill)
+                                    {
+                                        Log = $"{Name}[Lift]Move to FrontPassLine Position";
+                                        FuncLog.WriteLog(Log);
+                                        FuncInlineMove.MoveAbsolute((uint)SV02_Lift1, Pos);
+                                    }
                                 }
                                 Util.InitWatch(ref watch);
                                 break;
@@ -978,17 +952,21 @@ namespace Radix
                                 #region MovePassline
 
                                 Pos = LiftPos[Front, (int)enumLiftPos.OutShuttleUp];
-                                if (GlobalVar.AxisStatus[SV02_Lift1].StandStill)
-                                {
-                                    Log = $"{Name}[Lift]{Action} Position";
-                                    FuncLog.WriteLog(Log);
-                                    FuncInlineMove.MoveAbsolute((uint)SV02_Lift1, Pos);
-                                }
+
                                 if (FuncInlineMove.IsArrived((int)SV02_Lift1, Pos))
                                 {
                                     Log = $"{Name}[Lift]{logPcbLiftID}{Action} Lift Move OK ->UnLoading Action";
                                     FuncLog.WriteLog(Log);
                                     Action = enumAction.UnLoading;
+                                }
+                                else
+                                {
+                                    if (GlobalVar.AxisStatus[SV02_Lift1].StandStill)
+                                    {
+                                        Log = $"{Name}[Lift]{Action} Position";
+                                        FuncLog.WriteLog(Log);
+                                        FuncInlineMove.MoveAbsolute((uint)SV02_Lift1, Pos);
+                                    }
                                 }
                                 Util.InitWatch(ref watch);
                                 break;
@@ -997,17 +975,21 @@ namespace Radix
                                 #region MovePassline
                                 //PassLine으로 이동
                                 Pos = LiftPos[Front, (int)enumLiftPos.OutShuttleDown];
-                                if (GlobalVar.AxisStatus[SV02_Lift1].StandStill)
-                                {
-                                    Log = $"{Name}[Lift]{Action} Position";
-                                    FuncLog.WriteLog(Log);
-                                    FuncInlineMove.MoveAbsolute((uint)SV02_Lift1, Pos);
-                                }
+
                                 if (FuncInlineMove.IsArrived((int)SV02_Lift1, Pos))
                                 {
                                     Log = $"{Name}[Lift]{logPcbLiftID}{Action}Lift Move OK ->UnLoading Action";
                                     FuncLog.WriteLog(Log);
                                     Action = enumAction.UnLoading;
+                                }
+                                else
+                                {
+                                    if (GlobalVar.AxisStatus[SV02_Lift1].StandStill)
+                                    {
+                                        Log = $"{Name}[Lift]{Action} Position";
+                                        FuncLog.WriteLog(Log);
+                                        FuncInlineMove.MoveAbsolute((uint)SV02_Lift1, Pos);
+                                    }
                                 }
                                 Util.InitWatch(ref watch);
                                 break;
@@ -1016,26 +998,31 @@ namespace Radix
                                 #region MovePassline
                                 //PassLine으로 이동
                                 Pos = LiftPos[Front, (int)enumLiftPos.FrontScanPos];
-                                if (GlobalVar.AxisStatus[SV02_Lift1].StandStill)
-                                {
-                                    Log = $"{Name}[Lift]{Action} Position";
-                                    FuncLog.WriteLog(Log);
-                                    FuncInlineMove.MoveAbsolute((uint)SV02_Lift1, Pos);
-                                }
+
                                 if (FuncInlineMove.IsArrived((int)SV02_Lift1, Pos))
                                 {
                                     if (PCBInfo[(int)enumTeachingPos.Lift1_Up].PCBStatus == enumSMDStatus.UnKnown)
                                     {
-                                        Log = $"{Name}[Lift]{logPcbLiftID}{Action}Lift Move OK ->UnLoading Action";
+                                        Log = $"{Name}[Lift]{logPcbLiftID}{Action}Lift Move OK ->Loading Action";
                                         FuncLog.WriteLog(Log);
-                                        Action = enumAction.UnLoading; //ScanSite UnLoading 받기 시작
+                                        Action = enumAction.Loading; //ScanSite Loading 받기 시작
                                     }
+                                    else
                                     {
-                                        Log = $"{Name}[Lift]{Action}Lift Move OK ->Loading Action";
+                                        Log = $"{Name}[Lift]{Action}Lift Move OK ->UnLoading Action";
                                         FuncLog.WriteLog(Log);
-                                        Action = enumAction.Loading; //ScanSite Loading 투입 시작
+                                        Action = enumAction.UnLoading; //ScanSite UnLoading 투입 시작
                                     }
 
+                                }
+                                else
+                                {
+                                    if (GlobalVar.AxisStatus[SV02_Lift1].StandStill)
+                                    {
+                                        Log = $"{Name}[Lift]{Action} Position";
+                                        FuncLog.WriteLog(Log);
+                                        FuncInlineMove.MoveAbsolute((uint)SV02_Lift1, Pos);
+                                    }
                                 }
                                 Util.InitWatch(ref watch);
                                 break;
@@ -1043,9 +1030,9 @@ namespace Radix
                             case enumAction.MoveLift:
                                 #region MoveLift
                                 {
-                                    dest = PCBInfo[(int)enumTeachingPos.Lift1_Up].Destination;
+                                    //dest = PCBInfo[(int)enumTeachingPos.Lift1_Up].Destination;
 
-                                    siteIdxLocal = (int)dest - (int)enumTeachingPos.Site1_F_DT1;
+                                    //siteIdxLocal = (int)dest - (int)enumTeachingPos.Site1_F_DT1;
                                     // 목적지 좌표 가져오기
                                     targetPos = -9999;
 
@@ -1062,7 +1049,7 @@ namespace Radix
                                         }
                                         else if (FuncInline.PCBInfo[(int)enumTeachingPos.Lift1_Up].Destination == enumTeachingPos.FrontScanSite)
                                         {
-                                            targetPos = LiftPos[Front, (int)enumTeachingPos.FrontScanSite];
+                                            targetPos = LiftPos[Front, (int)enumLiftPos.FrontScanPos];
                                         }
 
                                         // 이동 지령
@@ -1140,10 +1127,10 @@ namespace Radix
                                 #region Loading (PassLine/Site/Scan -> Lift)
                                 Util.InitWatch(ref watch);
                                 Stopper_Open(false);
-                                dest = PCBInfo[(int)enumTeachingPos.Lift1_Up].Destination;
+                                //dest = PCBInfo[(int)enumTeachingPos.Lift1_Up].Destination;
 
-                                siteIdxLocal = (int)dest - (int)enumTeachingPos.Site1_F_DT1;
-                                sitePosindex = ((int)dest - (int)enumTeachingPos.Site1_F_DT1) + (int)enumLiftPos.Site1_F_DT1_Up;
+                                //siteIdxLocal = (int)dest - (int)enumTeachingPos.Site1_F_DT1;
+                                //sitePosindex = ((int)dest - (int)enumTeachingPos.Site1_F_DT1) + (int)enumLiftPos.Site1_F_DT1_Up;
 
                                 // 1. PassLine에서 로딩
                                 if (dest == enumTeachingPos.FrontPassLine)
@@ -1151,7 +1138,7 @@ namespace Radix
                                     if (PasslineAction == enumPassLineAction.UnLoading ||
                                         PasslineAction == enumPassLineAction.UnLoadingCheck)
                                     {
-                                        if (LiftupLoadingAction())
+                                        if (LiftupLoadingAction(dest))
                                         {
                                             Log = $"{Name}[Lift]PassLine->LiftUp Loading Finish, LoadingCheck Action ";
                                             FuncLog.WriteLog(Log);
@@ -1159,16 +1146,21 @@ namespace Radix
                                             break;
                                         }
                                     }
+                                    else
+                                    {
+                                        watch.Restart();
+                                    }
 
                                 }
                                 // 2. ScanStie에서 로딩
                                 if (dest == enumTeachingPos.FrontScanSite)
                                 {
+                                    
                                     //한번더 체크
                                     if (ScanSiteAction == enumScanSiteAction.UnLoading ||
                                         ScanSiteAction == enumScanSiteAction.UnLoadingCheck)
                                     {
-                                        if (LiftupLoadingAction())
+                                        if (LiftupLoadingAction(dest))
                                         {
                                             Log = $"{Name}[Lift]ScanSite->LiftUp Loading Finish, LoadingCheck Action ";
                                             FuncLog.WriteLog(Log);
@@ -1176,19 +1168,28 @@ namespace Radix
                                             break;
                                         }
                                     }
+                                    else
+                                    {
+                                        watch.Restart();
+                                    }
                                 }
-                                if (dest == enumTeachingPos.FrontPassLine || dest == enumTeachingPos.FrontScanSite) break;
+                                //안전장치
+                                if (!(dest >= enumTeachingPos.Site1_F_DT1 && dest <= enumTeachingPos.Site13_F_FT3)) break;
 
                                 targetPos = LiftPos[Front, sitePosindex];
                                 // 3. Test Site에서 로딩
                                 if (FuncInline.SiteAction[siteIdxLocal] == enumSiteAction.Unloading &&
                                      FuncInlineMove.IsArrived((int)SV02_Lift1, targetPos))
                                 {
-                                    if (LiftupLoadingAction())
+                                    if (LiftupLoadingAction(dest))
                                     {
                                         Log = $"{Name}[Lift][{(enumTeachingPos)dest}] Site->LiftUp Loading Finish, LoadingCheck Action ";
                                         FuncLog.WriteLog(Log);
                                         Action = enumAction.LoadingCheck;
+                                    }
+                                    else
+                                    {
+                                        watch.Restart();
                                     }
 
                                 }
@@ -1204,7 +1205,7 @@ namespace Radix
                                 var sourcePos = PCBInfo[(int)enumTeachingPos.Lift1_Up].Destination;
 
                                 //잠시 대기하고 데이터 이동
-                                if (FuncInline.IsDelayOver(Key_PassLine_Load, 500))
+                                if (FuncInline.IsDelayOver(Key_Lift_Load, 500))
                                 {
                                     // 2. [Data Move] 데이터 이동 실행 (Source -> Lift)
                                     // MovePCBInfo 내부에서 Source가 비어있지 않을 때만 이동하도록 되어 있다고 가정하거나,
@@ -1231,153 +1232,183 @@ namespace Radix
                             #endregion
                             case enumAction.UnLoading:
                                 #region UnLoading (Lift -> Site/Scan/OutUp/OutDown)
+
+                                // 목적지 확인
+                                dest = PCBInfo[(int)enumTeachingPos.Lift1_Up].Destination;
+
+                                // Site 인덱스 계산 (Test Site용)
+                                siteIdxLocal = (int)dest - (int)enumTeachingPos.Site1_F_DT1;
+
+                                int outshuttle = (int)enumShuttleName.OutShuttle;
+                                // 타겟 위치 계산 (도착 확인용)
+                                // ScanSite, OutShuttle 등은 별도 위치이므로 TestSite 범위일 때만 유효할 수 있음
+                                // 여기서는 도착 여부는 이미 Move 단계에서 확인했다고 가정하고,
+                                // 상대방의 상태(Waiting/Loading)를 확인하여 배출함.
+
+                                // 1. ScanSite로 투입
+                                if (dest == enumTeachingPos.FrontScanSite)
                                 {
-
-                                    // 목적지 확인
-                                    dest = PCBInfo[(int)enumTeachingPos.Lift1_Up].Destination;
-
-                                    // Site 인덱스 계산 (Test Site용)
-                                    siteIdxLocal = (int)dest - (int)enumTeachingPos.Site1_F_DT1;
-
-                                    int outshuttle = (int)enumShuttleName.OutShuttle;
-                                    // 타겟 위치 계산 (도착 확인용)
-                                    // ScanSite, OutShuttle 등은 별도 위치이므로 TestSite 범위일 때만 유효할 수 있음
-                                    // 여기서는 도착 여부는 이미 Move 단계에서 확인했다고 가정하고,
-                                    // 상대방의 상태(Waiting/Loading)를 확인하여 배출함.
-
-                                    // 1. ScanSite로 투입
-                                    if (dest == enumTeachingPos.FrontScanSite)
+                                    // ScanSite가 받을 준비(Waiting) 되었는지 확인
+                                    if (ScanSiteAction == enumScanSiteAction.Waiting ||
+                                         ScanSiteAction == enumScanSiteAction.Loading ||
+                                         ScanSiteAction == enumScanSiteAction.LoadingCheck)
                                     {
-                                        // ScanSite가 받을 준비(Waiting) 되었는지 확인
-                                        if (ScanSiteAction == enumScanSiteAction.Waiting ||
-                                             ScanSiteAction == enumScanSiteAction.Loading ||
-                                             ScanSiteAction == enumScanSiteAction.LoadingCheck)
+                                        if (ScanSiteAction == enumScanSiteAction.Waiting)
                                         {
-                                            if (ScanSiteAction != enumScanSiteAction.Loading)
-                                            {
-                                                // 상대방 로딩 시작 신호 (필요시)
-                                                ScanSiteAction = enumScanSiteAction.Loading;
-                                            }
-                                            
-                                            // 배출 동작 수행
-                                            if (LiftUnLoadingSiteAction())
-                                            {
-                                                Log = $"{Name}[Lift]{logPcbLiftID} Lift->ScanSite UnLoading Finish";
-                                                FuncLog.WriteLog(Log);
-                                                Action = enumAction.UnLoadingCheck;
-                                            }
+                                            // 상대방 로딩 시작 신호 (필요시)
+                                            ScanSiteAction = enumScanSiteAction.Loading;
                                         }
-                                        else
-                                        {
-                                            //배출 대기중일때 정지
-                                            watch.Restart();
-                                        }
-                                    }
-                                    // 2. OutShuttle (Pass/Fail) 투입, 투입 위치에 있으면
-                                    else if ((dest == enumTeachingPos.OutShuttle_Up || dest == enumTeachingPos.OutShuttle_Down) &&
-                                       FuncInlineMove.IsArrived(outshuttle, FuncInline.ShuttlePos[outshuttle, (int)enumShuttlePos.OutShuttle_FrontLiftLoading]))
-                                    {
-                                        if (AutoInline.Class.OutShuttle.OutShuttleAction == OutShuttle.OutShuttle_enumAction.FrontLoading ||
-                                            AutoInline.Class.OutShuttle.OutShuttleAction == OutShuttle.OutShuttle_enumAction.FrontLoadingCheck)
-                                        {
-                                            // (추가: OutShuttle이 올바른 층에 있는지 확인 필요)
-                                            // if (isOutShuttleReady && IsOutShuttleAtLiftPos())
-                                            Stopper_Open(true);
-                                            //if (PCBInfo[(int)enumTeachingPos.OutShuttle_Up].Destination == enumTeachingPos.Lift1_Up)
-                                            if (LiftUnLoadingOutShuttleAction())
-                                            {
-                                                string destName = (dest == enumTeachingPos.OutShuttle_Up) ? "OutShuttleUp" : "OutShuttleDown";
-                                                Log = $"{Name}[Lift]{logPcbLiftID} Lift->{destName} UnLoading Finish";
-                                                FuncLog.WriteLog(Log);
-                                                Action = enumAction.UnLoadingCheck;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            //배출 대기중일때 정지
-                                            watch.Restart();
-                                        }
-                                        // OutShuttle 상태 확인 (예: Loading 상태이고 내 층에 있는지)
-                                        //bool isOutShuttleReady = AutoInline.Class.OutShuttle.OutShuttleAction == OutShuttle.OutShuttle_enumAction.Loading;
 
-                                       
-
-                                    }
-
-                                    // 3. Test Site로 투입
-                                    else if (dest >= enumTeachingPos.Site1_F_DT1 && dest <= enumTeachingPos.Site13_F_FT3)
-                                    {
-                                        // 해당 사이트가 받을 준비(Waiting) 되었는지 확인
-                                        if (FuncInline.SiteAction[siteIdxLocal] == enumSiteAction.Waiting &&
-                                            PCBInfo[(int)dest].PCBStatus == enumSMDStatus.UnKnown)
+                                        // 배출 동작 수행
+                                        if (LiftUnLoadingSiteAction(dest))
                                         {
-                                            Log = $"{Name}[Lift]{logPcbLiftID} Lift->Site[{dest}] UnLoading Start";
+                                            Log = $"{Name}[Lift]{logPcbLiftID} Lift->ScanSite UnLoading Finish";
                                             FuncLog.WriteLog(Log);
-                                            // 사이트 로딩 시작 신호
-                                            FuncInline.SiteAction[siteIdxLocal] = enumSiteAction.Loading;
-
+                                            Action = enumAction.UnLoadingCheck;
                                         }
-                                        if (FuncInline.SiteAction[siteIdxLocal] == enumSiteAction.Loading)
-                                        {
-                                            if (LiftUnLoadingSiteAction())
-                                            {
-                                                Log = $"{Name}[Lift]{logPcbLiftID} Lift->Site[{dest}] UnLoading Check";
-                                                FuncLog.WriteLog(Log);
-                                                Action = enumAction.UnLoadingCheck;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            //배출 대기중일때 정지
-                                            watch.Restart();
-                                        }
+                                    }
+                                    else
+                                    {
+                                        //배출 대기중일때 정지
+                                        watch.Restart();
                                     }
                                 }
+                                // 2. OutShuttle (Pass/Fail) 투입, 투입 위치에 있으면
+                                else if ((dest == enumTeachingPos.OutShuttle_Up || dest == enumTeachingPos.OutShuttle_Down) &&
+                                   FuncInlineMove.IsArrived(outshuttle, FuncInline.ShuttlePos[outshuttle, (int)enumShuttlePos.OutShuttle_FrontLiftLoading]))
+                                {
+                                    Stopper_Open(true);
+                                    if (AutoInline.Class.OutShuttle.OutShuttleAction == OutShuttle.OutShuttle_enumAction.FrontLoading ||
+                                            AutoInline.Class.OutShuttle.OutShuttleAction == OutShuttle.OutShuttle_enumAction.FrontLoadingCheck)
+                                    {
+                                        // (추가: OutShuttle이 올바른 층에 있는지 확인 필요)
+                                        // if (isOutShuttleReady && IsOutShuttleAtLiftPos())
+
+                                        //if (PCBInfo[(int)enumTeachingPos.OutShuttle_Up].Destination == enumTeachingPos.Lift1_Up)
+                                        if (LiftUnLoadingOutShuttleAction(dest))
+                                        {
+                                            string destName = (dest == enumTeachingPos.OutShuttle_Up) ? "OutShuttleUp" : "OutShuttleDown";
+                                            Log = $"{Name}[Lift]{logPcbLiftID} Lift->{destName} UnLoading Finish";
+                                            FuncLog.WriteLog(Log);
+                                            Action = enumAction.UnLoadingCheck;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //배출 대기중일때 정지
+                                        watch.Restart();
+                                    }
+                                    // OutShuttle 상태 확인 (예: Loading 상태이고 내 층에 있는지)
+                                    //bool isOutShuttleReady = AutoInline.Class.OutShuttle.OutShuttleAction == OutShuttle.OutShuttle_enumAction.Loading;
+
+
+
+                                }
+
+                                // 3. Test Site로 투입
+                                else if (dest >= enumTeachingPos.Site1_F_DT1 && dest <= enumTeachingPos.Site13_F_FT3)
+                                {
+                                    // 해당 사이트가 받을 준비(Waiting) 되었는지 확인
+                                    if (FuncInline.SiteAction[siteIdxLocal] == enumSiteAction.Waiting &&
+                                        PCBInfo[(int)dest].PCBStatus == enumSMDStatus.UnKnown)
+                                    {
+                                        Log = $"{Name}[Lift]{logPcbLiftID} Lift->Site[{dest}] UnLoading Start";
+                                        FuncLog.WriteLog(Log);
+                                        // 사이트 로딩 시작 신호
+                                        FuncInline.SiteAction[siteIdxLocal] = enumSiteAction.Loading;
+
+                                    }
+                                    if (FuncInline.SiteAction[siteIdxLocal] == enumSiteAction.Loading)
+                                    {
+                                        if (LiftUnLoadingSiteAction(dest))
+                                        {
+                                            Log = $"{Name}[Lift]{logPcbLiftID} Lift->Site[{dest}] UnLoading Check";
+                                            FuncLog.WriteLog(Log);
+                                            Action = enumAction.UnLoadingCheck;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //배출 대기중일때 정지
+                                        watch.Restart();
+                                    }
+                                }
+
                                 //Util.InitWatch(ref watch);
                                 break;
                             #endregion
 
                             case enumAction.UnLoadingCheck:
                                 #region UnLoadingCheck (Data Move & Finish)
+                                // 목적지 재확인
+
+                                if(dest >= enumTeachingPos.Site1_F_DT1 && dest <= enumTeachingPos.Site13_F_FT3)
                                 {
-                                    // 목적지 재확인
-                                    dest = PCBInfo[(int)enumTeachingPos.Lift1_Up].Destination;
-                                    // Site 인덱스 계산 (Test Site용)
-                                    siteIdxLocal = (int)dest - (int)enumTeachingPos.Site1_F_DT1;
-
                                     // 1. 데이터 이동 (Lift -> Dest)
+                                    // (이동 함수는 공통으로 수행해도 무방함)
                                     FuncInline.MovePCBInfo(enumTeachingPos.Lift1_Up, dest);
+                                }
+                                
+                                // 2. 목적지별 완료 확인 및 인덱스 계산 분기
 
-                                    // 2. 완료 확인
-                                    // 리프트가 비워졌는지 확인
+                                // A. ScanSite로 보낸 경우
+                                if (dest == enumTeachingPos.FrontScanSite)
+                                {
+                                    // 리프트는 비워졌고, 스캔사이트에 데이터가 찼는지 확인
                                     if (PCBInfo[(int)enumTeachingPos.Lift1_Up].PCBStatus == enumSMDStatus.UnKnown &&
-                                        PCBInfo[(int)dest].PCBStatus != enumSMDStatus.UnKnown &&
-                                        FuncInline.SiteAction[siteIdxLocal] == enumSiteAction.Testing)
+                                        PCBInfo[(int)dest].PCBStatus != enumSMDStatus.UnKnown)
                                     {
-                                        // 다음 동작 결정 (UnLoading 후에는 보통 빈 리프트이므로 새로운 로딩을 위해 이동하거나 대기)
-
-                                        //혹시 나중에 따로 분기할수도 있으니 나눠놓음
-                                        //ScanSite로 보낸 후 -> 리프트는 빈 상태 -> 다음 로딩(PassLine/Scan/Site) 판단을 위해 Waiting으로
-                                        if (dest == enumTeachingPos.FrontScanSite)
-                                        {
-                                            Action = enumAction.Waiting;
-                                        }
-                                        //OutShuttle로 보낸 후 -> 빈 상태 -> Waiting
-                                        else if (dest == enumTeachingPos.OutShuttle_Up || dest == enumTeachingPos.OutShuttle_Down)
-                                        {
-                                            Action = enumAction.Waiting;
-                                            Stopper_Open(false);
-                                        }
-                                        //Test Site로 보낸 후 -> 빈 상태 -> Waiting
-                                        else
-                                        {
-                                            Action = enumAction.Waiting;
-                                        }
-                                        Log = $"{Name}[Lift][{dest}] UnLoading Complete. Lift Empty.";
+                                        Log = $"{Name}[Lift][ScanSite] UnLoading Complete. Lift Empty.";
                                         FuncLog.WriteLog(Log);
-
+                                        Action = enumAction.Waiting;
                                     }
                                 }
+                                // B. OutShuttle로 보낸 경우
+                                else if (dest == enumTeachingPos.OutShuttle_Up || dest == enumTeachingPos.OutShuttle_Down)
+                                {
+                                    if (PCBInfo[(int)enumTeachingPos.Lift1_Up].PCBStatus == enumSMDStatus.UnKnown &&
+                                        PCBInfo[(int)dest].PCBStatus != enumSMDStatus.UnKnown)
+                                    {
+                                        Stopper_Open(false); // 스토퍼 원복(닫기)
+
+                                        string destName = (dest == enumTeachingPos.OutShuttle_Up) ? "OutShuttleUp" : "OutShuttleDown";
+                                        Log = $"{Name}[Lift][{destName}] UnLoading Complete. Lift Empty.";
+                                        FuncLog.WriteLog(Log);
+
+                                        Action = enumAction.Waiting;
+                                    }
+                                }
+                                // C. Test Site로 보낸 경우 (여기서만 siteIdxLocal 계산)
+                                else if (dest >= enumTeachingPos.Site1_F_DT1 && dest <= enumTeachingPos.Site13_F_FT3)
+                                {
+                                    // ★ 중요: Test Site 범위일 때만 인덱스 계산
+                                    siteIdxLocal = (int)dest - (int)enumTeachingPos.Site1_F_DT1;
+
+                                    //// 사이트 상태 변경 (Loading -> Testing)
+                                    //// 사이트가 로딩 상태였다면, 이제 물건이 들어갔으므로 테스트 시작 상태로 변경
+                                    //if (FuncInline.SiteAction[siteIdxLocal] == enumSiteAction.Loading)
+                                    //{
+                                    //    FuncInline.SiteAction[siteIdxLocal] = enumSiteAction.Testing;
+                                    //}
+
+                                    // 완료 확인
+                                    if (PCBInfo[(int)enumTeachingPos.Lift1_Up].PCBStatus == enumSMDStatus.UnKnown &&
+                                        PCBInfo[(int)dest].PCBStatus != enumSMDStatus.UnKnown)
+                                        //FuncInline.SiteAction[siteIdxLocal] == enumSiteAction.Testing)
+                                    {
+                                        Log = $"{Name}[Lift][Site{siteIdxLocal + 1}] UnLoading Complete. Lift Empty.";
+                                        FuncLog.WriteLog(Log);
+                                        Action = enumAction.Waiting;
+                                    }
+                                }
+                                // D. 예외 (목적지 불명) 알람처리할지?
+
+                                else
+                                {
+                                    // 데이터는 이동시켰으나 목적지가 정의되지 않은 경우 -> Waiting으로 복귀하여 행 걸림 방지
+                                    Log = $"{Name}[Lift] Unknown Destination UnLoadingCheck. Force Waiting.";
+                                }
+
                                 break;
                                 #endregion
                         }
@@ -1553,6 +1584,7 @@ namespace Radix
             FLift_DownPCB_IN_Sensor = DIO.GetDIData(enumDINames.X400_0_Front_Lift_Down_PCB_In_Sensor);   //Lift Up PCB 진입센서
             FLift_DownPCB_Stop_Sensor = DIO.GetDIData(enumDINames.X400_2_Front_Lift_Down_PCB_Stop_Sensor);   //Lift Up PCB 정지센서
 
+            FScan_Stop_Sensor = DIO.GetDIData(enumDINames.X03_4_Front_Scan_PCB_Dock_Sensor);
             Front_PassLine_PCB_Sensor = DIO.GetDIData(enumDINames.X114_6_Front_PASSLINE_PCB_Stop_Sensor);  //Front Rack 인터락 센서
 
             Front_Interlock_Sensor = DIO.GetDIData(enumDINames.X114_7_Front_Rack_PCB_Interlock_Sensor);  //Front Rack 인터락 센서
@@ -1571,8 +1603,28 @@ namespace Radix
         /// Front Lift Up Loading 동작 (구동 -> 센서감지 -> 정지 -> 오버드라이브 -> 완료)
         /// </summary>
         /// <returns>동작 완료시 true</returns>
-        private bool LiftupLoadingAction()
+        private bool LiftupLoadingAction(enumTeachingPos dest)
         {
+            bool UnLoadingSensor = false;
+            if (dest == enumTeachingPos.FrontScanSite)
+            {
+                UnLoadingSensor = FScan_Stop_Sensor;
+            }
+            else if(dest == enumTeachingPos.FrontPassLine)
+            {
+                UnLoadingSensor = Front_PassLine_PCB_Sensor;
+            }
+            else
+            {
+                // 사이트 인덱스 계산 (0 ~ 12)
+                int siteIdx = (int)dest - (int)enumTeachingPos.Site1_F_DT1;
+
+                if (siteIdx >= 0 && siteIdx < 13)
+                {
+                    UnLoadingSensor = Front_PCB_Sensor[siteIdx];
+                }
+
+            }
             switch (loadingStep)
             {
                 case 0:
@@ -1582,7 +1634,7 @@ namespace Radix
                     DIO.WriteDOData(enumDONames.Y405_2_Front_Lift_Up_Motor_Ccw, false);
 
                     // 도착 센서 감지
-                    if (FLift_UpPCB_Stop_Sensor)
+                    if (FLift_UpPCB_Stop_Sensor && !UnLoadingSensor)
                     {
                         // 감지 후 300ms 지연 (안정화)
                         if (FuncInline.IsDelayOver(Key_Lift_Load, 300))
@@ -1679,7 +1731,7 @@ namespace Radix
         /// <summary>
         /// Front FT 사이트(Site10 ~ Site13) 중 사용 가능하고 빈 곳을 순차적으로 검색하여 반환
         /// </summary>
-        /// <returns>빈 FT 사이트 위치 (없으면 None)</returns>
+        /// <returns>빈 FT 사이트 위치 (없으면 None) 사용안함 </returns>
         public FuncInline.enumTeachingPos GetAvailableFrontFTSite()
         {
             // FT 사이트 시작/끝 인덱스 정의
@@ -1727,15 +1779,30 @@ namespace Radix
         /// <summary>
         /// Front Lift UnLoading 동작 (구동 -> 센서 OFF 확인 -> 정지 -> 완료)
         /// </summary>
-        private bool LiftUnLoadingSiteAction()
+        private bool LiftUnLoadingSiteAction(enumTeachingPos dest)
         {
             // 1. 배출 모터 구동
             DIO.WriteDOData(enumDONames.Y405_0_Front_Lift_Up_Motor_Cw, false);
             DIO.WriteDOData(enumDONames.Y405_2_Front_Lift_Up_Motor_Ccw, true);
 
+            bool LoadingSensor = false;
+            if (dest == enumTeachingPos.FrontScanSite)
+            {
+                LoadingSensor = FScan_Stop_Sensor;
+            }
+            else
+            {
+                // 사이트 인덱스 계산 (0 ~ 12)
+                int siteIdx = (int)dest - (int)enumTeachingPos.Site1_F_DT1;
+                
+                if (siteIdx >= 0 && siteIdx < 13)
+                {
+                    LoadingSensor = Front_PCB_Sensor[siteIdx];
+                }
+            }
             // 2. 센서 OFF 확인 (제품이 리프트를 떠남)
-            // 보통 Lift Stop 센서가 꺼지면 나간 것으로 간주
-            if (!FLift_UpPCB_Stop_Sensor && !FLift_DownPCB_IN_Sensor)
+            // 보통 Lift Stop 센서가 꺼지면 나간 것으로 간주, Loading 위치 도착했을때
+            if (!FLift_UpPCB_Stop_Sensor && !FLift_UpPCB_IN_Sensor && LoadingSensor)
             {
                 // 3. 완전히 나가도록 약간의 딜레이
                 if (FuncInline.IsDelayOver(Key_Lift_Unload, 500))
@@ -1758,18 +1825,31 @@ namespace Radix
         /// <summary>
         /// Front Lift UnLoading 동작 (구동 -> 센서 OFF 확인 -> 정지 -> 완료)
         /// </summary>
-        private bool LiftUnLoadingOutShuttleAction()
+        private bool LiftUnLoadingOutShuttleAction(enumTeachingPos dest)
         {
             // 1. 배출 모터 구동
             DIO.WriteDOData(enumDONames.Y405_0_Front_Lift_Up_Motor_Cw, true);
             DIO.WriteDOData(enumDONames.Y405_2_Front_Lift_Up_Motor_Ccw, false);
 
+            bool LoadingSensor = false;
+            // B. OutShuttle (OK/Up)로 배출 시
+            if (dest == enumTeachingPos.OutShuttle_Up)
+            {
+                // OutShuttle Up(OK Line) 진입 센서 확인
+                LoadingSensor = DIO.GetDIData(enumDINames.X302_4_Out_Shuttle_OK_PCB_Stop_Sensor);
+            }
+            // C. OutShuttle (NG/Down)로 배출 시
+            else if (dest == enumTeachingPos.OutShuttle_Down)
+            {
+                // OutShuttle Down(NG Line) 진입 센서 확인
+                LoadingSensor = DIO.GetDIData(enumDINames.X04_2_Out_Shuttle_NG_PCB_Stop_Sensor);
+            }
             // 2. 센서 OFF 확인 (제품이 리프트를 떠남)
-            // 보통 Lift Stop 센서가 꺼지면 나간 것으로 간주
-            if (!FLift_UpPCB_Stop_Sensor)
+            // 보통 Lift Stop 센서가 꺼지면 나간 것으로 간주, OutShuttle 도착 추가
+            if (!FLift_UpPCB_Stop_Sensor && LoadingSensor)
             {
                 // 3. 완전히 나가도록 약간의 딜레이
-                if (FuncInline.IsDelayOver(Key_Lift_Unload, 500))
+                if (FuncInline.IsDelayOver(Key_Lift_Unload, 1000))
                 {
                     // 4. 모터 정지
                     DIO.WriteDOData(enumDONames.Y405_0_Front_Lift_Up_Motor_Cw, false);
@@ -1785,6 +1865,211 @@ namespace Radix
             }
 
             return false;
+        }
+        private void Logic_ScanSite()
+        {
+            // [참고] 아래 변수들은 UpdateFrontAllStatus()에서 이미 갱신되었다고 가정합니다.
+            // 실제 사용 중인 변수명으로 교체해주세요.
+            // 예: FScan_Stop_Sensor, FScan_Arrived_Sensor, FScan_Clamp_Complete_Sensor 등
+
+            switch (ScanSiteAction)
+            {
+                case enumScanSiteAction.Waiting:
+                    // 대기 상태 에선 언클램프
+                    if (FScan_ClampSol)
+                    {
+                        DIO.WriteDOData(enumDONames.Y3_7_Front_SCAN_STOPPER_SOL, false);
+                    }
+
+                    // Loading 조건이 되면 상태 변경 (메인 로직 등에서 제어)
+
+                    break;
+
+                case enumScanSiteAction.Loading:
+                    #region Loading (Receive PCB)
+
+                    // 1. 컨베이어 구동
+                    DIO.WriteDOData(enumDONames.Y406_3_Front_SCAN_Motor_Ccw, true);
+
+                    // 2. 도착 센서 확인 (멤버 변수 사용)
+                    if (FScan_Stop_Sensor && !FLift_DownPCB_IN_Sensor && !FLift_DownPCB_Stop_Sensor) // UpdateFrontAllStatus()에서 갱신된 변수
+                    {
+
+                        // 감지 후 안착 딜레이
+                        if (FuncInline.IsDelayOver(Key_ScanSite_Load, 500))
+                        {
+                            if (!FScan_ClampSol)
+                            {
+                                DIO.WriteDOData(enumDONames.Y3_7_Front_SCAN_STOPPER_SOL, true); // Stop
+                            }
+
+                            DIO.WriteDOData(enumDONames.Y406_3_Front_SCAN_Motor_Ccw, false);
+                            Log = $"{Name} ScanSite LoadingCheck Action.";
+                            FuncLog.WriteLog(Log);
+                            ScanSiteAction = enumScanSiteAction.LoadingCheck;
+                        }
+                    }
+                    else
+                    {
+                        FuncInline.ResetDelay(Key_ScanSite_Load);
+                    }
+                    #endregion
+                    break;
+
+                case enumScanSiteAction.LoadingCheck:
+                    #region Loading Check & Fix
+                    if(Action == enumAction.UnLoadingCheck)
+                    {
+                        // 1. 제품 고정 해제(Scan층은 해제할 필요있음)
+                        DIO.WriteDOData(enumDONames.Y3_7_Front_SCAN_STOPPER_SOL, false);
+
+                        // 2. 고정 확인 (센서 혹은 시간)
+                        // if (FScan_Clamp_Complete_Sensor)
+                        if (FuncInline.IsDelayOver(Key_ScanSite_Load, 500))
+                        {
+                            FuncInline.MovePCBInfo(enumTeachingPos.Lift1_Up, enumTeachingPos.FrontScanSite);
+                        }
+
+                        // 3. 데이터 확인
+                        if (PCBInfo[(int)enumTeachingPos.FrontScanSite].PCBStatus != enumSMDStatus.UnKnown)
+                        {
+                            Log = $"{Name} ScanSite Loading Complete. ScanWait";
+                            FuncLog.WriteLog(Log);
+                            ScanSiteAction = enumScanSiteAction.ScanWait;
+                        }
+                    }
+                   
+
+                    #endregion
+                    break;
+
+                case enumScanSiteAction.ScanWait:
+                    #region Scan Request
+                    // 1. 스캔 요청
+                    if (!AutoInline.Class.Scan.FrontScanComplete)
+                    {
+                        ScanReady = true;
+                    }
+                    // 2. 스캔 완료 대기
+                    else
+                    {
+                        ScanReady = false;
+                        AutoInline.Class.Scan.FrontScanComplete = false;
+                        Log = $"{Name} Scan Finished.";
+                        FuncLog.WriteLog(Log);
+                        ScanSiteAction = enumScanSiteAction.ScanOK;
+
+
+                    }
+                    #endregion
+                    break;
+
+                case enumScanSiteAction.ScanOK:
+                    #region Check Next Step
+                    // 1. 스캔 결과 판정 (ErrorCode가 -1이 아니면 불량으로 간주)
+                    bool isNG = false;
+                    for (int i = 0; i < MaxArrayCount; i++)
+                    {
+                        if (PCBInfo[(int)enumTeachingPos.FrontScanSite].ErrorCode[i] != -1)
+                        {
+                            isNG = true;
+                            break;
+                        }
+                    }
+
+                    // 2. 목적지(Destination) 결정
+                    if (isNG)
+                    {
+                        // 불량(NG)인 경우 -> 하단 NG 배출
+                        PCBInfo[(int)enumTeachingPos.FrontScanSite].Destination = enumTeachingPos.OutShuttle_Down;
+                        Log = $"{Name}Scan Result: NG -> Dest: OutShuttle_Down";
+                        FuncLog.WriteLog(Log);
+                        ScanSiteAction = enumScanSiteAction.UnLoading;
+                    }
+                    else
+                    {
+                        // 양품(OK)인 경우 -> 비어있는 FT(또는 DT+FT) 사이트 찾기
+                        // FrontRack이면 true, RearRack이면 false 전달
+                        enumTeachingPos nextSite = GetAvailableFTSite(true);
+
+                        if (nextSite != enumTeachingPos.None)
+                        {
+                            PCBInfo[(int)enumTeachingPos.FrontScanSite].Destination = nextSite;
+                            Log = $"{Name}Scan Result: OK -> Dest: {nextSite}";
+                            FuncLog.WriteLog(Log);
+
+                            // 배출 시작
+                            ScanSiteAction = enumScanSiteAction.UnLoading;
+                            
+                        }
+                        else
+                        {
+                            // 모든 FT 사이트가 가득 찼으면 대기 (인터락)
+                            if (watch.ElapsedMilliseconds > 2000)
+                            {
+                                Log = $"{Name}Scan OK, but no available FT/DT sites. Waiting...";
+                                FuncLog.WriteLog(Log);
+                                watch.Restart();
+                            }
+                        }
+                    }
+                    #endregion
+                    break;
+
+                case enumScanSiteAction.UnLoading:
+                    #region UnLoading
+                    // 1. 배출 준비 (클램프 Open, 스토퍼 Down)
+                    // 목적지 확인
+                    var dest = PCBInfo[(int)enumTeachingPos.Lift1_Up].Destination;
+
+                    if (dest == enumTeachingPos.FrontScanSite &&
+                        (Action == enumAction.Loading || Action == enumAction.LoadingCheck) &&
+                        FuncInlineMove.IsArrived(SV02_Lift1, LiftPos[Front, (int)enumLiftPos.FrontScanPos]))
+                    {
+                        // 2. 컨베이어 구동
+                        DIO.WriteDOData(enumDONames.Y406_1_Front_SCAN_Motor_Cw, true);
+                        DIO.WriteDOData(enumDONames.Y406_3_Front_SCAN_Motor_Ccw, false);
+                    }
+
+
+                    // 3. 배출 확인 (센서 Off 확인 - 멤버 변수 사용)
+                    if (!FScan_Stop_Sensor && FLift_UpPCB_Stop_Sensor)
+                    {
+                        if (FuncInline.IsDelayOver(Key_ScanSite_Load, 500))
+                        {
+                            Log = $"{Name} ScanSite UnLoadingCheck Action.";
+                            FuncLog.WriteLog(Log);
+                            ScanSiteAction = enumScanSiteAction.UnLoadingCheck;
+                            DIO.WriteDOData(enumDONames.Y406_1_Front_SCAN_Motor_Cw, false);
+                        }
+                    }
+                    else
+                    {
+                        FuncInline.ResetDelay(Key_ScanSite_Load);
+                    }
+                    #endregion
+                    break;
+
+                case enumScanSiteAction.UnLoadingCheck:
+                    #region UnLoading Finish
+                    DIO.WriteDOData(enumDONames.Y406_1_Front_SCAN_Motor_Cw, false);
+                    if (Action == enumAction.LoadingCheck)
+                    {
+                        FuncInline.MovePCBInfo(enumTeachingPos.FrontScanSite, enumTeachingPos.Lift1_Up);
+                    }
+
+                    if (FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.FrontScanSite].PCBStatus == FuncInline.enumSMDStatus.UnKnown &&
+                            FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.Lift1_Up].PCBStatus != FuncInline.enumSMDStatus.UnKnown)
+                    {
+                        Log = $"{Name} ScanSite UnLoading Complete.";
+                        FuncLog.WriteLog(Log);
+
+                        ScanSiteAction = enumScanSiteAction.Waiting;
+                    }
+
+                    #endregion
+                    break;
+            }
         }
     }
 }

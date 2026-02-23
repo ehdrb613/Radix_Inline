@@ -113,25 +113,61 @@ namespace Radix
         {
             try
             {
-                int site = ((int)FuncInline.DetailSite - (int)FuncInline.enumTeachingPos.Site1_F_DT1 + 1);
-                int rowIndex = e.RowIndex;
-                int columnIndex = e.ColumnIndex;
-                string date = dataGridBlock.Rows[rowIndex].Cells[0].Value.ToString();
-                string time = dataGridBlock.Rows[rowIndex].Cells[1].Value.ToString();
-                string comment = dataGridBlock.Rows[rowIndex].Cells[5].Value.ToString();
+                // 1️유효한 RowIndex 확인
+                if (e.RowIndex < 0 || e.RowIndex >= dataGridBlock.Rows.Count)
+                    return;
 
-                string sql = "update BlockHistory Set " +
-                            "Comment = '" + comment.Replace("\n", "").Replace("'", "").Replace("\"", "") + "' " +
-                            "Where Site = '" + site + "' " +
-                            "And Date = '" + date + "' " +
-                            "And Time = '" + time + "' ";
+                var row = dataGridBlock.Rows[e.RowIndex];
+
+                // 2️ 새 행 체크
+                if (row.IsNewRow)
+                    return;
+
+                // 3️유효한 컬럼 체크
+                if (e.ColumnIndex < 0 || e.ColumnIndex >= row.Cells.Count)
+                    return;
+
+                // 4️ Value null 체크 후 변환
+                var dateValue = row.Cells[0].Value?.ToString() ?? "";
+                var timeValue = row.Cells[1].Value?.ToString() ?? "";
+                var commentValue = row.Cells[5].Value?.ToString() ?? "";
+
+                int site = ((int)FuncInline.DetailSite - (int)FuncInline.enumTeachingPos.Site1_F_DT1 + 1);
+
+                string sql = "UPDATE BlockHistory SET " +
+                             "Comment = '" + commentValue.Replace("\n", "").Replace("'", "").Replace("\"", "") + "' " +
+                             "WHERE Site = '" + site + "' " +
+                             "AND Date = '" + dateValue + "' " +
+                             "AND Time = '" + timeValue + "' ";
+
                 GlobalVar.Sql.Execute(sql);
             }
             catch (Exception ex)
             {
-                //debug(ex.ToString());
-                //debug(ex.StackTrace);
+                // 로그만 남기고 예외 무시
+                FuncLog.WriteLog("dataGridBlock_CellValueChanged Error: " + ex.ToString());
             }
+            //try
+            //{
+            //    int site = ((int)FuncInline.DetailSite - (int)FuncInline.enumTeachingPos.Site1_F_DT1 + 1);
+            //    int rowIndex = e.RowIndex;
+            //    int columnIndex = e.ColumnIndex;
+            //    string date = dataGridBlock.Rows[rowIndex].Cells[0].Value.ToString();
+            //    string time = dataGridBlock.Rows[rowIndex].Cells[1].Value.ToString();
+            //    string comment = dataGridBlock.Rows[rowIndex].Cells[5].Value.ToString();
+
+            //    string sql = "update BlockHistory Set " +
+            //                "Comment = '" + comment.Replace("\n", "").Replace("'", "").Replace("\"", "") + "' " +
+            //                "Where Site = '" + site + "' " +
+            //                "And Date = '" + date + "' " +
+            //                "And Time = '" + time + "' ";
+            //    GlobalVar.Sql.Execute(sql);
+            //}
+            //catch (Exception ex)
+            //{
+            //    //debug(ex.ToString());
+            //    //debug(ex.StackTrace);
+            //}
         }
 
 

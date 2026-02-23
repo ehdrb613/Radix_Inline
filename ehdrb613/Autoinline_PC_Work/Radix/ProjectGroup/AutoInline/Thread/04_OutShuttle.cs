@@ -277,7 +277,12 @@ namespace Radix
                 try
                 {
                     #region 상시 체크할 부분
-
+                    ActionTimeout = FuncInline.ConveyorTimeout * 1000;
+                    if (PCBInfo[(int)enumTeachingPos.OutShuttle_Up] != null)
+                    {
+                        var dest_Up = PCBInfo[(int)enumTeachingPos.OutShuttle_Up].Destination;
+                        var dest_Down = PCBInfo[(int)enumTeachingPos.OutShuttle_Down].Destination;
+                    }
 
                     //턴 동작 복동(로딩 위치일때)
                     Y_Turn_CCW_Cylinder = DIO.GetDORead(FuncInline.enumDONames.Y304_4_Out_Shuttle_Turn_Ccw_Cylinder);
@@ -313,11 +318,11 @@ namespace Radix
                     //PCB OK 진입부 감지 센서
                     X_OK_PCB_IN_Sensor = DIO.GetDIData(FuncInline.enumDINames.X302_3_Out_Shuttle_OK_PCB_In_Sensor);
                     //PCB OK 도착 감지 센서
-                    X_OK_PCB_Stop_Sensor = DIO.GetDIData(FuncInline.enumDINames.X302_1_In_Shuttle_Pcb_Stop_Sensor);
+                    X_OK_PCB_Stop_Sensor = DIO.GetDIData(FuncInline.enumDINames.X302_4_Out_Shuttle_OK_PCB_Stop_Sensor);
                     //PCB NG 진입부 감지 센서
-                    X_NG_PCB_IN_Sensor = DIO.GetDIData(FuncInline.enumDINames.X04_2_Out_Shuttle_NG_PCB_Stop_Sensor);
+                    X_NG_PCB_IN_Sensor = DIO.GetDIData(FuncInline.enumDINames.X402_0_Out_Shuttle_Ng_PCB_In_Sensor);
                     //PCB NG 도착 감지 센서
-                    X_NG_PCB_Stop_Sensor = DIO.GetDIData(FuncInline.enumDINames.X402_0_Out_Shuttle_Ng_PCB_In_Sensor);
+                    X_NG_PCB_Stop_Sensor = DIO.GetDIData(FuncInline.enumDINames.X04_2_Out_Shuttle_NG_PCB_Stop_Sensor);
                     //IN 스토퍼 상승 센서
                     X_IN_Stopper_Up_Sensor = DIO.GetDIData(FuncInline.enumDINames.X303_5_Out_Shuttle_Stopper_Cyl_IN_Sensor);
                     //Out 스토퍼 상승 센서
@@ -373,21 +378,6 @@ namespace Radix
                         case OutShuttle_enumAction.Waiting:
                             #region Case Waiting
 
-
-                            if (GlobalVar.SystemStatus >= enumSystemStatus.AutoRun)
-                            {
-
-                                if (FuncInline.CycleStop == true)
-                                {
-                                    Log = $"{Name} CycleStop 지령";
-                                    FuncLog.WriteLog(Log);
-                                    OutShuttleAction = OutShuttle_enumAction.CycleStop;
-
-                                }
-
-
-
-                            }
                             Util.InitWatch(ref watch);
                             break;
                         #endregion
@@ -595,7 +585,6 @@ namespace Radix
 
                     }
 
-
                     switch (NgbufferAction)
                     {
                         case Ngbuffer_enumAction.Waiting:
@@ -640,26 +629,71 @@ namespace Radix
                             watch.Restart();
                             OutShuttlebeforeAction = OutShuttleAction;
                         }
+                        // 2. 타임아웃 체크 (Loading/UnLoading 및 이동 관련 상태일 때만)
+                        bool isCheckState = ((OutShuttleAction >= OutShuttle_enumAction.MoveFrontLoadingPos && OutShuttleAction <= OutShuttle_enumAction.MoveUnLoadingPos) ||
+                                             OutShuttleAction == OutShuttle_enumAction.UnLoading || OutShuttleAction == OutShuttle_enumAction.UnLoadingCheck);
 
-                        // 2-2. TimeOut 체크 (Waiting이 아닐 때)
-                        if (OutShuttleAction != OutShuttle_enumAction.Waiting &&
-                            OutConveyorAction != OutConveyor_enumAction.Waiting &&
-                            NgbufferAction != Ngbuffer_enumAction.Waiting &&
-                            watch.ElapsedMilliseconds > ActionTimeout)
+                        if (isCheckState && watch.ElapsedMilliseconds > ActionTimeout)
                         {
-                            watch.Stop();
+                            watch.Stop(); // 타임아웃 발생 시 타이머 정지
+                            bool canDischargeUp = AutoInline.Class.OutShuttle.OutConveyorAction == OutConveyor_enumAction.Loading ||
+                                           AutoInline.Class.OutShuttle.OutConveyorAction == OutConveyor_enumAction.LoadingCheck;
 
-                            // 에러 발생 및 로그
-                            string errReason = $"{OutShuttleAction} Timeout. (Elapsed: {watch.ElapsedMilliseconds}ms)";
-                            FuncLog.WriteLog($"[ERROR] {Name} : {errReason}");
+                            bool canDischargeDown = AutoInline.Class.OutShuttle.NgbufferAction == Ngbuffer_enumAction.Loading ||
+                                                        AutoInline.Class.OutShuttle.NgbufferAction == Ngbuffer_enumAction.LoadingCheck;
+                            FuncInline.enumErrorPart errorPart = FuncInline.enumErrorPart.No_Error;
+                            // A. 서보 이동 관련 타임아웃
+                            if (OutShuttleAction >= OutShuttle_enumAction.MoveFrontLoadingPos && OutShuttleAction <= OutShuttle_enumAction.MoveUnLoadingPos)
+                            {
+                                FuncInline.AddError(FuncInline.enumErrorPart.System, FuncInline.enumErrorCode.MoveFail,
+                                    $"{Log}{OutShuttleAction.ToString()} Servo Move Timeout.");
+                            }
 
-                            FuncInline.AddError(FuncInline.enumErrorPart.OutShuttle_Up, FuncInline.enumErrorCode.Conveyor_Timeout, errReason);
+                            // D. 외부(OutConveyor/NG Buffer)로 배출 타임아웃
+                            else if (OutShuttleAction == OutShuttle_enumAction.UnLoading || OutShuttleAction == OutShuttle_enumAction.UnLoadingCheck)
+                            {
+                                if (canDischargeUp && canDischargeDown)
+                                {
+                                    FuncInline.AddError(FuncInline.enumErrorPart.OutShuttle_Up, FuncInline.enumErrorCode.Conveyor_Timeout,
+                                    $"{Log} UnLoading Timeout.");
+                                    FuncInline.AddError(FuncInline.enumErrorPart.OutConveyor, FuncInline.enumErrorCode.Conveyor_Timeout,
+                                    $"{Log} Loading Timeout.");
 
-                            // 안전 조치: 모터 정지 및 상태 초기화                         
+                                    FuncInline.AddError(FuncInline.enumErrorPart.OutShuttle_Down, FuncInline.enumErrorCode.Conveyor_Timeout,
+                                      $"{Log} UnLoading Timeout.");
+                                    FuncInline.AddError(FuncInline.enumErrorPart.NgBuffer, FuncInline.enumErrorCode.Conveyor_Timeout,
+                                     $"{Log} Loading Timeout.");
+
+                                    // 에러 발생 후 초기화 및 Waiting 복귀
+                                    OutConveyorAction = OutConveyor_enumAction.Waiting;
+                                    // 에러 발생 후 초기화 및 Waiting 복귀
+                                    NgbufferAction = Ngbuffer_enumAction.Waiting;
+                                }
+                                else if (canDischargeUp)
+                                {
+                                    FuncInline.AddError(FuncInline.enumErrorPart.OutShuttle_Up, FuncInline.enumErrorCode.Conveyor_Timeout,
+                                   $"{Log} UnLoading Timeout.");
+                                    FuncInline.AddError(FuncInline.enumErrorPart.OutConveyor, FuncInline.enumErrorCode.Conveyor_Timeout,
+                                    $"{Log} Loading Timeout.");
+                                }
+                                else
+                                {
+                                    FuncInline.AddError(FuncInline.enumErrorPart.OutShuttle_Down, FuncInline.enumErrorCode.Conveyor_Timeout,
+                                   $"{Log} UnLoading Timeout.");
+                                    FuncInline.AddError(FuncInline.enumErrorPart.NgBuffer, FuncInline.enumErrorCode.Conveyor_Timeout,
+                                     $"{Log} Loading Timeout.");
+                                }
+
+                            }
+                            else // 기타 로딩 등
+                            {
+                                FuncInline.AddError(FuncInline.enumErrorPart.System, FuncInline.enumErrorCode.Conveyor_Timeout,
+                                    $"{Log}UnKnown OutShuttleAction Timeout.");
+                            }
+
+                            // 에러 발생 후 초기화 및 Waiting 복귀
                             OutShuttleAction = OutShuttle_enumAction.Waiting;
-                            loadingStep = 0;
-
-                            continue; // 에러 처리 후 루프 재시작
+                            continue; // switch문 실행 방지
                         }
 
                         Logic_OutShuttle();
@@ -742,6 +776,7 @@ namespace Radix
             {
                 case OutShuttle_enumAction.Waiting:
                     #region Waiting
+
                     // 1. [배출 우선] 셔틀에 제품이 있는 경우 -> 배출 위치로 이동
                     if (shuttleUp.PCBStatus != enumSMDStatus.UnKnown || shuttleDown.PCBStatus != enumSMDStatus.UnKnown)
                     {
@@ -780,7 +815,8 @@ namespace Radix
                         }
                         // 2-2. Rear Rack 확인
                         // RearRack 로직과 연동 (RearRack 구현에 따라 조건문 수정 필요)
-                        else if (AutoInline.Class.RearRack.Action == RearRack.enumAction.UnLoading)
+                        else if (AutoInline.Class.RearRack.OKLineAction == RearRack.enumOKLineAction.UnLoading ||
+                            AutoInline.Class.RearRack.NGLineAction == RearRack.enumNGLineAction.UnLoading)
                         {
                             var rearDest = PCBInfo[(int)enumTeachingPos.Lift2_Up].Destination;
                             if (rearDest == enumTeachingPos.OutShuttle_Up || rearDest == enumTeachingPos.OutShuttle_Down)
@@ -817,6 +853,8 @@ namespace Radix
                                 int LoadingPos = (int)FuncInline.enumShuttlePos.OutShuttle_FrontLiftLoading;
                                 if (FuncInlineMove.IsArrived(SV01_Out_Shuttle, ShuttlePos[(int)outshuttle, LoadingPos]))
                                 {
+                                    Stopper_IN_Open(false);
+                                    Stopper_Out_Open(false);
                                     //로딩위치면 대기
                                 }
                                 else
@@ -865,7 +903,8 @@ namespace Radix
                                 OutShuttleAction = OutShuttle_enumAction.MoveFrontLoadingPos;
                             }
                         }
-                        else if (CurrentSource == enumTeachingPos.Lift2_Up)// Lift2_Up (Rear)
+                        else if (AutoInline.Class.RearRack.OKLineAction == RearRack.enumOKLineAction.UnLoading ||
+                            AutoInline.Class.RearRack.NGLineAction == RearRack.enumNGLineAction.UnLoading)// Lift2_Up (Rear)
                         {
                             // Rear를 봐야 하므로 CW (가정)
                             DIO.WriteDOData(enumDONames.Y304_4_Out_Shuttle_Turn_Ccw_Cylinder, false);
@@ -911,7 +950,15 @@ namespace Radix
                         Log = $"{Name} Start FrontLoading action";
                         FuncLog.WriteLog(Log);
                         loadingStep = 0; // 로딩 스텝 초기화
-                        OutShuttleAction = OutShuttle_enumAction.FrontLoading;
+                        if (AutoInline.Class.FrontRack.Action == FrontRack.enumAction.UnLoading)
+                        {
+                            OutShuttleAction = OutShuttle_enumAction.FrontLoading;
+                        }
+                        else
+                        {
+                            OutShuttleAction = OutShuttle_enumAction.Waiting;
+                        }
+
                     }
                     else
                     {
@@ -967,35 +1014,32 @@ namespace Radix
                     #endregion
                     break;
                 case OutShuttle_enumAction.FrontLoading:
-                case OutShuttle_enumAction.RearLoading:
                     #region Loading (Common Logic with Step Control & Motor Dir)
                     // 1. 스토퍼 Open (진입 허용 - 함수 내부에서 방향 처리됨)
                     Stopper_IN_Open(true);
                     Stopper_Out_Open(false);
 
-                    enumTeachingPos dest = PCBInfo[(int)CurrentSource].Destination;
+                    enumTeachingPos dest = PCBInfo[(int)enumTeachingPos.Lift1_Up].Destination;
                     bool isUpLoad = dest == enumTeachingPos.OutShuttle_Up;
                     bool isDownLoad = dest == enumTeachingPos.OutShuttle_Down;
 
-                    // Rear Loading 여부 확인 (모터 방향 반전용)
-                    bool isRear = OutShuttleAction == OutShuttle_enumAction.RearLoading;
+         
 
                     // [Step 0] 컨베이어 구동 및 도착 센서 대기
                     if (loadingStep == 0)
                     {
                         if (isUpLoad)
                         {
-                            if (isRear) DIO.WriteDOData(enumDONames.Y402_7_Out_Shuttle_Ok_Motor_Ccw, true); // Rear: CCW
-                            else DIO.WriteDOData(enumDONames.Y304_0_Out_Shuttle_Ok_Motor_Cw, true);  // Front: CW
+                             DIO.WriteDOData(enumDONames.Y304_0_Out_Shuttle_Ok_Motor_Cw, true);  // Front: CW
                         }
                         if (isDownLoad)
                         {
-                            if (isRear) DIO.WriteDOData(enumDONames.Y400_7_Out_Shuttle_Ng_Motor_Ccw, true); // Rear: CCW
-                            else DIO.WriteDOData(enumDONames.Y400_5_Out_Shuttle_Ng_Motor_Cw, true);  // Front: CW
+                             DIO.WriteDOData(enumDONames.Y400_5_Out_Shuttle_Ng_Motor_Cw, true);  // Front: CW
                         }
 
                         // 도착 센서 감지
-                        bool arrived = (isUpLoad && X_OK_PCB_Stop_Sensor) || (isDownLoad && X_NG_PCB_Stop_Sensor);
+                        bool arrived = (isUpLoad && X_OK_PCB_Stop_Sensor && !AutoInline.Class.FrontRack.FLift_UpPCB_IN_Sensor && !AutoInline.Class.FrontRack.FLift_UpPCB_Stop_Sensor) ||
+                            (isDownLoad && X_NG_PCB_Stop_Sensor && !AutoInline.Class.FrontRack.FLift_UpPCB_IN_Sensor && !AutoInline.Class.FrontRack.FLift_UpPCB_Stop_Sensor);
 
                         if (arrived)
                         {
@@ -1025,13 +1069,11 @@ namespace Radix
                             // 재구동 (방향 맞춰서)
                             if (isUpLoad)
                             {
-                                if (isRear) DIO.WriteDOData(enumDONames.Y402_7_Out_Shuttle_Ok_Motor_Ccw, true);
-                                else DIO.WriteDOData(enumDONames.Y304_0_Out_Shuttle_Ok_Motor_Cw, true);
+                                DIO.WriteDOData(enumDONames.Y304_0_Out_Shuttle_Ok_Motor_Cw, true);
                             }
                             if (isDownLoad)
                             {
-                                if (isRear) DIO.WriteDOData(enumDONames.Y400_7_Out_Shuttle_Ng_Motor_Ccw, true);
-                                else DIO.WriteDOData(enumDONames.Y400_5_Out_Shuttle_Ng_Motor_Cw, true);
+                                DIO.WriteDOData(enumDONames.Y400_5_Out_Shuttle_Ng_Motor_Cw, true);
                             }
                             loadingStep = 20;
                         }
@@ -1047,39 +1089,162 @@ namespace Radix
                             DIO.WriteDOData(enumDONames.Y400_5_Out_Shuttle_Ng_Motor_Cw, false);
                             DIO.WriteDOData(enumDONames.Y400_7_Out_Shuttle_Ng_Motor_Ccw, false);
 
-                            Stopper_IN_Open(false); // 스토퍼 닫음
-
                             Log = $"{Name} Loading Physical Complete.";
                             FuncLog.WriteLog(Log);
 
                             loadingStep = 0;
-                            if (OutShuttleAction == OutShuttle_enumAction.FrontLoading)
-                                OutShuttleAction = OutShuttle_enumAction.FrontLoadingCheck;
-                            else
-                                OutShuttleAction = OutShuttle_enumAction.RearLoadingCheck;
+                            OutShuttleAction = OutShuttle_enumAction.FrontLoadingCheck;
+                           
                         }
                     }
                     #endregion
                     break;
+                case OutShuttle_enumAction.RearLoading:
+                    #region RearLoading (OK/NG 개별 및 동시 대응)
+                    {
+                        // 1. 스토퍼 제어
+                        Stopper_IN_Open(true);
+                        Stopper_Out_Open(false);
 
+                        // 2. 상대물(RearRack)의 OK/NG 라인 동작 상태 확인
+                        // 상대측이 배출 중(UnLoading)이거나 배출 확인(UnLoadingCheck) 단계일 때 로딩 대상으로 간주
+                        isUpLoad = (AutoInline.Class.RearRack.OKLineAction == RearRack.enumOKLineAction.UnLoading ||
+                                    AutoInline.Class.RearRack.OKLineAction == RearRack.enumOKLineAction.UnLoadingCheck);
+
+                        isDownLoad = (AutoInline.Class.RearRack.NGLineAction == RearRack.enumNGLineAction.UnLoading ||
+                                      AutoInline.Class.RearRack.NGLineAction == RearRack.enumNGLineAction.UnLoadingCheck);
+
+                        // [Step 0] 컨베이어 구동 및 모든 대상 도착 대기
+                        if (loadingStep == 0)
+                        {
+                            if (isUpLoad) DIO.WriteDOData(enumDONames.Y402_7_Out_Shuttle_Ok_Motor_Ccw, true);
+                            if (isDownLoad) DIO.WriteDOData(enumDONames.Y400_7_Out_Shuttle_Ng_Motor_Ccw, true);
+
+                            // 도착 조건: (로딩 대상이 아니거나) 혹은 (해당 센서가 감지되었거나)
+                            // 즉, 로딩하기로 한 모든 라인의 센서가 다 들어와야 함
+                            bool okArrived = !isUpLoad || X_OK_PCB_IN_Sensor;
+                            bool ngArrived = !isDownLoad || X_NG_PCB_IN_Sensor;
+
+                            // 실제 로딩 중인 보드가 하나라도 있고, 그 보드들이 모두 도착했을 때
+                            if ((isUpLoad || isDownLoad) && okArrived && ngArrived)
+                            {
+                                if (FuncInline.IsDelayOver(Key_OutShuttle_Load, 300))
+                                {
+                                    // 1차 정지
+                                    DIO.WriteDOData(enumDONames.Y402_7_Out_Shuttle_Ok_Motor_Ccw, false);
+                                    DIO.WriteDOData(enumDONames.Y400_7_Out_Shuttle_Ng_Motor_Ccw, false);
+                                    loadingStep = 10;
+                                }
+                            }
+                            else
+                            {
+                                FuncInline.ResetDelay(Key_OutShuttle_Load);
+                            }
+                        }
+                        // [Step 10] 잠시 대기 후 오버드라이브 준비
+                        else if (loadingStep == 10)
+                        {
+                            if (FuncInline.IsDelayOver(Key_OutShuttle_Load, 100))
+                            {
+                                if (isUpLoad) DIO.WriteDOData(enumDONames.Y402_7_Out_Shuttle_Ok_Motor_Ccw, true);
+                                if (isDownLoad) DIO.WriteDOData(enumDONames.Y400_7_Out_Shuttle_Ng_Motor_Ccw, true);
+                                loadingStep = 20;
+                            }
+                        }
+                        // [Step 20] 오버드라이브 (확실한 안착)
+                        else if (loadingStep == 20)
+                        {
+                            if (FuncInline.IsDelayOver(Key_OutShuttle_Load, 1500))
+                            {
+                                // 최종 정지
+                                DIO.WriteDOData(enumDONames.Y402_7_Out_Shuttle_Ok_Motor_Ccw, false);
+                                DIO.WriteDOData(enumDONames.Y400_7_Out_Shuttle_Ng_Motor_Ccw, false);
+
+                                Log = $"{Name} Rear Loading Physical Complete. (OK:{isUpLoad}, NG:{isDownLoad})";
+                                FuncLog.WriteLog(Log);
+
+                                loadingStep = 0;
+                                OutShuttleAction = OutShuttle_enumAction.RearLoadingCheck;
+                            }
+                        }
+                    }
+                    break;
+                #endregion
 
                 case OutShuttle_enumAction.FrontLoadingCheck:
-                case OutShuttle_enumAction.RearLoadingCheck:
+
                     #region LoadingCheck (Data Move)
                     enumTeachingPos targetPos = (PCBInfo[(int)CurrentSource].Destination == enumTeachingPos.OutShuttle_Up) ?
                         enumTeachingPos.OutShuttle_Up : enumTeachingPos.OutShuttle_Down;
 
-                    FuncInline.MovePCBInfo(CurrentSource, targetPos);
-
-                    if (PCBInfo[(int)targetPos].PCBStatus != enumSMDStatus.UnKnown)
+                    if(AutoInline.Class.FrontRack.Action == FrontRack.enumAction.UnLoadingCheck)
                     {
+                        FuncInline.MovePCBInfo(CurrentSource, targetPos);
+                    }
+
+                    if (PCBInfo[(int)targetPos].PCBStatus != enumSMDStatus.UnKnown && 
+                        PCBInfo[(int)enumTeachingPos.Lift1_Up].PCBStatus == enumSMDStatus.UnKnown)
+                    {
+                        Stopper_IN_Open(false); // 스토퍼 닫음
+                        Stopper_Out_Open(false);
                         Log = $"{Name} Loading Data Transfer Complete. ID: {PCBInfo[(int)targetPos].Num}";
                         FuncLog.WriteLog(Log);
                         OutShuttleAction = OutShuttle_enumAction.Waiting;
                     }
                     #endregion
                     break;
+                case OutShuttle_enumAction.RearLoadingCheck:
+                    #region RearLoadingCheck
+                    // 1. 송신측(RearRack)의 각 라인이 데이터를 넘겨줄 준비(LoadingCheck)가 되었는지 확인
+                    // isUpLoad/isDownLoad는 이전 RearLoading 단계에서 결정된 상태를 유지함
+                    isUpLoad = (AutoInline.Class.RearRack.OKLineAction == RearRack.enumOKLineAction.UnLoading ||
+                                    AutoInline.Class.RearRack.OKLineAction == RearRack.enumOKLineAction.UnLoadingCheck);
 
+                    isDownLoad = (AutoInline.Class.RearRack.NGLineAction == RearRack.enumNGLineAction.UnLoading ||
+                                  AutoInline.Class.RearRack.NGLineAction == RearRack.enumNGLineAction.UnLoadingCheck);
+
+                    bool okReady = !isUpLoad || (AutoInline.Class.RearRack.OKLineAction == RearRack.enumOKLineAction.LoadingCheck);
+                    bool ngReady = !isDownLoad || (AutoInline.Class.RearRack.NGLineAction == RearRack.enumNGLineAction.LoadingCheck);
+
+                    // 2. 양쪽 라인(진행 중인 라인들)이 모두 Check 상태일 때 데이터 이동 진행
+                    if (okReady && ngReady)
+                    {                   
+                        // OK 라인 데이터 이동 (RearRack -> OutShuttle Up)
+                        if (isUpLoad)
+                        {
+                            FuncInline.MovePCBInfo(enumTeachingPos.RearPassLine, enumTeachingPos.OutShuttle_Up);
+                        }
+
+                        // NG 라인 데이터 이동 (RearRack -> OutShuttle Down)
+                        if (isDownLoad)
+                        {
+                            FuncInline.MovePCBInfo(enumTeachingPos.RearNGLine, enumTeachingPos.OutShuttle_Down);
+                        }
+
+                        // 3. 데이터 이동 결과 최종 확인
+                        bool upFinished = !isUpLoad || 
+                            (PCBInfo[(int)enumTeachingPos.RearPassLine].PCBStatus == enumSMDStatus.UnKnown &&
+                            PCBInfo[(int)enumTeachingPos.OutShuttle_Up].PCBStatus != enumSMDStatus.UnKnown);
+                        bool ngFinished = !isDownLoad || 
+                            (PCBInfo[(int)enumTeachingPos.RearNGLine].PCBStatus == enumSMDStatus.UnKnown &&
+                            PCBInfo[(int)enumTeachingPos.OutShuttle_Down].PCBStatus != enumSMDStatus.UnKnown);
+
+                        if (upFinished && ngFinished)
+                        {
+                            Log = $"{Name} Rear Loading Check Success. Data Sync Complete.";
+                            FuncLog.WriteLog(Log);
+
+                            // 하드웨어 원복 (스토퍼 닫기)
+                            Stopper_IN_Open(false);
+
+                            // 로딩 프로세스 종료 및 대기 상태 복귀
+                            OutShuttleAction = OutShuttle_enumAction.Waiting;
+                        }
+
+                    }
+
+                    break;
+                #endregion
                 case OutShuttle_enumAction.UnLoading:
                     #region UnLoading (Conveyor Run for Discharge)
                     // 1. 배출 스토퍼 Open (공통 동작)
@@ -1144,7 +1309,7 @@ namespace Radix
                         {
                             DIO.WriteDOData(enumDONames.Y304_0_Out_Shuttle_Ok_Motor_Cw, true);
 
-                            if (X_OK_PCB_Stop_Sensor)
+                            if (X_OK_PCB_Stop_Sensor && OutConveyorAction != OutConveyor_enumAction.LoadingCheck)
                             {
                                 FuncInline.ResetDelay(Key_OutShuttle_Unload);
                             }
@@ -1170,7 +1335,7 @@ namespace Radix
                         {
                             DIO.WriteDOData(enumDONames.Y400_5_Out_Shuttle_Ng_Motor_Cw, true);
 
-                            if (X_NG_PCB_Stop_Sensor)
+                            if (X_NG_PCB_Stop_Sensor && NgbufferAction != Ngbuffer_enumAction.LoadingCheck)
                             {
                                 FuncInline.ResetDelay(Key_OutShuttle_Unload);
                             }
@@ -1201,12 +1366,10 @@ namespace Radix
                     // 데이터 상태 다시 확인
                     bool chkUpData = shuttleUp.PCBStatus != enumSMDStatus.UnKnown;
                     bool chkDownData = shuttleDown.PCBStatus != enumSMDStatus.UnKnown;
-              
+
                     // 뒷 설비 상태 다시 확인 (데이터 이동 조건)
-                    bool chkUpReady = AutoInline.Class.OutShuttle.OutConveyorAction == OutConveyor_enumAction.Loading ||
-                                        AutoInline.Class.OutShuttle.OutConveyorAction == OutConveyor_enumAction.LoadingCheck;
-                    bool chkDownReady = AutoInline.Class.OutShuttle.NgbufferAction == Ngbuffer_enumAction.Loading ||
-                                            AutoInline.Class.OutShuttle.NgbufferAction == Ngbuffer_enumAction.LoadingCheck;
+                    bool chkUpReady =  AutoInline.Class.OutShuttle.OutConveyorAction == OutConveyor_enumAction.LoadingCheck;
+                    bool chkDownReady = AutoInline.Class.OutShuttle.NgbufferAction == Ngbuffer_enumAction.LoadingCheck;
 
                     // =============================================================
                     // Case 1 Check: Up & Down 둘 다 있었던 경우 (혹은 현재 둘 다 있는 경우)
@@ -1236,11 +1399,13 @@ namespace Radix
                     // 셔틀이 완전히 비워졌으면 Waiting
                     if (shuttleUp.PCBStatus == enumSMDStatus.UnKnown && shuttleDown.PCBStatus == enumSMDStatus.UnKnown)
                     {
+                        Stopper_IN_Open(false); // 스토퍼 닫음
+                        Stopper_Out_Open(false);
                         Log = $"{Name} UnLoading Complete. Shuttle Empty.";
                         FuncLog.WriteLog(Log);
                         OutShuttleAction = OutShuttle_enumAction.Waiting;
                     }
-                    else
+                    else if (shuttleUp.PCBStatus == enumSMDStatus.UnKnown || shuttleDown.PCBStatus == enumSMDStatus.UnKnown)
                     {
                         // 하나라도 남아있으면(뒷설비 Full 등으로 인해) Waiting으로 갔다가 다시 시도
                         // (Waiting 로직에서 데이터가 있으면 다시 UnLoading으로 보냄 -> 무한루프로 재시도 효과)
@@ -1250,7 +1415,7 @@ namespace Radix
                     }
                     #endregion
                     break;
-               
+
 
             }
         }
@@ -1265,10 +1430,9 @@ namespace Radix
             {
                 case OutConveyor_enumAction.Waiting:
                     // 1. Loading 조건: 내 자리가 비어있고, 입구 센서가 감지되거나 OutShuttle이 Unloading 중일 때
-                    if (outConvInfo.PCBStatus == enumSMDStatus.UnKnown)
+                    if (outConvInfo.PCBStatus == enumSMDStatus.UnKnown && !X_OutConveyor_PCB_Stop_Sensor)
                     {
-                        if (X_OutConveyor_PCB_IN_Sensor ||  //수동 투입할때
-                            (AutoInline.Class.OutShuttle.OutShuttleAction == OutShuttle_enumAction.UnLoading &&
+                        if ((AutoInline.Class.OutShuttle.OutShuttleAction == OutShuttle_enumAction.UnLoading &&
                             PCBInfo[(int)enumTeachingPos.OutShuttle_Up].PCBStatus != enumSMDStatus.UnKnown))
                         {
                             Log = $"{OutCvyName} PCB Entrance Detected. Start Loading.";
@@ -1298,6 +1462,20 @@ namespace Radix
                         }
                         OutConveyorAction = OutConveyor_enumAction.UnLoading;
                     }
+                    else
+                    {
+                        //수동투입하였을때
+                        if (X_OutConveyor_PCB_Stop_Sensor && outConvInfo.PCBStatus == enumSMDStatus.UnKnown && X_SMEMA_After_Ready)
+                        {
+                            Log = $"{OutCvyName} Y412_1_SMEMA_After_Ready -> ON";
+                            FuncLog.WriteLog(Log);
+                            DIO.WriteDOData(FuncInline.enumDONames.Y412_1_SMEMA_After_Ready, true);
+
+                            Log = $"{OutCvyName}Operator input PCB. UnLoading Action";
+                            FuncLog.WriteLog(Log);
+                            OutConveyorAction = OutConveyor_enumAction.UnLoading;
+                        }
+                    }
 
                     break;
 
@@ -1308,7 +1486,7 @@ namespace Radix
                         DIO.WriteDOData(enumDONames.Y400_1_Out_Conveyor_Motor_Cw, true);
                     }
                     // 도착 센서 감지
-                    if (X_OutConveyor_PCB_Stop_Sensor)
+                    if (X_OutConveyor_PCB_Stop_Sensor && !X_OK_PCB_IN_Sensor && !X_OK_PCB_Stop_Sensor)
                     {
                         Log = $"{OutCvyName}Loading OK, LoadingCheck Action";
                         FuncLog.WriteLog(Log);
@@ -1325,10 +1503,10 @@ namespace Radix
                 case OutConveyor_enumAction.LoadingCheck:
                     #region LoadingCheck (Data Move)
                     // 1. 데이터 이동 (OutShuttle -> OutConveyor)
-                    if (FuncInline.IsDelayOver(Key_OutConv_Load, 500))
-                    {
-                        FuncInline.MovePCBInfo(enumTeachingPos.OutShuttle_Up, enumTeachingPos.OutConveyor);
-                    }
+                    //if (FuncInline.IsDelayOver(Key_OutConv_Load, 500))
+                    //{
+                    //    FuncInline.MovePCBInfo(enumTeachingPos.OutShuttle_Up, enumTeachingPos.OutConveyor);
+                    //}
                     // 2. 데이터 확인
                     if (PCBInfo[(int)enumTeachingPos.OutConveyor].PCBStatus != enumSMDStatus.UnKnown &&
                         PCBInfo[(int)enumTeachingPos.OutShuttle_Up].PCBStatus == enumSMDStatus.UnKnown)
@@ -1430,8 +1608,7 @@ namespace Radix
                     // 1. Loading 조건: 비어있고, 센서 감지 or 셔틀 NG 배출 중
                     if (ngInfo.PCBStatus == enumSMDStatus.UnKnown)
                     {
-                        if (X_NGbuffer_PCB_IN_Sensor ||
-                           (AutoInline.Class.OutShuttle.OutShuttleAction == OutShuttle_enumAction.UnLoading &&
+                        if ((AutoInline.Class.OutShuttle.OutShuttleAction == OutShuttle_enumAction.UnLoading &&
                             PCBInfo[(int)enumTeachingPos.OutShuttle_Down].PCBStatus != enumSMDStatus.UnKnown))
                         {
                             Log = $"{NGName} NG PCB Entrance Detected. Start Loading.";
@@ -1451,9 +1628,8 @@ namespace Radix
                         FuncLog.WriteLog(Log);
                         DIO.WriteDOData(enumDONames.Y402_5_Out_Conveyor_Ng_Motor_Cw, false);
                         NgbufferAction = Ngbuffer_enumAction.LoadingCheck;
-
                     }
-                  
+
                     #endregion
                     break;
 
@@ -1492,9 +1668,9 @@ namespace Radix
                                             ngDetails);
                         watch.Reset();
                         NgbufferAction = Ngbuffer_enumAction.UnLoading; // 수동 제거 대기
-                        
+
                     }
-                  
+
                     #endregion
                     break;
 
@@ -1507,7 +1683,7 @@ namespace Radix
                         FuncLog.WriteLog(Log);
                         NgbufferAction = Ngbuffer_enumAction.UnLoadingCheck;
                     }
-                    
+
                     #endregion
                     break;
 

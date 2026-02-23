@@ -492,12 +492,12 @@ namespace Radix
                 FuncLog.WriteLog($"MoveAbsMM {axis} is not standstill");
                 return false;
             }
-
-            if (!GlobalVar.AxisStatus[axis].isHomed)
-            {
-                FuncLog.WriteLog($"MoveAbsMM {axis} is not Homed");
-                return false;
-            }
+            //조그에만 쓰기때문에 홈 안하고 작업할수도 있음
+            //if (!GlobalVar.AxisStatus[axis].isHomed)
+            //{
+            //    FuncLog.WriteLog($"MoveAbsMM {axis} is not Homed");
+            //    return false;
+            //}
 
             // 인터락 체크
             if (!ServoInterlockCheck(axis, Pos))
@@ -1163,235 +1163,14 @@ namespace Radix
         }
 
         #region MoveServo
-        public static bool MoveAbsMM(int axis, double dPosMM)
-        {
-            bool IsStandStill = GlobalVar.AxisStatus[axis].StandStill;
-
-            if (FuncMotion.IsMoving(axis) || !IsStandStill)
-            {
-                FuncLog.WriteLog($"MoveAbsMM {axis} is not standstill");
-                return false;
-            }
-
-            if (!GlobalVar.AxisStatus[axis].isHomed)
-            {
-                FuncLog.WriteLog($"MoveAbsMM {axis} is not Homed");
-                return false;
-            }
-
-            // 인터락 체크
-            if (!ServoInterlockCheck(axis, dPosMM))
-            {
-
-                FuncLog.WriteLog($"MoveAbsMM {axis} ServoInterlockCheck failed!\n{FuncInline.Interlock_View}");
-                return false;
-            }
-
-            // 
+      
 
 
-
-            #region 속도 지정
-            //#4 하부시 조립 속도
-            double speed = 1;   //mm/s
-                                //속도 통합
-            if (axis == (int)FuncInline.enumServoAxis.SV00_In_Shuttle)
-            {
-                speed = FuncInline.ServoParamAll.sv0_BeforeLift.speed;
-                //if (dPosMM == FuncAmplePacking.ServoParamAll.sv1_LowBush_Z.assemble_pos &&
-                //    DIO.GetDORead(FuncAmplePacking.FuncInline.enumDONames.Y09_0_LowBush_Forward))  //전진상태일때
-                //{
-                //    speed = FuncMotion.MMToPulse(FuncAmplePacking.ServoParamAll.sv1_LowBush_Z.assembly_speed, GlobalVar.ServoGearRatio[(int)axis], GlobalVar.ServoRevMM[(int)axis], GlobalVar.ServoRevPulse[(int)axis]);
-                //}
-                //else
-                //{
-                //    speed = FuncMotion.MMToPulse(FuncAmplePacking.ServoParamAll.sv1_LowBush_Z.speed, GlobalVar.ServoGearRatio[(int)axis], GlobalVar.ServoRevMM[(int)axis], GlobalVar.ServoRevPulse[(int)axis]);
-                //}
-            }
-            else if (axis == (int)FuncInline.enumServoAxis.SV01_Out_Shuttle)
-            {
-                speed = FuncInline.ServoParamAll.sv1_AfterLift.speed;
-            }
-
-
-
-
-
-            // 글로벌 감속비 적용
-            speed = speed * (GlobalVar.ServoSpeed / 100.0);
-            #endregion //속도 지정
-
-            // 위치 지정
-            double PosMM = dPosMM;
-
-            FuncMotion.MoveAbsolute((uint)axis, PosMM, speed);
-            return true;
-        }
-
-
-        public static bool MoveBogan(FuncInline.enumServoAxis axisX, FuncInline.enumServoAxis axisY, structPosition pos, double speed, bool wait)
-        {
-
-            #region simulation 이면 도착으로 체크
-            if (GlobalVar.Simulation)
-            {
-                GlobalVar.AxisStatus[(int)axisX].Position = pos.x;
-                GlobalVar.AxisStatus[(int)axisY].Position = pos.y;
-                return true;
-            }
-            #endregion
-
-            #region if 서보 상태 확인
-            if (GlobalVar.AxisStatus[(int)axisX].Errored || //서보 축 에러 있으면 return false
-                !GlobalVar.AxisStatus[(int)axisX].StandStill || //이동중인 축이 있으면 return false
-                GlobalVar.AxisStatus[(int)axisY].Errored || //서보 축 에러 있으면 return false
-                !GlobalVar.AxisStatus[(int)axisY].StandStill) //이동중인 축이 있으면 return false
-            {
-                return false;
-            }
-            #endregion
-
-            double xpos = GlobalVar.AxisStatus[(int)axisX].Position;
-            double ypos = GlobalVar.AxisStatus[(int)axisY].Position;
-
-
-            #region 동작 가능 여부
-            if (!ServoInterlockCheck((int)axisX, pos.x) ||
-                !ServoInterlockCheck((int)axisY, pos.y))
-            {
-                return false;
-            }
-            #endregion
-
-            //축번호가 낮은 순으로 해야해서 Y먼저
-            FuncMotion.Double_Axis_Move((int)axisY, pos.y, (int)axisX, pos.x,  speed, 1);
-
-
-            return true; // 이하 return false;        
-        }
-
-        // JHRYU : 컨베이어 이동 전용 함수
-        public static bool MoveConveyorMM(FuncInline.enumServoAxis eAxis, double step)
-        {
-            int axis = (int)eAxis;
-            bool IsStandStill = GlobalVar.AxisStatus[axis].StandStill;
-
-            if (FuncMotion.IsMoving(axis) || !IsStandStill)
-            {
-                FuncLog.WriteLog($"MoveConveyorMM {axis} is not standstill");
-                return false;
-            }
-
-            if (!GlobalVar.AxisStatus[axis].isHomed)
-            {
-                FuncLog.WriteLog($"MoveConveyorMM {axis} is not Homed");
-                return false;
-            }
-
-            // 인터락 체크
-            if (!ServoInterlockCheck(axis, step))
-            {
-                FuncLog.WriteLog($"MoveConveyorMM {axis} ServoInterlockCheck failed!\n{FuncInline.Interlock_View}");
-                return false;
-            }
-
-
-
-            // 속도 지정
-            double speed = 0;
-            //if (eAxis == FuncAmplePacking.enumServoAxis.SV00_Main_Conveyor)
-            //{
-            //    //FuncAmplePacking.ServoParamAll.sv0_Conveyor.speed = 10;
-            //    speed = FuncMotion.MMToPulse(FuncAmplePacking.ServoParamAll.sv0_Conveyor.speed, GlobalVar.ServoGearRatio[(int)eAxis], GlobalVar.ServoRevMM[(int)eAxis], GlobalVar.ServoRevPulse[(int)eAxis]);
-            //}
-            //else
-            //{
-            //    FuncLog.WriteLog("MoveConveyor axis is not Conveyor");
-            //    return false;
-            //}
-
-            double dActPos = 0.0;
-            double current = AbsConveyorPos[axis];
-            // MM 단위를 펄스로 환산
-            step = FuncMotion.MMToPulse(step, GlobalVar.ServoGearRatio[axis], GlobalVar.ServoRevMM[axis], GlobalVar.ServoRevPulse[axis]);
-
-            double nextPos = current + step;
-
-            //// 안전 장치
-            //CAXM.AxmStatusGetActPos(axis, ref dActPos);
-            //// step 의 1/10 이상 차이나면 위치 에러상태로 판단
-            //if ( Math.Abs( current - dActPos ) > (step / 10.0) )
-            //{
-            //    FuncError.AddError(new structError(DateTime.Now.ToString("yyyyMMdd"),
-            //     DateTime.Now.ToString("HH:mm:ss"),
-            //     FuncInline.enumErrorPart.System,
-            //     enumErrorCode.Conveyor_Position_Error,
-            //     false,
-            //     "FuncBoxPackingMove.MoveConveyor Position Error"));
-            //    return false;
-            //}
-
-            if (!IsConveyorArrived(eAxis))
-            {
-                // 컨베이어가 1mm 이상 틀어졌다.
-                string msg = eAxis.ToString() + " : 컨베이어가 정위치가 아닙니다. 재초기화 필요";
-                //테스트 때문에 막음 by DG 240821
-                FuncInline.AddError((int)enumErrorCode.Conveyor_Position_Error, msg);
-                return false;
-            }
-
-            // conveyor position overflow 방지 => 이 코드는 위험하다. 테스트 필요함
-            //if (nextPos > Int32.MaxValue)
-
-            if (nextPos > (290 * 1600000))     // 대충 290번 스탭하면 포지션을 초기화한다. 10바퀴 돌면 한번 초기화
-            {
-                // 현재 위치를 원점으로 설정한다. 
-                CAXM.AxmStatusSetActPos(axis, 0.0);
-                CAXM.AxmStatusSetCmdPos(axis, 0.0);
-
-                CAXM.AxmStatusGetActPos(axis, ref dActPos);     // dActPos 가 0.0 이 정상
-                nextPos = dActPos + step;
-
-                FuncLog.WriteLog($"MoveConveyor Axis{axis} ACTPOS RESET 0 dActPos={dActPos} next={nextPos}");
-            }
-
-            //AbsConveyorPos[axis] = nextPos;
-            SetAbsConveyorPos(axis, nextPos);
-
-
-
-            // 글로벌 감속비 적용
-            speed = speed * (GlobalVar.ServoSpeed / 100.0);
-            //MAX_VELOCITY.        =700000
-            double vel = speed;
-
-            FuncMotion.MoveAbsolute((uint)axis, nextPos, vel);
-            return true;
-        }
-
+      
         #endregion MoveServo
 
 
-        public static bool IsConveyorArrived(FuncInline.enumServoAxis eAxis)
-        {
-            int axis = (int)eAxis;
-            if (GlobalVar.Simulation) return true;
-
-            if (FuncMotion.IsMoving(axis)) return false;
-
-            //if (eAxis != FuncAmplePacking.enumServoAxis.SV00_Main_Conveyor)
-            //    return false;
-
-            double current = GlobalVar.AxisStatus[axis].Position;
-            double targetPulse = AbsConveyorPos[axis];
-            double target = FuncMotion.PulseToMM((long)targetPulse, GlobalVar.ServoGearRatio[(int)axis], GlobalVar.ServoRevMM[(int)axis], GlobalVar.ServoRevPulse[(int)axis]);
-            bool IsStandStill = GlobalVar.AxisStatus[axis].StandStill;
-            double diff = Math.Abs(current - target);
-
-            if (IsStandStill && (diff < 0.01)) return true;
-            return false;
-        }
-        // axis 축이 posMM 위치에 도달했는지 확인하는 함수
+     
         public static bool IsArrived(int axis, double posMM)
         {
             if (GlobalVar.Simulation) return true;

@@ -645,12 +645,12 @@ namespace Radix
 
                             case FuncInline.enumTeachingPos.OutConveyor:
                                 DIO.WriteDOData(FuncInline.enumDONames.Y400_1_Out_Conveyor_Motor_Cw, true);
-                                FuncInline.OutConveyorAction = FuncInline.enumLiftAction.Waiting;
+                                AutoInline.Class.OutShuttle.OutConveyorAction = OutShuttle.OutConveyor_enumAction.Waiting;
                                 break;
 
                             case FuncInline.enumTeachingPos.NgBuffer:
                                 DIO.WriteDOData(FuncInline.enumDONames.Y402_5_Out_Conveyor_Ng_Motor_Cw, true);
-                                FuncInline.NGBufferAction = FuncInline.enumLiftAction.Waiting;
+                                AutoInline.Class.OutShuttle.NgbufferAction = OutShuttle.Ngbuffer_enumAction.Waiting;
                                 break;
                         }
 

@@ -593,20 +593,7 @@ namespace Radix
                 case "btnSite24":
                 case "btnSite25":
                 case "btnSite26":
-                case "btnSite27":
-                case "btnSite28":
-                case "btnSite29":
-                case "btnSite30":
-                case "btnSite31":
-                case "btnSite32":
-                case "btnSite33":
-                case "btnSite34":
-                case "btnSite35":
-                case "btnSite36":
-                case "btnSite37":
-                case "btnSite38":
-                case "btnSite39":
-                case "btnSite40":
+              
                     // 테스트사이트는 묶어서 처리
                     pos = (FuncInline.enumTeachingPos)((int)FuncInline.enumTeachingPos.Site1_F_DT1 + (int.Parse(activeButton.Name.Replace("btnSite", ""))) - 1);
                     part = FuncInline.enumErrorPart.Site1_F_DT1 + (int.Parse(activeButton.Name.Replace("btnSite", ""))) - 1;
@@ -1207,28 +1194,31 @@ namespace Radix
                 //    AutoInline.Class.FrontRack.Action = FrontRack.enumAction.Waiting;
                 //    break;
                 case "btnRearPassLine":
-                   
-                    FuncInline.RearPassLineAction = FuncInline.enumLiftAction.Waiting;
+                    AutoInline.Class.RearRack.OKLineAction = RearRack.enumOKLineAction.Waiting;
+                    break;
+                    
+                case "btnRearNGLine":
+                    AutoInline.Class.RearRack.NGLineAction = RearRack.enumNGLineAction.Waiting;
                     break;
                 case "btnRack2_Lift_Up":
                 case "btnRack2_Lift_Down":
-
-                    FuncInline.Lift2Action = FuncInline.enumLiftAction.Waiting;
+                    AutoInline.Class.RearRack.Action = RearRack.enumAction.Waiting;
+                    break;
+                case "btnOut_Shuttle_Up":
+                    AutoInline.Class.OutShuttle.OutShuttleAction = OutShuttle.OutShuttle_enumAction.Waiting;
+                    break;
+                case "btnOut_Shuttle_Down":
+                    AutoInline.Class.OutShuttle.OutShuttleAction = OutShuttle.OutShuttle_enumAction.Waiting;
                     break;
                 case "btnOut_Conveyor":
                     DIO.WriteDOData(FuncInline.enumDONames.Y412_1_SMEMA_After_Ready, false);
-                    if (FuncInline.OutConveyorAction == FuncInline.enumLiftAction.Input) // 공급시
-                    {
-                        FuncInline.Lift2Action = FuncInline.enumLiftAction.Waiting;
-                    }
-                    FuncInline.OutConveyorAction = FuncInline.enumLiftAction.Waiting;
+                    DIO.WriteDOData(FuncInline.enumDONames.Y404_5_SMEMA_After_Pass, false);
+
+                    AutoInline.Class.OutShuttle.OutConveyorAction = OutShuttle.OutConveyor_enumAction.Waiting;
                     break;
                 case "btnNG_Buffer":
-                    if (FuncInline.OutConveyorAction == FuncInline.enumLiftAction.InputNG) // 공급시
-                    {
-                        FuncInline.Lift2Action = FuncInline.enumLiftAction.Waiting;
-                    }
-                    FuncInline.OutConveyorAction = FuncInline.enumLiftAction.Waiting;
+                    
+                    AutoInline.Class.OutShuttle.NgbufferAction = OutShuttle.Ngbuffer_enumAction.Waiting;
                     FuncInline.NGOut = false;
                     FuncInline.NgAlarmWatch.Stop();
                     FuncInline.NgAlarmWatch.Reset();
@@ -1264,6 +1254,7 @@ namespace Radix
                     if (FuncInline.SiteAction[siteIndex] != FuncInline.enumSiteAction.Waiting)
                     {
                         FuncLog.WriteLog_Tester(activeButton.Name.Replace("btn", "") + " action change : " + FuncInline.SiteAction[siteIndex].ToString() + " ==> Waiting");
+                        FuncInline.SiteAction[siteIndex] = FuncInline.enumSiteAction.Waiting;
                     }
                    
                     pos = (FuncInline.enumTeachingPos)((int)FuncInline.enumTeachingPos.Site1_F_DT1 + siteIndex);
@@ -1285,15 +1276,16 @@ namespace Radix
             //if (part != FuncInline.enumErrorPart.Program)
             //{
             FuncError.RemoveError(part);
+            //FuncError.RemoveAllError();
             //에러가 클리어되었으면 메뉴얼로 바꿔준다
-            if(!GlobalVar.SystemErrored == GlobalVar.SystemErrorListQueue.Count > 0)
+            if (GlobalVar.SystemErrorListQueue.Count == 0)
             {
                 GlobalVar.SystemStatus = (GlobalVar.SystemStatus > enumSystemStatus.Initialize)
               ? enumSystemStatus.Manual
               : enumSystemStatus.BeforeInitialize;
             }
           
-            //FuncError.RemoveAllError();
+           
 
             //}
             FuncInline.NeedPartClear[(int)part] = false;
@@ -1565,7 +1557,7 @@ namespace Radix
                                     pcbInfo = FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.OutConveyor].PCBStatus != FuncInline.enumSMDStatus.UnKnown;
                                     pcbCheck = DIO.GetDIData(FuncInline.enumDINames.X02_3_Out_Conveyor_PASSLIne_PCB_Start_Sensor) ||
                                         DIO.GetDIData(FuncInline.enumDINames.X02_4_Out_Conveyor_PASSLine_PCB_Stop_Sensor);
-                                    actionCheck = FuncInline.OutConveyorAction != FuncInline.enumLiftAction.Waiting;
+                                    actionCheck = AutoInline.Class.OutShuttle.OutConveyorAction != OutShuttle.OutConveyor_enumAction.Waiting;
                                     break;
                                 case "btnNG_Buffer":
                                     part = FuncInline.enumErrorPart.NgBuffer;
@@ -1575,7 +1567,7 @@ namespace Radix
                                     pcbCheck = DIO.GetDIData(FuncInline.enumDINames.X304_2_Out_Shuttle_Ng_Interlock_Sensor) ||
                                         DIO.GetDIData(FuncInline.enumDINames.X03_7_NgBuffer_PCB_Stop_Sensor);
 
-                                    actionCheck = FuncInline.NGBufferAction != FuncInline.enumLiftAction.Waiting;
+                                    actionCheck = AutoInline.Class.OutShuttle.NgbufferAction != OutShuttle.Ngbuffer_enumAction.Waiting;
                                     break;
                                 case "btnSite1":
                                 case "btnSite2":
@@ -2004,8 +1996,8 @@ namespace Radix
                     FuncInline.RearNGLineAction = FuncInline.enumLiftAction.Waiting;
                     FuncInline.OutShuttleUpAction = FuncInline.enumShuttleAction.Waiting;
                     FuncInline.OutShuttleDownAction = FuncInline.enumShuttleAction.Waiting;
-                    FuncInline.OutConveyorAction = FuncInline.enumLiftAction.Waiting;
-                    FuncInline.NGBufferAction = FuncInline.enumLiftAction.Waiting;
+                    AutoInline.Class.OutShuttle.OutConveyorAction = OutShuttle.OutConveyor_enumAction.Waiting;
+                    AutoInline.Class.OutShuttle.NgbufferAction = OutShuttle.Ngbuffer_enumAction.Waiting;
                     FuncInline.ScanAction = FuncInline.enumScanAction.Waiting;
 
 
@@ -2145,5 +2137,6 @@ namespace Radix
             }
         }
 
+       
     }
 }

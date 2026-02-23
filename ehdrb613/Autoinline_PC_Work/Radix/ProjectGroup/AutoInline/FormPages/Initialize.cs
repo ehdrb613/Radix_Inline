@@ -40,6 +40,7 @@ namespace Radix
             {
                 if (!GlobalVar.GlobalStop && this.InvokeRequired)
                 {
+                    
                     this.Invoke(new MethodInvoker(() =>
                     {
                         // ============================

@@ -576,7 +576,7 @@ namespace Radix
 
 
                 // 3) 속도·가속도 파싱
-                double initVel = 1000;
+                double initVel = 2000;
                 double endVel = initVel;
                 double acc = initVel * 10;
 

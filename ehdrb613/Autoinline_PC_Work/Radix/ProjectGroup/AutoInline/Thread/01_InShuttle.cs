@@ -62,7 +62,7 @@ namespace Radix
         #endregion
         #region 동작 설정용
         public double ThreadSleep = 100; // 쓰레드 동작 속도, 클래스 초기화 후 메인에서 설정값을 지정할 것
-        public double ActionTimeout = 20 * 1000; // 타임아웃 처리 시간. 클래스 초기화 후 메인에서 설정값을 지정할 것
+        public double ActionTimeout = FuncInline.ConveyorTimeout * 1000; // 타임아웃 처리 시간. 클래스 초기화 후 메인에서 설정값을 지정할 것
         #endregion
         /** @brief 쓰레드의 동작 단계 */
         public enumAction Action = enumAction.Waiting;
@@ -92,7 +92,7 @@ namespace Radix
         // -1로 초기화하여 처음 시작 시 0번(1층)부터 찾도록 함
         public int LastFrontIndex = -1;
         public int LastRearIndex = -1;
-
+        
         public int PCBID = 0;
 
         /** @brief 전 설비 PCB 받는 위치 */
@@ -131,9 +131,9 @@ namespace Radix
         #region Di 출력부
 
         //PCB 진입부 감지 센서
-        public static bool X_Pcb_In_Sensor = false;
+        public bool X_Pcb_In_Sensor = false;
         //PCB 도착 감지 센서
-        public static bool X_Pcb_Stop_Sensor = false;
+        public bool X_Pcb_Stop_Sensor = false;
         //스토퍼 상승 센서
         public static bool X_Stopper_Cyl_Up_Sensor = false;
 
@@ -214,6 +214,8 @@ namespace Radix
                 try
                 {
                     #region 상시 체크할 부분
+                    ActionTimeout = FuncInline.ConveyorTimeout * 1000;
+
                     //Loading Pos 위치가 아니면 신호 OFF해야함 
                     if (!FuncInlineMove.IsArrived(SV00_In_Shuttle, LoadingPos) ||
                         FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.InShuttle].PCBStatus != FuncInline.enumSMDStatus.UnKnown)
@@ -740,9 +742,13 @@ namespace Radix
 
                                         if (Y_Turn_CCW_Cylinder && X_Turn_Ccw_Sensor)
                                         {
-                                            Log = $"{Name} Move to LoadingPos action";
-                                            FuncLog.WriteLog(Log);
-                                            Action = enumAction.MoveLoadingPos; // 턴 완료 후 로딩 위치로
+                                            if(FuncInline.IsDelayOver(Key_InShuttle_Load, 1000))
+                                            {
+                                                Log = $"{Name} Move to LoadingPos action";
+                                                FuncLog.WriteLog(Log);
+                                                Action = enumAction.MoveLoadingPos; // 턴 완료 후 로딩 위치로
+                                            }
+                                            
                                         }
 
                                     }
@@ -755,9 +761,12 @@ namespace Radix
 
                                         if (Y_Turn_CW_Cylinder && X_Turn_Cw_Sensor)
                                         {
-                                            Log = $"{Name} Move to MoveRearPos action";
-                                            FuncLog.WriteLog(Log);
-                                            Action = enumAction.MoveRearPos; // 턴 완료 후 로딩 위치로
+                                            if (FuncInline.IsDelayOver(Key_InShuttle_Load, 1000))
+                                            {
+                                                Log = $"{Name} Move to MoveRearPos action";
+                                                FuncLog.WriteLog(Log);
+                                                Action = enumAction.MoveRearPos; // 턴 완료 후 로딩 위치로
+                                            }
                                         }
                                     }
 
@@ -1049,8 +1058,8 @@ namespace Radix
                                 #region Check Destination
                                 {
                                     // 1. 각 Rack의 "가능한 빈 자리"를 미리 받아옵니다. (여기서 딱 한 번만 검사!)
-                                    var frontSite = GetAvailableSite(true);
-                                    var rearSite = GetAvailableSite(false);
+                                    var frontSite = GetAvailableDLSite(true);
+                                    var rearSite = GetAvailableDLSite(false);
 
                                     // None이 아니면 가능한 것으로 판단
                                     bool canFront = (frontSite != enumTeachingPos.None);
@@ -1173,12 +1182,13 @@ namespace Radix
                             case enumAction.RearUnLoading:
                                 #region RearUnLoading
                                 // RearRack이 받을 준비가 되면 구동
-                                if (AutoInline.Class.RearRack.Action == RearRack.enumAction.Loading)
+                                if (AutoInline.Class.RearRack.Action == RearRack.enumAction.ShuttleLoading ||
+                                    AutoInline.Class.RearRack.Action == RearRack.enumAction.ShuttleLoadingCheck)
                                 {
                                     // 1. 배출 컨베이어 가동 (CCW)
                                     DIO.WriteDOData(enumDONames.Y400_3_In_Shuttle_Motor_Ccw, true);
 
-                                    if (!X_Pcb_Stop_Sensor && AutoInline.Class.RearRack.Action == RearRack.enumAction.LoadingCheck)
+                                    if (!X_Pcb_Stop_Sensor && AutoInline.Class.RearRack.RLift_UpPCB_Stop_Sensor)
                                     {
                                         // [오버드라이브] 0.5초 더 구동
                                         if (FuncInline.IsDelayOver(Key_Rear_Unload, 500))

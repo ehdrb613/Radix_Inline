@@ -43,7 +43,7 @@
     <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -152,8 +152,6 @@
     <Compile Include="frmMain_AutoInline_PC.Designer.cs">
       <DependentUpon>frmMain_AutoInline_PC.cs</DependentUpon>
     </Compile>
-    <Compile Include="Library\Advantech\FuncAdvantech.cs" />
-    <Compile Include="Library\Advantech\FuncAdvantechDIO.cs" />
     <Compile Include="Library\Autonics\PMCDeviceServer.cs" />
     <Compile Include="Library\Autonics\PMCMotion.cs" />
     <Compile Include="Library\Autonics\PMCSerial.cs" />
@@ -181,7 +179,6 @@
     <Compile Include="Library\MXP\MXP_SoftMotion.cs" />
     <Compile Include="Library\Panasonic\PanasonicVision.cs" />
     <Compile Include="Library\Panasonic\SerialLVDT.cs" />
-    <Compile Include="Library\SerialCom.cs" />
     <Compile Include="Library\SerialPort.cs" />
     <Compile Include="Library\MsSQL\MsSQL.cs" />
     <Compile Include="Library\PanasonicLaser\PanasonicLaser.cs" />

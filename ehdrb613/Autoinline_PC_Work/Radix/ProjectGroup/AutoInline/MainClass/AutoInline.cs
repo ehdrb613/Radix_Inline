@@ -970,7 +970,7 @@ namespace Radix
                             break;
                         case enumSystemStatus.Initialize:
                             #region 부위별 초기화 완료면 메뉴얼로
-                            if (Init_Check())       //전체 Sub클래스 InitFinish 확인
+                            if (Init_Check() && GlobalVar.SystemStatus != enumSystemStatus.Manual)       //전체 Sub클래스 InitFinish 확인
                             {
                                 GlobalVar.SystemStatus = enumSystemStatus.Manual;
                             }

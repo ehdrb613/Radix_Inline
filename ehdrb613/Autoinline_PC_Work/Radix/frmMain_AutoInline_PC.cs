@@ -89,7 +89,7 @@ namespace Radix
 
         private void frmMain_Shown(object sender, EventArgs e) // 화면 출력시
         {
-           
+
 
             FuncInline.Mainform = this;
 
@@ -182,7 +182,7 @@ namespace Radix
 
 
 
-            
+
 
             #region 각 외부 통신 인터페이스 관련 추가
             if (!GlobalVar.Simulation)//각 외부 통신 인터페이스 관련 추가
@@ -204,7 +204,7 @@ namespace Radix
 
             #endregion
 
-            
+
 
             FuncInline.GetAllTestError();
 
@@ -257,9 +257,9 @@ namespace Radix
             // Zebra Label Printer thread
             //GlobalVar.LabelPrint.InitThread();
 
-         
+
             //*/
-           
+
 
             #region 로케일 적용
             setLanguage();
@@ -335,7 +335,7 @@ namespace Radix
 
             FuncMotion.ServoOnAll(true); // 모든 서보 On
 
-        
+
 
             //#region 화면 제어용 쓰레드 타이머 시작
             TimerCallback CallBackUI = new TimerCallback(TimerUI);
@@ -347,7 +347,7 @@ namespace Radix
 
 
             #region sub form 초기화
-          
+
             //frmLogViewer = new LogViewer();
             frmLogViewer.FormBorderStyle = FormBorderStyle.None;
             frmLogViewer.TopMost = true;
@@ -420,7 +420,7 @@ namespace Radix
             tpOrigin.Controls.Add(frmOrigin);
             frmOrigin.Show();
 
-    
+
             /*
             
             //frmMES = new MES();
@@ -533,19 +533,19 @@ namespace Radix
                 FuncLog.WriteLog(ex.StackTrace);
             }
 
-         
-
-
-        //if (GlobalVar.Simulation == true)
-        //{
-
-        //base.OnFormClosed(e);
-        //Dispose(); // 폼 해제
-        //}
 
 
 
-    }
+            //if (GlobalVar.Simulation == true)
+            //{
+
+            //base.OnFormClosed(e);
+            //Dispose(); // 폼 해제
+            //}
+
+
+
+        }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e) // 사용자 확인 후 프로그램 종료 시도
         {
@@ -563,20 +563,20 @@ namespace Radix
                         //FuncInline.TabMain = FuncInline.enumTabMain.Router;
                         //tcMain.SelectedIndex = (int)FuncInline.TabMain;
                         //DIO.WriteDOData(FuncAmplePacking.FuncInline.enumDONames.Y22_3_LED_Lamp_On, false);
-                       
-                         //닫을때 도어확인
+
+                        //닫을때 도어확인
 
                         GlobalVar.GlobalStop = true;
 
                         Thread.Sleep(1500);
-             
+
                     }
                     else
                     {
                         e.Cancel = true;
                     }
                     // 타이머/스레드 먼저 중지 …
-                   
+
 
                 }
                 else
@@ -587,7 +587,7 @@ namespace Radix
                 //timerKernel.Dispose();
             }
         }
-       
+
 
         public void setLanguage() // 각 Form 클래스마다 각각 정의해서 화면 컨트롤 등에 대한 언어 적용. 이벤트성 메시지는 발생시 직접 읽어오도록
         {
@@ -681,7 +681,7 @@ namespace Radix
                             ClearSubMenu();
                             GlobalVar.Muting = GlobalVar.PwdPass;
                             FuncInline.SetMute(GlobalVar.Muting);
-                          
+
                         }
                         teachingMode = GlobalVar.PwdPass;
                         lblTeachingMode.Visible = GlobalVar.PwdPass;
@@ -813,14 +813,14 @@ namespace Radix
                         btnSimulationMode.Text = FuncInline.TestPassMode == FuncInline.enumSMDStatus.Test_Pass ? "Pass" : "Fail";
                         FuncForm.SetButtonColor2(btnEStop, !DIO.GetDIData(FuncInline.enumDINames.X00_3_Emergency_Stop));
                         //FuncForm.SetButtonColor2(btnInput, FuncInline.InputPCB);
-                        btnInput.BackColor = FuncInline.InputPCB 
-                                            ? Color.Lime 
-                                            :FuncInline.InShuttleAction != FuncInline.enumShuttleAction.Waiting || FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.InShuttle].PCBStatus != FuncInline.enumSMDStatus.UnKnown 
-                                            ? Color.Silver 
-                                            :Color.White;
+                        btnInput.BackColor = FuncInline.InputPCB
+                                            ? Color.Lime
+                                            : FuncInline.InShuttleAction != FuncInline.enumShuttleAction.Waiting || FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.InShuttle].PCBStatus != FuncInline.enumSMDStatus.UnKnown
+                                            ? Color.Silver
+                                            : Color.White;
                         FuncForm.SetButtonColor2(btnInputStop1, FuncInline.InputStop[0]);
                         FuncForm.SetButtonColor2(btnInputStop2, FuncInline.InputStop[1]);
-                    
+
                         FuncForm.SetButtonColor2(btnOutputStop, FuncInline.OutputStop);
                         bool doorOpened = DIO.GetDIData(FuncInline.enumDINames.X00_0_Door_Open_Front_Left) ||
                                             DIO.GetDIData(FuncInline.enumDINames.X00_1_Door_Open_Front_Right) ||
@@ -855,7 +855,7 @@ namespace Radix
 
                         btnMakeCN.Visible = true;
                         btnDeleteSQLLog.Visible = true;
-                    
+
 
 #endif
 #if !DEBUG
@@ -871,7 +871,7 @@ namespace Radix
 #endif
                         #endregion
 
-            
+
                         #region NG 리스트
                         /*
                         if (GlobalVar.NgQueue.Count != dataGridNG.Rows.Count - 1)
@@ -909,7 +909,7 @@ namespace Radix
                                                         !DIO.GetDIData(FuncInline.enumDINames.X302_0_In_Shuttle_Pcb_In_Sensor) &&
                                                         !DIO.GetDIData(FuncInline.enumDINames.X302_1_In_Shuttle_Pcb_Stop_Sensor) &&
                                                         !DIO.GetDIData(FuncInline.enumDINames.X303_4_In_Shuttle_Pcb_Interlock_Sensor)//인컨베이어-인셔틀 인터록센서
-                                                        ? Color.Transparent 
+                                                        ? Color.Transparent
                                                         : Color.Yellow;
                         //string arrayList = FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.InputLift].PCBStatus.ToString() + "\n";
                         string arrayList = "";
@@ -937,7 +937,7 @@ namespace Radix
                         }
                         lblInShuttleArray1.Text = arrayList;
                         #endregion
-                
+
                         #region Out Shuttle UP
                         lblOutShuttleUpAction.Text = FuncInline.OutShuttleUpAction.ToString() +
                                                         (FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.OutShuttle_Up].PCBStatus != FuncInline.enumSMDStatus.UnKnown ?
@@ -1263,7 +1263,7 @@ namespace Radix
 
                         #region Lift 2
                         lblLift2UpAction.Text = FuncInline.Lift2Action.ToString() +
-                                                        (FuncInline.Lift2Action >= FuncInline.enumLiftAction.LoadingUp && FuncInline.Lift2Action <= FuncInline.enumLiftAction.UnloadingUp 
+                                                        (FuncInline.Lift2Action >= FuncInline.enumLiftAction.LoadingUp && FuncInline.Lift2Action <= FuncInline.enumLiftAction.UnloadingUp
                                                                   ? $"({FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.Lift2_Up].Destination.ToString().Replace("Site", "")})"
                                                                 : "");
                         pnLift2Title.BackColor = FuncError.CheckError(FuncInline.enumErrorPart.Lift2_Up) ? Color.Red :
@@ -1458,7 +1458,7 @@ namespace Radix
                                                                 "(" + FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.RearPassLine].TestSite[0].ToString() + ")" : "");
                         pnRearPassLineTitle.BackColor = FuncError.CheckError(FuncInline.enumErrorPart.RearPassLine) ? Color.Red :
                                                             FuncInline.RearPassLineAction == FuncInline.enumLiftAction.Waiting ? Color.Turquoise : Color.Lime;
-                        pnRearPassLine.BackColor = FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.RearPassLine].PCBStatus == FuncInline.enumSMDStatus.Test_Fail || FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.RearPassLine].PCBStatus == FuncInline.enumSMDStatus.Test_Cancel || FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.RearPassLine].PCBStatus == FuncInline.enumSMDStatus.User_Cancel || FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.RearPassLine].PCBStatus == FuncInline.enumSMDStatus.Test_Timeout 
+                        pnRearPassLine.BackColor = FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.RearPassLine].PCBStatus == FuncInline.enumSMDStatus.Test_Fail || FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.RearPassLine].PCBStatus == FuncInline.enumSMDStatus.Test_Cancel || FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.RearPassLine].PCBStatus == FuncInline.enumSMDStatus.User_Cancel || FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.RearPassLine].PCBStatus == FuncInline.enumSMDStatus.Test_Timeout
                                                         ? Color.Tomato // NG 경우 적색
                                                         : FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.RearPassLine].PCBStatus == FuncInline.enumSMDStatus.Test_Pass ? Color.White : // 양품 경우 백색
                                                         FuncInline.PCBInfo[(int)FuncInline.enumTeachingPos.RearPassLine].PCBStatus == FuncInline.enumSMDStatus.UnKnown &&
@@ -1775,7 +1775,7 @@ namespace Radix
                         {
                             btnPCBInShuttle.BackColor = Color.White;
                         }
-                      
+
                         #endregion
 
                         #region NGbuffer
@@ -1799,7 +1799,7 @@ namespace Radix
                         {
                             btnPCBOutConveyor.BackColor = Color.White;
                         }
-                     
+
                         #endregion
 
                         #region FrontLift Up
@@ -2393,7 +2393,7 @@ namespace Radix
                 FuncLog.WriteLog(ex.StackTrace);
                 //debug(ex.StackTrace);
             }
-         
+
 
             finally
             {
@@ -2410,10 +2410,10 @@ namespace Radix
         }
 
         #endregion
-       
- 
+
+
         ulong tick = GlobalVar.TickCount64;
-    
+
 
 
         #region 버튼 등 공통 UI 컨트롤 이벤트
@@ -2483,7 +2483,7 @@ namespace Radix
                 dlg.ShowDialog();
             }
 
-       
+
         }
         private void pbIOMonitor_Click(object sender, EventArgs e)
         {
@@ -2544,7 +2544,7 @@ namespace Radix
             //    {
             //        FuncIni.LoadMachinenIni();
             //    }
-                
+
             //    //frmMachine.LoadAllValue();
             //}
 
@@ -2679,7 +2679,7 @@ namespace Radix
         //이미 실행중이면, 맨 앞으로
         [DllImport("user32.dll")]
         private static extern void BringWindowToTop(IntPtr hwnd);
-    
+
         #endregion
         private void ClearSubMenu()
         {
@@ -2720,7 +2720,7 @@ namespace Radix
 
             if (GlobalVar.SystemStatus != enumSystemStatus.Manual) return;
 
-        
+
             // 여기서 부터는 매뉴얼 상태가 확실하다.
 
             if (FuncWin.MessageBoxOK("작업을 시작 하시겠습니까?"))
@@ -2823,7 +2823,7 @@ namespace Radix
                 }
                 #region Door 관련 확인
 
-               
+
                 if (FuncInline.Door_Check())
                 {
                     if (!op)
@@ -2832,7 +2832,7 @@ namespace Radix
                     }
                     return;
                 }
-                
+
                 #endregion
 
                 #region Status 관련 확인
@@ -2862,14 +2862,14 @@ namespace Radix
                 if (op ||
                     FuncWin.MessageBoxOK("Initialize facility?"))
                 {
-                 
 
-                    (new Thread(InitThread)).Start();
+                    InitThread();   // 그냥 호출
+                    //(new Thread(InitThread)).Start();
                     //GlobalVar.SystemStatus = enumSystemStatus.Initialize;
-                    
+
                 }
 
-                
+
                 #endregion
             }
             catch (Exception ex)
@@ -2883,37 +2883,40 @@ namespace Radix
          * @brief 초기화 진행 상태 체크 쓰레드
         */
 
-        private void InitThread()
+        //private void InitThread()
+        private async void InitThread()
         {
-            this.Invoke(new MethodInvoker(delegate ()
+
+            //FuncLog.WriteLog("Init Click");
+            pbInit.BackgroundImage = Properties.Resources.Origin_bright;
+            //Loading dlgLoading = new Loading();
+            //dlgLoading.TopMost = true;  //Init창 최상위로 유지 시킨다 by DG
+            //dlgLoading.Show();
+            //Origin dlgOrigin = new Origin();
+            //dlgOrigin.TopMost = true;  //Init창 최상위로 유지 시킨다 by DG
+            //dlgOrigin.Show();
+            Initialize dlgInit = new Initialize();
+            dlgInit.TopMost = true;  //Init창 최상위로 유지 시킨다 by DG
+            dlgInit.Show();
+
+
+
+
+            #region 전역 변수 초기화
+            //SNUC_AmplePackingClass에서 바꿔준다 여기서 굳이 더 중복으로 할필요 없을것으로 보임 by DGKim
+            //((SNUC_AmplePackingClass)GlobalVar.ProjectClass).mainConveyor.Action = MainConveyorClass.enumAction.Init;
+            #endregion
+
+            #region 지역 변수 초기화
+            GlobalVar.Init_Finish = false;
+            #endregion
+
+            GlobalVar.SystemStatus = enumSystemStatus.Initialize;
+
+            int startTime = Environment.TickCount;
+            try
             {
-                //FuncLog.WriteLog("Init Click");
-                pbInit.BackgroundImage = Properties.Resources.Origin_bright;
-                //Loading dlgLoading = new Loading();
-                //dlgLoading.TopMost = true;  //Init창 최상위로 유지 시킨다 by DG
-                //dlgLoading.Show();
-                //Origin dlgOrigin = new Origin();
-                //dlgOrigin.TopMost = true;  //Init창 최상위로 유지 시킨다 by DG
-                //dlgOrigin.Show();
-                Initialize dlgInit = new Initialize();
-                dlgInit.TopMost = true;  //Init창 최상위로 유지 시킨다 by DG
-                dlgInit.Show();
 
-
-
-
-                #region 전역 변수 초기화
-                //SNUC_AmplePackingClass에서 바꿔준다 여기서 굳이 더 중복으로 할필요 없을것으로 보임 by DGKim
-                //((SNUC_AmplePackingClass)GlobalVar.ProjectClass).mainConveyor.Action = MainConveyorClass.enumAction.Init;
-                #endregion
-
-                #region 지역 변수 초기화
-                GlobalVar.Init_Finish = false;
-                #endregion
-
-                GlobalVar.SystemStatus = enumSystemStatus.Initialize;
-                
-                int startTime = Environment.TickCount;
 
                 while (//!GlobalVar.GlobalStop &&
                     Environment.TickCount - startTime < 3 * 60 * 1000 &&
@@ -2967,8 +2970,13 @@ namespace Radix
                     }
                     #endregion
 
-                    Application.DoEvents();
-                    Thread.Sleep(100);
+                    await Task.Delay(100);
+
+                    Console.WriteLine("Loop");
+                    Console.WriteLine("GlobalStop: " + GlobalVar.GlobalStop);
+                    Console.WriteLine("TickDiff: " + (Environment.TickCount - startTime));
+                    Console.WriteLine("SystemStatus: " + GlobalVar.SystemStatus);
+
                 }
 
                 #region 초기화 실패 사유 조합
@@ -2995,8 +3003,12 @@ namespace Radix
                 FuncWin.TopMessageBox("initialize failed.\n" + stat);
 
                 FuncLog.WriteLog("initialize failed.\n" + stat);
+            }
+            catch (Exception ex)
+            {
+                FuncLog.WriteLog("initialize exception Error.\n" + ex);
 
-            }));
+            }
         }
 
 
@@ -3124,7 +3136,7 @@ namespace Radix
         }
         #endregion
 
-       
+
 
         #endregion
 
@@ -3181,7 +3193,7 @@ namespace Radix
         //테스트 버튼 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    
+
 
         #region 컨트롤러 인스턴스
         /// <summary>
@@ -3301,7 +3313,7 @@ namespace Radix
             GlobalVar.StepStop = cbOneStep.Checked;
         }
 
-      
+
 
 
 
@@ -3330,9 +3342,9 @@ namespace Radix
         }
 
 
-       
 
-    
+
+
 
 
 
@@ -3416,7 +3428,7 @@ namespace Radix
             //}
             #endregion
 
-         
+
         }
 
 
@@ -3431,26 +3443,26 @@ namespace Radix
             this.WindowState = FormWindowState.Minimized;
         }
 
-     
+
         private void button13_Click(object sender, EventArgs e)
         {
-         
+
 
         }
 
-       
+
 
         private void button14_Click(object sender, EventArgs e)
         {
-          
+
 
         }
-       
 
 
-    
 
-      
+
+
+
 
         private void Reset_Clear()
         {
@@ -3462,15 +3474,15 @@ namespace Radix
             Application.DoEvents();
         }
 
-     
 
 
-      
+
+
 
         private void btn_CountReset_Click(object sender, EventArgs e)
         {
             FuncLog.WriteLog("[Main화면] 카운트 초기화 클릭");
-            
+
         }
 
         private void lbHiddenClick_Click(object sender, EventArgs e)
@@ -3821,11 +3833,11 @@ namespace Radix
 
                         case FuncInline.enumErrorPart.OutConveyor:
                             DIO.WriteDOData(FuncInline.enumDONames.Y412_1_SMEMA_After_Ready, false);
-                            FuncInline.OutConveyorAction = FuncInline.enumLiftAction.Waiting;
+                            AutoInline.Class.OutShuttle.OutConveyorAction = OutShuttle.OutConveyor_enumAction.Waiting;
                             break;
 
                         case FuncInline.enumErrorPart.NgBuffer:
-                            FuncInline.NGBufferAction = FuncInline.enumLiftAction.Waiting;
+                            AutoInline.Class.OutShuttle.NgbufferAction = OutShuttle.Ngbuffer_enumAction.Waiting;
                             FuncInline.NGOut = false;
                             FuncInline.NgAlarmWatch.Stop();
                             FuncInline.NgAlarmWatch.Reset();
@@ -4392,7 +4404,7 @@ namespace Radix
         //                        {
         //                            FuncInline.Lift2Action = FuncInline.enumLiftAction.Waiting;
         //                        }
-        //                        FuncInline.OutConveyorAction = FuncInline.enumLiftAction.Waiting;
+        //                        AutoInline.Class.OutShuttle.OutConveyorAction = OutShuttle.OutConveyor_enumAction.Waiting;
         //                        break;
         //                    case FuncInline.enumErrorPart.NgBuffer:
         //                        if (FuncInline.OutConveyorAction == FuncInline.enumLiftAction.Output) // 배출시
@@ -4402,7 +4414,7 @@ namespace Radix
         //                        {
         //                            FuncInline.Lift2Action = FuncInline.enumLiftAction.Waiting;
         //                        }
-        //                        FuncInline.OutConveyorAction = FuncInline.enumLiftAction.Waiting;
+        //                        AutoInline.Class.OutShuttle.OutConveyorAction = OutShuttle.OutConveyor_enumAction.Waiting;
         //                        FuncInline.NGOut = false;
         //                        FuncInline.NgAlarmWatch.Stop();
         //                        FuncInline.NgAlarmWatch.Reset();
@@ -4600,7 +4612,7 @@ namespace Radix
 
         #region 상위 테스트 버튼
 
-      
+
         private void btnSmemaAfter_Click_1(object sender, EventArgs e)
         {
             btnSmemaAfter.BackColor = btnSmemaAfter.BackColor == Color.Lime ? Color.White : Color.Lime;
@@ -4608,7 +4620,7 @@ namespace Radix
             DIO.WriteDIData(FuncInline.enumDINames.X02_1_SMEMA_Before_Ready, btnSmemaAfter.BackColor == Color.Lime);
         }
 
-      
+
         private void btnRTU_Click(object sender, EventArgs e)
         {
             RTUTest dlg = new RTUTest();
@@ -4677,68 +4689,82 @@ namespace Radix
         {
             try
             {
-                dlgDetail.Close();
-                dlgDetail.Dispose();
-                dlgDetail = null;
-            }
-            catch { } // 에러나건 말건 기존 열린 거 닫고 다시 생성해서 연다
-            try
-            {
-                if (sender.GetType() == typeof(Label))
+                if (dlgDetail != null && !dlgDetail.IsDisposed)
                 {
-                    if (((Label)sender).Name.Contains("lblSite"))
+                    dlgDetail.Close();
+                    dlgDetail.Dispose();
+                    dlgDetail = null;
+                }
+
+                if (!(sender is Label lbl))
+                    return;
+
+                if (lbl.Name.Contains("lblSite"))
+                {
+                    if (int.TryParse(lbl.Name.Replace("lblSite", ""), out int siteNo))
                     {
-                        int siteNo = int.Parse(((Label)sender).Name.Replace("lblSite", "")) - 1;
-                        FuncInline.DetailSite = FuncInline.enumTeachingPos.Site1_F_DT1 + siteNo;
+                        siteNo -= 1;
+                        FuncInline.DetailSite =
+                            FuncInline.enumTeachingPos.Site1_F_DT1 + siteNo;
                     }
                     else
                     {
-                        switch (((Label)sender).Name)
-                        {
-                            case "lblInConveyor":
-                                FuncInline.DetailSite = FuncInline.enumTeachingPos.InConveyor;
-                                break;
-                            case "lblInShuttleArray1":
-                                FuncInline.DetailSite = FuncInline.enumTeachingPos.InShuttle;
-                                break;
-                            case "lblFrontScan":
-                                FuncInline.DetailSite = FuncInline.enumTeachingPos.FrontScanSite;
-                                break;
-                            case "lblFrontPassLineArray1":
-                                FuncInline.DetailSite = FuncInline.enumTeachingPos.FrontPassLine;
-                                break;
-                            case "lblLift1UpArray1":
-                                FuncInline.DetailSite = FuncInline.enumTeachingPos.Lift1_Up;
-                                break;
-                            case "lblRearPassLine":
-                                FuncInline.DetailSite = FuncInline.enumTeachingPos.RearPassLine;
-                                break;
-                            case "lblRearNGLine":
-                                FuncInline.DetailSite = FuncInline.enumTeachingPos.RearNGLine;
-                                break;
-                            case "lblLift2UpArray1":
-                                FuncInline.DetailSite = FuncInline.enumTeachingPos.Lift2_Up;
-                                break;
-                            case "lblOutShuttleUp":
-                                FuncInline.DetailSite = FuncInline.enumTeachingPos.OutShuttle_Up;
-                                break;
-                            case "lblOutShuttleDown":
-                                FuncInline.DetailSite = FuncInline.enumTeachingPos.OutShuttle_Down;
-                                break;
-                            case "lblOutConveyor":
-                                FuncInline.DetailSite = FuncInline.enumTeachingPos.OutConveyor;
-                                break;
-                            case "lblNGBuffer":
-                                FuncInline.DetailSite = FuncInline.enumTeachingPos.NgBuffer;
-                                break;
-                        }
+                        return;
+                    }
+                }
+                else
+                {
+                    switch (lbl.Name)
+                    {
+                        case "lblInConveyor":
+                            FuncInline.DetailSite = FuncInline.enumTeachingPos.InConveyor;
+                            break;
+                        case "lblInShuttleArray1":
+                            FuncInline.DetailSite = FuncInline.enumTeachingPos.InShuttle;
+                            break;
+                        case "lblFrontScan":
+                            FuncInline.DetailSite = FuncInline.enumTeachingPos.FrontScanSite;
+                            break;
+                        case "lblFrontPassLineArray1":
+                            FuncInline.DetailSite = FuncInline.enumTeachingPos.FrontPassLine;
+                            break;
+                        case "lblLift1UpArray1":
+                            FuncInline.DetailSite = FuncInline.enumTeachingPos.Lift1_Up;
+                            break;
+                        case "lblRearPassLine":
+                            FuncInline.DetailSite = FuncInline.enumTeachingPos.RearPassLine;
+                            break;
+                        case "lblRearNGLine":
+                            FuncInline.DetailSite = FuncInline.enumTeachingPos.RearNGLine;
+                            break;
+                        case "lblLift2UpArray1":
+                            FuncInline.DetailSite = FuncInline.enumTeachingPos.Lift2_Up;
+                            break;
+                        case "lblOutShuttleUp":
+                            FuncInline.DetailSite = FuncInline.enumTeachingPos.OutShuttle_Up;
+                            break;
+                        case "lblOutShuttleDown":
+                            FuncInline.DetailSite = FuncInline.enumTeachingPos.OutShuttle_Down;
+                            break;
+                        case "lblOutConveyor":
+                            FuncInline.DetailSite = FuncInline.enumTeachingPos.OutConveyor;
+                            break;
+                        case "lblNGBuffer":
+                            FuncInline.DetailSite = FuncInline.enumTeachingPos.NgBuffer;
+                            break;
+                        default:
+                            return;
                     }
                 }
 
                 dlgDetail = new SiteDetail();
                 dlgDetail.ShowDialog();
             }
-            catch { }
+            catch (Exception ex)
+            {
+                MessageBox.Show("pnSite_Click Error:\n" + ex.Message);
+                FuncLog.WriteLog("pnSite_Click Error:\n" + ex.ToString());
+            }
         }
 
         private void btnSimulationMode_Click(object sender, EventArgs e)
@@ -4952,7 +4978,7 @@ namespace Radix
                     //GlobalVar.OutputTime = Environment.TickCount;
                     //GlobalVar.InputTime = Environment.TickCount;
                 }
-             
+
 
             }
             #endregion

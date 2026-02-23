@@ -1,0 +1,5 @@
+D:\Program\Autoinline_PC통합_260222_자동화작업3\Radix\Library\SECS\Secs4Net\bin\x86\Release\Secs4Net.dll
+D:\Program\Autoinline_PC통합_260222_자동화작업3\Radix\Library\SECS\Secs4Net\obj\x86\Release\Secs4Net.Properties.Resources.resources
+D:\Program\Autoinline_PC통합_260222_자동화작업3\Radix\Library\SECS\Secs4Net\obj\x86\Release\SecsCore.csproj.GenerateResource.cache
+D:\Program\Autoinline_PC통합_260222_자동화작업3\Radix\Library\SECS\Secs4Net\obj\x86\Release\SecsCore.csproj.CoreCompileInputs.cache
+D:\Program\Autoinline_PC통합_260222_자동화작업3\Radix\Library\SECS\Secs4Net\obj\x86\Release\Secs4Net.dll

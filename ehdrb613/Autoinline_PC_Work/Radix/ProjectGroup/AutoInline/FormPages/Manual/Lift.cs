@@ -588,7 +588,8 @@ namespace Radix.Popup.Manual
                 else if ((siteIndex >= 13 && siteIndex < 26) ||
                     name.Contains("btnPosRearScan") ||
                     name.Contains("btnPosRearPassLine") ||
-                    name.Contains("btnPosRearNGLine"))
+                    name.Contains("btnPosRearNGLine") ||
+                    name.Contains("btnPosRearInshuttle") )
                 {
                     isLift = true;
                     //서보 RearLift 자동 선택
@@ -734,14 +735,14 @@ namespace Radix.Popup.Manual
               btnPosRearScan.BackColor == Color.Lime &&
               btnLiftUp.BackColor == Color.Lime)
             {
-                activeLiftPos = FuncInline.enumLiftPos.RearScanPos; // FrontLift 상단에서 패스라인2로 이송
+                activeLiftPos = FuncInline.enumLiftPos.RearScanPos; 
                 validPos = true;
-            }
+            }               
             else if (activeNum == 1 &&
               btnPosRearInshuttle.BackColor == Color.Lime &&
               btnLiftUp.BackColor == Color.Lime)
             {
-                activeLiftPos = FuncInline.enumLiftPos.RearScanPos; // FrontLift 상단에서 패스라인2로 이송
+                activeLiftPos = FuncInline.enumLiftPos.RearInShuttlePos; 
                 validPos = true;
             }
             else if (siteIndex >= 0 &&

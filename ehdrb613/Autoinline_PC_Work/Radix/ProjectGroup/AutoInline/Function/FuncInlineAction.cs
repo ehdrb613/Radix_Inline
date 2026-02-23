@@ -39,6 +39,8 @@ namespace Radix
             enumDONames doClampStopper;   // 클램프/스토퍼 솔
             enumDONames doContactUpDown;  // 포고핀 다운(True)/업(False) 솔
             enumDINames diContactUpSensor;// 포고핀 Up 확인 센서
+            bool Lift_IN_Sensor = false;
+            bool Lift_Stop_Sensor = false;
 
             if (!FuncInline.SiteIoMaps.TryGetPcbDockDI(site, out diPcbSensor) ||
                 !FuncInline.SiteIoMaps.TryGetContactStopperDO(site, out doClampStopper) ||
@@ -62,10 +64,28 @@ namespace Radix
                     // =================================================================================
                     case enumSiteAction.Loading:
                         FuncLog.WriteLog($"[{site}] [Loading] Start");
-
-                        // 1-1. 컨베이어 CCW 구동
-                        ControlConveyor(site, enumMotorDir.CCW);
-
+                      
+                        //Front 일때 로딩은 역방향
+                        if (site >= enumTeachingPos.Site1_F_DT1 && site <= enumTeachingPos.Site13_F_FT3)
+                        {
+                            Lift_IN_Sensor = AutoInline.Class.FrontRack.FLift_UpPCB_IN_Sensor;
+                            Lift_Stop_Sensor = AutoInline.Class.FrontRack.FLift_UpPCB_Stop_Sensor;
+                            // 1-1. 컨베이어 CCW 구동
+                            ControlConveyor(site, enumMotorDir.CCW);
+                        }
+                        //Rear일때 로딩은 정방향
+                        else
+                        {
+                            Lift_IN_Sensor = AutoInline.Class.RearRack.RLift_UpPCB_IN_Sensor;
+                            Lift_Stop_Sensor = AutoInline.Class.RearRack.RLift_UpPCB_Stop_Sensor;
+                            // 1-1. 컨베이어 CCW 구동
+                            ControlConveyor(site, enumMotorDir.CW);
+                        }
+                        //Lift에 PCB 감지 되면 flase
+                        if(Lift_IN_Sensor && Lift_Stop_Sensor)
+                        {
+                            return false;
+                        }
                         // 1-2. PCB 센서 감지 대기
                         if (!WaitForSensor(diPcbSensor, true, timeOutMs))
                         {
@@ -80,7 +100,7 @@ namespace Radix
                         FuncLog.WriteLog($"[{site}] [Loading] Clamp ON (Conveyor Running)");
 
                         // 물리적 클램핑 시간 대기 (WaitMs 사용)
-                        if (!WaitMs(300)) return false;
+                        if (!WaitMs(500)) return false;
 
                         // 1-4. 컨베이어 정지
                         ControlConveyor(site, enumMotorDir.Stop);
@@ -144,8 +164,23 @@ namespace Radix
                     case enumSiteAction.Unloading:
                         FuncLog.WriteLog($"[{site}] [Unloading] Start");
 
-                        // 3-1. 컨베이어 CW 구동 (역방향 배출)
-                        ControlConveyor(site, enumMotorDir.CW);
+
+                        //Front 일때 로딩은 역방향
+                        if (site >= enumTeachingPos.Site1_F_DT1 && site <= enumTeachingPos.Site13_F_FT3)
+                        {
+                            Lift_Stop_Sensor = AutoInline.Class.FrontRack.FLift_UpPCB_Stop_Sensor;
+                            // 3-1. 컨베이어 CW 구동 (역방향 배출)
+                            ControlConveyor(site, enumMotorDir.CW);
+                        }
+                        //Rear일때 로딩은 정방향
+                        else
+                        {
+                            Lift_Stop_Sensor = AutoInline.Class.RearRack.RLift_UpPCB_IN_Sensor; //Rear 역방향 IN으로 받음
+                            // 3-1. 컨베이어 CW 구동 (역방향 배출)
+                            ControlConveyor(site, enumMotorDir.CCW);
+                        }
+
+                        
                         FuncLog.WriteLog($"[{site}] [Unloading] Conveyor CW (Reverse) On");
 
                         // 3-2. 배출 확인 (센서 감지 해제 대기)
@@ -156,6 +191,12 @@ namespace Radix
                             return false;
                         }
                         FuncLog.WriteLog($"[{site}] [Unloading] Sensor Cleared");
+
+                        //Lift에 PCB 감지 안되면 flase
+                        if (!Lift_Stop_Sensor)
+                        {
+                            return false;
+                        }
 
                         // 3-3. 완전 배출을 위한 추가 구동
                         if (!WaitMs(2000))

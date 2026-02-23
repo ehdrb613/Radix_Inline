@@ -1351,6 +1351,7 @@
             this.btnFrontScan.TabIndex = 489;
             this.btnFrontScan.Text = "Scan";
             this.btnFrontScan.UseVisualStyleBackColor = true;
+            this.btnFrontScan.Click += new System.EventHandler(this.Site_Click);
             // 
             // groupBox2
             // 
